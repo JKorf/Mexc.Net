@@ -1,0 +1,16 @@
+[
+  {
+    "symbol": "AEUSDT",
+    "bidPrice": "0.11001",
+    "bidQty": "115.59",
+    "askPrice": "0.11127",
+    "askQty": "215.48"
+  },
+  {
+    "symbol": "AEUSDT",
+    "bidPrice": "0.11001",
+    "bidQty": "115.59",
+    "askPrice": "0.11127",
+    "askQty": "215.48"
+  }
+]

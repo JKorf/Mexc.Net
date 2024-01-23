@@ -1,0 +1,731 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Mexc.Net</name>
+    </assembly>
+    <members>
+        <member name="M:Mexc.Net.Clients.MexcRestClient.#ctor(System.Action{Mexc.Net.Objects.Options.MexcRestOptions})">
+            <summary>
+            Create a new instance of the MexcRestClient using provided options
+            </summary>
+            <param name="optionsDelegate">Option configuration delegate</param>
+        </member>
+        <member name="M:Mexc.Net.Clients.MexcRestClient.#ctor(Microsoft.Extensions.Logging.ILoggerFactory,System.Net.Http.HttpClient)">
+            <summary>
+            Create a new instance of the MexcRestClient using provided options
+            </summary>
+        </member>
+        <member name="M:Mexc.Net.Clients.MexcRestClient.#ctor(System.Net.Http.HttpClient,Microsoft.Extensions.Logging.ILoggerFactory,System.Action{Mexc.Net.Objects.Options.MexcRestOptions})">
+            <summary>
+            Create a new instance of the MexcRestClient using provided options
+            </summary>
+            <param name="optionsDelegate">Option configuration delegate</param>
+            <param name="loggerFactory">The logger factory</param>
+            <param name="httpClient">Http client for this client</param>
+        </member>
+        <member name="P:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.ExchangeName">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.GetTimeSyncInfo">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.GetTimeOffset">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiExchangeData.PingAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiExchangeData.GetServerTimeAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiExchangeData.GetExchangeInfoAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiExchangeData.GetOrderBookAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiExchangeData.GetRecentTradesAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiExchangeData.GetAggregatedTradeHistoryAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiExchangeData.GetKlinesAsync(System.String,Mexc.Net.Enums.KlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiExchangeData.GetAveragePriceAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiExchangeData.GetTickersAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiExchangeData.GetPricesAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiExchangeData.GetBookPricesAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:Mexc.Net.Enums.KlineInterval">
+            <summary>
+            Kline interval
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.KlineInterval.OneMinute">
+            <summary>
+            One minute
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.KlineInterval.FiveMinutes">
+            <summary>
+            Five minutes
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.KlineInterval.FifteenMinutes">
+            <summary>
+            Fifteen minutes
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.KlineInterval.ThirtyMinutes">
+            <summary>
+            Thirty minutes
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.KlineInterval.OneHour">
+            <summary>
+            One hour
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.KlineInterval.FourHours">
+            <summary>
+            Four hours
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.KlineInterval.OneDay">
+            <summary>
+            One day
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.KlineInterval.OneWeek">
+            <summary>
+            One week
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.KlineInterval.OneMonth">
+            <summary>
+            One month
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Enums.SpotOrderType">
+            <summary>
+            Order type
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.SpotOrderType.Limit">
+            <summary>
+            Limit
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.SpotOrderType.Market">
+            <summary>
+            Market
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.SpotOrderType.LimitMaker">
+            <summary>
+            Limit maker
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.SpotOrderType.ImmediateOrCancel">
+            <summary>
+            Immediate or cancel
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.SpotOrderType.FillOrKill">
+            <summary>
+            Fill or kill
+            </summary>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData.PingAsync(System.Threading.CancellationToken)">
+            <summary>
+            Ping the server, returns the response time in milliseconds
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#test-connectivity" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData.GetServerTimeAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get the server time
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#check-server-time" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData.GetExchangeInfoAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <summary>
+            Get the exchange info, including symbol info
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#exchange-information" /></para>
+            </summary>
+            <param name="symbols">Filter by symbols</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData.GetOrderBookAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get the current order book
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#order-book" /></para>
+            </summary>
+            <param name="symbol">The symbol</param>
+            <param name="limit">Number of rows, max 500</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData.GetRecentTradesAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get a list of the most recent trades
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#recent-trades-list" /></para>
+            </summary>
+            <param name="symbol">The symbol</param>
+            <param name="limit">Number of rows, max 1000</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData.GetAggregatedTradeHistoryAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get a list of aggregated trades
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#compressed-aggregate-trades-list" /></para>
+            </summary>
+            <param name="symbol">The symbol</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="limit">Number of rows, max 1000</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData.GetKlinesAsync(System.String,Mexc.Net.Enums.KlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get kline/candlestick data
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#kline-candlestick-data" /></para>
+            </summary>
+            <param name="symbol">The symbol</param>
+            <param name="interval">Kline interval</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="limit">Number of rows, max 1000</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData.GetAveragePriceAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get average price for a symbol
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#current-average-price" /></para>
+            </summary>
+            <param name="symbol">The symbol</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData.GetTickersAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <summary>
+            Get 24h price statistics
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#24hr-ticker-price-change-statistics" /></para>
+            </summary>
+            <param name="symbols">Filter by symbol</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData.GetPricesAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <summary>
+            Get the last symbol prices
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#symbol-price-ticker" /></para>
+            </summary>
+            <param name="symbols">Filter by symbol</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData.GetBookPricesAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <summary>
+            Get the best book prices
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#symbol-order-book-ticker" /></para>
+            </summary>
+            <param name="symbols">Filter by symbol</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="T:Mexc.Net.MexcEnvironment">
+            <summary>
+            Mexc environments
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.MexcEnvironment.SpotRestAddress">
+            <summary>
+            Spot Rest API address
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.MexcEnvironment.Live">
+            <summary>
+            Live environment
+            </summary>
+        </member>
+        <member name="M:Mexc.Net.MexcEnvironment.CreateCustom(System.String,System.String)">
+            <summary>
+            Create a custom environment
+            </summary>
+            <param name="name"></param>
+            <param name="spotRestAddress"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Mexc.Net.Objects.MexcApiAddresses">
+            <summary>
+            Api addresses
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.MexcApiAddresses.SpotRestAddress">
+            <summary>
+            The address used by the MexcClient for the Spot API
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Objects.MexcApiAddresses.Default">
+            <summary>
+            The default addresses to connect to the mexc.com API
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MecxAggregatedTrade">
+            <summary>
+            Aggregated trade info
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MecxAggregatedTrade.Price">
+            <summary>
+            Trade price
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MecxAggregatedTrade.Quantity">
+            <summary>
+            Trade quantity
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MecxAggregatedTrade.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MecxAggregatedTrade.IsBuyerMaker">
+            <summary>
+            Buyer was maker
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MecxAggregatedTrade.IsBestMatch">
+            <summary>
+            Best price match
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MecxKline">
+            <summary>
+            Kline/candlestick info
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MecxKline.OpenTime">
+            <summary>
+            The time this candlestick opened
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MecxKline.OpenPrice">
+            <summary>
+            The price at which this candlestick opened
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MecxKline.HighPrice">
+            <summary>
+            The highest price in this candlestick
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MecxKline.LowPrice">
+            <summary>
+            The lowest price in this candlestick
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MecxKline.ClosePrice">
+            <summary>
+            The price at which this candlestick closed
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MecxKline.Volume">
+            <summary>
+            Volume
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MecxKline.CloseTime">
+            <summary>
+            Close Time
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MecxKline.QuoteVolume">
+            <summary>
+            Volume in quote asset
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcAveragePrice">
+            <summary>
+            Average price info
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcAveragePrice.Minutes">
+            <summary>
+            Minutes the average is over
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcAveragePrice.Price">
+            <summary>
+            Average price
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcBookPrice">
+            <summary>
+            Best book offers info
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcBookPrice.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcBookPrice.BestBidPrice">
+            <summary>
+            Best bid price
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcBookPrice.BestBidQuantity">
+            <summary>
+            Best bid quantity
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcBookPrice.BestAskPrice">
+            <summary>
+            Best ask price
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcBookPrice.BestAskQuantity">
+            <summary>
+            Best ask quantity
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcExchangeInfo">
+            <summary>
+            Exchange info
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcExchangeInfo.TimeZone">
+            <summary>
+            The timezone the server uses
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcExchangeInfo.ServerTime">
+            <summary>
+            The current server time
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcExchangeInfo.Symbols">
+            <summary>
+            All symbols supported
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcOrderBook">
+            <summary>
+            Order book info
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcOrderBook.LastUpdateId">
+            <summary>
+            Last update id
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcOrderBook.Bids">
+            <summary>
+            The list of bids
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcOrderBook.Asks">
+            <summary>
+            The list of asks
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcOrderBookEntry">
+            <summary>
+            An entry in the order book
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcOrderBookEntry.Price">
+            <summary>
+            The price of this order book entry
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcOrderBookEntry.Quantity">
+            <summary>
+            The quantity of this price in the order book
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcPrice">
+            <summary>
+            Price info
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcPrice.Symbol">
+            <summary>
+            Symbol name
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcPrice.Price">
+            <summary>
+            Last price
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcServerTime">
+            <summary>
+            Server time
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcServerTime.ServerTime">
+            <summary>
+            Current server time
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcSymbol">
+            <summary>
+            Symbol info
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSymbol.Name">
+            <summary>
+            The symbol
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSymbol.BaseAssetName">
+            <summary>
+            The full base asset name
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSymbol.Status">
+            <summary>
+            The status of the symbol
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSymbol.BaseAsset">
+            <summary>
+            The base asset
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSymbol.BaseAssetPrecision">
+            <summary>
+            The precision of the base asset
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSymbol.QuoteAsset">
+            <summary>
+            The quote asset
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSymbol.QuoteAssetPrecision">
+            <summary>
+            The precision of the quote asset
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSymbol.QuoteAssetCommissionPrecision">
+            <summary>
+            Quote asset commission precision
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSymbol.BaseAssetCommissionPrecision">
+            <summary>
+            Base asset commission precision
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSymbol.OrderTypes">
+            <summary>
+            Allowed order types
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSymbol.QuoteOrderQuantityMarketAllowed">
+            <summary>
+            Quote quantity market orders allowed
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSymbol.IsSpotTradingAllowed">
+            <summary>
+            Spot trading orders allowed
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSymbol.IsMarginTradingAllowed">
+            <summary>
+            Margin trading orders allowed
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSymbol.QuoteQuantityPrecision">
+            <summary>
+            Quote quantity precision
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSymbol.BaseQuantityPrecision">
+            <summary>
+            Quote quantity precision
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSymbol.Permissions">
+            <summary>
+            Permissions types
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSymbol.MaxQuoteQuantity">
+            <summary>
+            Max quote quantity for a single order
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSymbol.MakerCommission">
+            <summary>
+            Maker commission rate
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSymbol.TakerCommission">
+            <summary>
+            Taker commission rate
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSymbol.QuoteQuantityPrecisionMarket">
+            <summary>
+            Quote quantity precision for market orders
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSymbol.MaxQuoteQuantityMarket">
+            <summary>
+            Max quote quantity for a single market order
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcTicker">
+            <summary>
+            Ticker info
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcTicker.Symbol">
+            <summary>
+            Symbol name
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcTicker.PriceChange">
+            <summary>
+            Price change
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcTicker.PriceChangePercentage">
+            <summary>
+            Price change percentage
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcTicker.PrevDayClosePrice">
+            <summary>
+            Previous day close price
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcTicker.LastPrice">
+            <summary>
+            Last price
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcTicker.BestBidPrice">
+            <summary>
+            Best bid price
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcTicker.BestAskPrice">
+            <summary>
+            Best ask price
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcTicker.OpenPrice">
+            <summary>
+            Open price
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcTicker.HighPrice">
+            <summary>
+            High price
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcTicker.LowPrice">
+            <summary>
+            Low price
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcTicker.Volume">
+            <summary>
+            Volume
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcTicker.OpenTime">
+            <summary>
+            Open timestamp
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcTicker.CloseTime">
+            <summary>
+            Close timestamp
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcTrade">
+            <summary>
+            Trade info
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcTrade.Price">
+            <summary>
+            Trade price
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcTrade.Quantity">
+            <summary>
+            Traded quantity
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcTrade.QuoteQuantity">
+            <summary>
+            Trade value
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcTrade.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcTrade.IsBuyerMaker">
+            <summary>
+            Buyer was maker
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcTrade.IsBestMatch">
+            <summary>
+            Best price match
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Options.MexcRestOptions">
+            <summary>
+            Options for the MexcRestClient
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Options.MexcRestOptions.Default">
+            <summary>
+            Default options for new clients
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Options.MexcRestOptions.ReceiveWindow">
+            <summary>
+            The default receive window for requests
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Options.MexcRestOptions.SpotOptions">
+            <summary>
+            Spot API options
+            </summary>
+        </member>
+    </members>
+</doc>

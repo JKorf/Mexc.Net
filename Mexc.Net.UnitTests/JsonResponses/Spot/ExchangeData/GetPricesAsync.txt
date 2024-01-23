@@ -1,0 +1,10 @@
+[
+  {
+    "symbol": "BTCUSDT",
+    "price": "6.65"
+  },
+  {
+    "symbol": "ETHUSDT",
+    "price": "5.65"
+  }
+]
