@@ -1,0 +1,11 @@
+{
+    "tranId": "cb28c88cd20c42819e4d5148d5fb5742",
+    "clientTranId": null,
+    "asset": "USDT",
+    "amount": "10",
+    "fromAccountType": "SPOT",
+    "toAccountType": "FUTURES",
+    "symbol": null,
+    "status": "SUCCESS",
+    "timestamp": 1678603205000
+}

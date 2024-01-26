@@ -1,0 +1,42 @@
+[
+  {
+    "coin": "EOS",
+    "Name": "EOS",
+    "networkList": [
+      {
+          "coin": "EOS",
+          "depositDesc": null,
+          "depositEnable": true,
+          "minConfirm": 0,
+          "Name": "EOS",
+          "network": "EOS",
+          "withdrawEnable": false,
+          "withdrawFee": "0.000100000000000000",
+          "withdrawIntegerMultiple": null,
+          "withdrawMax": "10000.000000000000000000",
+          "withdrawMin": "0.001000000000000000",
+          "sameAddress": false,
+          "contract": "TN3W4H6rK2ce4vX9YnFQHwKENnHjoxbm9",
+          "withdrawTips": "Both a MEMO and an Address are required.",
+          "depositTips": "Both a MEMO and an Address are required."
+      },
+      {
+          "coin": "BTC",
+          "depositDesc": null,
+          "depositEnable": true,
+          "minConfirm": 0,
+          "Name": "BTC-BSC",
+          "network": "BEP20(BSC)",
+          "withdrawEnable": true,
+          "withdrawFee": "0.000010000000000000",
+          "withdrawIntegerMultiple": null,
+          "withdrawMax": "100.000000000000000000",
+          "withdrawMin": "0.000100000000000000",
+          "sameAddress": false,
+          "contract": "0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c",
+          "withdrawTips": null,
+          "depositTips": null
+      }
+    ]
+  },
+]

@@ -1,0 +1,17 @@
+[
+  {
+        "id": "bb17a2d452684f00a523c015d512a341",
+        "txId": null,
+        "coin": "EOS",
+        "network": "EOS",
+        "address": "zzqqqqqqqqqq",
+        "amount": "10",
+        "transferType": 0,
+        "status": 3,
+        "transactionFee": "0",
+        "confirmNo": null,
+        "applyTime": 1665300874000,
+        "remark": "",
+        "memo": "MX10086"
+  }
+]

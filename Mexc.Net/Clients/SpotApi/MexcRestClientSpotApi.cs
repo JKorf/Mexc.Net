@@ -20,7 +20,9 @@ namespace Mexc.Net.Clients.SpotApi
     {
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Spot Api");
 
+        public IMexcRestClientSpotApiAccount Account { get; }
         public IMexcRestClientSpotApiExchangeData ExchangeData { get; }
+        public IMexcRestClientSpotApiTrading Trading { get; }
 
         /// <inheritdoc />
         public string ExchangeName => "Mexc";
@@ -29,7 +31,9 @@ namespace Mexc.Net.Clients.SpotApi
         internal MexcRestClientSpotApi(ILogger logger, HttpClient? httpClient, MexcRestOptions options)
             : base(logger, httpClient, options.Environment.SpotRestAddress, options, options.SpotOptions)
         {
+            Account = new MexcRestClientSpotApiAccount(logger, this);
             ExchangeData = new MexcRestClientSpotApiExchangeData(logger, this);
+            Trading = new MexcRestClientSpotApiTrading(logger, this);
 
             DefaultSerializer = JsonSerializer.Create(SerializerOptions.WithConverters);
 
@@ -41,7 +45,7 @@ namespace Mexc.Net.Clients.SpotApi
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
-            => null;//new MexcAuthenticationProvider(credentials);
+            => new MexcAuthenticationProvider(credentials);
 
         internal async Task<WebCallResult<T>> SendRequestInternal<T>(string path, HttpMethod method, CancellationToken cancellationToken,
             Dictionary<string, object>? parameters = null, bool signed = false, HttpMethodParameterPosition? postPosition = null,
@@ -55,6 +59,10 @@ namespace Mexc.Net.Clients.SpotApi
             }
             return result;
         }
+
+        /// <inheritdoc />
+        protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
+            => ExchangeData.GetServerTimeAsync();
 
         /// <inheritdoc />
         public override TimeSyncInfo? GetTimeSyncInfo()

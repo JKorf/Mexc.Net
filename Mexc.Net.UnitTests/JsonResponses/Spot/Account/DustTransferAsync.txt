@@ -1,0 +1,6 @@
+{
+  "successList":["ALGO","OMG"],
+  "failedList":[],
+  "totalConvert":"0.07085578",
+  "convertFee":"0.00071571"
+  }

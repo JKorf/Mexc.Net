@@ -11,6 +11,7 @@ using System.Threading;
 using Mexc.Net.Enums;
 using Mexc.Net.Objects.Models.Spot;
 using Mexc.Net.Interfaces.Clients.SpotApi;
+using Mexc.Net.Objects.Models;
 
 namespace Mexc.Net.Clients.SpotApi
 {
@@ -45,6 +46,23 @@ namespace Mexc.Net.Clients.SpotApi
         {
             var result = await _baseClient.SendRequestInternal<MexcServerTime>("/api/v3/time", HttpMethod.Get, ct).ConfigureAwait(false);
             return result.As(result.Data?.ServerTime ?? default);
+        }
+
+        #endregion
+
+        #region Get Api Symbols
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<string>>> GetApiSymbolAsync(CancellationToken ct = default)
+        {
+            var result = await _baseClient.SendRequestInternal<MexcResult<IEnumerable<string>>>("/api/v3/defaultSymbols", HttpMethod.Get, ct).ConfigureAwait(false);
+            if (!result)
+                return result.As<IEnumerable<string>>(default);
+
+            if (result.Data.Code != 200)
+                return result.AsError<IEnumerable<string>>(new ServerError(result.Data.Code, result.Data.Message!));
+
+            return result.As(result.Data.Data!);
         }
 
         #endregion

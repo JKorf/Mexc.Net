@@ -28,6 +28,14 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default);
 
         /// <summary>
+        /// Get a list of symbols supported by the API
+        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#api-default-symbol" /></para>
+        /// </summary>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<string>>> GetApiSymbolsAsync(CancellationToken ct = default);
+
+        /// <summary>
         /// Get the exchange info, including symbol info
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#exchange-information" /></para>
         /// </summary>
@@ -116,5 +124,6 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<MexcBookPrice>>> GetBookPricesAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default);
+
     }
 }

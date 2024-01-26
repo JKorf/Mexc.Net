@@ -35,5 +35,21 @@ namespace Mexc.Net.UnitTests
                     { "GetTickersAsync", new List<string>{ "bidQty", "askQty", "quoteVolume", "count" } },
                 });
         }
+
+        [Test]
+        public async Task ValidateSpotAccountCalls()
+        {
+            await _comparer.ProcessSubject(
+                "Spot/Account",
+                c => c.SpotApi.Account,
+                useNestedJsonPropertyForCompare: new Dictionary<string, string>
+                {
+                },
+                parametersToSetNull: new string[] { },
+                ignoreProperties: new Dictionary<string, List<string>>
+                {
+                    { "GetTransferAsync", new List<string>{ "symbol" }}
+                });
+        }
     }
 }

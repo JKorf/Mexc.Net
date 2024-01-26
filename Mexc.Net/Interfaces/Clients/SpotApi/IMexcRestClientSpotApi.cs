@@ -7,6 +7,8 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 {
     public interface IMexcRestClientSpotApi: IRestApiClient
     {
+        IMexcRestClientSpotApiAccount Account { get; }
         IMexcRestClientSpotApiExchangeData ExchangeData { get; }
+        IMexcRestClientSpotApiTrading Trading { get; }
     }
 }
