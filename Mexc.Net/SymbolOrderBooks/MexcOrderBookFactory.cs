@@ -23,7 +23,7 @@
 //        }
 
 //        /// <inheritdoc />
-//        public ISymbolOrderBook CreateSpot(string symbol, Action<BinanceOrderBookOptions>? options = null)
+//        public ISymbolOrderBook CreateSpot(string symbol, Action<MexcOrderBookOptions>? options = null)
 //            => new MexcSpotSymbolOrderBook(symbol,
 //                                             options,
 //                                             _serviceProvider.GetRequiredService<ILogger<MexcSpotSymbolOrderBook>>(),
