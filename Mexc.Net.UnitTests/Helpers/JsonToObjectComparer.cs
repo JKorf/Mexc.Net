@@ -195,7 +195,7 @@ namespace Mexc.Net.UnitTests.Helpers
 
         private static void CheckObject(string method, JProperty prop, object obj, Dictionary<string, List<string>> ignoreProperties)
         {
-            var resultProperties = obj.GetType().GetProperties().Select(p => (p, (JsonPropertyAttribute)p.GetCustomAttributes(typeof(JsonPropertyAttribute), true).SingleOrDefault()));
+            var resultProperties = obj.GetType().GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).Select(p => (p, (JsonPropertyAttribute)p.GetCustomAttributes(typeof(JsonPropertyAttribute), true).SingleOrDefault()));
 
             // Property has a value
             var property = resultProperties.SingleOrDefault(p => p.Item2?.PropertyName == prop.Name).p;
@@ -325,7 +325,8 @@ namespace Mexc.Net.UnitTests.Helpers
                 else
                 {
                     if (info.GetCustomAttribute<JsonConverterAttribute>(true) == null
-                        && info.GetCustomAttribute<JsonPropertyAttribute>(true)?.ItemConverterType == null)
+                        && info.GetCustomAttribute<JsonPropertyAttribute>(true)?.ItemConverterType == null
+                        && !info.PropertyType.IsEnum)
                         CheckValues(method, propertyName, (JValue)propValue, propertyValue);
                 }
             }

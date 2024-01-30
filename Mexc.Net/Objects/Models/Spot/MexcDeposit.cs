@@ -2,8 +2,6 @@
 using Mexc.Net.Enums;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Mexc.Net.Objects.Models.Spot
 {

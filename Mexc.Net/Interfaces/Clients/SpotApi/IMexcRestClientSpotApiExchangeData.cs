@@ -3,12 +3,14 @@ using Mexc.Net.Enums;
 using Mexc.Net.Objects.Models.Spot;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Mexc.Net.Interfaces.Clients.SpotApi
 {
+    /// <summary>
+    /// Mexc Spot exchange data endpoints. Exchange data includes market data (tickers, order books, etc) and system status.
+    /// </summary>
     public interface IMexcRestClientSpotApiExchangeData
     {
         /// <summary>
@@ -102,10 +104,18 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get 24h price statistics
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#24hr-ticker-price-change-statistics" /></para>
         /// </summary>
-        /// <param name="symbols">Filter by symbol</param>
+        /// <param name="symbol">The symbol</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<MexcTicker>>> GetTickersAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default);
+        Task<WebCallResult<MexcTicker>> GetTickerAsync(string symbol, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get 24h price statistics
+        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#24hr-ticker-price-change-statistics" /></para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<MexcTicker>>> GetTickersAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get the last symbol prices

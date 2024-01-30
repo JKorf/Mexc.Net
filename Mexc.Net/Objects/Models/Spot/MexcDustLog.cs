@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Mexc.Net.Objects.Models.Spot
 {
@@ -29,7 +28,7 @@ namespace Mexc.Net.Objects.Models.Spot
         /// Details
         /// </summary>
         [JsonProperty("convertDetails")]
-        public IEnumerable<MexcDustLogDetails> Details { get; set; }
+        public IEnumerable<MexcDustLogDetails> Details { get; set; } = Array.Empty<MexcDustLogDetails>();
     }
     
     /// <summary>

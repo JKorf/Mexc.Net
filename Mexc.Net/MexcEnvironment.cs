@@ -1,6 +1,5 @@
 ﻿using CryptoExchange.Net.Objects;
 using Mexc.Net.Objects;
-using System;
 
 namespace Mexc.Net
 {

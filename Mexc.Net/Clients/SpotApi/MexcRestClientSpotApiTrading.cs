@@ -1,22 +1,17 @@
-﻿using CryptoExchange.Net;
-using CryptoExchange.Net.Objects;
+﻿using CryptoExchange.Net.Objects;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using Mexc.Net.Enums;
 using Mexc.Net.Objects.Models.Spot;
 using Mexc.Net.Interfaces.Clients.SpotApi;
-using Mexc.Net.Objects.Models;
-using System.Linq;
-using System.Security.Cryptography;
 
 namespace Mexc.Net.Clients.SpotApi
 {
+    /// <inheritdoc />
     public class MexcRestClientSpotApiTrading : IMexcRestClientSpotApiTrading
     {
         private readonly ILogger _logger;
@@ -67,6 +62,108 @@ namespace Mexc.Net.Clients.SpotApi
             parameters.AddOptional("newClientOrderId", clientOrderId);
 
             return await _baseClient.SendRequestInternal<MexcOrder>("/api/v3/order", HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Cancel Order
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<MexcOrder>> CancelOrderAsync(string symbol, string? orderId = null, string? clientOrderId = null, string? newClientOrderId = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection()
+            {
+                { "symbol", symbol }
+            };
+            parameters.AddOptional("orderId", orderId);
+            parameters.AddOptional("origClientOrderId", clientOrderId);
+            parameters.AddOptional("newClientOrderId", newClientOrderId);
+
+            return await _baseClient.SendRequestInternal<MexcOrder>("/api/v3/order", HttpMethod.Delete, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Cancel All Orders
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<MexcOrder>>> CancelAllOrdersAsync(IEnumerable<string> symbols, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection()
+            {
+                { "symbol", string.Join(",", symbols) }
+            };
+
+            return await _baseClient.SendRequestInternal<IEnumerable<MexcOrder>>("/api/v3/openOrders", HttpMethod.Delete, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Get Order
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<MexcOrder>> GetOrderAsync(string symbol, string? orderId = null, string? clientOrderId = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection()
+            {
+                { "symbol", symbol }
+            };
+            parameters.AddOptional("orderId", orderId);
+            parameters.AddOptional("origClientOrderId", clientOrderId);
+
+            return await _baseClient.SendRequestInternal<MexcOrder>("/api/v3/order", HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Get Open Orders
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<MexcOrder>>> GetOpenOrdersAsync(string symbol, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection()
+            {
+                { "symbol", symbol }
+            };
+
+            return await _baseClient.SendRequestInternal<IEnumerable<MexcOrder>>("/api/v3/openOrders", HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Get Orders
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<MexcOrder>>> GetOrdersAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection()
+            {
+                { "symbol", symbol }
+            };
+            parameters.AddOptionalMilliseconds("startTime", startTime);
+            parameters.AddOptionalMilliseconds("endTime", endTime);
+            parameters.AddOptional("limit", limit);
+
+            return await _baseClient.SendRequestInternal<IEnumerable<MexcOrder>>("/api/v3/openOrders", HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Get Orders
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<MexcUserTrade>>> GetUserTradesAsync(string symbol, string? orderId = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection()
+            {
+                { "symbol", symbol }
+            };
+            parameters.AddOptionalMilliseconds("startTime", startTime);
+            parameters.AddOptionalMilliseconds("endTime", endTime);
+            parameters.AddOptional("limit", limit);
+            parameters.AddOptional("orderId", orderId);
+
+            return await _baseClient.SendRequestInternal<IEnumerable<MexcUserTrade>>("/api/v3/myTrades", HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
         #endregion

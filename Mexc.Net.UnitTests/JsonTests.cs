@@ -44,11 +44,31 @@ namespace Mexc.Net.UnitTests
                 c => c.SpotApi.Account,
                 useNestedJsonPropertyForCompare: new Dictionary<string, string>
                 {
+                    { "SetMxDeductionAsync", "data" }
                 },
                 parametersToSetNull: new string[] { },
                 ignoreProperties: new Dictionary<string, List<string>>
                 {
                     { "GetTransferAsync", new List<string>{ "symbol" }}
+                });
+        }
+
+        [Test]
+        public async Task ValidateSpotTradingCalls()
+        {
+            await _comparer.ProcessSubject(
+                "Spot/Trading",
+                c => c.SpotApi.Trading,
+                useNestedJsonPropertyForCompare: new Dictionary<string, string>
+                {
+                },
+                parametersToSetNull: new string[] { },
+                ignoreProperties: new Dictionary<string, List<string>>
+                {
+                    { "PlaceOrderAsync", new List<string> { "orderListId" } },
+                    { "GetOrderAsync", new List<string> { "orderListId", "origQuoteOrderQty" } },
+                    { "CancelAllOrdersAsync", new List<string> { "orderListId" } },
+                    { "GetUserTradesAsync", new List<string> { "orderListId" } },
                 });
         }
     }

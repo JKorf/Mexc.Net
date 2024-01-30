@@ -9,8 +9,10 @@ using System.Net.Http;
 
 namespace Mexc.Net.Clients
 {
+    /// <inheritdoc />
     public class MexcRestClient : BaseRestClient, IMexcRestClient
     {
+        /// <inheritdoc />
         public IMexcRestClientSpotApi SpotApi { get; }
 
         #region constructor/destructor

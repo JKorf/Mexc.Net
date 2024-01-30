@@ -46,20 +46,20 @@ namespace Mexc.Net.Objects.Models.Spot
         [JsonProperty("quotePrecision")]
         public int QuoteAssetPrecision { get; set; }
         /// <summary>
-        /// Quote asset commission precision
+        /// Quote asset fee precision
         /// </summary>
         [JsonProperty("quoteCommissionPrecision")]
-        public int QuoteAssetCommissionPrecision { get; set; }
+        public int QuoteAssetFeePrecision { get; set; }
         /// <summary>
-        /// Base asset commission precision
+        /// Base asset fee precision
         /// </summary>
         [JsonProperty("baseCommissionPrecision")]
-        public int BaseAssetCommissionPrecision { get; set; }
+        public int BaseAssetFeePrecision { get; set; }
         /// <summary>
         /// Allowed order types
         /// </summary>
         [JsonProperty("orderTypes")]
-        public IEnumerable<SpotOrderType> OrderTypes { get; set; } = Array.Empty<SpotOrderType>();
+        public IEnumerable<OrderType> OrderTypes { get; set; } = Array.Empty<OrderType>();
         /// <summary>
         /// Quote quantity market orders allowed
         /// </summary>
@@ -96,15 +96,15 @@ namespace Mexc.Net.Objects.Models.Spot
         [JsonProperty("maxQuoteAmount")]
         public decimal MaxQuoteQuantity { get; set; }
         /// <summary>
-        /// Maker commission rate
+        /// Maker fee rate
         /// </summary>
         [JsonProperty("makerCommission")]
-        public decimal MakerCommission { get; set; }
+        public decimal MakerFee { get; set; }
         /// <summary>
-        /// Taker commission rate
+        /// Taker fee rate
         /// </summary>
         [JsonProperty("takerCommission")]
-        public decimal TakerCommission { get; set; }
+        public decimal TakerFee { get; set; }
         /// <summary>
         /// Quote quantity precision for market orders
         /// </summary>

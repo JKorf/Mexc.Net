@@ -1,8 +1,6 @@
 ﻿using Mexc.Net.Enums;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Mexc.Net.Objects.Models.Spot
 {
@@ -32,6 +30,16 @@ namespace Mexc.Net.Objects.Models.Spot
         [JsonProperty("origQty")]
         public decimal Quantity { get; set; }
         /// <summary>
+        /// Quantity filled
+        /// </summary>
+        [JsonProperty("executedQty")]
+        public decimal QuantityFilled { get; set; }
+        /// <summary>
+        /// The currently executed amount of quote asset. Amounts to Sum(quantity * price) of executed trades for this order
+        /// </summary>
+        [JsonProperty("cummulativeQuoteQty")]
+        public decimal QuoteQuantityFilled { get; set; }
+        /// <summary>
         /// Side
         /// </summary>
         [JsonProperty("side")]
@@ -42,9 +50,52 @@ namespace Mexc.Net.Objects.Models.Spot
         [JsonProperty("type")]
         public OrderType Type { get; set; }
         /// <summary>
+        /// Status
+        /// </summary>
+        [JsonProperty("status")]
+        public OrderStatus Status { get; set; }
+        /// <summary>
+        /// Time in force
+        /// </summary>
+        [JsonProperty("timeInForce")]
+        public TimeInForce TimeInForce { get; set; }
+        /// <summary>
+        /// Last update timestamp
+        /// </summary>
+        [JsonProperty("updateTime")]
+        public DateTime UpdateTime { get; set; }
+        /// <summary>
         /// Timestamp
         /// </summary>
         [JsonProperty("transactTime")]
         public DateTime Timestamp { get; set; }
+
+        [JsonProperty("time")]
+        internal DateTime _time
+        {
+            get => Timestamp;
+            set => Timestamp = value;
+        }
+
+        /// <summary>
+        /// Original client order id
+        /// </summary>
+        [JsonProperty("origClientOrderId")]
+        public string? OriginalClientOrderId { get; set; }
+        /// <summary>
+        /// Client order id
+        /// </summary>
+        [JsonProperty("clientOrderId")]
+        public string? ClientOrderId { get; set; }
+        /// <summary>
+        /// Stop price
+        /// </summary>
+        [JsonProperty("stopPrice")]
+        public decimal? StopPrice { get; set; }
+        /// <summary>
+        /// Is in the order book
+        /// </summary>
+        [JsonProperty("isWorking")]
+        public bool IsWorking { get; set; }
     }
 }

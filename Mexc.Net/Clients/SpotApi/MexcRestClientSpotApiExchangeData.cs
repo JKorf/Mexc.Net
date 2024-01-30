@@ -5,16 +5,17 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using Mexc.Net.Enums;
 using Mexc.Net.Objects.Models.Spot;
 using Mexc.Net.Interfaces.Clients.SpotApi;
 using Mexc.Net.Objects.Models;
+using System.Linq;
 
 namespace Mexc.Net.Clients.SpotApi
 {
+    /// <inheritdoc />
     public class MexcRestClientSpotApiExchangeData : IMexcRestClientSpotApiExchangeData
     {
         private readonly ILogger _logger;
@@ -53,7 +54,7 @@ namespace Mexc.Net.Clients.SpotApi
         #region Get Api Symbols
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<string>>> GetApiSymbolAsync(CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<string>>> GetApiSymbolsAsync(CancellationToken ct = default)
         {
             var result = await _baseClient.SendRequestInternal<MexcResult<IEnumerable<string>>>("/api/v3/defaultSymbols", HttpMethod.Get, ct).ConfigureAwait(false);
             if (!result)
@@ -169,11 +170,18 @@ namespace Mexc.Net.Clients.SpotApi
         #region Get Tickers
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<MexcTicker>>> GetTickersAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default)
+        public async Task<WebCallResult<MexcTicker>> GetTickerAsync(string symbol, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            parameters.AddOptional("symbols", symbols == null ? null : string.Join(",", symbols));
-            return await _baseClient.SendRequestInternal<IEnumerable<MexcTicker>>("/api/v3/ticker/24hr", HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            parameters.AddOptional("symbol", symbol);
+            var result = await _baseClient.SendRequestInternal<IEnumerable<MexcTicker>>("/api/v3/ticker/24hr", HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            return result.As<MexcTicker>(result.Data?.Single());
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<MexcTicker>>> GetTickersAsync(CancellationToken ct = default)
+        {
+            return await _baseClient.SendRequestInternal<IEnumerable<MexcTicker>>("/api/v3/ticker/24hr", HttpMethod.Get, ct).ConfigureAwait(false);
         }
 
         #endregion

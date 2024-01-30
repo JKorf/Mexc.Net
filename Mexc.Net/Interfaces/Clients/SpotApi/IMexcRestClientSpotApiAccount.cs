@@ -4,14 +4,24 @@ using Mexc.Net.Objects.Models;
 using Mexc.Net.Objects.Models.Spot;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Mexc.Net.Interfaces.Clients.SpotApi
 {
+    /// <summary>
+    /// Mexc Spot account endpoints. Account endpoints include balance info, withdraw/deposit info and requesting and account settings
+    /// </summary>
     public interface IMexcRestClientSpotApiAccount
     {
+        /// <summary>
+        /// Get account and balance info
+        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#account-information" /></para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<MexcAccountInfo>> GetAccountInfoAsync(CancellationToken ct = default);
+
         /// <summary>
         /// Get a list of user assets and deposit/withdrawal data
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-the-currency-information" /></para>
@@ -140,7 +150,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get dust assets which can be converted
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#get-assets-that-can-be-converted-into-mx" /></para>
         /// </summary>
-        /// <param name="ct"></param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<MexcEligibleDust>>> GetAssetsForDustTransferAsync(CancellationToken ct = default);
 
@@ -149,7 +159,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#dust-transfer" /></para>
         /// </summary>
         /// <param name="assets">Assets to convert</param>
-        /// <param name="ct"></param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<MexcDustResult>> DustTransferAsync(IEnumerable<string> assets, CancellationToken ct = default);
 
@@ -161,8 +171,25 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="endTime">Filter by end time</param>
         /// <param name="page">Page</param>
         /// <param name="pageSize">Page size</param>
-        /// <param name="ct"></param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<MexcPaginated<IEnumerable<MexcDustLog>>>> GetDustLogAsync(DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Set MX deduction status
+        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#enable-mx-deduct" /></para>
+        /// </summary>
+        /// <param name="enabled">Enabled</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<MexcDeductStatus>> SetMxDeductionAsync(bool enabled, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get MX deduction status
+        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-mx-deduct-status" /></para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<MexcDeductStatus>> GetMxDeductionStatusAsync(CancellationToken ct = default);
     }
 }

@@ -4,6 +4,12 @@
         <name>Mexc.Net</name>
     </assembly>
     <members>
+        <member name="T:Mexc.Net.Clients.MexcRestClient">
+            <inheritdoc />
+        </member>
+        <member name="P:Mexc.Net.Clients.MexcRestClient.SpotApi">
+            <inheritdoc />
+        </member>
         <member name="M:Mexc.Net.Clients.MexcRestClient.#ctor(System.Action{Mexc.Net.Objects.Options.MexcRestOptions})">
             <summary>
             Create a new instance of the MexcRestClient using provided options
@@ -23,8 +29,30 @@
             <param name="loggerFactory">The logger factory</param>
             <param name="httpClient">Http client for this client</param>
         </member>
+        <member name="T:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi">
+            <inheritdoc />
+        </member>
+        <member name="P:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.Account">
+            <inheritdoc />
+        </member>
+        <member name="P:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.ExchangeData">
+            <inheritdoc />
+        </member>
+        <member name="P:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.Trading">
+            <inheritdoc />
+        </member>
         <member name="P:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.ExchangeName">
             <inheritdoc />
+        </member>
+        <member name="E:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.OnOrderPlaced">
+            <summary>
+            Event triggered when an order is placed via this client. Only available for Spot orders
+            </summary>
+        </member>
+        <member name="E:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.OnOrderCanceled">
+            <summary>
+            Event triggered when an order is canceled via this client. Note that this does not trigger when using CancelAllOrdersAsync. Only available for Spot orders
+            </summary>
         </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
@@ -36,6 +64,18 @@
             <inheritdoc />
         </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.GetTimeOffset">
+            <inheritdoc />
+        </member>
+        <member name="P:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.CommonSpotClient">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.GetSymbolName(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiAccount">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiAccount.GetAccountInfoAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiAccount.GetUserAssetsAsync(System.Threading.CancellationToken)">
@@ -80,13 +120,22 @@
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiAccount.GetDustLogAsync(System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiAccount.SetMxDeductionAsync(System.Boolean,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiAccount.GetMxDeductionStatusAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiExchangeData">
+            <inheritdoc />
+        </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiExchangeData.PingAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiExchangeData.GetServerTimeAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiExchangeData.GetSymbolNamesAsync(System.Threading.CancellationToken)">
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiExchangeData.GetApiSymbolsAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiExchangeData.GetExchangeInfoAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
@@ -107,7 +156,10 @@
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiExchangeData.GetAveragePriceAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiExchangeData.GetTickersAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiExchangeData.GetTickerAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiExchangeData.GetTickersAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiExchangeData.GetPricesAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
@@ -116,10 +168,31 @@
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiExchangeData.GetBookPricesAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="T:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiTrading">
+            <inheritdoc />
+        </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiTrading.PlaceTestOrderAsync(System.String,Mexc.Net.Enums.OrderSide,Mexc.Net.Enums.OrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiTrading.PlaceOrderAsync(System.String,Mexc.Net.Enums.OrderSide,Mexc.Net.Enums.OrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiTrading.CancelOrderAsync(System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiTrading.CancelAllOrdersAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiTrading.GetOrderAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiTrading.GetOpenOrdersAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiTrading.GetOrdersAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiTrading.GetUserTradesAsync(System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="T:Mexc.Net.Enums.AccountType">
@@ -242,6 +315,36 @@
             Sell
             </summary>
         </member>
+        <member name="T:Mexc.Net.Enums.OrderStatus">
+            <summary>
+            Order status
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.OrderStatus.New">
+            <summary>
+            New
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.OrderStatus.Filled">
+            <summary>
+            Filled
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.OrderStatus.PartiallyFilled">
+            <summary>
+            Partially filled
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.OrderStatus.Canceled">
+            <summary>
+            Fully canceled
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.OrderStatus.PartiallyCanceled">
+            <summary>
+            Partially filled, partially canceled
+            </summary>
+        </member>
         <member name="T:Mexc.Net.Enums.OrderType">
             <summary>
             Order type
@@ -272,34 +375,39 @@
             Fill or kill
             </summary>
         </member>
-        <member name="T:Mexc.Net.Enums.SpotOrderType">
+        <member name="T:Mexc.Net.Enums.TimeInForce">
             <summary>
-            Order type
+            Time in force
             </summary>
         </member>
-        <member name="F:Mexc.Net.Enums.SpotOrderType.Limit">
+        <member name="F:Mexc.Net.Enums.TimeInForce.GoodTillCanceled">
             <summary>
-            Limit
+            GoodTillCanceled orders will stay active until they are filled or canceled
             </summary>
         </member>
-        <member name="F:Mexc.Net.Enums.SpotOrderType.Market">
+        <member name="F:Mexc.Net.Enums.TimeInForce.ImmediateOrCancel">
             <summary>
-            Market
+            ImmediateOrCancel orders have to be at least partially filled upon placing or will be automatically canceled
             </summary>
         </member>
-        <member name="F:Mexc.Net.Enums.SpotOrderType.LimitMaker">
+        <member name="F:Mexc.Net.Enums.TimeInForce.FillOrKill">
             <summary>
-            Limit maker
+            FillOrKill orders have to be entirely filled upon placing or will be automatically canceled
             </summary>
         </member>
-        <member name="F:Mexc.Net.Enums.SpotOrderType.ImmediateOrCancel">
+        <member name="F:Mexc.Net.Enums.TimeInForce.GoodTillCrossing">
             <summary>
-            Immediate or cancel
+            GoodTillCrossing orders will post only
             </summary>
         </member>
-        <member name="F:Mexc.Net.Enums.SpotOrderType.FillOrKill">
+        <member name="F:Mexc.Net.Enums.TimeInForce.GoodTillExpiredOrCanceled">
             <summary>
-            Fill or kill
+            Good til the order expires or is canceled
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.TimeInForce.GoodTillDate">
+            <summary>
+            Good til date
             </summary>
         </member>
         <member name="T:Mexc.Net.Enums.TranfserType">
@@ -371,6 +479,49 @@
             <summary>
             Manual
             </summary>
+        </member>
+        <member name="T:Mexc.Net.Interfaces.Clients.IMexcRestClient">
+            <summary>
+            Client for accessing the Mexc Rest API. 
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Interfaces.Clients.IMexcRestClient.SpotApi">
+            <summary>
+            Spot API endpoints
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApi">
+            <summary>
+            Mexc Spot API endpoints
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApi.Account">
+            <summary>
+            Endpoints related to account settings, info or actions
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApi.ExchangeData">
+            <summary>
+            Endpoints related to retrieving market and system data
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApi.Trading">
+            <summary>
+            Endpoints related to orders and trades
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount">
+            <summary>
+            Mexc Spot account endpoints. Account endpoints include balance info, withdraw/deposit info and requesting and account settings
+            </summary>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.GetAccountInfoAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get account and balance info
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#account-information" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
         </member>
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.GetUserAssetsAsync(System.Threading.CancellationToken)">
             <summary>
@@ -501,7 +652,7 @@
             Get dust assets which can be converted
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#get-assets-that-can-be-converted-into-mx" /></para>
             </summary>
-            <param name="ct"></param>
+            <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.DustTransferAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
@@ -510,7 +661,7 @@
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#dust-transfer" /></para>
             </summary>
             <param name="assets">Assets to convert</param>
-            <param name="ct"></param>
+            <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.GetDustLogAsync(System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
@@ -522,8 +673,30 @@
             <param name="endTime">Filter by end time</param>
             <param name="page">Page</param>
             <param name="pageSize">Page size</param>
-            <param name="ct"></param>
+            <param name="ct">Cancellation token</param>
             <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.SetMxDeductionAsync(System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Set MX deduction status
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#enable-mx-deduct" /></para>
+            </summary>
+            <param name="enabled">Enabled</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.GetMxDeductionStatusAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get MX deduction status
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-mx-deduct-status" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="T:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData">
+            <summary>
+            Mexc Spot exchange data endpoints. Exchange data includes market data (tickers, order books, etc) and system status.
+            </summary>
         </member>
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData.PingAsync(System.Threading.CancellationToken)">
             <summary>
@@ -541,9 +714,9 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData.GetSymbolNamesAsync(System.Threading.CancellationToken)">
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData.GetApiSymbolsAsync(System.Threading.CancellationToken)">
             <summary>
-            Get a list of supported symbol names
+            Get a list of symbols supported by the API
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#api-default-symbol" /></para>
             </summary>
             <param name="ct"></param>
@@ -612,12 +785,20 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData.GetTickersAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData.GetTickerAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get 24h price statistics
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#24hr-ticker-price-change-statistics" /></para>
             </summary>
-            <param name="symbols">Filter by symbol</param>
+            <param name="symbol">The symbol</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData.GetTickersAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get 24h price statistics
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#24hr-ticker-price-change-statistics" /></para>
+            </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -638,6 +819,11 @@
             <param name="symbols">Filter by symbol</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
+        </member>
+        <member name="T:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiTrading">
+            <summary>
+            Mexc Spot trading endpoints, placing and mananging orders.
+            </summary>
         </member>
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiTrading.PlaceTestOrderAsync(System.String,Mexc.Net.Enums.OrderSide,Mexc.Net.Enums.OrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Threading.CancellationToken)">
             <summary>
@@ -666,6 +852,72 @@
             <param name="quoteQuantity">Quote quantity</param>
             <param name="price">Limit price</param>
             <param name="clientOrderId">Client order id</param>
+            <param name="ct">Cancelation Token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiTrading.CancelOrderAsync(System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Cancel an order
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#cancel-order" /></para>
+            </summary>
+            <param name="symbol">The symbol</param>
+            <param name="orderId">Cancel by order id</param>
+            <param name="clientOrderId">Cancel by client order id</param>
+            <param name="newClientOrderId">New client order id after canceled</param>
+            <param name="ct">Cancelation Token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiTrading.CancelAllOrdersAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <summary>
+            Cancel all orders on a symbol
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#cancel-all-open-orders-on-a-symbol" /></para>
+            </summary>
+            <param name="symbols">The symbols to close all orders on (max 5)</param>
+            <param name="ct">Cancelation Token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiTrading.GetOrderAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get an order
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-order" /></para>
+            </summary>
+            <param name="symbol">The symbol</param>
+            <param name="orderId">Get by order id</param>
+            <param name="clientOrderId">Get by client order id</param>
+            <param name="ct">Cancelation Token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiTrading.GetOpenOrdersAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get all open orders for a symbol
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#current-open-orders" /></para>
+            </summary>
+            <param name="symbol">Symbol</param>
+            <param name="ct">Cancelation Token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiTrading.GetOrdersAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get all orders
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#all-orders" /></para>
+            </summary>
+            <param name="symbol">Symbol</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="limit">Max results</param>
+            <param name="ct">Cancelation Token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiTrading.GetUserTradesAsync(System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get user trades
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#account-trade-list" /></para>
+            </summary>
+            <param name="orderId">Filter by order id</param>
+            <param name="symbol">Symbol</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="limit">Max results</param>
             <param name="ct">Cancelation Token</param>
             <returns></returns>
         </member>
@@ -824,6 +1076,91 @@
             Volume in quote asset
             </summary>
         </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcAccountInfo">
+            <summary>
+            Account info
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcAccountInfo.MakerFee">
+            <summary>
+            Maker fee
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcAccountInfo.TakerFee">
+            <summary>
+            Taker fee
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcAccountInfo.BuyerFee">
+            <summary>
+            Buyer fee
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcAccountInfo.SellerFee">
+            <summary>
+            Seller fee
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcAccountInfo.CanTrade">
+            <summary>
+            Can trade
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcAccountInfo.CanWithdraw">
+            <summary>
+            Can withdraw
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcAccountInfo.CanDeposit">
+            <summary>
+            Can deposit
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcAccountInfo.UpdateTime">
+            <summary>
+            Update time
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcAccountInfo.AccountType">
+            <summary>
+            Account type
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcAccountInfo.Balances">
+            <summary>
+            Balances
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcAccountInfo.Permissions">
+            <summary>
+            Permissions
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcAccountBalance">
+            <summary>
+            Balance info
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcAccountBalance.Asset">
+            <summary>
+            The asset this balance is for
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcAccountBalance.Available">
+            <summary>
+            The quantity that isn't locked in a trade
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcAccountBalance.Locked">
+            <summary>
+            The quantity that is currently locked in a trade
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcAccountBalance.Total">
+            <summary>
+            The total balance of this asset (Free + Locked)
+            </summary>
+        </member>
         <member name="T:Mexc.Net.Objects.Models.Spot.MexcAveragePrice">
             <summary>
             Average price info
@@ -867,6 +1204,16 @@
         <member name="P:Mexc.Net.Objects.Models.Spot.MexcBookPrice.BestAskQuantity">
             <summary>
             Best ask quantity
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcDeductStatus">
+            <summary>
+            Mexc MX deduct status
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcDeductStatus.MxDeductionEnable">
+            <summary>
+            Is deduction enabled
             </summary>
         </member>
         <member name="T:Mexc.Net.Objects.Models.Spot.MexcDeposit">
@@ -1199,6 +1546,16 @@
             Quantity
             </summary>
         </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcOrder.QuantityFilled">
+            <summary>
+            Quantity filled
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcOrder.QuoteQuantityFilled">
+            <summary>
+            The currently executed amount of quote asset. Amounts to Sum(quantity * price) of executed trades for this order
+            </summary>
+        </member>
         <member name="P:Mexc.Net.Objects.Models.Spot.MexcOrder.Side">
             <summary>
             Side
@@ -1209,9 +1566,44 @@
             Type
             </summary>
         </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcOrder.Status">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcOrder.TimeInForce">
+            <summary>
+            Time in force
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcOrder.UpdateTime">
+            <summary>
+            Last update timestamp
+            </summary>
+        </member>
         <member name="P:Mexc.Net.Objects.Models.Spot.MexcOrder.Timestamp">
             <summary>
             Timestamp
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcOrder.OriginalClientOrderId">
+            <summary>
+            Original client order id
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcOrder.ClientOrderId">
+            <summary>
+            Client order id
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcOrder.StopPrice">
+            <summary>
+            Stop price
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcOrder.IsWorking">
+            <summary>
+            Is in the order book
             </summary>
         </member>
         <member name="T:Mexc.Net.Objects.Models.Spot.MexcOrderBook">
@@ -1314,14 +1706,14 @@
             The precision of the quote asset
             </summary>
         </member>
-        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSymbol.QuoteAssetCommissionPrecision">
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSymbol.QuoteAssetFeePrecision">
             <summary>
-            Quote asset commission precision
+            Quote asset fee precision
             </summary>
         </member>
-        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSymbol.BaseAssetCommissionPrecision">
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSymbol.BaseAssetFeePrecision">
             <summary>
-            Base asset commission precision
+            Base asset fee precision
             </summary>
         </member>
         <member name="P:Mexc.Net.Objects.Models.Spot.MexcSymbol.OrderTypes">
@@ -1364,14 +1756,14 @@
             Max quote quantity for a single order
             </summary>
         </member>
-        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSymbol.MakerCommission">
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSymbol.MakerFee">
             <summary>
-            Maker commission rate
+            Maker fee rate
             </summary>
         </member>
-        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSymbol.TakerCommission">
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSymbol.TakerFee">
             <summary>
-            Taker commission rate
+            Taker fee rate
             </summary>
         </member>
         <member name="P:Mexc.Net.Objects.Models.Spot.MexcSymbol.QuoteQuantityPrecisionMarket">
@@ -1552,6 +1944,181 @@
         <member name="P:Mexc.Net.Objects.Models.Spot.MexcTransferId.TransferId">
             <summary>
             Transfer id
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcUserAsset">
+            <summary>
+            User asset info
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserAsset.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserAsset.AssetName">
+            <summary>
+            Asset name
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserAsset.Networks">
+            <summary>
+            Asset network info
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcNetwork">
+            <summary>
+            Network info
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcNetwork.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcNetwork.DepositDescription">
+            <summary>
+            Deposit description
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcNetwork.DepositEnabled">
+            <summary>
+            Is deposit enabled
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcNetwork.MinConfirmations">
+            <summary>
+            Minimal number of confirmations needed for deposit
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcNetwork.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcNetwork.Network">
+            <summary>
+            Network name
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcNetwork.WithdrawEnabled">
+            <summary>
+            Is withdrawing enabled
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcNetwork.WithdrawFee">
+            <summary>
+            Withdrawal fee
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcNetwork.WithdrawIntegerMultiple">
+            <summary>
+            Withdrawal multiple
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcNetwork.WithdrawMax">
+            <summary>
+            Max withdrawal
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcNetwork.WithdrawMin">
+            <summary>
+            Minimal withdrawal
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcNetwork.SameAddress">
+            <summary>
+            Same address
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcNetwork.Contract">
+            <summary>
+            Contract address
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcNetwork.WithdrawTips">
+            <summary>
+            Withdraw tips
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcNetwork.DepositTips">
+            <summary>
+            Deposit tips
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcUserTrade">
+            <summary>
+            User trade info
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserTrade.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserTrade.Id">
+            <summary>
+            Trade id
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserTrade.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserTrade.Price">
+            <summary>
+            Price
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserTrade.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserTrade.QuoteQuantity">
+            <summary>
+            Quote quantity
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserTrade.Fee">
+            <summary>
+            Fee
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserTrade.FeeAsset">
+            <summary>
+            Fee asset
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserTrade.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserTrade.IsBuyer">
+            <summary>
+            Is buyer
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserTrade.IsMaker">
+            <summary>
+            Is maker
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserTrade.IsBestMatch">
+            <summary>
+            Is best match
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserTrade.IsSelfTrade">
+            <summary>
+            Is self trade
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserTrade.ClientOrderId">
+            <summary>
+            Client order id
             </summary>
         </member>
         <member name="T:Mexc.Net.Objects.Models.Spot.MexcWithdrawAddress">

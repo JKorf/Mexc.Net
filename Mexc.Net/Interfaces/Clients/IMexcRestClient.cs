@@ -1,12 +1,16 @@
-﻿using Mexc.Net.Interfaces.Clients.SpotApi;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using CryptoExchange.Net.Interfaces;
+using Mexc.Net.Interfaces.Clients.SpotApi;
 
 namespace Mexc.Net.Interfaces.Clients
 {
-    public interface IMexcRestClient
+    /// <summary>
+    /// Client for accessing the Mexc Rest API. 
+    /// </summary>
+    public interface IMexcRestClient : IRestClient
     {
+        /// <summary>
+        /// Spot API endpoints
+        /// </summary>
         IMexcRestClientSpotApi SpotApi { get; }
     }
 }

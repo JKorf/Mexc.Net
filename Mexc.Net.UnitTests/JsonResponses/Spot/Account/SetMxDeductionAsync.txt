@@ -1,0 +1,8 @@
+{
+  "data":{
+    "mxDeductEnable":true
+  },
+  "code":0,
+  "msg":"success",
+  "timestamp":1669109672280
+} 

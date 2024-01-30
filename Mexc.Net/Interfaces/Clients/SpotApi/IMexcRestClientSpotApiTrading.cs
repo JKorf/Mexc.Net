@@ -1,15 +1,16 @@
 ﻿using CryptoExchange.Net.Objects;
 using Mexc.Net.Enums;
-using Mexc.Net.Objects.Models;
 using Mexc.Net.Objects.Models.Spot;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Mexc.Net.Interfaces.Clients.SpotApi
 {
+    /// <summary>
+    /// Mexc Spot trading endpoints, placing and mananging orders.
+    /// </summary>
     public interface IMexcRestClientSpotApiTrading
     {
         /// <summary>
@@ -41,5 +42,71 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancelation Token</param>
         /// <returns></returns>
         Task<WebCallResult<MexcOrder>> PlaceOrderAsync(string symbol, OrderSide side, OrderType type, decimal? quantity = null, decimal? quoteQuantity = null, decimal? price = null, string? clientOrderId = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Cancel an order
+        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#cancel-order" /></para>
+        /// </summary>
+        /// <param name="symbol">The symbol</param>
+        /// <param name="orderId">Cancel by order id</param>
+        /// <param name="clientOrderId">Cancel by client order id</param>
+        /// <param name="newClientOrderId">New client order id after canceled</param>
+        /// <param name="ct">Cancelation Token</param>
+        /// <returns></returns>
+        Task<WebCallResult<MexcOrder>> CancelOrderAsync(string symbol, string? orderId = null, string? clientOrderId = null, string? newClientOrderId = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Cancel all orders on a symbol
+        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#cancel-all-open-orders-on-a-symbol" /></para>
+        /// </summary>
+        /// <param name="symbols">The symbols to close all orders on (max 5)</param>
+        /// <param name="ct">Cancelation Token</param>
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<MexcOrder>>> CancelAllOrdersAsync(IEnumerable<string> symbols, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get an order
+        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-order" /></para>
+        /// </summary>
+        /// <param name="symbol">The symbol</param>
+        /// <param name="orderId">Get by order id</param>
+        /// <param name="clientOrderId">Get by client order id</param>
+        /// <param name="ct">Cancelation Token</param>
+        /// <returns></returns>
+        Task<WebCallResult<MexcOrder>> GetOrderAsync(string symbol, string? orderId = null, string? clientOrderId = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get all open orders for a symbol
+        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#current-open-orders" /></para>
+        /// </summary>
+        /// <param name="symbol">Symbol</param>
+        /// <param name="ct">Cancelation Token</param>
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<MexcOrder>>> GetOpenOrdersAsync(string symbol, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get all orders
+        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#all-orders" /></para>
+        /// </summary>
+        /// <param name="symbol">Symbol</param>
+        /// <param name="startTime">Filter by start time</param>
+        /// <param name="endTime">Filter by end time</param>
+        /// <param name="limit">Max results</param>
+        /// <param name="ct">Cancelation Token</param>
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<MexcOrder>>> GetOrdersAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get user trades
+        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#account-trade-list" /></para>
+        /// </summary>
+        /// <param name="orderId">Filter by order id</param>
+        /// <param name="symbol">Symbol</param>
+        /// <param name="startTime">Filter by start time</param>
+        /// <param name="endTime">Filter by end time</param>
+        /// <param name="limit">Max results</param>
+        /// <param name="ct">Cancelation Token</param>
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<MexcUserTrade>>> GetUserTradesAsync(string symbol, string? orderId = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
     }
 }

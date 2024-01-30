@@ -1,11 +1,8 @@
-﻿using CryptoExchange.Net;
-using CryptoExchange.Net.Objects;
+﻿using CryptoExchange.Net.Objects;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using Mexc.Net.Enums;
@@ -13,10 +10,10 @@ using Mexc.Net.Objects.Models.Spot;
 using Mexc.Net.Interfaces.Clients.SpotApi;
 using Mexc.Net.Objects.Models;
 using System.Linq;
-using System.Security.Cryptography;
 
 namespace Mexc.Net.Clients.SpotApi
 {
+    /// <inheritdoc />
     public class MexcRestClientSpotApiAccount : IMexcRestClientSpotApiAccount
     {
         private readonly ILogger _logger;
@@ -28,7 +25,17 @@ namespace Mexc.Net.Clients.SpotApi
             _baseClient = baseClient;
         }
 
-        #region Get UserAssets
+        #region Get Account Info
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<MexcAccountInfo>> GetAccountInfoAsync(CancellationToken ct = default)
+        {
+            return await _baseClient.SendRequestInternal<MexcAccountInfo>("/api/v3/account", HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Get User Assets
 
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<MexcUserAsset>>> GetUserAssetsAsync(CancellationToken ct = default)
@@ -236,6 +243,33 @@ namespace Mexc.Net.Clients.SpotApi
             parameters.AddOptional("page", page);
             parameters.AddOptional("limit", pageSize);
             return await _baseClient.SendRequestInternal<MexcPaginated<IEnumerable<MexcDustLog>>>("/api/v3/capital/convert", HttpMethod.Get, ct, parameters,true).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Set Mx Deduction
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<MexcDeductStatus>> SetMxDeductionAsync(bool enabled, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection()
+            {
+                { "mxDeductEnable", enabled }
+            };
+
+            var result = await _baseClient.SendRequestInternal<MexcResult<MexcDeductStatus>>("/api/v3/mxDeduct/enable", HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            return result.As<MexcDeductStatus>(result.Data?.Data);
+        }
+
+        #endregion
+
+        #region Get Mx Deduction Status
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<MexcDeductStatus>> GetMxDeductionStatusAsync(CancellationToken ct = default)
+        {
+            var result = await _baseClient.SendRequestInternal<MexcResult<MexcDeductStatus>>("/api/v3/mxDeduct/enable", HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+            return result.As<MexcDeductStatus>(result.Data?.Data);
         }
 
         #endregion
