@@ -49,5 +49,16 @@ namespace Mexc.Net.Clients
         }
 
         #endregion
+
+        /// <summary>
+        /// Set the default options to be used when creating new clients
+        /// </summary>
+        /// <param name="optionsDelegate">Option configuration delegate</param>
+        public static void SetDefaultOptions(Action<MexcRestOptions> optionsDelegate)
+        {
+            var options = MexcRestOptions.Default.Copy();
+            optionsDelegate(options);
+            MexcRestOptions.Default = options;
+        }
     }
 }

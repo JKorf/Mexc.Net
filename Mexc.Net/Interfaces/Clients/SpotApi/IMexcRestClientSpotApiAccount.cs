@@ -191,5 +191,31 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<MexcDeductStatus>> GetMxDeductionStatusAsync(CancellationToken ct = default);
+
+        /// <summary>
+        /// Start a user data stream for accessing private socket streams
+        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#listen-key" /></para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<string>> StartUserStreamAsync(CancellationToken ct = default);
+
+        /// <summary>
+        /// Sends a keep alive for the current user stream listen key to keep the stream from closing. Stream auto closes after 60 minutes if no keep alive is send. 30 minute interval for keep alive is recommended.
+        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#listen-key" /></para>
+        /// </summary>
+        /// <param name="listenKey"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        Task<WebCallResult> KeepAliveUserStreamAsync(string listenKey, CancellationToken ct = default);
+
+        /// <summary>
+        /// Stops the current user stream
+        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#listen-key" /></para>
+        /// </summary>
+        /// <param name="listenKey"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        Task<WebCallResult> StopUserStreamAsync(string listenKey, CancellationToken ct = default);
     }
 }

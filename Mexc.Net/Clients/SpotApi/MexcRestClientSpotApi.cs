@@ -32,6 +32,9 @@ namespace Mexc.Net.Clients.SpotApi
         public IMexcRestClientSpotApiTrading Trading { get; }
 
         /// <inheritdoc />
+        public ISpotClient CommonSpotClient => this;
+
+        /// <inheritdoc />
         public string ExchangeName => "Mexc";
 
         /// <summary>
@@ -56,6 +59,10 @@ namespace Mexc.Net.Clients.SpotApi
             requestBodyEmptyContent = "";
             requestBodyFormat = RequestBodyFormat.FormData;
             arraySerialization = ArrayParametersSerialization.MultipleValues;
+
+            ParameterPositions[HttpMethod.Post] = HttpMethodParameterPosition.InUri;
+            ParameterPositions[HttpMethod.Delete] = HttpMethodParameterPosition.InUri;
+            ParameterPositions[HttpMethod.Put] = HttpMethodParameterPosition.InUri;
         }
         #endregion
 
@@ -87,9 +94,6 @@ namespace Mexc.Net.Clients.SpotApi
         /// <inheritdoc />
         public override TimeSpan? GetTimeOffset()
             => _timeSyncState.TimeOffset;
-
-        /// <inheritdoc />
-        public ISpotClient CommonSpotClient => this;
 
         /// <inheritdoc />
         public string GetSymbolName(string baseAsset, string quoteAsset) =>

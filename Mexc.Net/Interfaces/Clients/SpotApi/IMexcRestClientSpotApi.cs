@@ -1,4 +1,5 @@
 ﻿using CryptoExchange.Net.Interfaces;
+using CryptoExchange.Net.Interfaces.CommonClients;
 
 namespace Mexc.Net.Interfaces.Clients.SpotApi
 {
@@ -7,6 +8,11 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
     /// </summary>
     public interface IMexcRestClientSpotApi: IRestApiClient
     {
+        /// <summary>
+        /// Get the ISpotClient for this client. This is a common interface which allows for some basic operations without knowing any details of the exchange.
+        /// </summary>
+        /// <returns></returns>
+        ISpotClient CommonSpotClient { get; }
         /// <summary>
         /// Endpoints related to account settings, info or actions
         /// </summary>

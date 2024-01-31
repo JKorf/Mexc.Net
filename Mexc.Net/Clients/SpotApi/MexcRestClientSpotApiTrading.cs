@@ -8,6 +8,7 @@ using System.Threading;
 using Mexc.Net.Enums;
 using Mexc.Net.Objects.Models.Spot;
 using Mexc.Net.Interfaces.Clients.SpotApi;
+using System.Linq;
 
 namespace Mexc.Net.Clients.SpotApi
 {
@@ -61,7 +62,11 @@ namespace Mexc.Net.Clients.SpotApi
             parameters.AddOptionalString("price", price);
             parameters.AddOptional("newClientOrderId", clientOrderId);
 
-            return await _baseClient.SendRequestInternal<MexcOrder>("/api/v3/order", HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            var result = await _baseClient.SendRequestInternal<MexcOrder>("/api/v3/order", HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            if (result)
+                _baseClient.InvokeOrderPlaced(new CryptoExchange.Net.CommonObjects.OrderId { Id = result.Data.OrderId, SourceObject = result.Data });
+
+            return result;
         }
 
         #endregion
@@ -79,7 +84,11 @@ namespace Mexc.Net.Clients.SpotApi
             parameters.AddOptional("origClientOrderId", clientOrderId);
             parameters.AddOptional("newClientOrderId", newClientOrderId);
 
-            return await _baseClient.SendRequestInternal<MexcOrder>("/api/v3/order", HttpMethod.Delete, ct, parameters, true).ConfigureAwait(false);
+            var result = await _baseClient.SendRequestInternal<MexcOrder>("/api/v3/order", HttpMethod.Delete, ct, parameters, true).ConfigureAwait(false);
+            if (result)
+                _baseClient.InvokeOrderCanceled(new CryptoExchange.Net.CommonObjects.OrderId { Id = result.Data.OrderId, SourceObject = result.Data });
+
+            return result;
         }
 
         #endregion
@@ -94,7 +103,13 @@ namespace Mexc.Net.Clients.SpotApi
                 { "symbol", string.Join(",", symbols) }
             };
 
-            return await _baseClient.SendRequestInternal<IEnumerable<MexcOrder>>("/api/v3/openOrders", HttpMethod.Delete, ct, parameters, true).ConfigureAwait(false);
+            var result = await _baseClient.SendRequestInternal<IEnumerable<MexcOrder>>("/api/v3/openOrders", HttpMethod.Delete, ct, parameters, true).ConfigureAwait(false);
+            if (result)
+            {
+                foreach(var item in result.Data)
+                    _baseClient.InvokeOrderCanceled(new CryptoExchange.Net.CommonObjects.OrderId { Id = item.OrderId, SourceObject = result.Data });
+            }
+            return result;
         }
 
         #endregion
@@ -144,7 +159,7 @@ namespace Mexc.Net.Clients.SpotApi
             parameters.AddOptionalMilliseconds("endTime", endTime);
             parameters.AddOptional("limit", limit);
 
-            return await _baseClient.SendRequestInternal<IEnumerable<MexcOrder>>("/api/v3/openOrders", HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            return await _baseClient.SendRequestInternal<IEnumerable<MexcOrder>>("/api/v3/allOrders", HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
         #endregion

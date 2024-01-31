@@ -29,6 +29,40 @@
             <param name="loggerFactory">The logger factory</param>
             <param name="httpClient">Http client for this client</param>
         </member>
+        <member name="T:Mexc.Net.Clients.MexcSocketClient">
+            <inheritdoc />
+        </member>
+        <member name="P:Mexc.Net.Clients.MexcSocketClient.SpotApi">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.MexcSocketClient.#ctor(Microsoft.Extensions.Logging.ILoggerFactory)">
+            <summary>
+            Create a new instance of MexcSocketClient
+            </summary>
+            <param name="loggerFactory">The logger factory</param>
+        </member>
+        <member name="M:Mexc.Net.Clients.MexcSocketClient.#ctor(System.Action{Mexc.Net.Objects.Options.MexcSocketOptions})">
+            <summary>
+            Create a new instance of MexcSocketClient
+            </summary>
+            <param name="optionsDelegate">Option configuration delegate</param>
+        </member>
+        <member name="M:Mexc.Net.Clients.MexcSocketClient.#ctor(System.Action{Mexc.Net.Objects.Options.MexcSocketOptions},Microsoft.Extensions.Logging.ILoggerFactory)">
+            <summary>
+            Create a new instance of MexcSocketClient
+            </summary>
+            <param name="loggerFactory">The logger factory</param>
+            <param name="optionsDelegate">Option configuration delegate</param>
+        </member>
+        <member name="M:Mexc.Net.Clients.MexcSocketClient.SetDefaultOptions(System.Action{Mexc.Net.Objects.Options.MexcSocketOptions})">
+            <summary>
+            Set the default options to be used when creating new clients
+            </summary>
+            <param name="optionsDelegate">Option configuration delegate</param>
+        </member>
+        <member name="M:Mexc.Net.Clients.MexcSocketClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <inheritdoc />
+        </member>
         <member name="T:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi">
             <inheritdoc />
         </member>
@@ -39,6 +73,9 @@
             <inheritdoc />
         </member>
         <member name="P:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.Trading">
+            <inheritdoc />
+        </member>
+        <member name="P:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.CommonSpotClient">
             <inheritdoc />
         </member>
         <member name="P:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.ExchangeName">
@@ -64,9 +101,6 @@
             <inheritdoc />
         </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.GetTimeOffset">
-            <inheritdoc />
-        </member>
-        <member name="P:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.CommonSpotClient">
             <inheritdoc />
         </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.GetSymbolName(System.String,System.String)">
@@ -124,6 +158,15 @@
             <inheritdoc />
         </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiAccount.GetMxDeductionStatusAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiAccount.StartUserStreamAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiAccount.KeepAliveUserStreamAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiAccount.StopUserStreamAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="T:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiExchangeData">
@@ -193,6 +236,12 @@
             <inheritdoc />
         </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiTrading.GetUserTradesAsync(System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
         <member name="T:Mexc.Net.Enums.AccountType">
@@ -490,10 +539,32 @@
             Spot API endpoints
             </summary>
         </member>
+        <member name="T:Mexc.Net.Interfaces.Clients.IMexcSocketClient">
+            <summary>
+            Client for accessing the Mexc websocket API
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Interfaces.Clients.IMexcSocketClient.SpotApi">
+            <summary>
+            Spot streams and requests
+            </summary>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.IMexcSocketClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <summary>
+            Set the API credentials for this client. All Api clients in this client will use the new credentials, regardless of earlier set options.
+            </summary>
+            <param name="credentials">The credentials to set</param>
+        </member>
         <member name="T:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApi">
             <summary>
             Mexc Spot API endpoints
             </summary>
+        </member>
+        <member name="P:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApi.CommonSpotClient">
+            <summary>
+            Get the ISpotClient for this client. This is a common interface which allows for some basic operations without knowing any details of the exchange.
+            </summary>
+            <returns></returns>
         </member>
         <member name="P:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApi.Account">
             <summary>
@@ -691,6 +762,32 @@
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-mx-deduct-status" /></para>
             </summary>
             <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.StartUserStreamAsync(System.Threading.CancellationToken)">
+            <summary>
+            Start a user data stream for accessing private socket streams
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#listen-key" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.KeepAliveUserStreamAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Sends a keep alive for the current user stream listen key to keep the stream from closing. Stream auto closes after 60 minutes if no keep alive is send. 30 minute interval for keep alive is recommended.
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#listen-key" /></para>
+            </summary>
+            <param name="listenKey"></param>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.StopUserStreamAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Stops the current user stream
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#listen-key" /></para>
+            </summary>
+            <param name="listenKey"></param>
+            <param name="ct"></param>
             <returns></returns>
         </member>
         <member name="T:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData">
@@ -931,17 +1028,23 @@
             Spot Rest API address
             </summary>
         </member>
+        <member name="P:Mexc.Net.MexcEnvironment.SpotSocketAddress">
+            <summary>
+            Spot Socket API address
+            </summary>
+        </member>
         <member name="P:Mexc.Net.MexcEnvironment.Live">
             <summary>
             Live environment
             </summary>
         </member>
-        <member name="M:Mexc.Net.MexcEnvironment.CreateCustom(System.String,System.String)">
+        <member name="M:Mexc.Net.MexcEnvironment.CreateCustom(System.String,System.String,System.String)">
             <summary>
             Create a custom environment
             </summary>
             <param name="name"></param>
             <param name="spotRestAddress"></param>
+            <param name="spotSocketAddress"></param>
             <returns></returns>
         </member>
         <member name="T:Mexc.Net.Objects.MexcApiAddresses">
@@ -951,7 +1054,12 @@
         </member>
         <member name="P:Mexc.Net.Objects.MexcApiAddresses.SpotRestAddress">
             <summary>
-            The address used by the MexcClient for the Spot API
+            The address used by the MexcClient for the Spot Rest API
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.MexcApiAddresses.SpotSocketAddress">
+            <summary>
+            The address used by the MexcClient for the Spot Socket API
             </summary>
         </member>
         <member name="F:Mexc.Net.Objects.MexcApiAddresses.Default">
@@ -1603,7 +1711,7 @@
         </member>
         <member name="P:Mexc.Net.Objects.Models.Spot.MexcOrder.IsWorking">
             <summary>
-            Is in the order book
+            Is order book
             </summary>
         </member>
         <member name="T:Mexc.Net.Objects.Models.Spot.MexcOrderBook">
@@ -2239,6 +2347,16 @@
         <member name="P:Mexc.Net.Objects.Options.MexcRestOptions.SpotOptions">
             <summary>
             Spot API options
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Options.MexcSocketOptions.Default">
+            <summary>
+            Default options for new clients
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Options.MexcSocketOptions.SpotOptions">
+            <summary>
+            Options for the Spot API
             </summary>
         </member>
     </members>

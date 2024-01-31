@@ -10,6 +10,7 @@ using Mexc.Net.Objects.Models.Spot;
 using Mexc.Net.Interfaces.Clients.SpotApi;
 using Mexc.Net.Objects.Models;
 using System.Linq;
+using CryptoExchange.Net;
 
 namespace Mexc.Net.Clients.SpotApi
 {
@@ -273,5 +274,51 @@ namespace Mexc.Net.Clients.SpotApi
         }
 
         #endregion
+
+        #region Create a ListenKey 
+        /// <inheritdoc />
+        public async Task<WebCallResult<string>> StartUserStreamAsync(CancellationToken ct = default)
+        {
+            var result = await _baseClient.SendRequestInternal<MexcListenKey>("/api/v3/userDataStream", HttpMethod.Post, ct, signed: true).ConfigureAwait(false);
+            return result.As(result.Data?.ListenKey!);
+        }
+
+        #endregion
+
+        #region Ping/Keep-alive a ListenKey
+
+        /// <inheritdoc />
+        public async Task<WebCallResult> KeepAliveUserStreamAsync(string listenKey, CancellationToken ct = default)
+        {
+            listenKey.ValidateNotNull(nameof(listenKey));
+
+            var parameters = new Dictionary<string, object>
+            {
+                { "listenKey", listenKey }
+            };
+
+            var result = await _baseClient.SendRequestInternal<object>("/api/v3/userDataStream", HttpMethod.Put, ct, parameters, signed: true).ConfigureAwait(false);
+            return result.AsDataless();
+        }
+
+        #endregion
+
+        #region Invalidate a ListenKey
+        /// <inheritdoc />
+        public async Task<WebCallResult> StopUserStreamAsync(string listenKey, CancellationToken ct = default)
+        {
+            listenKey.ValidateNotNull(nameof(listenKey));
+
+            var parameters = new Dictionary<string, object>
+            {
+                { "listenKey", listenKey }
+            };
+
+            var result = await _baseClient.SendRequestInternal<object>("/api/v3/userDataStream", HttpMethod.Delete, ct, parameters, signed: true).ConfigureAwait(false);
+            return result.AsDataless();
+        }
+
+        #endregion
+
     }
 }

@@ -12,10 +12,15 @@ namespace Mexc.Net
         /// Spot Rest API address
         /// </summary>
         public string SpotRestAddress { get; }
+        /// <summary>
+        /// Spot Socket API address
+        /// </summary>
+        public string SpotSocketAddress { get; }
 
-        internal MexcEnvironment(string name, string spotRestAddress) : base(name)
+        internal MexcEnvironment(string name, string spotRestAddress, string spotSocketAddress) : base(name)
         {
             SpotRestAddress = spotRestAddress;
+            SpotSocketAddress = spotSocketAddress;
         }
 
         /// <summary>
@@ -23,17 +28,20 @@ namespace Mexc.Net
         /// </summary>
         public static MexcEnvironment Live { get; }
             = new MexcEnvironment(TradeEnvironmentNames.Live,
-                                     MexcApiAddresses.Default.SpotRestAddress);
+                                     MexcApiAddresses.Default.SpotRestAddress,
+                                     MexcApiAddresses.Default.SpotSocketAddress);
 
         /// <summary>
         /// Create a custom environment
         /// </summary>
         /// <param name="name"></param>
         /// <param name="spotRestAddress"></param>
+        /// <param name="spotSocketAddress"></param>
         /// <returns></returns>
         public static MexcEnvironment CreateCustom(
                         string name,
-                        string spotRestAddress)
-            => new MexcEnvironment(name, spotRestAddress);
+                        string spotRestAddress,
+                        string spotSocketAddress)
+            => new MexcEnvironment(name, spotRestAddress, spotSocketAddress);
     }
 }

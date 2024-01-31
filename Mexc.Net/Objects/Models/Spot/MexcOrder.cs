@@ -58,7 +58,7 @@ namespace Mexc.Net.Objects.Models.Spot
         /// Time in force
         /// </summary>
         [JsonProperty("timeInForce")]
-        public TimeInForce TimeInForce { get; set; }
+        public TimeInForce? TimeInForce { get; set; }
         /// <summary>
         /// Last update timestamp
         /// </summary>
@@ -93,7 +93,7 @@ namespace Mexc.Net.Objects.Models.Spot
         [JsonProperty("stopPrice")]
         public decimal? StopPrice { get; set; }
         /// <summary>
-        /// Is in the order book
+        /// Is order book
         /// </summary>
         [JsonProperty("isWorking")]
         public bool IsWorking { get; set; }
