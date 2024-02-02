@@ -10,27 +10,27 @@ namespace Mexc.Net.Enums
         /// <summary>
         /// New
         /// </summary>
-        [Map("NEW")]
+        [Map("NEW", "1")]
         New,
         /// <summary>
         /// Filled
         /// </summary>
-        [Map("FILLED")]
+        [Map("FILLED", "2")]
         Filled,
         /// <summary>
         /// Partially filled
         /// </summary>
-        [Map("PARTIALLY_FILLED")]
+        [Map("PARTIALLY_FILLED", "3")]
         PartiallyFilled,
         /// <summary>
         /// Fully canceled
         /// </summary>
-        [Map("CANCELED")]
+        [Map("CANCELED", "4")]
         Canceled,
         /// <summary>
         /// Partially filled, partially canceled
         /// </summary>
-        [Map("PARTIALLY_CANCELED")]
+        [Map("PARTIALLY_CANCELED", "5")]
         PartiallyCanceled
     }
 }

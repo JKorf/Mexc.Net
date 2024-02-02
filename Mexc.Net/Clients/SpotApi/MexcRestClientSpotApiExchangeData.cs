@@ -85,7 +85,7 @@ namespace Mexc.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<MexcOrderBook>> GetOrderBookAsync(string symbol, int? limit = null, CancellationToken ct = default)
         {
-            limit?.ValidateIntBetween(nameof(limit), 1, 500);
+            limit?.ValidateIntBetween(nameof(limit), 1, 5000);
 
             var parameters = new ParameterCollection()
             {
@@ -174,8 +174,7 @@ namespace Mexc.Net.Clients.SpotApi
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("symbol", symbol);
-            var result = await _baseClient.SendRequestInternal<IEnumerable<MexcTicker>>("/api/v3/ticker/24hr", HttpMethod.Get, ct, parameters).ConfigureAwait(false);
-            return result.As<MexcTicker>(result.Data?.Single());
+            return await _baseClient.SendRequestInternal<MexcTicker>("/api/v3/ticker/24hr", HttpMethod.Get, ct, parameters).ConfigureAwait(false);
         }
 
         /// <inheritdoc />

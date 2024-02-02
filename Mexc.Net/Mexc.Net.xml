@@ -16,11 +16,6 @@
             </summary>
             <param name="optionsDelegate">Option configuration delegate</param>
         </member>
-        <member name="M:Mexc.Net.Clients.MexcRestClient.#ctor(Microsoft.Extensions.Logging.ILoggerFactory,System.Net.Http.HttpClient)">
-            <summary>
-            Create a new instance of the MexcRestClient using provided options
-            </summary>
-        </member>
         <member name="M:Mexc.Net.Clients.MexcRestClient.#ctor(System.Net.Http.HttpClient,Microsoft.Extensions.Logging.ILoggerFactory,System.Action{Mexc.Net.Objects.Options.MexcRestOptions})">
             <summary>
             Create a new instance of the MexcRestClient using provided options
@@ -28,6 +23,12 @@
             <param name="optionsDelegate">Option configuration delegate</param>
             <param name="loggerFactory">The logger factory</param>
             <param name="httpClient">Http client for this client</param>
+        </member>
+        <member name="M:Mexc.Net.Clients.MexcRestClient.SetDefaultOptions(System.Action{Mexc.Net.Objects.Options.MexcRestOptions})">
+            <summary>
+            Set the default options to be used when creating new clients
+            </summary>
+            <param name="optionsDelegate">Option configuration delegate</param>
         </member>
         <member name="T:Mexc.Net.Clients.MexcSocketClient">
             <inheritdoc />
@@ -241,7 +242,58 @@
         <member name="T:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi">
             <inheritdoc />
         </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.GetListenerIdentifier(CryptoExchange.Net.Sockets.MessageParsing.Interfaces.IMessageAccessor)">
+            <inheritdoc />
+        </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{Mexc.Net.Objects.Models.Spot.MexcStreamTrade}}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{Mexc.Net.Objects.Models.Spot.MexcStreamTrade}}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToKlineUpdatesAsync(System.String,Mexc.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamKline}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToKlineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},Mexc.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamKline}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToPartialOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToPartialOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToBookTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamBookTick}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToBookTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamBookTick}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToMiniTickerUpdatesAsync(System.String,System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToMiniTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToMiniTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick}}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToAccountUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcAccountUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToOrderUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcUserOrderUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToUserTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcUserTradeUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="T:Mexc.Net.Enums.AccountType">
@@ -1018,6 +1070,174 @@
             <param name="ct">Cancelation Token</param>
             <returns></returns>
         </member>
+        <member name="T:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi">
+            <summary>
+            Spot API socket subscriptions and requests
+            </summary>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{Mexc.Net.Objects.Models.Spot.MexcStreamTrade}}},System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="symbol"></param>
+            <param name="handler"></param>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{Mexc.Net.Objects.Models.Spot.MexcStreamTrade}}},System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="symbols"></param>
+            <param name="handler"></param>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToKlineUpdatesAsync(System.String,Mexc.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamKline}},System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="symbol"></param>
+            <param name="interval"></param>
+            <param name="handler"></param>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToKlineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},Mexc.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamKline}},System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="symbols"></param>
+            <param name="interval"></param>
+            <param name="handler"></param>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook}},System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="symbol"></param>
+            <param name="handler"></param>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook}},System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="symbols"></param>
+            <param name="handler"></param>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToPartialOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook}},System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="symbol"></param>
+            <param name="depth"></param>
+            <param name="handler"></param>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToPartialOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook}},System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="symbols"></param>
+            <param name="depth"></param>
+            <param name="handler"></param>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToBookTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamBookTick}},System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="symbol"></param>
+            <param name="handler"></param>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToBookTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamBookTick}},System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="symbols"></param>
+            <param name="handler"></param>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToMiniTickerUpdatesAsync(System.String,System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick}},System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="symbol"></param>
+            <param name="timezone"></param>
+            <param name="handler"></param>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToMiniTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick}},System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="symbols"></param>
+            <param name="timezone"></param>
+            <param name="handler"></param>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToMiniTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick}}},System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="timezone"></param>
+            <param name="handler"></param>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToAccountUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcAccountUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="listenKey"></param>
+            <param name="handler"></param>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToOrderUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcUserOrderUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="listenKey"></param>
+            <param name="handler"></param>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToUserTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcUserTradeUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="listenKey"></param>
+            <param name="handler"></param>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Mexc.Net.Interfaces.IMexcOrderBookFactory">
+            <summary>
+            Mexc order book factory
+            </summary>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.IMexcOrderBookFactory.CreateSpot(System.String,System.Action{Mexc.Net.Objects.Options.MexcOrderBookOptions})">
+            <summary>
+            Create a new spot SymbolOrderBook
+            </summary>
+            <param name="symbol"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
         <member name="T:Mexc.Net.MexcEnvironment">
             <summary>
             Mexc environments
@@ -1045,6 +1265,21 @@
             <param name="name"></param>
             <param name="spotRestAddress"></param>
             <param name="spotSocketAddress"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Mexc.Net.MexcHelpers">
+            <summary>
+            Helper functions
+            </summary>
+        </member>
+        <member name="M:Mexc.Net.MexcHelpers.AddMexc(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Mexc.Net.Objects.Options.MexcRestOptions},System.Action{Mexc.Net.Objects.Options.MexcSocketOptions},System.Nullable{Microsoft.Extensions.DependencyInjection.ServiceLifetime})">
+            <summary>
+            Add the IMexcRestClient and IMexcSocketClient to the sevice collection so they can be injected
+            </summary>
+            <param name="services">The service collection</param>
+            <param name="defaultRestOptionsDelegate">Set default options for the rest client</param>
+            <param name="defaultSocketOptionsDelegate">Set default options for the socket client</param>
+            <param name="socketClientLifeTime">The lifetime of the IMexcSocketClient for the service collection. Defaults to Singleton.</param>
             <returns></returns>
         </member>
         <member name="T:Mexc.Net.Objects.MexcApiAddresses">
@@ -1267,6 +1502,46 @@
         <member name="P:Mexc.Net.Objects.Models.Spot.MexcAccountBalance.Total">
             <summary>
             The total balance of this asset (Free + Locked)
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcAccountUpdate">
+            <summary>
+            Account update info
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcAccountUpdate.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcAccountUpdate.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcAccountUpdate.Free">
+            <summary>
+            New free quantity
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcAccountUpdate.FreeChange">
+            <summary>
+            Changed free quantity
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcAccountUpdate.Frozen">
+            <summary>
+            New frozen quantity
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcAccountUpdate.FrozenChange">
+            <summary>
+            Changed frozen quantity
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcAccountUpdate.UpdateType">
+            <summary>
+            Trigger update type
             </summary>
         </member>
         <member name="T:Mexc.Net.Objects.Models.Spot.MexcAveragePrice">
@@ -1774,6 +2049,186 @@
             Current server time
             </summary>
         </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcStreamBookTick">
+            <summary>
+            Book ticker
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamBookTick.BestAskPrice">
+            <summary>
+            Best ask price
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamBookTick.BestAskQuantity">
+            <summary>
+            Best ask quantity
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamBookTick.BestBidPrice">
+            <summary>
+            Best bid price
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamBookTick.BestBidQuantity">
+            <summary>
+            Best bid quantity
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcStreamKline">
+            <summary>
+            Kline info
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamKline.StartTime">
+            <summary>
+            Start time
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamKline.QuoteVolume">
+            <summary>
+            Volume in quote asset
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamKline.ClosePrice">
+            <summary>
+            Close price
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamKline.HighPrice">
+            <summary>
+            Highest price
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamKline.Interval">
+            <summary>
+            Interval
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamKline.LowPrice">
+            <summary>
+            Lowest price
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamKline.OpenPrice">
+            <summary>
+            Open price
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamKline.Volume">
+            <summary>
+            Volume
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamKline.Timestamp">
+            <summary>
+            Trade time
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick">
+            <summary>
+            Mini ticker
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick.LastPrice">
+            <summary>
+            Last price
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick.PriceChangePercentage">
+            <summary>
+            24h Change percentage in specified timezone 
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick.PriceChangePercentageUtc8">
+            <summary>
+            24h Change percentage in Utc 8 timezone
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick.HighPrice">
+            <summary>
+            24h high price
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick.LowPrice">
+            <summary>
+            24h low price
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick.Volume">
+            <summary>
+            24h volume
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick.QuoteVolume">
+            <summary>
+            24h quote volume
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook">
+            <summary>
+            Order book
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook.Asks">
+            <summary>
+            Asks
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook.Bids">
+            <summary>
+            Bids
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook.Sequence">
+            <summary>
+            Sequence
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcStreamOrderBookEntry">
+            <summary>
+            Order book entry
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamOrderBookEntry.Price">
+            <summary>
+            Price
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamOrderBookEntry.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcStreamTrade">
+            <summary>
+            Trade info
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamTrade.Side">
+            <summary>
+            Order side
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamTrade.Price">
+            <summary>
+            Price
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamTrade.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamTrade.Timestamp">
+            <summary>
+            Trade time
+            </summary>
+        </member>
         <member name="T:Mexc.Net.Objects.Models.Spot.MexcSymbol">
             <summary>
             Symbol info
@@ -2154,6 +2609,86 @@
             Deposit tips
             </summary>
         </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcUserOrderUpdate">
+            <summary>
+            Order update
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserOrderUpdate.QuoteQuantityRemaining">
+            <summary>
+            Quote quantity remaining
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserOrderUpdate.Timestamp">
+            <summary>
+            Creation time
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserOrderUpdate.OrderSide">
+            <summary>
+            Order side
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserOrderUpdate.QuantityRemaining">
+            <summary>
+            Quantity remaining
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserOrderUpdate.QuoteQuantity">
+            <summary>
+            Quote quantity
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserOrderUpdate.ClientOrderId">
+            <summary>
+            Client order id
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserOrderUpdate.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserOrderUpdate.IsMaker">
+            <summary>
+            Is maker
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserOrderUpdate.OrderType">
+            <summary>
+            Order type
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserOrderUpdate.Price">
+            <summary>
+            Price
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserOrderUpdate.Status">
+            <summary>
+            Order status
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserOrderUpdate.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserOrderUpdate.AveragePrice">
+            <summary>
+            Average exceution price
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserOrderUpdate.CumulativeQuantity">
+            <summary>
+            Cumulative quantity
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserOrderUpdate.CumulativeQuoteQuantity">
+            <summary>
+            Cumulative quote quantity
+            </summary>
+        </member>
         <member name="T:Mexc.Net.Objects.Models.Spot.MexcUserTrade">
             <summary>
             User trade info
@@ -2227,6 +2762,71 @@
         <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserTrade.ClientOrderId">
             <summary>
             Client order id
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcUserTradeUpdate">
+            <summary>
+            User trade update
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserTradeUpdate.TradeTime">
+            <summary>
+            Trade time
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserTradeUpdate.TradeSide">
+            <summary>
+            Trade side
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserTradeUpdate.QuoteQuantity">
+            <summary>
+            Quote quantity
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserTradeUpdate.ClientOrderId">
+            <summary>
+            Client order id
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserTradeUpdate.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserTradeUpdate.TradeId">
+            <summary>
+            Trade id
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserTradeUpdate.IsMaker">
+            <summary>
+            Is maker
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserTradeUpdate.IsSelfTrade">
+            <summary>
+            Is self trade
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserTradeUpdate.Price">
+            <summary>
+            Price
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserTradeUpdate.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserTradeUpdate.Fee">
+            <summary>
+            Fee
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserTradeUpdate.FeeAsset">
+            <summary>
+            Fee asset
             </summary>
         </member>
         <member name="T:Mexc.Net.Objects.Models.Spot.MexcWithdrawAddress">
@@ -2329,6 +2929,26 @@
             Memo
             </summary>
         </member>
+        <member name="T:Mexc.Net.Objects.Options.MexcOrderBookOptions">
+            <summary>
+            Options for the Kucoin SymbolOrderBook
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Options.MexcOrderBookOptions.Default">
+            <summary>
+            Default options for new order books
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Options.MexcOrderBookOptions.Limit">
+            <summary>
+            The top amount of results to keep in sync. If for example limit=10 is used, the order book will contain the 10 best bids and 10 best asks. Leaving this null will sync the full order book
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Options.MexcOrderBookOptions.InitialDataTimeout">
+            <summary>
+            After how much time we should consider the connection dropped if no data is received for this time after the initial subscriptions
+            </summary>
+        </member>
         <member name="T:Mexc.Net.Objects.Options.MexcRestOptions">
             <summary>
             Options for the MexcRestClient
@@ -2349,6 +2969,11 @@
             Spot API options
             </summary>
         </member>
+        <member name="T:Mexc.Net.Objects.Options.MexcSocketOptions">
+            <summary>
+            Mexc Socket client options
+            </summary>
+        </member>
         <member name="P:Mexc.Net.Objects.Options.MexcSocketOptions.Default">
             <summary>
             Default options for new clients
@@ -2358,6 +2983,55 @@
             <summary>
             Options for the Spot API
             </summary>
+        </member>
+        <member name="T:Mexc.Net.SymbolOrderBooks.MexcOrderBookFactory">
+            <summary>
+            Mexc order book factory
+            </summary>
+        </member>
+        <member name="M:Mexc.Net.SymbolOrderBooks.MexcOrderBookFactory.#ctor(System.IServiceProvider)">
+            <summary>
+            ctor
+            </summary>
+            <param name="serviceProvider">Service provider for resolving logging and clients</param>
+        </member>
+        <member name="M:Mexc.Net.SymbolOrderBooks.MexcOrderBookFactory.CreateSpot(System.String,System.Action{Mexc.Net.Objects.Options.MexcOrderBookOptions})">
+            <inheritdoc />
+        </member>
+        <member name="T:Mexc.Net.SymbolOrderBooks.MexcSpotSymbolOrderBook">
+            <summary>
+            Implementation for a synchronized order book. After calling Start the order book will sync itself and keep up to date with new data. It will automatically try to reconnect and resync in case of a lost/interrupted connection.
+            Make sure to check the State property to see if the order book is synced.
+            </summary>
+        </member>
+        <member name="M:Mexc.Net.SymbolOrderBooks.MexcSpotSymbolOrderBook.#ctor(System.String,System.Action{Mexc.Net.Objects.Options.MexcOrderBookOptions})">
+            <summary>
+            Create a new order book instance
+            </summary>
+            <param name="symbol">The symbol the order book is for</param>
+            <param name="optionsDelegate">Option configuration delegate</param>
+        </member>
+        <member name="M:Mexc.Net.SymbolOrderBooks.MexcSpotSymbolOrderBook.#ctor(System.String,System.Action{Mexc.Net.Objects.Options.MexcOrderBookOptions},Microsoft.Extensions.Logging.ILoggerFactory,Mexc.Net.Interfaces.Clients.IMexcRestClient,Mexc.Net.Interfaces.Clients.IMexcSocketClient)">
+            <summary>
+            Create a new order book instance
+            </summary>
+            <param name="symbol">The symbol the order book is for</param>
+            <param name="optionsDelegate">Option configuration delegate</param>
+            <param name="loggerFactory">Logger</param>
+            <param name="restClient">Rest client instance</param>
+            <param name="socketClient">Socket client instance</param>
+        </member>
+        <member name="M:Mexc.Net.SymbolOrderBooks.MexcSpotSymbolOrderBook.DoStartAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.SymbolOrderBooks.MexcSpotSymbolOrderBook.DoReset">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.SymbolOrderBooks.MexcSpotSymbolOrderBook.DoResyncAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.SymbolOrderBooks.MexcSpotSymbolOrderBook.Dispose(System.Boolean)">
+            <inheritdoc />
         </member>
     </members>
 </doc>

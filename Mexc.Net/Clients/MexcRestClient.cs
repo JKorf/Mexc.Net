@@ -21,14 +21,7 @@ namespace Mexc.Net.Clients
         /// Create a new instance of the MexcRestClient using provided options
         /// </summary>
         /// <param name="optionsDelegate">Option configuration delegate</param>
-        public MexcRestClient(Action<MexcRestOptions> optionsDelegate) : this(null, null, optionsDelegate)
-        {
-        }
-
-        /// <summary>
-        /// Create a new instance of the MexcRestClient using provided options
-        /// </summary>
-        public MexcRestClient(ILoggerFactory? loggerFactory = null, HttpClient? httpClient = null) : this(httpClient, loggerFactory, null)
+        public MexcRestClient(Action<MexcRestOptions>? optionsDelegate = null) : this(null, null, optionsDelegate)
         {
         }
 

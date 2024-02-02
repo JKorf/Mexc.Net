@@ -1,6 +1,9 @@
-﻿using Mexc.Net.Clients;
+﻿using CryptoExchange.Net.Clients;
+using Mexc.Net.Clients;
+using Mexc.Net.Interfaces;
 using Mexc.Net.Interfaces.Clients;
 using Mexc.Net.Objects.Options;
+using Mexc.Net.SymbolOrderBooks;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net;
@@ -55,8 +58,8 @@ namespace Mexc.Net
                 return handler;
             });
 
-            //services.AddSingleton<IMexcOrderBookFactory, MexcOrderBookFactory>();
-            services.AddTransient<IMexcRestClient, MexcRestClient>();
+            services.AddTransient<ICryptoExchangeClient, CryptoExchangeClient>();
+            services.AddSingleton<IMexcOrderBookFactory, MexcOrderBookFactory>();
             services.AddTransient(x => x.GetRequiredService<IMexcRestClient>().SpotApi.CommonSpotClient);
             if (socketClientLifeTime == null)
                 services.AddSingleton<IMexcSocketClient, MexcSocketClient>();

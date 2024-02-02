@@ -10,27 +10,27 @@ namespace Mexc.Net.Enums
         /// <summary>
         /// Limit
         /// </summary>
-        [Map("LIMIT")]
+        [Map("LIMIT", "1")]
         Limit,
         /// <summary>
         /// Market
         /// </summary>
-        [Map("MARKET")]
+        [Map("MARKET", "5")]
         Market,
         /// <summary>
         /// Limit maker
         /// </summary>
-        [Map("LIMIT_MAKER")]
+        [Map("LIMIT_MAKER", "2")]
         LimitMaker,
         /// <summary>
         /// Immediate or cancel
         /// </summary>
-        [Map("IMMEDIATE_OR_CANCEL")]
+        [Map("IMMEDIATE_OR_CANCEL", "3")]
         ImmediateOrCancel,
         /// <summary>
         /// Fill or kill
         /// </summary>
-        [Map("FILL_OR_KILL")]
+        [Map("FILL_OR_KILL", "4")]
         FillOrKill
     }
 }

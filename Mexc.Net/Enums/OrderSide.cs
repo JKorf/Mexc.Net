@@ -10,12 +10,12 @@ namespace Mexc.Net.Enums
         /// <summary>
         /// Buy
         /// </summary>
-        [Map("BUY")]
+        [Map("BUY", "1")]
         Buy,
         /// <summary>
         /// Sell
         /// </summary>
-        [Map("SELL")]
+        [Map("SELL", "2")]
         Sell
     }
 }
