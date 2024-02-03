@@ -58,7 +58,8 @@ namespace Mexc.Net
                 return handler;
             });
 
-            services.AddTransient<ICryptoExchangeClient, CryptoExchangeClient>();
+            services.AddTransient<ICryptoRestClient, CryptoRestClient>();
+            services.AddTransient<ICryptoSocketClient, CryptoSocketClient>();
             services.AddSingleton<IMexcOrderBookFactory, MexcOrderBookFactory>();
             services.AddTransient(x => x.GetRequiredService<IMexcRestClient>().SpotApi.CommonSpotClient);
             if (socketClientLifeTime == null)

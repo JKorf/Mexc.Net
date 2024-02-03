@@ -326,7 +326,7 @@ namespace Mexc.Net.UnitTests.Helpers
                 {
                     if (info.GetCustomAttribute<JsonConverterAttribute>(true) == null
                         && info.GetCustomAttribute<JsonPropertyAttribute>(true)?.ItemConverterType == null
-                        && !info.PropertyType.IsEnum)
+                        && !info.PropertyType.IsEnum && Nullable.GetUnderlyingType(info.PropertyType)?.IsEnum != true)
                         CheckValues(method, propertyName, (JValue)propValue, propertyValue);
                 }
             }
