@@ -2964,6 +2964,11 @@
             The default receive window for requests
             </summary>
         </member>
+        <member name="P:Mexc.Net.Objects.Options.MexcRestOptions.BrokerId">
+            <summary>
+            Broker id
+            </summary>
+        </member>
         <member name="P:Mexc.Net.Objects.Options.MexcRestOptions.SpotOptions">
             <summary>
             Spot API options
@@ -2982,6 +2987,16 @@
         <member name="P:Mexc.Net.Objects.Options.MexcSocketOptions.SpotOptions">
             <summary>
             Options for the Spot API
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Sockets.Models.MexcStreamEvent">
+            <summary>
+            Stream event
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Sockets.Models.MexcStreamEvent.Event">
+            <summary>
+            Event type
             </summary>
         </member>
         <member name="T:Mexc.Net.SymbolOrderBooks.MexcOrderBookFactory">

@@ -5,8 +5,14 @@ using System.Text;
 
 namespace Mexc.Net.Objects.Sockets.Models
 {
+    /// <summary>
+    /// Stream event
+    /// </summary>
     public abstract class MexcStreamEvent
     {
+        /// <summary>
+        /// Event type
+        /// </summary>
         [JsonProperty("e")]
         public string Event { get; set; } = string.Empty;
     }

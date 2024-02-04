@@ -10,8 +10,8 @@ namespace Mexc.Net.Objects.Sockets.Models
         [JsonProperty("id")]
         public int Id { get; set; }
         [JsonProperty("method")]
-        public string Method { get; set; }
+        public string Method { get; set; } = string.Empty;
         [JsonProperty("params")]
-        public IEnumerable<string> Parameters { get; set; }
+        public IEnumerable<string> Parameters { get; set; } = Array.Empty<string>();
     }
 }

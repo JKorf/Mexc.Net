@@ -23,6 +23,11 @@ namespace Mexc.Net.Objects.Options
         public TimeSpan ReceiveWindow { get; set; } = TimeSpan.FromSeconds(5);
 
         /// <summary>
+        /// Broker id
+        /// </summary>
+        public string? BrokerId { get; set; }
+
+        /// <summary>
         /// Spot API options
         /// </summary>
         public RestApiOptions SpotOptions { get; private set; } = new RestApiOptions();
@@ -30,6 +35,7 @@ namespace Mexc.Net.Objects.Options
         internal MexcRestOptions Copy()
         {
             var options = Copy<MexcRestOptions>();
+            options.BrokerId = BrokerId;
             options.ReceiveWindow = ReceiveWindow;
             options.SpotOptions = SpotOptions.Copy<RestApiOptions>();
             return options;

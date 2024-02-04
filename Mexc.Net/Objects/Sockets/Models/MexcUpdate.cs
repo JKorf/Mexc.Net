@@ -8,12 +8,12 @@ namespace Mexc.Net.Objects.Sockets.Models
     internal class MexcUpdate<T>
     {
         [JsonProperty("c")]
-        public string Channel { get; set; }
+        public string Channel { get; set; } = string.Empty;
         [JsonProperty("s")]
-        public string Symbol { get; set; }
+        public string Symbol { get; set; } = string.Empty;
         [JsonProperty("t")]
         public DateTime Timestamp { get; set; }
         [JsonProperty("d")]
-        public T Data { get; set; }
+        public T Data { get; set; } = default!;
     }
 }

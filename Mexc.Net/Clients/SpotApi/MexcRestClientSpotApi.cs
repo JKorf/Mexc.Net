@@ -46,6 +46,8 @@ namespace Mexc.Net.Clients.SpotApi
         /// </summary>
         public event Action<OrderId>? OnOrderCanceled;
 
+        internal readonly string _brokerId;
+
         #region constructor/destructor
         internal MexcRestClientSpotApi(ILogger logger, HttpClient? httpClient, MexcRestOptions options)
             : base(logger, httpClient, options.Environment.SpotRestAddress, options, options.SpotOptions)
@@ -63,6 +65,12 @@ namespace Mexc.Net.Clients.SpotApi
             ParameterPositions[HttpMethod.Post] = HttpMethodParameterPosition.InUri;
             ParameterPositions[HttpMethod.Delete] = HttpMethodParameterPosition.InUri;
             ParameterPositions[HttpMethod.Put] = HttpMethodParameterPosition.InUri;
+
+            _brokerId = !string.IsNullOrEmpty(options.BrokerId) ? options.BrokerId! : "EASYT";
+            StandardRequestHeaders = new Dictionary<string, string>()
+            {
+                { "source", _brokerId }
+            };
         }
         #endregion
 

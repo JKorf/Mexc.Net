@@ -10,6 +10,6 @@ namespace Mexc.Net.Objects.Sockets.Models
         public int Id { get; set; }
         public int Code { get; set; }
         [JsonProperty("msg")]
-        public string Message { get; set; }
+        public string Message { get; set; } = string.Empty;
     }
 }
