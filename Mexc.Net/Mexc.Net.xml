@@ -3033,19 +3033,19 @@
         <member name="M:Mexc.Net.SymbolOrderBooks.MexcSpotSymbolOrderBook.Dispose(System.Boolean)">
             <inheritdoc />
         </member>
-        <member name="T:CryptoExchange.Net.Clients.CryptoClientExtensions">
+        <member name="T:CryptoExchange.Net.Interfaces.CryptoClientExtensions">
             <summary>
             Extensions for the ICryptoRestClient and ICryptoSocketClient interfaces
             </summary>
         </member>
-        <member name="M:CryptoExchange.Net.Clients.CryptoClientExtensions.Mexc(CryptoExchange.Net.Interfaces.ICryptoRestClient)">
+        <member name="M:CryptoExchange.Net.Interfaces.CryptoClientExtensions.Mexc(CryptoExchange.Net.Interfaces.ICryptoRestClient)">
             <summary>
             Get the Mexc REST Api client
             </summary>
             <param name="baseClient"></param>
             <returns></returns>
         </member>
-        <member name="M:CryptoExchange.Net.Clients.CryptoClientExtensions.Mexc(CryptoExchange.Net.Interfaces.ICryptoSocketClient)">
+        <member name="M:CryptoExchange.Net.Interfaces.CryptoClientExtensions.Mexc(CryptoExchange.Net.Interfaces.ICryptoSocketClient)">
             <summary>
             Get the Mexc Websocket Api client
             </summary>
