@@ -1,20 +1,20 @@
 ﻿using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.Interfaces;
 using Mexc.Net.Clients;
 using Mexc.Net.Interfaces;
 using Mexc.Net.Interfaces.Clients;
 using Mexc.Net.Objects.Options;
 using Mexc.Net.SymbolOrderBooks;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net;
 using System.Net.Http;
 
-namespace Mexc.Net
+namespace Microsoft.Extensions.DependencyInjection
 {
     /// <summary>
-    /// Helper functions
+    /// Extensions for DI
     /// </summary>
-    public static class MexcHelpers
+    public static class ServiceCollectionExtensions
     {
         /// <summary>
         /// Add the IMexcRestClient and IMexcSocketClient to the sevice collection so they can be injected

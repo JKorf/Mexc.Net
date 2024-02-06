@@ -1267,21 +1267,6 @@
             <param name="spotSocketAddress"></param>
             <returns></returns>
         </member>
-        <member name="T:Mexc.Net.MexcHelpers">
-            <summary>
-            Helper functions
-            </summary>
-        </member>
-        <member name="M:Mexc.Net.MexcHelpers.AddMexc(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Mexc.Net.Objects.Options.MexcRestOptions},System.Action{Mexc.Net.Objects.Options.MexcSocketOptions},System.Nullable{Microsoft.Extensions.DependencyInjection.ServiceLifetime})">
-            <summary>
-            Add the IMexcRestClient and IMexcSocketClient to the sevice collection so they can be injected
-            </summary>
-            <param name="services">The service collection</param>
-            <param name="defaultRestOptionsDelegate">Set default options for the rest client</param>
-            <param name="defaultSocketOptionsDelegate">Set default options for the socket client</param>
-            <param name="socketClientLifeTime">The lifetime of the IMexcSocketClient for the service collection. Defaults to Singleton.</param>
-            <returns></returns>
-        </member>
         <member name="T:Mexc.Net.Objects.MexcApiAddresses">
             <summary>
             Api addresses
@@ -3053,18 +3038,33 @@
             Extensions for the ICryptoRestClient and ICryptoSocketClient interfaces
             </summary>
         </member>
-        <member name="M:CryptoExchange.Net.Clients.CryptoClientExtensions.Mexc(CryptoExchange.Net.Clients.ICryptoRestClient)">
+        <member name="M:CryptoExchange.Net.Clients.CryptoClientExtensions.Mexc(CryptoExchange.Net.Interfaces.ICryptoRestClient)">
             <summary>
             Get the Mexc REST Api client
             </summary>
             <param name="baseClient"></param>
             <returns></returns>
         </member>
-        <member name="M:CryptoExchange.Net.Clients.CryptoClientExtensions.Mexc(CryptoExchange.Net.Clients.ICryptoSocketClient)">
+        <member name="M:CryptoExchange.Net.Clients.CryptoClientExtensions.Mexc(CryptoExchange.Net.Interfaces.ICryptoSocketClient)">
             <summary>
             Get the Mexc Websocket Api client
             </summary>
             <param name="baseClient"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions">
+            <summary>
+            Extensions for DI
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddMexc(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Mexc.Net.Objects.Options.MexcRestOptions},System.Action{Mexc.Net.Objects.Options.MexcSocketOptions},System.Nullable{Microsoft.Extensions.DependencyInjection.ServiceLifetime})">
+            <summary>
+            Add the IMexcRestClient and IMexcSocketClient to the sevice collection so they can be injected
+            </summary>
+            <param name="services">The service collection</param>
+            <param name="defaultRestOptionsDelegate">Set default options for the rest client</param>
+            <param name="defaultSocketOptionsDelegate">Set default options for the socket client</param>
+            <param name="socketClientLifeTime">The lifetime of the IMexcSocketClient for the service collection. Defaults to Singleton.</param>
             <returns></returns>
         </member>
     </members>
