@@ -93,6 +93,8 @@ namespace Mexc.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdatesAsync(IEnumerable<string> symbols, int depth, Action<DataEvent<MexcStreamOrderBook>> handler, CancellationToken ct = default)
         {
+            depth.ValidateIntValues(nameof(depth), 5, 10, 20);
+
             var subscription = new MexcSubscription<MexcStreamOrderBook>(_logger, symbols.Select(s => "spot@public.limit.depth.v3.api@" + s + "@" + depth), handler, false);
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
@@ -109,20 +111,20 @@ namespace Mexc.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToMiniTickerUpdatesAsync(string symbol, string timezone, Action<DataEvent<MexcStreamMiniTick>> handler, CancellationToken ct = default)
-            => await SubscribeToMiniTickerUpdatesAsync(new[] { symbol }, timezone, handler, ct).ConfigureAwait(false);
+        public async Task<CallResult<UpdateSubscription>> SubscribeToMiniTickerUpdatesAsync(string symbol, Action<DataEvent<MexcStreamMiniTick>> handler, string? timezone = null, CancellationToken ct = default)
+            => await SubscribeToMiniTickerUpdatesAsync(new[] { symbol }, handler, timezone, ct).ConfigureAwait(false);
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToMiniTickerUpdatesAsync(IEnumerable<string> symbols, string timezone, Action<DataEvent<MexcStreamMiniTick>> handler, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToMiniTickerUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<MexcStreamMiniTick>> handler, string? timezone = null, CancellationToken ct = default)
         {
-            var subscription = new MexcSubscription<MexcStreamMiniTick>(_logger, symbols.Select(s => "spot@public.miniTicker.v3.api@" + s + "@" + timezone), handler, false);
+            var subscription = new MexcSubscription<MexcStreamMiniTick>(_logger, symbols.Select(s => "spot@public.miniTicker.v3.api@" + s + "@" + (timezone ?? "UTC+0")), handler, false);
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToMiniTickerUpdatesAsync(string timezone, Action<DataEvent<IEnumerable<MexcStreamMiniTick>>> handler, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToMiniTickerUpdatesAsync(Action<DataEvent<IEnumerable<MexcStreamMiniTick>>> handler, string? timezone = null, CancellationToken ct = default)
         {
-            var subscription = new MexcSubscription<IEnumerable<MexcStreamMiniTick>>(_logger, new[] { "spot@public.miniTickers.v3.api@" + timezone }, handler, false);
+            var subscription = new MexcSubscription<IEnumerable<MexcStreamMiniTick>>(_logger, new[] { "spot@public.miniTickers.v3.api@" + (timezone ?? "UTC+0") }, handler, false);
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
 
