@@ -1,11 +1,11 @@
-# ![.Mexc.Net](https://github.com/JKorf/Mexc.Net/blob/master/Mexc.Net/Icon/icon.png?raw=true) Mexc.Net
+# ![.Mexc.Net](https://github.com/JKorf/Mexc.Net/blob/main/Mexc.Net/Icon/icon.png?raw=true) Mexc.Net
 [![.NET](https://github.com/JKorf/Mexc.Net/actions/workflows/dotnet.yml/badge.svg)](https://github.com/JKorf/Mexc.Net/actions/workflows/dotnet.yml)  
 
 Mexc.Net is a wrapper around the Mexc API as described on [Mexc](https://mexcdevelop.github.io/apidocs/spot_v3_en/#introduction), including all features the API provides using clear and readable objects. The library support the spot, (isolated) margin and futures API's, both the REST and websocket API's.
 
 ## Get the library
 Available on Nuget  
-[![Nuget version](https://img.shields.io/nuget/v/mexc.net.svg)](https://www.nuget.org/packages/JK.Mexc.Net)  [![Nuget downloads](https://img.shields.io/nuget/dt/Mexc.Net.svg)](https://www.nuget.org/packages/JK.Mexc.Net)
+[![Nuget version](https://img.shields.io/nuget/v/jk.mexc.net.svg)](https://www.nuget.org/packages/JK.Mexc.Net)  [![Nuget downloads](https://img.shields.io/nuget/dt/JK.Mexc.Net.svg)](https://www.nuget.org/packages/JK.Mexc.Net)
 
 `dotnet add package JK.Mexc.Net`
 
