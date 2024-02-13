@@ -1,6 +1,6 @@
 # ![.Mexc.Net](https://github.com/JKorf/Mexc.Net/blob/main/Mexc.Net/Icon/icon.png?raw=true) Mexc.Net
 
-[![.NET](https://img.shields.io/github/actions/workflow/status/JKorf/Mexc.Net/dotnet.yml?style=for-the-badge)](https://github.com/JKorf/Mexc.Net/actions/workflows/dotnet.yml)  
+[![.NET](https://img.shields.io/github/actions/workflow/status/JKorf/Mexc.Net/dotnet.yml?style=for-the-badge)](https://github.com/JKorf/Mexc.Net/actions/workflows/dotnet.yml) ![License](https://img.shields.io/github/license/JKorf/Mexc.Net?style=for-the-badge)
 
 Mexc.Net is a wrapper around the Mexc API as described on [Mexc](https://mexcdevelop.github.io/apidocs/spot_v3_en/#introduction), including all features the API provides using clear and readable objects. The library support the spot, (isolated) margin and futures API's, both the REST and websocket API's.
 
