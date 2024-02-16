@@ -2130,6 +2130,11 @@
             Mini ticker
             </summary>
         </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick.Symbol">
+            <summary>
+            Symbol name
+            </summary>
+        </member>
         <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick.LastPrice">
             <summary>
             Last price

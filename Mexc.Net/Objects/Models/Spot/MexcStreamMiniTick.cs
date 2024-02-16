@@ -14,6 +14,11 @@ namespace Mexc.Net.Objects.Models.Spot
     public class MexcStreamMiniTick : MexcStreamEvent
     {
         /// <summary>
+        /// Symbol name
+        /// </summary>
+        [JsonProperty("s")]
+        public string Symbol { get; set; }
+        /// <summary>
         /// Last price
         /// </summary>
         [JsonProperty("p")]
