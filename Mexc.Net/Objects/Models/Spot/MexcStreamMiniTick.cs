@@ -17,7 +17,7 @@ namespace Mexc.Net.Objects.Models.Spot
         /// Symbol name
         /// </summary>
         [JsonProperty("s")]
-        public string Symbol { get; set; }
+        public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// Last price
         /// </summary>
