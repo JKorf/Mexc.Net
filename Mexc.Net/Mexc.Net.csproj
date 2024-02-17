@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <LangVersion>11.0</LangVersion>
@@ -7,9 +7,9 @@
   <PropertyGroup>
     <PackageId>JK.Mexc.Net</PackageId>
     <Authors>JKorf</Authors>
-    <PackageVersion>0.0.1-beta1</PackageVersion>
-    <AssemblyVersion>0.0.1</AssemblyVersion>
-    <FileVersion>0.0.1</FileVersion>
+    <PackageVersion>0.0.2-beta2</PackageVersion>
+    <AssemblyVersion>0.0.2-beta2</AssemblyVersion>
+    <FileVersion>0.0.2-beta2</FileVersion>
     <Description>JK.Mexc.Net is a .Net wrapper for the Mexc API (https://www.mexc.com). It includes all features the API provides, REST API and Websocket, using clear and readable objects including but not limited to Reading market info, Placing and managing orders and Reading balances and funds</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>Mexc Mexc.Net C# .Net CryptoCurrency Exchange Rest API and WebSocket API Wrapper</PackageTags>
@@ -21,7 +21,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>0.0.1-beta1 - Initial release</PackageReleaseNotes>
+    <PackageReleaseNotes>0.0.2-beta2 - Added missing symbol to stream mini tick update</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup Label="Deterministic Build" Condition="'$(Configuration)' == 'Release'">
     <PublishRepositoryUrl>true</PublishRepositoryUrl>

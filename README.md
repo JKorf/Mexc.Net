@@ -101,5 +101,8 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 0.0.2-beta2 - 17 Feb 2024
+    * Added missing symbol to stream mini tick update
+
 * Version 0.0.1-beta1 - 06 Feb 2024
     * Initial release
