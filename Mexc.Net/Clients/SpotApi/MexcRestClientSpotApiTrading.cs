@@ -96,6 +96,13 @@ namespace Mexc.Net.Clients.SpotApi
         #region Cancel All Orders
 
         /// <inheritdoc />
+        public Task<WebCallResult<IEnumerable<MexcOrder>>> CancelAllOrdersAsync(string symbol, CancellationToken ct = default)
+            => CancelAllOrdersAsync(new[] { symbol });
+        #endregion
+
+        #region Cancel All Orders
+
+        /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<MexcOrder>>> CancelAllOrdersAsync(IEnumerable<string> symbols, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection()

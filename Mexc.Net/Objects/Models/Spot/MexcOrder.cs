@@ -63,7 +63,7 @@ namespace Mexc.Net.Objects.Models.Spot
         /// Last update timestamp
         /// </summary>
         [JsonProperty("updateTime")]
-        public DateTime UpdateTime { get; set; }
+        public DateTime? UpdateTime { get; set; }
         /// <summary>
         /// Timestamp
         /// </summary>

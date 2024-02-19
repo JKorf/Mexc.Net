@@ -59,6 +59,15 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Cancel all orders on a symbol
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#cancel-all-open-orders-on-a-symbol" /></para>
         /// </summary>
+        /// <param name="symbol">The symbol to close all orders on</param>
+        /// <param name="ct">Cancelation Token</param>
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<MexcOrder>>> CancelAllOrdersAsync(string symbol, CancellationToken ct = default);
+
+        /// <summary>
+        /// Cancel all orders on a symbol
+        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#cancel-all-open-orders-on-a-symbol" /></para>
+        /// </summary>
         /// <param name="symbols">The symbols to close all orders on (max 5)</param>
         /// <param name="ct">Cancelation Token</param>
         /// <returns></returns>

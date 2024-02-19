@@ -189,8 +189,7 @@ namespace Mexc.Net.Clients.SpotApi
             parameters.AddOptionalMillisecondsString("startTime", startTime);
             parameters.AddOptional("page", page);
             parameters.AddOptional("size", pageSize);
-            var result = await _baseClient.SendRequestInternal<IEnumerable<MexcRows<IEnumerable<MexcTransfer>>>>("/api/v3/capital/transfer", HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
-            return result.As<MexcRows<IEnumerable<MexcTransfer>>>(result.Data?.Single());
+            return await _baseClient.SendRequestInternal<MexcRows<IEnumerable<MexcTransfer>>>("/api/v3/capital/transfer", HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
         #endregion
@@ -297,7 +296,10 @@ namespace Mexc.Net.Clients.SpotApi
                 { "listenKey", listenKey }
             };
 
-            var result = await _baseClient.SendRequestInternal<object>("/api/v3/userDataStream", HttpMethod.Put, ct, parameters, signed: true).ConfigureAwait(false);
+            var result = await _baseClient.SendRequestInternal<MexcResult>("/api/v3/userDataStream", HttpMethod.Put, ct, parameters, signed: true).ConfigureAwait(false);
+            if (result.Data.Code != 0)
+                return result.AsDatalessError(new ServerError(result.Data.Code, result.Data.Message!));
+
             return result.AsDataless();
         }
 
@@ -314,7 +316,10 @@ namespace Mexc.Net.Clients.SpotApi
                 { "listenKey", listenKey }
             };
 
-            var result = await _baseClient.SendRequestInternal<object>("/api/v3/userDataStream", HttpMethod.Delete, ct, parameters, signed: true).ConfigureAwait(false);
+            var result = await _baseClient.SendRequestInternal<MexcResult>("/api/v3/userDataStream", HttpMethod.Delete, ct, parameters, signed: true).ConfigureAwait(false);
+            if (result.Data.Code != 0)
+                return result.AsDatalessError(new ServerError(result.Data.Code, result.Data.Message!));
+
             return result.AsDataless();
         }
 

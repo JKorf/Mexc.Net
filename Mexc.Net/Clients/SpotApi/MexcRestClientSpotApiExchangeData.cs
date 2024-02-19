@@ -60,7 +60,7 @@ namespace Mexc.Net.Clients.SpotApi
             if (!result)
                 return result.As<IEnumerable<string>>(default);
 
-            if (result.Data.Code != 200)
+            if (result.Data.Code != 0)
                 return result.AsError<IEnumerable<string>>(new ServerError(result.Data.Code, result.Data.Message!));
 
             return result.As(result.Data.Data!);
