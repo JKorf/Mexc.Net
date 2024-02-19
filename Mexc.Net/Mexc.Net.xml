@@ -224,6 +224,9 @@
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiTrading.CancelOrderAsync(System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiTrading.CancelAllOrdersAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiTrading.CancelAllOrdersAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -1013,6 +1016,15 @@
             <param name="orderId">Cancel by order id</param>
             <param name="clientOrderId">Cancel by client order id</param>
             <param name="newClientOrderId">New client order id after canceled</param>
+            <param name="ct">Cancelation Token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiTrading.CancelAllOrdersAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Cancel all orders on a symbol
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#cancel-all-open-orders-on-a-symbol" /></para>
+            </summary>
+            <param name="symbol">The symbol to close all orders on</param>
             <param name="ct">Cancelation Token</param>
             <returns></returns>
         </member>
