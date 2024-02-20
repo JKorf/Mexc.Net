@@ -101,6 +101,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 0.0.2-beta4 - 20 Feb 2024
+    * Reversed Volume and QuoteVolume properties for stream mini tick model as it is returned inversed by the API
+
 * Version 0.0.2-beta3 - 19 Feb 2024
     * Various small fixes
 
