@@ -44,19 +44,21 @@ namespace Mexc.Net.Objects.Models.Spot
         [JsonProperty("l")]
         public decimal LowPrice { get; set; }
         /// <summary>
-        /// 24h volume
-        /// </summary>
-        [JsonProperty("v")]
-        public decimal Volume { get; set; }
-        /// <summary>
-        /// 24h quote volume
-        /// </summary>
-        [JsonProperty("q")]
-        public decimal QuoteVolume { get; set; }
-        /// <summary>
         /// Timestamp
         /// </summary>
         [JsonProperty("t")]
         public DateTime Timestamp { get; set; }
+
+        // NOTE: These volumes seem to be reversed
+        /// <summary>
+        /// 24h volume
+        /// </summary>
+        [JsonProperty("q")]
+        public decimal Volume { get; set; }
+        /// <summary>
+        /// 24h quote volume
+        /// </summary>
+        [JsonProperty("v")]
+        public decimal QuoteVolume { get; set; }
     }
 }
