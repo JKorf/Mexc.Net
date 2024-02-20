@@ -2172,6 +2172,11 @@
             24h low price
             </summary>
         </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
         <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick.Volume">
             <summary>
             24h volume
@@ -2180,11 +2185,6 @@
         <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick.QuoteVolume">
             <summary>
             24h quote volume
-            </summary>
-        </member>
-        <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick.Timestamp">
-            <summary>
-            Timestamp
             </summary>
         </member>
         <member name="T:Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook">
