@@ -2,7 +2,7 @@
 
 [![.NET](https://img.shields.io/github/actions/workflow/status/JKorf/Mexc.Net/dotnet.yml?style=for-the-badge)](https://github.com/JKorf/Mexc.Net/actions/workflows/dotnet.yml) ![License](https://img.shields.io/github/license/JKorf/Mexc.Net?style=for-the-badge)
 
-Mexc.Net is a wrapper around the Mexc API as described on [Mexc](https://mexcdevelop.github.io/apidocs/spot_v3_en/#introduction), including all features the API provides using clear and readable objects. The library support the spot, (isolated) margin and futures API's, both the REST and websocket API's.
+Mexc.Net is a client library for accessing the [Mexc REST and Websocket API](https://mexcdevelop.github.io/apidocs/spot_v3_en/#introduction). All data is mapped to readable models and enum values. Additional features include an implementation for maintaining a client side order book, easy integration with other exchange client libraries and more.
 
 ## Supported Frameworks
 The library is targeting both `.NET Standard 2.0` and `.NET Standard 2.1` for optimal compatibility
@@ -95,20 +95,11 @@ I develop and maintain this package on my own for free in my spare time, any sup
 Make a one time donation in a crypto currency of your choice. If you prefer to donate a currency not listed here please contact me.
 
 **Btc**:  bc1qz0jv0my7fc60rxeupr23e75x95qmlq6489n8gh  
-**Eth**:  0x8E21C4d955975cB645589745ac0c46ECA8FAE504  
+**Eth**:  0xcb1b63aCF9fef2755eBf4a0506250074496Ad5b7  
 
 ### Sponsor
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
-* Version 0.0.2-beta4 - 20 Feb 2024
-    * Reversed Volume and QuoteVolume properties for stream mini tick model as it is returned inversed by the API
-
-* Version 0.0.2-beta3 - 19 Feb 2024
-    * Various small fixes
-
-* Version 0.0.2-beta2 - 17 Feb 2024
-    * Added missing symbol to stream mini tick update
-
-* Version 0.0.1-beta1 - 06 Feb 2024
+* Version 1.0.0 - 25 Feb 2024
     * Initial release

@@ -7,12 +7,12 @@
   <PropertyGroup>
     <PackageId>JK.Mexc.Net</PackageId>
     <Authors>JKorf</Authors>
-    <PackageVersion>0.0.2-beta4</PackageVersion>
-    <AssemblyVersion>0.0.2</AssemblyVersion>
-    <FileVersion>0.0.2</FileVersion>
-    <Description>JK.Mexc.Net is a .Net wrapper for the Mexc API (https://www.mexc.com). It includes all features the API provides, REST API and Websocket, using clear and readable objects including but not limited to Reading market info, Placing and managing orders and Reading balances and funds</Description>
+    <PackageVersion>1.0.0</PackageVersion>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>1.0.0</FileVersion>
+    <Description>JK.Mexc.Net is a client library for accessing the Mexc REST and Websocket API. All data is mapped to readable models and enum values. Additional features include an implementation for maintaining a client side order book, easy integration with other exchange client libraries and more.</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageTags>Mexc Mexc.Net C# .Net CryptoCurrency Exchange Rest API and WebSocket API Wrapper</PackageTags>
+    <PackageTags>Mexc;Mexc.Net;Mexc Client;Mexc API;CryptoCurrency;CryptoCurrency Exchange</PackageTags>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/JKorf/Mexc.Net.git</RepositoryUrl>
     <PackageProjectUrl>https://github.com/JKorf/Mexc.Net</PackageProjectUrl>
@@ -21,7 +21,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>0.0.2-beta4 - Reversed Volume and QuoteVolume properties for stream mini tick model as it is returned inversed by the API</PackageReleaseNotes>
+    <PackageReleaseNotes>https://github.com/JKorf/Mexc.Net?tab=readme-ov-file#release-notes</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup Label="Deterministic Build" Condition="'$(Configuration)' == 'Release'">
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
