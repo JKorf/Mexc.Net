@@ -48,7 +48,7 @@ namespace Mexc.Net.Objects.Models.Spot
         /// Type
         /// </summary>
         [JsonProperty("type")]
-        public OrderType Type { get; set; }
+        public OrderType OrderType { get; set; }
         /// <summary>
         /// Status
         /// </summary>

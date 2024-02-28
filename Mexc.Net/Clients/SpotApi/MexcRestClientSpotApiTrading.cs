@@ -171,7 +171,7 @@ namespace Mexc.Net.Clients.SpotApi
 
         #endregion
 
-        #region Get Orders
+        #region Get User Trades
 
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<MexcUserTrade>>> GetUserTradesAsync(string symbol, string? orderId = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)

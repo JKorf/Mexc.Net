@@ -14,22 +14,22 @@ namespace Mexc.Net.Objects.Models.Spot
         /// Maker fee
         /// </summary>
         [JsonProperty("makerCommission")]
-        public decimal MakerFee { get; set; }
+        public decimal? MakerFee { get; set; }
         /// <summary>
         /// Taker fee
         /// </summary>
         [JsonProperty("takerCommission")]
-        public decimal TakerFee { get; set; }
+        public decimal? TakerFee { get; set; }
         /// <summary>
         /// Buyer fee
         /// </summary>
         [JsonProperty("buyerCommission")]
-        public decimal BuyerFee { get; set; }
+        public decimal? BuyerFee { get; set; }
         /// <summary>
         /// Seller fee
         /// </summary>
         [JsonProperty("sellerCommission")]
-        public decimal SellerFee { get; set; }
+        public decimal? SellerFee { get; set; }
         /// <summary>
         /// Can trade
         /// </summary>

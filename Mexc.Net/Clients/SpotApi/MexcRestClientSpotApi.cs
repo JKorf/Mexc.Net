@@ -151,7 +151,7 @@ namespace Mexc.Net.Clients.SpotApi
                 Quantity = order.Data.Quantity,
                 QuantityFilled = order.Data.QuantityFilled,
                 Side = order.Data.Side == Enums.OrderSide.Buy ? CommonOrderSide.Buy : CommonOrderSide.Sell,
-                Type = GetOrderType(order.Data.Type),
+                Type = GetOrderType(order.Data.OrderType),
                 Status = GetOrderStatus(order.Data.Status),
                 Timestamp = order.Data.Timestamp
             });
@@ -200,7 +200,7 @@ namespace Mexc.Net.Clients.SpotApi
                     Price = s.Price,
                     Quantity = s.Quantity,
                     QuantityFilled = s.QuantityFilled,
-                    Type = GetOrderType(s.Type),
+                    Type = GetOrderType(s.OrderType),
                     Status = GetOrderStatus(s.Status),
                     Timestamp = s.Timestamp
                 }));
@@ -225,7 +225,7 @@ namespace Mexc.Net.Clients.SpotApi
                     Quantity = s.Quantity,
                     QuantityFilled = s.QuantityFilled,
                     Side = s.Side == Enums.OrderSide.Buy ? CommonOrderSide.Buy : CommonOrderSide.Sell,
-                    Type = GetOrderType(s.Type),
+                    Type = GetOrderType(s.OrderType),
                     Status = GetOrderStatus(s.Status),
                     Timestamp = s.Timestamp
                 }));

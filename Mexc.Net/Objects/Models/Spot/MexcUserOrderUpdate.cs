@@ -25,7 +25,7 @@ namespace Mexc.Net.Objects.Models.Spot
         /// Order side
         /// </summary>
         [JsonProperty("S")]
-        public OrderSide OrderSide { get; set; }
+        public OrderSide Side { get; set; }
         /// <summary>
         /// Quantity remaining
         /// </summary>

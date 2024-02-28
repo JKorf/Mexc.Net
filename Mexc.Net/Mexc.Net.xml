@@ -230,6 +230,9 @@
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiTrading.CancelAllOrdersAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiTrading.GetAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiTrading.GetOrderAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -1957,7 +1960,7 @@
             Side
             </summary>
         </member>
-        <member name="P:Mexc.Net.Objects.Models.Spot.MexcOrder.Type">
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcOrder.OrderType">
             <summary>
             Type
             </summary>
@@ -2642,7 +2645,7 @@
             Creation time
             </summary>
         </member>
-        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserOrderUpdate.OrderSide">
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserOrderUpdate.Side">
             <summary>
             Order side
             </summary>
