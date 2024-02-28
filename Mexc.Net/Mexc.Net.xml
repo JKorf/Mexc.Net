@@ -230,9 +230,6 @@
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiTrading.CancelAllOrdersAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiTrading.GetAsync(System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiTrading.GetOrderAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
