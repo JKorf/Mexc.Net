@@ -101,5 +101,10 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 1.0.1 - 28 Feb 2024
+    * Fixed SpotApi.Trading.GetAccountInfoAsync deserialization
+    * Renamed Type to OrderType on MexcOrder model to Type
+    * Renamed OrderSide on MexcOrderUpdate to Side
+
 * Version 1.0.0 - 25 Feb 2024
     * Initial release
