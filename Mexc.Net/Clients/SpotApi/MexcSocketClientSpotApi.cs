@@ -35,6 +35,7 @@ namespace Mexc.Net.Clients.SpotApi
         internal MexcSocketClientSpotApi(ILogger logger, MexcSocketOptions options) :
             base(logger, options.Environment.SpotSocketAddress, options, options.SpotOptions)
         {
+            AddSystemSubscription(new MexcErrorSubscription(_logger));
         }
 
         #endregion
