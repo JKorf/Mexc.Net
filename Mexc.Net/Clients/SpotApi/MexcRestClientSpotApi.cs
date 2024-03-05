@@ -56,8 +56,6 @@ namespace Mexc.Net.Clients.SpotApi
             ExchangeData = new MexcRestClientSpotApiExchangeData(logger, this);
             Trading = new MexcRestClientSpotApiTrading(logger, this);
 
-            DefaultSerializer = JsonSerializer.Create(SerializerOptions.WithConverters);
-
             requestBodyEmptyContent = "";
             requestBodyFormat = RequestBodyFormat.FormData;
             arraySerialization = ArrayParametersSerialization.MultipleValues;
