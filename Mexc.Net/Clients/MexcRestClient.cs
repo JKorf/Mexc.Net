@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net;
+﻿using CryptoExchange.Net.Clients;
 using Mexc.Net.Clients.SpotApi;
 using Mexc.Net.Interfaces.Clients;
 using Mexc.Net.Interfaces.Clients.SpotApi;

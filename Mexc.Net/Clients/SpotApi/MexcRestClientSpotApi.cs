@@ -1,5 +1,4 @@
-﻿using CryptoExchange.Net;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using CryptoExchange.Net.Objects;
 using Microsoft.Extensions.Logging;
@@ -16,6 +15,7 @@ using System.Globalization;
 using CryptoExchange.Net.CommonObjects;
 using System.Linq;
 using Mexc.Net.Enums;
+using CryptoExchange.Net.Clients;
 
 namespace Mexc.Net.Clients.SpotApi
 {
