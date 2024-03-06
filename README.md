@@ -23,7 +23,7 @@ The library is targeting both `.NET Standard 2.0` and `.NET Standard 2.1` for op
 	dotnet add package JK.Mexc.Net
 
 ## How to use
-* REST Endpoints*  
+*REST Endpoints*  
 
 ```csharp
 // Get the ETH/USDT ticker via rest request
@@ -32,7 +32,7 @@ var tickerResult = await restClient.SpotApi.ExchangeData.GetTickerAsync("ETHUSDT
 var lastPrice = tickerResult.Data.LastPrice;
 ```
 
-* Websocket streams*  
+*Websocket streams*  
 
 ```csharp
 // Subscribe to ETH/USDT ticker updates via the websocket API
