@@ -95,6 +95,9 @@
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.ParseErrorResponse(System.Int32,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.Collections.Generic.IEnumerable{System.String}}},CryptoExchange.Net.Interfaces.IMessageAccessor)">
+            <inheritdoc />
+        </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.GetServerTimestampAsync">
             <inheritdoc />
         </member>

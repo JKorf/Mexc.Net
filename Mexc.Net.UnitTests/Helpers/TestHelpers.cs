@@ -78,7 +78,7 @@ namespace Mexc.Net.UnitTests.Helpers
             return client;
         }
 
-        public static void SetResponse(MexcRestClient client, string responseData)
+        public static void SetResponse(MexcRestClient client, string responseData, HttpStatusCode statusCode = HttpStatusCode.OK)
         {
             var expectedBytes = Encoding.UTF8.GetBytes(responseData);
             var responseStream = new MemoryStream();
@@ -86,28 +86,8 @@ namespace Mexc.Net.UnitTests.Helpers
             responseStream.Seek(0, SeekOrigin.Begin);
 
             var response = new Mock<IResponse>();
-            response.Setup(c => c.IsSuccessStatusCode).Returns(true);
-            response.Setup(c => c.GetResponseStreamAsync()).Returns(Task.FromResult((Stream)responseStream));
-
-            var request = new Mock<IRequest>();
-            request.Setup(c => c.Uri).Returns(new Uri("http://www.test.com"));
-            request.Setup(c => c.GetHeaders()).Returns(new Dictionary<string, IEnumerable<string>>());
-            request.Setup(c => c.GetResponseAsync(It.IsAny<CancellationToken>())).Returns(Task.FromResult(response.Object));
-
-            var factory = Mock.Get(client.SpotApi.RequestFactory);
-            factory.Setup(c => c.Create(It.IsAny<HttpMethod>(), It.IsAny<Uri>(), It.IsAny<int>()))
-                .Returns(request.Object);
-        }
-
-        public static void SetErrorWithResponse(IMexcRestClient client, string responseData, HttpStatusCode code)
-        {
-            var expectedBytes = Encoding.UTF8.GetBytes(responseData);
-            var responseStream = new MemoryStream();
-            responseStream.Write(expectedBytes, 0, expectedBytes.Length);
-            responseStream.Seek(0, SeekOrigin.Begin);
-
-            var response = new Mock<IResponse>();
-            response.Setup(c => c.IsSuccessStatusCode).Returns(false);
+            response.Setup(c => c.StatusCode).Returns(statusCode);
+            response.Setup(c => c.IsSuccessStatusCode).Returns(statusCode == HttpStatusCode.OK);
             response.Setup(c => c.GetResponseStreamAsync()).Returns(Task.FromResult((Stream)responseStream));
 
             var request = new Mock<IRequest>();

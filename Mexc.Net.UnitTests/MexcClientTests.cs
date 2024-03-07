@@ -1,11 +1,9 @@
 ﻿using Mexc.Net.Clients;
-using System;
-using System.Collections.Generic;
+using Mexc.Net.Objects.Models;
+using Mexc.Net.UnitTests.Helpers;
+using Newtonsoft.Json;
 using System.Diagnostics;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Mexc.Net.UnitTests
 {
@@ -31,6 +29,44 @@ namespace Mexc.Net.UnitTests
                 }
                 Debug.WriteLine($"{clientInterface.Name} {methods} methods validated");
             }
+        }
+
+        [TestCase()]
+        public async Task ReceivingHttpErrorWithNoJson_Should_ReturnErrorAndNotSuccess()
+        {
+            // arrange
+            var client = TestHelpers.CreateClient();
+            TestHelpers.SetResponse((MexcRestClient)client, "", System.Net.HttpStatusCode.BadRequest);
+
+            // act
+            var result = await client.SpotApi.ExchangeData.GetTickersAsync();
+
+            // assert
+            Assert.IsFalse(result.Success);
+            Assert.IsNotNull(result.Error);
+        }
+
+        [TestCase()]
+        public async Task ReceivingHttpErrorWithJsonError_Should_ReturnErrorAndNotSuccess()
+        {
+            // arrange
+            var client = TestHelpers.CreateClient();
+            var resultObj = new MexcResult()
+            {
+                Code = 400001,
+                Message = "Error occured"
+            };
+
+            TestHelpers.SetResponse((MexcRestClient)client, JsonConvert.SerializeObject(resultObj), System.Net.HttpStatusCode.BadRequest);
+
+            // act
+            var result = await client.SpotApi.ExchangeData.GetTickersAsync();
+
+            // assert
+            Assert.IsFalse(result.Success);
+            Assert.IsNotNull(result.Error);
+            Assert.IsTrue(result.Error!.Code == 400001);
+            Assert.IsTrue(result.Error.Message == "Error occured");
         }
     }
 }

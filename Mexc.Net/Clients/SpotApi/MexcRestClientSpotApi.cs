@@ -16,6 +16,7 @@ using CryptoExchange.Net.CommonObjects;
 using System.Linq;
 using Mexc.Net.Enums;
 using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.Converters.MessageParsing;
 
 namespace Mexc.Net.Clients.SpotApi
 {
@@ -87,6 +88,23 @@ namespace Mexc.Net.Clients.SpotApi
                 _timeSyncState.LastSyncTime = DateTime.MinValue;
             }
             return result;
+        }
+
+        /// <inheritdoc />
+        protected override Error ParseErrorResponse(int httpStatusCode, IEnumerable<KeyValuePair<string, IEnumerable<string>>> responseHeaders, IMessageAccessor accessor)
+        {
+            if (!accessor.IsJson)
+                return new ServerError(accessor.GetOriginalString());
+
+            var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));
+            var msg = accessor.GetValue<string>(MessagePath.Get().Property("msg"));
+            if (msg == null)
+                return new ServerError(accessor.GetOriginalString());
+
+            if (code == null)
+                return new ServerError(msg);
+
+            return new ServerError(code.Value, msg);
         }
 
         /// <inheritdoc />
