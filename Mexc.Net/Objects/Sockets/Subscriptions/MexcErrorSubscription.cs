@@ -16,10 +16,10 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
         {
         }
 
-        public override Task<CallResult> HandleMessageAsync(SocketConnection connection, DataEvent<MexcResponse> message)
+        public override CallResult HandleMessage(SocketConnection connection, DataEvent<MexcResponse> message)
         {
             _logger.LogError("Server Error: {Error}", message.Data.Message);
-            return Task.FromResult(new CallResult(null));
+            return new CallResult(null);
         }
     }
 }

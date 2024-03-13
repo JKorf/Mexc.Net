@@ -28,13 +28,13 @@ namespace Mexc.Net.Objects.Sockets.Queries
             ListenerIdentifiers = new HashSet<string> { ((MexcRequest)Request).Id.ToString() };
         }
 
-        public override Task<CallResult<MexcResponse>> HandleMessageAsync(SocketConnection connection, DataEvent<MexcResponse> message)
+        public override CallResult<MexcResponse> HandleMessage(SocketConnection connection, DataEvent<MexcResponse> message)
         {
             var topics = message.Data.Message.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
             if (!topics.All(t => _expectedTopics.Contains(t)))
-                return Task.FromResult(new CallResult<MexcResponse>(new ServerError(message.Data.Message)));
+                return new CallResult<MexcResponse>(new ServerError(message.Data.Message));
 
-            return base.HandleMessageAsync(connection, message);
+            return base.HandleMessage(connection, message);
         }
     }
 }

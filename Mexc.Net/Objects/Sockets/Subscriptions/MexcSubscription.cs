@@ -25,11 +25,11 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
             ListenerIdentifiers = new HashSet<string>(_topics);
         }
 
-        public override Task<CallResult> DoHandleMessageAsync(SocketConnection connection, DataEvent<object> message)
+        public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
         {
             var data = (MexcUpdate<T>)message.Data;
             _handler.Invoke(message.As(data.Data, data.Symbol, SocketUpdateType.Update));
-            return Task.FromResult(new CallResult(null));
+            return new CallResult(null);
         }
 
         public override Type? GetMessageType(IMessageAccessor message) => typeof(MexcUpdate<T>);
