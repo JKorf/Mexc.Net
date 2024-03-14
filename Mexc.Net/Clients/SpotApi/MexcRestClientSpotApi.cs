@@ -57,9 +57,9 @@ namespace Mexc.Net.Clients.SpotApi
             ExchangeData = new MexcRestClientSpotApiExchangeData(logger, this);
             Trading = new MexcRestClientSpotApiTrading(logger, this);
 
-            requestBodyEmptyContent = "";
-            requestBodyFormat = RequestBodyFormat.FormData;
-            arraySerialization = ArrayParametersSerialization.MultipleValues;
+            RequestBodyEmptyContent = "";
+            RequestBodyFormat = RequestBodyFormat.FormData;
+            ArraySerialization = ArrayParametersSerialization.MultipleValues;
 
             ParameterPositions[HttpMethod.Post] = HttpMethodParameterPosition.InUri;
             ParameterPositions[HttpMethod.Delete] = HttpMethodParameterPosition.InUri;
