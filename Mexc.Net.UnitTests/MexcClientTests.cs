@@ -2,6 +2,7 @@
 using Mexc.Net.Objects.Models;
 using Mexc.Net.UnitTests.Helpers;
 using Newtonsoft.Json;
+using NUnit.Framework.Legacy;
 using System.Diagnostics;
 using System.Reflection;
 
@@ -24,7 +25,7 @@ namespace Mexc.Net.UnitTests
                 foreach (var method in implementation.GetMethods().Where(m => m.ReturnType.IsAssignableTo(typeof(Task))))
                 {
                     var interfaceMethod = clientInterface.GetMethod(method.Name, method.GetParameters().Select(p => p.ParameterType).ToArray());
-                    Assert.NotNull(interfaceMethod, $"Missing interface for method {method.Name} in {implementation.Name} implementing interface {clientInterface.Name}");
+                    ClassicAssert.NotNull(interfaceMethod, $"Missing interface for method {method.Name} in {implementation.Name} implementing interface {clientInterface.Name}");
                     methods++;
                 }
                 Debug.WriteLine($"{clientInterface.Name} {methods} methods validated");
@@ -42,8 +43,8 @@ namespace Mexc.Net.UnitTests
             var result = await client.SpotApi.ExchangeData.GetTickersAsync();
 
             // assert
-            Assert.IsFalse(result.Success);
-            Assert.IsNotNull(result.Error);
+            ClassicAssert.IsFalse(result.Success);
+            ClassicAssert.IsNotNull(result.Error);
         }
 
         [TestCase()]
@@ -63,10 +64,10 @@ namespace Mexc.Net.UnitTests
             var result = await client.SpotApi.ExchangeData.GetTickersAsync();
 
             // assert
-            Assert.IsFalse(result.Success);
-            Assert.IsNotNull(result.Error);
-            Assert.IsTrue(result.Error!.Code == 400001);
-            Assert.IsTrue(result.Error.Message == "Error occured");
+            ClassicAssert.IsFalse(result.Success);
+            ClassicAssert.IsNotNull(result.Error);
+            Assert.That(result.Error!.Code == 400001);
+            Assert.That(result.Error.Message == "Error occured");
         }
     }
 }
