@@ -1,5 +1,4 @@
-﻿using CryptoExchange.Net;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using CryptoExchange.Net.Objects;
 using Microsoft.Extensions.Logging;
@@ -16,6 +15,8 @@ using System.Globalization;
 using CryptoExchange.Net.CommonObjects;
 using System.Linq;
 using Mexc.Net.Enums;
+using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.Converters.MessageParsing;
 
 namespace Mexc.Net.Clients.SpotApi
 {
@@ -56,11 +57,9 @@ namespace Mexc.Net.Clients.SpotApi
             ExchangeData = new MexcRestClientSpotApiExchangeData(logger, this);
             Trading = new MexcRestClientSpotApiTrading(logger, this);
 
-            DefaultSerializer = JsonSerializer.Create(SerializerOptions.WithConverters);
-
-            requestBodyEmptyContent = "";
-            requestBodyFormat = RequestBodyFormat.FormData;
-            arraySerialization = ArrayParametersSerialization.MultipleValues;
+            RequestBodyEmptyContent = "";
+            RequestBodyFormat = RequestBodyFormat.FormData;
+            ArraySerialization = ArrayParametersSerialization.MultipleValues;
 
             ParameterPositions[HttpMethod.Post] = HttpMethodParameterPosition.InUri;
             ParameterPositions[HttpMethod.Delete] = HttpMethodParameterPosition.InUri;
@@ -89,6 +88,23 @@ namespace Mexc.Net.Clients.SpotApi
                 _timeSyncState.LastSyncTime = DateTime.MinValue;
             }
             return result;
+        }
+
+        /// <inheritdoc />
+        protected override Error ParseErrorResponse(int httpStatusCode, IEnumerable<KeyValuePair<string, IEnumerable<string>>> responseHeaders, IMessageAccessor accessor)
+        {
+            if (!accessor.IsJson)
+                return new ServerError(accessor.GetOriginalString());
+
+            var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));
+            var msg = accessor.GetValue<string>(MessagePath.Get().Property("msg"));
+            if (msg == null)
+                return new ServerError(accessor.GetOriginalString());
+
+            if (code == null)
+                return new ServerError(msg);
+
+            return new ServerError(code.Value, msg);
         }
 
         /// <inheritdoc />

@@ -1,11 +1,10 @@
 ﻿using Mexc.Net.Clients;
-using System;
-using System.Collections.Generic;
+using Mexc.Net.Objects.Models;
+using Mexc.Net.UnitTests.Helpers;
+using Newtonsoft.Json;
+using NUnit.Framework.Legacy;
 using System.Diagnostics;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Mexc.Net.UnitTests
 {
@@ -26,11 +25,49 @@ namespace Mexc.Net.UnitTests
                 foreach (var method in implementation.GetMethods().Where(m => m.ReturnType.IsAssignableTo(typeof(Task))))
                 {
                     var interfaceMethod = clientInterface.GetMethod(method.Name, method.GetParameters().Select(p => p.ParameterType).ToArray());
-                    Assert.NotNull(interfaceMethod, $"Missing interface for method {method.Name} in {implementation.Name} implementing interface {clientInterface.Name}");
+                    ClassicAssert.NotNull(interfaceMethod, $"Missing interface for method {method.Name} in {implementation.Name} implementing interface {clientInterface.Name}");
                     methods++;
                 }
                 Debug.WriteLine($"{clientInterface.Name} {methods} methods validated");
             }
+        }
+
+        [TestCase()]
+        public async Task ReceivingHttpErrorWithNoJson_Should_ReturnErrorAndNotSuccess()
+        {
+            // arrange
+            var client = TestHelpers.CreateClient();
+            TestHelpers.SetResponse((MexcRestClient)client, "", System.Net.HttpStatusCode.BadRequest);
+
+            // act
+            var result = await client.SpotApi.ExchangeData.GetTickersAsync();
+
+            // assert
+            ClassicAssert.IsFalse(result.Success);
+            ClassicAssert.IsNotNull(result.Error);
+        }
+
+        [TestCase()]
+        public async Task ReceivingHttpErrorWithJsonError_Should_ReturnErrorAndNotSuccess()
+        {
+            // arrange
+            var client = TestHelpers.CreateClient();
+            var resultObj = new MexcResult()
+            {
+                Code = 400001,
+                Message = "Error occured"
+            };
+
+            TestHelpers.SetResponse((MexcRestClient)client, JsonConvert.SerializeObject(resultObj), System.Net.HttpStatusCode.BadRequest);
+
+            // act
+            var result = await client.SpotApi.ExchangeData.GetTickersAsync();
+
+            // assert
+            ClassicAssert.IsFalse(result.Success);
+            ClassicAssert.IsNotNull(result.Error);
+            Assert.That(result.Error!.Code == 400001);
+            Assert.That(result.Error.Message == "Error occured");
         }
     }
 }

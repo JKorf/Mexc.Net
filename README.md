@@ -104,6 +104,11 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 1.1.0 - 16 Mar 2024
+    * Updated CryptoExchange.Net to 7.1.0, see https://github.com/JKorf/CryptoExchange.Net?tab=readme-ov-file#release-notes for release notes
+    * Updated unit test package dependencies and updated tests accordingly
+	* Improved error response handling
+	
 * Version 1.0.1 - 28 Feb 2024
     * Fixed SpotApi.Trading.GetAccountInfoAsync deserialization
     * Renamed OrderType on MexcOrder model to Type
