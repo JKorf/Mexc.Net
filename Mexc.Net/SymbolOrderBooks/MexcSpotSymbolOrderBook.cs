@@ -48,7 +48,7 @@ namespace Mexc.Net.SymbolOrderBooks
             Action<MexcOrderBookOptions>? optionsDelegate,
             ILoggerFactory? loggerFactory,
             IMexcRestClient? restClient,
-            IMexcSocketClient? socketClient) : base(loggerFactory?.CreateLogger("Mexc"), "Mexc", symbol)
+            IMexcSocketClient? socketClient) : base(loggerFactory, "Mexc", "Spot", symbol)
         {
             var options = MexcOrderBookOptions.Default.Copy();
             if (optionsDelegate != null)
@@ -91,7 +91,7 @@ namespace Mexc.Net.SymbolOrderBooks
                 var bookResult = await _restClient.SpotApi.ExchangeData.GetOrderBookAsync(Symbol, Levels ?? 5000).ConfigureAwait(false);
                 if (!bookResult)
                 {
-                    _logger.Log(LogLevel.Debug, $"{Id} order book {Symbol} failed to retrieve initial order book");
+                    _logger.Log(LogLevel.Debug, $"{Api} order book {Symbol} failed to retrieve initial order book");
                     await _socketClient.UnsubscribeAsync(subResult.Data).ConfigureAwait(false);
                     return new CallResult<UpdateSubscription>(bookResult.Error!);
                 }
