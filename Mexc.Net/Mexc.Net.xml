@@ -2420,6 +2420,11 @@
             Volume
             </summary>
         </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcTicker.QuoteVolume">
+            <summary>
+            Volume in quote asset
+            </summary>
+        </member>
         <member name="P:Mexc.Net.Objects.Models.Spot.MexcTicker.OpenTime">
             <summary>
             Open timestamp
