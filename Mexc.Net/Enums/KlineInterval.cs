@@ -45,7 +45,7 @@ namespace Mexc.Net.Enums
         /// <summary>
         /// One week
         /// </summary>
-        [Map("1w", "Week1")]
+        [Map("1W", "Week1")]
         OneWeek,
         /// <summary>
         /// One month
