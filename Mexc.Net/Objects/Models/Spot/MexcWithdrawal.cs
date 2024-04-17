@@ -61,7 +61,7 @@ namespace Mexc.Net.Objects.Models.Spot
         [JsonProperty("confirmNo")]
         public int? Confirmations { get; set; }
         /// <summary>
-        /// Aply time
+        /// Apply time
         /// </summary>
         [JsonProperty("applyTime")]
         public DateTime ApplyTime { get; set; }
@@ -75,5 +75,25 @@ namespace Mexc.Net.Objects.Models.Spot
         /// </summary>
         [JsonProperty("memo")]
         public string? Memo { get; set; }
+        /// <summary>
+        /// Transaction hash
+        /// </summary>
+        [JsonProperty("transHash")]
+        public string? TransactionHash { get; set; }
+        /// <summary>
+        /// Last update time
+        /// </summary>
+        [JsonProperty("updateTime")]
+        public DateTime? UpdateTime { get; set; }
+        /// <summary>
+        /// Asset id
+        /// </summary>
+        [JsonProperty("coinId")]
+        public string? AssetId { get; set; }
+        /// <summary>
+        /// CurrencyId
+        /// </summary>
+        [JsonProperty("vcoinId")]
+        public string? CurrencyId { get; set; }
     }
 }
