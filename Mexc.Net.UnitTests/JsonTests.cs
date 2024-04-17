@@ -14,7 +14,7 @@ namespace Mexc.Net.UnitTests
         private JsonToObjectComparer<IMexcRestClient> _comparer = new JsonToObjectComparer<IMexcRestClient>((json) => TestHelpers.CreateResponseClient(json, options =>
         {
             options.ApiCredentials = new ApiCredentials("123", "123");
-            options.SpotOptions.RateLimiters = new List<IRateLimiter>();
+            options.RateLimiterEnabled = false;
             options.SpotOptions.AutoTimestamp = false;
         }));
 
