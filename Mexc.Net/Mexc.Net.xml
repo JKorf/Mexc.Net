@@ -2942,7 +2942,7 @@
         </member>
         <member name="P:Mexc.Net.Objects.Models.Spot.MexcWithdrawal.ApplyTime">
             <summary>
-            Aply time
+            Apply time
             </summary>
         </member>
         <member name="P:Mexc.Net.Objects.Models.Spot.MexcWithdrawal.Remark">
@@ -2953,6 +2953,26 @@
         <member name="P:Mexc.Net.Objects.Models.Spot.MexcWithdrawal.Memo">
             <summary>
             Memo
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcWithdrawal.TransactionHash">
+            <summary>
+            Transaction hash
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcWithdrawal.UpdateTime">
+            <summary>
+            Last update time
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcWithdrawal.AssetId">
+            <summary>
+            Asset id
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcWithdrawal.CurrencyId">
+            <summary>
+            CurrencyId
             </summary>
         </member>
         <member name="T:Mexc.Net.Objects.Options.MexcOrderBookOptions">
