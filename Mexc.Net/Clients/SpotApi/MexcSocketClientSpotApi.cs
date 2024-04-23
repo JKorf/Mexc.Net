@@ -131,23 +131,48 @@ namespace Mexc.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToAccountUpdatesAsync(string listenKey, Action<DataEvent<MexcAccountUpdate>> handler, CancellationToken ct = default)
         {
-            var subscription = new MexcSubscription<MexcAccountUpdate>(_logger, new[] { "spot@private.account.v3.api" }, handler, false);
+            var subscription = new MexcSubscription<MexcAccountUpdate>(_logger, new[] { "spot@private.account.v3.api" }, handler, true);
             return await SubscribeAsync(BaseAddress + "?listenKey=" + listenKey, subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(string listenKey, Action<DataEvent<MexcUserOrderUpdate>> handler, CancellationToken ct = default)
         {
-            var subscription = new MexcSubscription<MexcUserOrderUpdate>(_logger, new[] { "spot@private.orders.v3.api" }, handler, false);
+            var subscription = new MexcSubscription<MexcUserOrderUpdate>(_logger, new[] { "spot@private.orders.v3.api" }, handler, true);
             return await SubscribeAsync(BaseAddress + "?listenKey=" + listenKey, subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToUserTradeUpdatesAsync(string listenKey, Action<DataEvent<MexcUserTradeUpdate>> handler, CancellationToken ct = default)
         {
-            var subscription = new MexcSubscription<MexcUserTradeUpdate>(_logger, new[] { "spot@private.deals.v3.api" }, handler, false);
+            var subscription = new MexcSubscription<MexcUserTradeUpdate>(_logger, new[] { "spot@private.deals.v3.api" }, handler, true);
             return await SubscribeAsync(BaseAddress + "?listenKey=" + listenKey, subscription, ct).ConfigureAwait(false);
         }
+
+        /// <inheritdoc />
+        protected override async Task<Uri?> GetReconnectUriAsync(SocketConnection connection)
+        {
+            if (connection.Subscriptions.Any(s => s.Authenticated))
+            {
+                // If any of the subs on the connection is authenticated we request a new listenkey
+                // to prevent endlessly looping if the listenkey happens to be expired
+                var creds = ApiOptions.ApiCredentials ?? ClientOptions.ApiCredentials;
+                var client = new MexcRestClient(opts =>
+                {
+                    if (creds != null)
+                        opts.ApiCredentials = creds;
+                });
+
+                var listenKeyResult = await client.SpotApi.Account.StartUserStreamAsync().ConfigureAwait(false);
+                if (listenKeyResult)
+                    return new Uri(BaseAddress + "?listenKey=" + listenKeyResult.Data);
+            }
+
+            return await base.GetReconnectUriAsync(connection).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        protected override Query? GetAuthenticationRequest() => null;
 
         private static string GetIntervalString(KlineInterval interval)
             => interval switch
