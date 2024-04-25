@@ -1,4 +1,5 @@
 ﻿using CryptoExchange.Net.Interfaces;
+using CryptoExchange.Net.OrderBook;
 using Mexc.Net.Interfaces;
 using Mexc.Net.Interfaces.Clients;
 using Mexc.Net.Objects.Options;
@@ -15,6 +16,9 @@ namespace Mexc.Net.SymbolOrderBooks
     {
         private readonly IServiceProvider _serviceProvider;
 
+        /// <inheritdoc />
+        public IOrderBookFactory<MexcOrderBookOptions> Spot { get; }
+
         /// <summary>
         /// ctor
         /// </summary>
@@ -22,6 +26,8 @@ namespace Mexc.Net.SymbolOrderBooks
         public MexcOrderBookFactory(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
+
+            Spot = new OrderBookFactory<MexcOrderBookOptions>((symbol, options) => CreateSpot(symbol, options), (baseAsset, quoteAsset, options) => CreateSpot(baseAsset.ToUpperInvariant() + quoteAsset.ToUpperInvariant(), options));
         }
 
         /// <inheritdoc />

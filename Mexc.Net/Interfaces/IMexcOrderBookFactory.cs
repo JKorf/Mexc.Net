@@ -10,6 +10,11 @@ namespace Mexc.Net.Interfaces
     public interface IMexcOrderBookFactory
     {
         /// <summary>
+        /// Spot order book factory methods
+        /// </summary>
+        public IOrderBookFactory<MexcOrderBookOptions> Spot { get; }
+
+        /// <summary>
         /// Create a new spot SymbolOrderBook
         /// </summary>
         /// <param name="symbol"></param>
