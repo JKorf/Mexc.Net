@@ -1315,6 +1315,26 @@
             <param name="spotSocketAddress"></param>
             <returns></returns>
         </member>
+        <member name="T:Mexc.Net.MexcExchange">
+            <summary>
+            Mexc exchange information and configuration
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.MexcExchange.ExchangeName">
+            <summary>
+            Exchange name
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.MexcExchange.Url">
+            <summary>
+            Url to the main website
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.MexcExchange.ApiDocsUrl">
+            <summary>
+            Urls to the API documentation
+            </summary>
+        </member>
         <member name="T:Mexc.Net.Objects.MexcApiAddresses">
             <summary>
             Api addresses
