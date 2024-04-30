@@ -1,37 +1,19 @@
-﻿using Mexc.Net.Clients;
+﻿using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Clients;
+using Mexc.Net.Clients;
 using Mexc.Net.Objects.Models;
 using Mexc.Net.UnitTests.Helpers;
 using Newtonsoft.Json;
 using NUnit.Framework.Legacy;
 using System.Diagnostics;
 using System.Reflection;
+using CryptoExchange.Net.Converters.JsonNet;
 
 namespace Mexc.Net.UnitTests
 {
     [TestFixture]
     internal class MexcClientTests
     {
-        [Test]
-        public void CheckRestInterfaces()
-        {
-            var assembly = Assembly.GetAssembly(typeof(MexcRestClient));
-            var ignore = new string[] { "IMexcRestClientSpotApi" };
-            var clientInterfaces = assembly.GetTypes().Where(t => t.Name.StartsWith("IMexcRestClient") && !ignore.Contains(t.Name));
-
-            foreach (var clientInterface in clientInterfaces)
-            {
-                var implementation = assembly.GetTypes().Single(t => t.IsAssignableTo(clientInterface) && t != clientInterface);
-                int methods = 0;
-                foreach (var method in implementation.GetMethods().Where(m => m.ReturnType.IsAssignableTo(typeof(Task))))
-                {
-                    var interfaceMethod = clientInterface.GetMethod(method.Name, method.GetParameters().Select(p => p.ParameterType).ToArray());
-                    ClassicAssert.NotNull(interfaceMethod, $"Missing interface for method {method.Name} in {implementation.Name} implementing interface {clientInterface.Name}");
-                    methods++;
-                }
-                Debug.WriteLine($"{clientInterface.Name} {methods} methods validated");
-            }
-        }
-
         [TestCase()]
         public async Task ReceivingHttpErrorWithNoJson_Should_ReturnErrorAndNotSuccess()
         {
@@ -68,6 +50,45 @@ namespace Mexc.Net.UnitTests
             ClassicAssert.IsNotNull(result.Error);
             Assert.That(result.Error!.Code == 400001);
             Assert.That(result.Error.Message == "Error occured");
+        }
+
+        [Test]
+        public void CheckSignatureExample()
+        {
+            var authProvider = new MexcAuthenticationProvider(
+                new ApiCredentials("mx0aBYs33eIilxBWC5", "45d0b3c26f2644f19bfb98b07741b2f5")
+                );
+            var client = (RestApiClient)new MexcRestClient().SpotApi;
+
+            CryptoExchange.Net.Testing.TestHelpers.CheckSignature(
+                client,
+                authProvider,
+                HttpMethod.Post,
+                "/api/v3/order",
+                (uriParams, bodyParams, headers) =>
+                {
+                    return uriParams["signature"].ToString();
+                },
+                "fd3e4e8543c5188531eb7279d68ae7d26a573d0fc5ab0d18eb692451654d837a",
+                new Dictionary<string, object>
+                {
+                    { "symbol", "BTCUSDT" },
+                    { "side", "BUY" },
+                    { "type", "LIMIT" },
+                    { "quantity", "1" },
+                    { "price", "11" },
+                    { "recvWindow", "5000" },
+                },
+                time: DateTimeConverter.ConvertFromMilliseconds(1644489390087),
+                disableOrdering: true,
+                compareCase: false);
+        }
+
+        [Test]
+        public void CheckInterfaces()
+        {
+            CryptoExchange.Net.Testing.TestHelpers.CheckForMissingRestInterfaces<MexcRestClient>();
+            CryptoExchange.Net.Testing.TestHelpers.CheckForMissingSocketInterfaces<MexcSocketClient>();
         }
     }
 }
