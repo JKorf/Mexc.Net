@@ -16,22 +16,30 @@ namespace Mexc.Net
         {
         }
 
-        public override void AuthenticateRequest(RestApiClient apiClient, Uri uri, HttpMethod method, Dictionary<string, object> providedParameters, bool auth, ArrayParametersSerialization arraySerialization, HttpMethodParameterPosition parameterPosition, RequestBodyFormat bodyFormat, out SortedDictionary<string, object> uriParameters, out SortedDictionary<string, object> bodyParameters, out Dictionary<string, string> headers)
+        public override void AuthenticateRequest(
+            RestApiClient apiClient,
+            Uri uri,
+            HttpMethod method,
+            IDictionary<string, object> uriParams,
+            IDictionary<string, object> bodyParams,
+            Dictionary<string, string> headers,
+            bool auth,
+            ArrayParametersSerialization arraySerialization,
+            HttpMethodParameterPosition parameterPosition,
+            RequestBodyFormat bodyFormat)
         {
-            uriParameters = parameterPosition == HttpMethodParameterPosition.InUri ? new SortedDictionary<string, object>(providedParameters) : new SortedDictionary<string, object>();
-            bodyParameters = parameterPosition == HttpMethodParameterPosition.InBody ? new SortedDictionary<string, object>(providedParameters) : new SortedDictionary<string, object>();
-            headers = new Dictionary<string, string>() { { "X-MEXC-APIKEY", _credentials.Key!.GetString() } };
+            headers.Add("X-MEXC-APIKEY", _credentials.Key!.GetString());
 
             if (!auth)
                 return;
 
-            var parameters = parameterPosition == HttpMethodParameterPosition.InUri ? uriParameters : bodyParameters;
+            var parameters = parameterPosition == HttpMethodParameterPosition.InUri ? uriParams : bodyParams;
             var timestamp = GetMillisecondTimestamp(apiClient);
             parameters.Add("timestamp", timestamp);
 
             if (_credentials.CredentialType == ApiCredentialsType.Hmac)
             {
-                uri = uri.SetParameters(uriParameters, arraySerialization);
+                uri = uri.SetParameters(uriParams, arraySerialization);
                 parameters.Add("signature", SignHMACSHA256(parameterPosition == HttpMethodParameterPosition.InUri ? uri.Query.Replace("?", "") : parameters.ToFormData()));
             }
             else
