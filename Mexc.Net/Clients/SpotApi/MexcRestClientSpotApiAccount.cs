@@ -274,6 +274,19 @@ namespace Mexc.Net.Clients.SpotApi
 
         #endregion
 
+        #region Get Mx Deduction Status
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<MexcTradeFee>> GetTradeFeeAsync(string symbol, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("symbol", symbol);
+            var result = await _baseClient.SendRequestInternal<MexcResult<MexcTradeFee>>("/api/v3/tradeFee", HttpMethod.Get, ct, parameters, signed: true).ConfigureAwait(false);
+            return result.As<MexcTradeFee>(result.Data?.Data);
+        }
+
+        #endregion
+
         #region Create a ListenKey 
         /// <inheritdoc />
         public async Task<WebCallResult<string>> StartUserStreamAsync(CancellationToken ct = default)

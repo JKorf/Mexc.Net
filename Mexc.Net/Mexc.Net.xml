@@ -167,6 +167,9 @@
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiAccount.GetMxDeductionStatusAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiAccount.GetTradeFeeAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiAccount.StartUserStreamAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -831,6 +834,15 @@
             Get MX deduction status
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-mx-deduct-status" /></para>
             </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.GetTradeFeeAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get trade fee for a symbol
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-symbol-commission" /></para>
+            </summary>
+            <param name="symbol">Symbol</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -2505,6 +2517,21 @@
         <member name="P:Mexc.Net.Objects.Models.Spot.MexcTrade.IsBestMatch">
             <summary>
             Best price match
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcTradeFee">
+            <summary>
+            Trade fee
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcTradeFee.MakerFee">
+            <summary>
+            Maker fee
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcTradeFee.TakerFee">
+            <summary>
+            Taker fee
             </summary>
         </member>
         <member name="T:Mexc.Net.Objects.Models.Spot.MexcTransfer">

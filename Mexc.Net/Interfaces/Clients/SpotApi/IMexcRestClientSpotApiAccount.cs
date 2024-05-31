@@ -193,6 +193,15 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<MexcDeductStatus>> GetMxDeductionStatusAsync(CancellationToken ct = default);
 
         /// <summary>
+        /// Get trade fee for a symbol
+        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-symbol-commission" /></para>
+        /// </summary>
+        /// <param name="symbol">Symbol</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<MexcTradeFee>> GetTradeFeeAsync(string symbol, CancellationToken ct = default);
+
+        /// <summary>
         /// Start a user data stream for accessing private socket streams
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#listen-key" /></para>
         /// </summary>
