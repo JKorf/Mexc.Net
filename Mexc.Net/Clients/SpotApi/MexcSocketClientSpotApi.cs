@@ -35,6 +35,7 @@ namespace Mexc.Net.Clients.SpotApi
             base(logger, options.Environment.SpotSocketAddress, options, options.SpotOptions)
         {
             AddSystemSubscription(new MexcErrorSubscription(_logger));
+            RateLimiter = MexcExchange.RateLimiter.SpotSocket;
         }
 
         #endregion
