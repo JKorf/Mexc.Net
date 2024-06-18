@@ -122,7 +122,7 @@
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiAccount.GetUserAssetsAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiAccount.WithdrawAsync(System.String,System.String,System.Decimal,System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiAccount.WithdrawAsync(System.String,System.String,System.Decimal,System.String,System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiAccount.CancelWithdrawAsync(System.String,System.Threading.CancellationToken)">
@@ -675,10 +675,10 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.WithdrawAsync(System.String,System.String,System.Decimal,System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.WithdrawAsync(System.String,System.String,System.Decimal,System.String,System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Withdraw funds
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-the-currency-information" /></para>
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#withdraw-new" /></para>
             </summary>
             <param name="asset">Asset</param>
             <param name="address">Address to withdraw to</param>
@@ -687,6 +687,7 @@
             <param name="network">Network to use</param>
             <param name="memo">Memo</param>
             <param name="remark">Remark</param>
+            <param name="contractAddress">Asset contract address</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>

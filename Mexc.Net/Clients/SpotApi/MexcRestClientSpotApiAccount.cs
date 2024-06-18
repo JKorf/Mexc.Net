@@ -49,7 +49,7 @@ namespace Mexc.Net.Clients.SpotApi
         #region Withdraw
 
         /// <inheritdoc />
-        public async Task<WebCallResult<MexcId>> WithdrawAsync(string asset, string address, decimal quantity, string? clientOrderId = null, string? network = null, string? memo = null, string? remark = null, CancellationToken ct = default)
+        public async Task<WebCallResult<MexcId>> WithdrawAsync(string asset, string address, decimal quantity, string? clientOrderId = null, string? network = null, string? memo = null, string? remark = null, string? contractAddress = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection
             {
@@ -58,10 +58,11 @@ namespace Mexc.Net.Clients.SpotApi
             };
             parameters.AddString("amount", quantity);
             parameters.AddOptional("withdrawOrderId", clientOrderId);
-            parameters.AddOptional("network", network);
+            parameters.AddOptional("netWork", network);
             parameters.AddOptional("memo", memo);
             parameters.AddOptional("remark", remark);
-            var result = await _baseClient.SendRequestInternal<IEnumerable<MexcId>>("/api/v3/capital/withdraw/apply", HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            parameters.AddOptional("contractAddress", contractAddress);
+            var result = await _baseClient.SendRequestInternal<IEnumerable<MexcId>>("/api/v3/capital/withdraw", HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
             return result.As<MexcId>(result.Data?.Single());
         }
 

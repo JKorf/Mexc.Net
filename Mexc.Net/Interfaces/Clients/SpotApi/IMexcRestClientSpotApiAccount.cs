@@ -32,7 +32,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Withdraw funds
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-the-currency-information" /></para>
+        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#withdraw-new" /></para>
         /// </summary>
         /// <param name="asset">Asset</param>
         /// <param name="address">Address to withdraw to</param>
@@ -41,9 +41,10 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="network">Network to use</param>
         /// <param name="memo">Memo</param>
         /// <param name="remark">Remark</param>
+        /// <param name="contractAddress">Asset contract address</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcId>> WithdrawAsync(string asset, string address, decimal quantity, string? clientOrderId = null, string? network = null, string? memo = null, string? remark = null, CancellationToken ct = default);
+        Task<WebCallResult<MexcId>> WithdrawAsync(string asset, string address, decimal quantity, string? clientOrderId = null, string? network = null, string? memo = null, string? remark = null, string? contractAddress = null, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel a withdrawal
