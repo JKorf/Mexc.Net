@@ -8,7 +8,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// Deposit info
     /// </summary>
-    public class MexcDeposit
+    public record MexcDeposit
     {
         /// <summary>
         /// Quantity

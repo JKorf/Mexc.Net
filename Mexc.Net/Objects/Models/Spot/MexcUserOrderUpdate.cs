@@ -9,7 +9,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// Order update
     /// </summary>
-    public class MexcUserOrderUpdate
+    public record MexcUserOrderUpdate
     {
         /// <summary>
         /// Quote quantity remaining

@@ -6,7 +6,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// Trade info
     /// </summary>
-    public class MexcTrade
+    public record MexcTrade
     {
         /// <summary>
         /// Trade price

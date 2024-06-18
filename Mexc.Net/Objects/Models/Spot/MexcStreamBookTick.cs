@@ -11,7 +11,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// Book ticker
     /// </summary>
-    public class MexcStreamBookTick : MexcStreamEvent
+    public record MexcStreamBookTick : MexcStreamEvent
     {
         /// <summary>
         /// Best ask price

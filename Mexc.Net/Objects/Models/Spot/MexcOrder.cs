@@ -7,7 +7,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// Order info
     /// </summary>
-    public class MexcOrder
+    public record MexcOrder
     {
         /// <summary>
         /// Symbol

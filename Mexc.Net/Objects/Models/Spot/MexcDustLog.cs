@@ -7,7 +7,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// Dust log entry
     /// </summary>
-    public class MexcDustLog
+    public record MexcDustLog
     {
         /// <summary>
         /// Total converted
@@ -34,7 +34,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// Dust log details
     /// </summary>
-    public class MexcDustLogDetails
+    public record MexcDustLogDetails
     {
         /// <summary>
         /// Id

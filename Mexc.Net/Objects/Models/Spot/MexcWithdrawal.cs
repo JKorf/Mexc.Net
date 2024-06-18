@@ -8,7 +8,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// Withdrawal info
     /// </summary>
-    public class MexcWithdrawal
+    public record MexcWithdrawal
     {
         /// <summary>
         /// Withdrawal id

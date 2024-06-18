@@ -6,7 +6,7 @@ namespace Mexc.Net.Objects.Models
     /// Rows result
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class MexcRows<T>
+    public record MexcRows<T>
     {
         /// <summary>
         /// Total records

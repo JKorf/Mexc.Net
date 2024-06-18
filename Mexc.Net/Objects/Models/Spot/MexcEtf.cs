@@ -6,7 +6,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// Etf info
     /// </summary>
-    public class MexcEtf
+    public record MexcEtf
     {
         /// <summary>
         /// Symbol

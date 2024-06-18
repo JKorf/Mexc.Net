@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Mexc.Net.Objects.Sockets.Models
 {
-    internal class MexcTradeUpdate : MexcStreamEvent
+    internal record MexcTradeUpdate : MexcStreamEvent
     {
         [JsonProperty("deals")]
         public IEnumerable<MexcStreamTrade> Data { get; set; } = Array.Empty<MexcStreamTrade>();

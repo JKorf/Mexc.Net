@@ -7,7 +7,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// User asset info
     /// </summary>
-    public class MexcUserAsset
+    public record MexcUserAsset
     {
         /// <summary>
         /// Asset
@@ -29,7 +29,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// Network info
     /// </summary>
-    public class MexcNetwork
+    public record MexcNetwork
     {
         /// <summary>
         /// Asset

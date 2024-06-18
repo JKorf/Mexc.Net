@@ -8,7 +8,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// Account info
     /// </summary>
-    public class MexcAccountInfo
+    public record MexcAccountInfo
     {
         /// <summary>
         /// Maker fee
@@ -70,7 +70,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// Balance info
     /// </summary>
-    public class MexcAccountBalance
+    public record MexcAccountBalance
     {
         /// <summary>
         /// The asset this balance is for

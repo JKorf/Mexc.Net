@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Mexc.Net.Objects.Sockets.Models
 {
-    internal class MexcKlineUpdate : MexcStreamEvent
+    internal record MexcKlineUpdate : MexcStreamEvent
     {
         [JsonProperty("k")]
         public MexcStreamKline Data { get; set; } = default!;

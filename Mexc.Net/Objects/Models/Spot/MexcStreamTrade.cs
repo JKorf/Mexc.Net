@@ -9,7 +9,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// Trade info
     /// </summary>
-    public class MexcStreamTrade
+    public record MexcStreamTrade
     {
         /// <summary>
         /// Order side

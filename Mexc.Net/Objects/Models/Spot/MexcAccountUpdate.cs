@@ -8,7 +8,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// Account update info
     /// </summary>
-    public class MexcAccountUpdate
+    public record MexcAccountUpdate
     {
         /// <summary>
         /// Asset

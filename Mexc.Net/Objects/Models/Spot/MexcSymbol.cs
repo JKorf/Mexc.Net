@@ -8,7 +8,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// Symbol info
     /// </summary>
-    public class MexcSymbol
+    public record MexcSymbol
     {
         /// <summary>
         /// The symbol

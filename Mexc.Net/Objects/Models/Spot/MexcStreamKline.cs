@@ -7,7 +7,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// Kline info
     /// </summary>
-    public class MexcStreamKline
+    public record MexcStreamKline
     {
         /// <summary>
         /// Start time

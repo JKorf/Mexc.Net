@@ -7,7 +7,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// Order book info
     /// </summary>
-    public class MexcOrderBook
+    public record MexcOrderBook
     {
         /// <summary>
         /// Last update id

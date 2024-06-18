@@ -5,7 +5,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// Price info
     /// </summary>
-    public class MexcPrice
+    public record MexcPrice
     {
         /// <summary>
         /// Symbol name

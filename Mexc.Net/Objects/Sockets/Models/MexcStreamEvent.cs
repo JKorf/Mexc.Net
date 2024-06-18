@@ -8,7 +8,7 @@ namespace Mexc.Net.Objects.Sockets.Models
     /// <summary>
     /// Stream event
     /// </summary>
-    public abstract class MexcStreamEvent
+    public abstract record MexcStreamEvent
     {
         /// <summary>
         /// Event type

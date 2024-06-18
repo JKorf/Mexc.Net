@@ -7,7 +7,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// User trade update
     /// </summary>
-    public class MexcUserTradeUpdate
+    public record MexcUserTradeUpdate
     {
         /// <summary>
         /// Trade time

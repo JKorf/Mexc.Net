@@ -5,7 +5,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// Average price info
     /// </summary>
-    public class MexcAveragePrice
+    public record MexcAveragePrice
     {
         /// <summary>
         /// Minutes the average is over

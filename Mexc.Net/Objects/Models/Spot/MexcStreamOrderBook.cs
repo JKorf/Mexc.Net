@@ -11,7 +11,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// Order book
     /// </summary>
-    public class MexcStreamOrderBook : MexcStreamEvent
+    public record MexcStreamOrderBook : MexcStreamEvent
     {
         /// <summary>
         /// Asks
@@ -33,7 +33,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// Order book entry
     /// </summary>
-    public class MexcStreamOrderBookEntry : ISymbolOrderBookEntry
+    public record MexcStreamOrderBookEntry : ISymbolOrderBookEntry
     {
         /// <summary>
         /// Price

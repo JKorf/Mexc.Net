@@ -5,7 +5,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// Id
     /// </summary>
-    public class MexcId
+    public record MexcId
     {
         /// <summary>
         /// Id

@@ -8,7 +8,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// Exchange info
     /// </summary>
-    public class MexcExchangeInfo
+    public record MexcExchangeInfo
     {
         /// <summary>
         /// The timezone the server uses

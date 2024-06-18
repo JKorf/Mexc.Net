@@ -7,7 +7,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// Dust transfer result
     /// </summary>
-    public class MexcDustResult
+    public record MexcDustResult
     {
         /// <summary>
         /// Successfully converted
@@ -34,7 +34,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// Failed dust asset
     /// </summary>
-    public class MexcFailedDust
+    public record MexcFailedDust
     {
         /// <summary>
         /// Asset name

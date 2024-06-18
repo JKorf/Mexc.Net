@@ -6,7 +6,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// Ticker info
     /// </summary>
-    public class MexcTicker
+    public record MexcTicker
     {
         /// <summary>
         /// Symbol name

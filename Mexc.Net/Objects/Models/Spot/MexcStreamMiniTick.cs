@@ -11,7 +11,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// Mini ticker
     /// </summary>
-    public class MexcStreamMiniTick : MexcStreamEvent
+    public record MexcStreamMiniTick : MexcStreamEvent
     {
         /// <summary>
         /// Symbol name

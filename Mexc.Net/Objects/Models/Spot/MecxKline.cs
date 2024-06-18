@@ -8,7 +8,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// Kline/candlestick info
     /// </summary>
     [JsonConverter(typeof(ArrayConverter))]
-    public class MecxKline
+    public record MecxKline
     {
         /// <summary>
         /// The time this candlestick opened

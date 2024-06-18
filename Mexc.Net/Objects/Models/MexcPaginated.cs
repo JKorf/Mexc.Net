@@ -6,7 +6,7 @@ namespace Mexc.Net.Objects.Models
     /// Paginated result
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class MexcPaginated<T>
+    public record MexcPaginated<T>
     {
         /// <summary>
         /// Total records

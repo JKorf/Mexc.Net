@@ -6,7 +6,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// Aggregated trade info
     /// </summary>
-    public class MecxAggregatedTrade
+    public record MecxAggregatedTrade
     {
         /// <summary>
         /// Trade price

@@ -8,7 +8,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// An entry in the order book
     /// </summary>
     [JsonConverter(typeof(ArrayConverter))]
-    public class MexcOrderBookEntry : ISymbolOrderBookEntry
+    public record MexcOrderBookEntry : ISymbolOrderBookEntry
     {
         /// <summary>
         /// The price of this order book entry

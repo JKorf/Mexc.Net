@@ -5,7 +5,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// Deposit address
     /// </summary>
-    public  class MexcDepositAddress
+    public  record MexcDepositAddress
     {
         /// <summary>
         /// Asset

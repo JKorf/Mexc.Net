@@ -5,7 +5,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// Server time
     /// </summary>
-    public class MexcServerTime
+    public record MexcServerTime
     {
         /// <summary>
         /// Current server time

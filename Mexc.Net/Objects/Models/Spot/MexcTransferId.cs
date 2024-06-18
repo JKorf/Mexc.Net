@@ -5,7 +5,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// Transfer id
     /// </summary>
-    public class MexcTransferId
+    public record MexcTransferId
     {
         /// <summary>
         /// Transfer id

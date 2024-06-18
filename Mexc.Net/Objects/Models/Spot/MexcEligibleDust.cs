@@ -5,7 +5,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// Eligible dust asset
     /// </summary>
-    public class MexcEligibleDust
+    public record MexcEligibleDust
     {
         /// <summary>
         /// Resulting Mx
