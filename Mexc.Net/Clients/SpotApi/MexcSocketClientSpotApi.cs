@@ -176,7 +176,7 @@ namespace Mexc.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        protected override Query? GetAuthenticationRequest() => null;
+        protected override Query? GetAuthenticationRequest(SocketConnection connection) => null;
 
         private static string GetIntervalString(KlineInterval interval)
             => interval switch
