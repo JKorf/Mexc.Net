@@ -311,6 +311,9 @@ namespace Mexc.Net.Clients.SpotApi
             };
 
             var result = await _baseClient.SendRequestInternal<MexcResult>("/api/v3/userDataStream", HttpMethod.Put, ct, parameters, signed: true).ConfigureAwait(false);
+            if (!result)
+                return result.AsDataless();
+
             if (result.Data.Code != 0)
                 return result.AsDatalessError(new ServerError(result.Data.Code, result.Data.Message!));
 
@@ -331,6 +334,9 @@ namespace Mexc.Net.Clients.SpotApi
             };
 
             var result = await _baseClient.SendRequestInternal<MexcResult>("/api/v3/userDataStream", HttpMethod.Delete, ct, parameters, signed: true).ConfigureAwait(false);
+            if (!result)
+                return result.AsDataless();
+
             if (result.Data.Code != 0)
                 return result.AsDatalessError(new ServerError(result.Data.Code, result.Data.Message!));
 
