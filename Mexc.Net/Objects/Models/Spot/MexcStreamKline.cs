@@ -12,8 +12,13 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Start time
         /// </summary>
-        [JsonProperty("T")]
+        [JsonProperty("t")]
         public DateTime StartTime { get; set; }
+        /// <summary>
+        /// End time
+        /// </summary>
+        [JsonProperty("T")]
+        public DateTime EndTime { get; set; }
         /// <summary>
         /// Volume in quote asset
         /// </summary>
@@ -49,10 +54,5 @@ namespace Mexc.Net.Objects.Models.Spot
         /// </summary>
         [JsonProperty("v")]
         public decimal Volume { get; set; }
-        /// <summary>
-        /// Trade time
-        /// </summary>
-        [JsonProperty("t")]
-        public DateTime Timestamp { get; set; }
     }
 }

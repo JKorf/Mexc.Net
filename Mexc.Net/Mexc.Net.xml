@@ -2165,6 +2165,11 @@
             Start time
             </summary>
         </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamKline.EndTime">
+            <summary>
+            End time
+            </summary>
+        </member>
         <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamKline.QuoteVolume">
             <summary>
             Volume in quote asset
@@ -2198,11 +2203,6 @@
         <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamKline.Volume">
             <summary>
             Volume
-            </summary>
-        </member>
-        <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamKline.Timestamp">
-            <summary>
-            Trade time
             </summary>
         </member>
         <member name="T:Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick">
