@@ -24,7 +24,7 @@ using System.Threading.Tasks;
 namespace Mexc.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    public class MexcSocketClientSpotApi : SocketApiClient, IMexcSocketClientSpotApi
+    internal class MexcSocketClientSpotApi : SocketApiClient, IMexcSocketClientSpotApi
     {
         private static readonly MessagePath _idPath = MessagePath.Get().Property("id");
         private static readonly MessagePath _channelPath = MessagePath.Get().Property("c");

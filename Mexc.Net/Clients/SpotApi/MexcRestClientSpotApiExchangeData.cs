@@ -16,7 +16,7 @@ using System.Linq;
 namespace Mexc.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    public class MexcRestClientSpotApiExchangeData : IMexcRestClientSpotApiExchangeData
+    internal class MexcRestClientSpotApiExchangeData : IMexcRestClientSpotApiExchangeData
     {
         private readonly ILogger _logger;
         private readonly MexcRestClientSpotApi _baseClient;

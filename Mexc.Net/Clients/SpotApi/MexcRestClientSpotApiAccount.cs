@@ -15,7 +15,7 @@ using CryptoExchange.Net;
 namespace Mexc.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    public class MexcRestClientSpotApiAccount : IMexcRestClientSpotApiAccount
+    internal class MexcRestClientSpotApiAccount : IMexcRestClientSpotApiAccount
     {
         private readonly ILogger _logger;
         private readonly MexcRestClientSpotApi _baseClient;

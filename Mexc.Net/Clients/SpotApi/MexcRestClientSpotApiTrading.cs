@@ -13,7 +13,7 @@ using System.Linq;
 namespace Mexc.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    public class MexcRestClientSpotApiTrading : IMexcRestClientSpotApiTrading
+    internal class MexcRestClientSpotApiTrading : IMexcRestClientSpotApiTrading
     {
         private readonly ILogger _logger;
         private readonly MexcRestClientSpotApi _baseClient;
