@@ -17,7 +17,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Place a new test order. Only validates the rules, doesn't actually place any order
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#test-new-order" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
         /// <param name="side">Order side</param>
         /// <param name="type">Order type</param>
         /// <param name="quantity">Quantity</param>
@@ -32,7 +32,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Place a new order
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#new-order" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
         /// <param name="side">Order side</param>
         /// <param name="type">Order type</param>
         /// <param name="quantity">Quantity</param>
@@ -47,7 +47,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Cancel an order
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#cancel-order" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
         /// <param name="orderId">Cancel by order id</param>
         /// <param name="clientOrderId">Cancel by client order id</param>
         /// <param name="newClientOrderId">New client order id after canceled</param>
@@ -59,7 +59,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Cancel all orders on a symbol
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#cancel-all-open-orders-on-a-symbol" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol to close all orders on</param>
+        /// <param name="symbol">The symbol to close all orders on, for example `BTCUSDT`</param>
         /// <param name="ct">Cancelation Token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<MexcOrder>>> CancelAllOrdersAsync(string symbol, CancellationToken ct = default);
@@ -68,7 +68,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Cancel all orders on a symbol
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#cancel-all-open-orders-on-a-symbol" /></para>
         /// </summary>
-        /// <param name="symbols">The symbols to close all orders on (max 5)</param>
+        /// <param name="symbols">The symbols to close all orders on (max 5), for example `BTCUSDT`</param>
         /// <param name="ct">Cancelation Token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<MexcOrder>>> CancelAllOrdersAsync(IEnumerable<string> symbols, CancellationToken ct = default);
@@ -77,7 +77,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get an order
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-order" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
         /// <param name="orderId">Get by order id</param>
         /// <param name="clientOrderId">Get by client order id</param>
         /// <param name="ct">Cancelation Token</param>
@@ -88,7 +88,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get all open orders for a symbol
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#current-open-orders" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `BTCUSDT`</param>
         /// <param name="ct">Cancelation Token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<MexcOrder>>> GetOpenOrdersAsync(string symbol, CancellationToken ct = default);
@@ -97,7 +97,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get all orders
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#all-orders" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `BTCUSDT`</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
         /// <param name="limit">Max results</param>
@@ -110,7 +110,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#account-trade-list" /></para>
         /// </summary>
         /// <param name="orderId">Filter by order id</param>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `BTCUSDT`</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
         /// <param name="limit">Max results</param>

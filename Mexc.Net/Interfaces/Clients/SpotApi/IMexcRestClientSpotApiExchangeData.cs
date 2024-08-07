@@ -33,7 +33,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get a list of symbols supported by the API
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#api-default-symbol" /></para>
         /// </summary>
-        /// <param name="ct"></param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<string>>> GetApiSymbolsAsync(CancellationToken ct = default);
 
@@ -41,7 +41,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get the exchange info, including symbol info
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#exchange-information" /></para>
         /// </summary>
-        /// <param name="symbols">Filter by symbols</param>
+        /// <param name="symbols">Filter by symbols, for example `BTCUSDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<MexcExchangeInfo>> GetExchangeInfoAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default);
@@ -50,7 +50,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get the current order book
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#order-book" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
         /// <param name="limit">Number of rows, max 500</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -60,7 +60,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get a list of the most recent trades
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#recent-trades-list" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
         /// <param name="limit">Number of rows, max 1000</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -70,7 +70,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get a list of aggregated trades
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#compressed-aggregate-trades-list" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
         /// <param name="limit">Number of rows, max 1000</param>
@@ -82,7 +82,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get kline/candlestick data
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#kline-candlestick-data" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
         /// <param name="interval">Kline interval</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
@@ -95,7 +95,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get average price for a symbol
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#current-average-price" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<MexcAveragePrice>> GetAveragePriceAsync(string symbol, CancellationToken ct = default);
@@ -104,7 +104,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get 24h price statistics
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#24hr-ticker-price-change-statistics" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<MexcTicker>> GetTickerAsync(string symbol, CancellationToken ct = default);
@@ -121,7 +121,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get the last symbol prices
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#symbol-price-ticker" /></para>
         /// </summary>
-        /// <param name="symbols">Filter by symbol</param>
+        /// <param name="symbols">Filter by symbol, for example `BTCUSDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<MexcPrice>>> GetPricesAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default);
@@ -130,7 +130,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get the best book prices
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#symbol-order-book-ticker" /></para>
         /// </summary>
-        /// <param name="symbols">Filter by symbol</param>
+        /// <param name="symbols">Filter by symbol, for example `BTCUSDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<MexcBookPrice>>> GetBookPricesAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default);

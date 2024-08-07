@@ -680,7 +680,7 @@
             Withdraw funds
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#withdraw-new" /></para>
             </summary>
-            <param name="asset">Asset</param>
+            <param name="asset">Asset, for example `BTC`</param>
             <param name="address">Address to withdraw to</param>
             <param name="quantity">Quantity to withdraw</param>
             <param name="clientOrderId">Order id</param>
@@ -705,7 +705,7 @@
             Get deposit history
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#deposit-history-supporting-network" /></para>
             </summary>
-            <param name="asset">Filter by asset</param>
+            <param name="asset">Filter by asset, for example `BTC`</param>
             <param name="status">Filter by status</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
@@ -718,7 +718,7 @@
             Get withdrawal history
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#withdraw-history-supporting-network" /></para>
             </summary>
-            <param name="asset">Filter by asset</param>
+            <param name="asset">Filter by asset, for example `BTC`</param>
             <param name="status">Filter by status</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
@@ -731,7 +731,7 @@
             Generate a deposit address
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#generate-deposit-address-supporting-network" /></para>
             </summary>
-            <param name="asset">Asset</param>
+            <param name="asset">Asset, for example `BTC`</param>
             <param name="network">Network</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -741,7 +741,7 @@
             Get deposit addresses
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#deposit-address-supporting-network" /></para>
             </summary>
-            <param name="asset">Asset</param>
+            <param name="asset">Asset, for example `BTC`</param>
             <param name="network">Filter by network</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -751,7 +751,7 @@
             Get withdrawal addresses
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#withdraw-address-supporting-network" /></para>
             </summary>
-            <param name="asset">Filter by asset</param>
+            <param name="asset">Filter by asset, for example `BTC`</param>
             <param name="page">Page</param>
             <param name="pageSize">Page size</param>
             <param name="ct">Cancellation token</param>
@@ -762,7 +762,7 @@
             Transfer between accounts
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#user-universal-transfer" /></para>
             </summary>
-            <param name="asset">The asset to transfer</param>
+            <param name="asset">The asset to transfer, for example `BTC`</param>
             <param name="fromAccountType">From account</param>
             <param name="toAccountType">To account</param>
             <param name="quantity">Quantity</param>
@@ -805,7 +805,7 @@
             Convert small amount (dust) of certain assets to equal value Mx
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#dust-transfer" /></para>
             </summary>
-            <param name="assets">Assets to convert</param>
+            <param name="assets">Assets to convert, for example `BTC`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -843,13 +843,13 @@
             Get trade fee for a symbol
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-symbol-commission" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `BTCUSDT`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.StartUserStreamAsync(System.Threading.CancellationToken)">
             <summary>
-            Start a user data stream for accessing private socket streams
+            Starts a user stream by requesting a listen key. This listen key can be used in a subsequent request to user subscribe methods in the socket client. The stream will close after 60 minutes unless <see cref="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.KeepAliveUserStreamAsync(System.String,System.Threading.CancellationToken)">KeepAliveUserStreamAsync</see> is called.
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#listen-key" /></para>
             </summary>
             <param name="ct">Cancellation token</param>
@@ -899,7 +899,7 @@
             Get a list of symbols supported by the API
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#api-default-symbol" /></para>
             </summary>
-            <param name="ct"></param>
+            <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData.GetExchangeInfoAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
@@ -907,7 +907,7 @@
             Get the exchange info, including symbol info
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#exchange-information" /></para>
             </summary>
-            <param name="symbols">Filter by symbols</param>
+            <param name="symbols">Filter by symbols, for example `BTCUSDT`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -916,7 +916,7 @@
             Get the current order book
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#order-book" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `BTCUSDT`</param>
             <param name="limit">Number of rows, max 500</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -926,7 +926,7 @@
             Get a list of the most recent trades
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#recent-trades-list" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `BTCUSDT`</param>
             <param name="limit">Number of rows, max 1000</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -936,7 +936,7 @@
             Get a list of aggregated trades
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#compressed-aggregate-trades-list" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `BTCUSDT`</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
             <param name="limit">Number of rows, max 1000</param>
@@ -948,7 +948,7 @@
             Get kline/candlestick data
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#kline-candlestick-data" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `BTCUSDT`</param>
             <param name="interval">Kline interval</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
@@ -961,7 +961,7 @@
             Get average price for a symbol
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#current-average-price" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `BTCUSDT`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -970,7 +970,7 @@
             Get 24h price statistics
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#24hr-ticker-price-change-statistics" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `BTCUSDT`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -987,7 +987,7 @@
             Get the last symbol prices
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#symbol-price-ticker" /></para>
             </summary>
-            <param name="symbols">Filter by symbol</param>
+            <param name="symbols">Filter by symbol, for example `BTCUSDT`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -996,7 +996,7 @@
             Get the best book prices
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#symbol-order-book-ticker" /></para>
             </summary>
-            <param name="symbols">Filter by symbol</param>
+            <param name="symbols">Filter by symbol, for example `BTCUSDT`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -1010,7 +1010,7 @@
             Place a new test order. Only validates the rules, doesn't actually place any order
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#test-new-order" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `BTCUSDT`</param>
             <param name="side">Order side</param>
             <param name="type">Order type</param>
             <param name="quantity">Quantity</param>
@@ -1025,7 +1025,7 @@
             Place a new order
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#new-order" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `BTCUSDT`</param>
             <param name="side">Order side</param>
             <param name="type">Order type</param>
             <param name="quantity">Quantity</param>
@@ -1040,7 +1040,7 @@
             Cancel an order
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#cancel-order" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `BTCUSDT`</param>
             <param name="orderId">Cancel by order id</param>
             <param name="clientOrderId">Cancel by client order id</param>
             <param name="newClientOrderId">New client order id after canceled</param>
@@ -1052,7 +1052,7 @@
             Cancel all orders on a symbol
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#cancel-all-open-orders-on-a-symbol" /></para>
             </summary>
-            <param name="symbol">The symbol to close all orders on</param>
+            <param name="symbol">The symbol to close all orders on, for example `BTCUSDT`</param>
             <param name="ct">Cancelation Token</param>
             <returns></returns>
         </member>
@@ -1061,7 +1061,7 @@
             Cancel all orders on a symbol
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#cancel-all-open-orders-on-a-symbol" /></para>
             </summary>
-            <param name="symbols">The symbols to close all orders on (max 5)</param>
+            <param name="symbols">The symbols to close all orders on (max 5), for example `BTCUSDT`</param>
             <param name="ct">Cancelation Token</param>
             <returns></returns>
         </member>
@@ -1070,7 +1070,7 @@
             Get an order
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-order" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `BTCUSDT`</param>
             <param name="orderId">Get by order id</param>
             <param name="clientOrderId">Get by client order id</param>
             <param name="ct">Cancelation Token</param>
@@ -1081,7 +1081,7 @@
             Get all open orders for a symbol
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#current-open-orders" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `BTCUSDT`</param>
             <param name="ct">Cancelation Token</param>
             <returns></returns>
         </member>
@@ -1090,7 +1090,7 @@
             Get all orders
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#all-orders" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `BTCUSDT`</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
             <param name="limit">Max results</param>
@@ -1103,7 +1103,7 @@
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#account-trade-list" /></para>
             </summary>
             <param name="orderId">Filter by order id</param>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `BTCUSDT`</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
             <param name="limit">Max results</param>
@@ -1120,7 +1120,7 @@
             Subscribe to trade updates
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#trade-streams" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `BTCUSDT`</param>
             <param name="handler">Data handler</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -1130,9 +1130,9 @@
             Subscribe to trade updates
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#trade-streams" /></para>
             </summary>
-            <param name="symbols"></param>
-            <param name="handler"></param>
-            <param name="ct"></param>
+            <param name="symbols">The symbols to subscribe, for example `BTCUSDT`</param>
+            <param name="handler">Data handler</param>
+            <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToKlineUpdatesAsync(System.String,Mexc.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamKline}},System.Threading.CancellationToken)">
@@ -1140,7 +1140,7 @@
             Subscribe to kline/candlestick updates
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#kline-streams" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `BTCUSDT`</param>
             <param name="interval">The interval of the candles</param>
             <param name="handler">Data handler</param>
             <param name="ct">Cancellation token</param>
@@ -1151,7 +1151,7 @@
             Subscribe to kline/candlestick updates
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#kline-streams" /></para>
             </summary>
-            <param name="symbols">The symbols</param>
+            <param name="symbols">The symbols, for example `BTCUSDT`</param>
             <param name="interval">The interval of the candles</param>
             <param name="handler">Data handler</param>
             <param name="ct">Cancellation token</param>
@@ -1162,7 +1162,7 @@
             Subscribe to orderbook change updates
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#diff-depth-stream" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `BTCUSDT`</param>
             <param name="handler">Data handler</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -1172,7 +1172,7 @@
             Subscribe to orderbook change updates
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#diff-depth-stream" /></para>
             </summary>
-            <param name="symbols">The symbols</param>
+            <param name="symbols">The symbols, for example `BTCUSDT`</param>
             <param name="handler">Data handler</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -1182,7 +1182,7 @@
             Subscribe to full orderbook updates
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#partial-book-depth-streams" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `BTCUSDT`</param>
             <param name="depth">The depth of the book, 5, 10 or 20</param>
             <param name="handler">Data handler</param>
             <param name="ct">Cancellation token</param>
@@ -1193,7 +1193,7 @@
             Subscribe to full orderbook updates
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#partial-book-depth-streams" /></para>
             </summary>
-            <param name="symbols">The symbols</param>
+            <param name="symbols">The symbols, for example `BTCUSDT`</param>
             <param name="depth">The depth of the book, 5, 10 or 20</param>
             <param name="handler">Data handler</param>
             <param name="ct">Cancellation token</param>
@@ -1204,7 +1204,7 @@
             Subscribe to book ticker (best bid/ask) updates
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#individual-symbol-book-ticker-streams" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `BTCUSDT`</param>
             <param name="handler">Data handler</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -1214,7 +1214,7 @@
             Subscribe to book ticker (best bid/ask) updates
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#individual-symbol-book-ticker-streams" /></para>
             </summary>
-            <param name="symbols">The symbols</param>
+            <param name="symbols">The symbols, for example `BTCUSDT`</param>
             <param name="handler">Data handler</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -1224,7 +1224,7 @@
             Subscribe to mini ticker updates
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#miniticker" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `BTCUSDT`</param>
             <param name="timezone">The timezone to base the statistics on, in the vorm of `UTC+1`. Defaults to `UTC+0`</param>
             <param name="handler">Data handler</param>
             <param name="ct">Cancellation token</param>
@@ -1235,7 +1235,7 @@
             Subscribe to mini ticker updates
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#miniticker" /></para>
             </summary>
-            <param name="symbols">The symbols</param>
+            <param name="symbols">The symbols, for example `BTCUSDT`</param>
             <param name="timezone">The timezone to base the statistics on, in the vorm of `UTC+1`. Defaults to `UTC+0`</param>
             <param name="handler">Data handler</param>
             <param name="ct">Cancellation token</param>
@@ -1253,30 +1253,30 @@
         </member>
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToAccountUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcAccountUpdate}},System.Threading.CancellationToken)">
             <summary>
-            Subscribe to account balance updates. Listenkey can be retrieved by calling `SpotApi.Account.StartUserStreamAsync()` on the `MexcRestClient`
+            Subscribe to account balance updates. Prior to using this, the <see cref="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.StartUserStreamAsync(System.Threading.CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method should be called to start the stream and obtaining a listen key.
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#spot-account-upadte" /></para>
             </summary>
-            <param name="listenKey">Listen key</param>
+            <param name="listenKey">Listen key retrieved by the <see cref="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.StartUserStreamAsync(System.Threading.CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method</param>
             <param name="handler">Data handler</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToOrderUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcUserOrderUpdate}},System.Threading.CancellationToken)">
             <summary>
-            Subscribe to account order updates. Listenkey can be retrieved by calling `SpotApi.Account.StartUserStreamAsync()` on the `MexcRestClient`
+            Subscribe to account order updates. Prior to using this, the <see cref="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.StartUserStreamAsync(System.Threading.CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method should be called to start the stream and obtaining a listen key.
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#spot-account-orders" /></para>
             </summary>
-            <param name="listenKey">Listen key</param>
+            <param name="listenKey">Listen key retrieved by the <see cref="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.StartUserStreamAsync(System.Threading.CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method</param>
             <param name="handler">Data handler</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToUserTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcUserTradeUpdate}},System.Threading.CancellationToken)">
             <summary>
-            Subscribe to account trade updates. Listenkey can be retrieved by calling `SpotApi.Account.StartUserStreamAsync()` on the `MexcRestClient`
+            Subscribe to account trade updates. Prior to using this, the <see cref="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.StartUserStreamAsync(System.Threading.CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method should be called to start the stream and obtaining a listen key.
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#spot-account-deals" /></para>
             </summary>
-            <param name="listenKey">Listen key</param>
+            <param name="listenKey">Listen key retrieved by the <see cref="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.StartUserStreamAsync(System.Threading.CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method</param>
             <param name="handler">Data handler</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>

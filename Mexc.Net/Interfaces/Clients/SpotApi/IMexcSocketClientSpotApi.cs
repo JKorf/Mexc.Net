@@ -20,7 +20,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Subscribe to trade updates
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#trade-streams" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -30,9 +30,9 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Subscribe to trade updates
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#trade-streams" /></para>
         /// </summary>
-        /// <param name="symbols"></param>
-        /// <param name="handler"></param>
-        /// <param name="ct"></param>
+        /// <param name="symbols">The symbols to subscribe, for example `BTCUSDT`</param>
+        /// <param name="handler">Data handler</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<IEnumerable<MexcStreamTrade>>> handler, CancellationToken ct = default);
 
@@ -40,7 +40,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Subscribe to kline/candlestick updates
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#kline-streams" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
         /// <param name="interval">The interval of the candles</param>
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
@@ -51,7 +51,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Subscribe to kline/candlestick updates
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#kline-streams" /></para>
         /// </summary>
-        /// <param name="symbols">The symbols</param>
+        /// <param name="symbols">The symbols, for example `BTCUSDT`</param>
         /// <param name="interval">The interval of the candles</param>
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
@@ -62,7 +62,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Subscribe to orderbook change updates
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#diff-depth-stream" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -72,7 +72,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Subscribe to orderbook change updates
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#diff-depth-stream" /></para>
         /// </summary>
-        /// <param name="symbols">The symbols</param>
+        /// <param name="symbols">The symbols, for example `BTCUSDT`</param>
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -82,7 +82,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Subscribe to full orderbook updates
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#partial-book-depth-streams" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
         /// <param name="depth">The depth of the book, 5, 10 or 20</param>
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
@@ -93,7 +93,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Subscribe to full orderbook updates
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#partial-book-depth-streams" /></para>
         /// </summary>
-        /// <param name="symbols">The symbols</param>
+        /// <param name="symbols">The symbols, for example `BTCUSDT`</param>
         /// <param name="depth">The depth of the book, 5, 10 or 20</param>
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
@@ -104,7 +104,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Subscribe to book ticker (best bid/ask) updates
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#individual-symbol-book-ticker-streams" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -114,7 +114,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Subscribe to book ticker (best bid/ask) updates
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#individual-symbol-book-ticker-streams" /></para>
         /// </summary>
-        /// <param name="symbols">The symbols</param>
+        /// <param name="symbols">The symbols, for example `BTCUSDT`</param>
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -124,7 +124,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Subscribe to mini ticker updates
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#miniticker" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
         /// <param name="timezone">The timezone to base the statistics on, in the vorm of `UTC+1`. Defaults to `UTC+0`</param>
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
@@ -135,7 +135,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Subscribe to mini ticker updates
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#miniticker" /></para>
         /// </summary>
-        /// <param name="symbols">The symbols</param>
+        /// <param name="symbols">The symbols, for example `BTCUSDT`</param>
         /// <param name="timezone">The timezone to base the statistics on, in the vorm of `UTC+1`. Defaults to `UTC+0`</param>
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
@@ -153,30 +153,30 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         Task<CallResult<UpdateSubscription>> SubscribeToMiniTickerUpdatesAsync(Action<DataEvent<IEnumerable<MexcStreamMiniTick>>> handler, string? timezone = null, CancellationToken ct = default);
 
         /// <summary>
-        /// Subscribe to account balance updates. Listenkey can be retrieved by calling `SpotApi.Account.StartUserStreamAsync()` on the `MexcRestClient`
+        /// Subscribe to account balance updates. Prior to using this, the <see cref="IMexcRestClientSpotApiAccount.StartUserStreamAsync(CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method should be called to start the stream and obtaining a listen key.
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#spot-account-upadte" /></para>
         /// </summary>
-        /// <param name="listenKey">Listen key</param>
+        /// <param name="listenKey">Listen key retrieved by the <see cref="IMexcRestClientSpotApiAccount.StartUserStreamAsync(CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method</param>
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<CallResult<UpdateSubscription>> SubscribeToAccountUpdatesAsync(string listenKey, Action<DataEvent<MexcAccountUpdate>> handler, CancellationToken ct = default);
 
         /// <summary>
-        /// Subscribe to account order updates. Listenkey can be retrieved by calling `SpotApi.Account.StartUserStreamAsync()` on the `MexcRestClient`
+        /// Subscribe to account order updates. Prior to using this, the <see cref="IMexcRestClientSpotApiAccount.StartUserStreamAsync(CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method should be called to start the stream and obtaining a listen key.
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#spot-account-orders" /></para>
         /// </summary>
-        /// <param name="listenKey">Listen key</param>
+        /// <param name="listenKey">Listen key retrieved by the <see cref="IMexcRestClientSpotApiAccount.StartUserStreamAsync(CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method</param>
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(string listenKey, Action<DataEvent<MexcUserOrderUpdate>> handler, CancellationToken ct = default);
 
         /// <summary>
-        /// Subscribe to account trade updates. Listenkey can be retrieved by calling `SpotApi.Account.StartUserStreamAsync()` on the `MexcRestClient`
+        /// Subscribe to account trade updates. Prior to using this, the <see cref="IMexcRestClientSpotApiAccount.StartUserStreamAsync(CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method should be called to start the stream and obtaining a listen key.
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#spot-account-deals" /></para>
         /// </summary>
-        /// <param name="listenKey">Listen key</param>
+        /// <param name="listenKey">Listen key retrieved by the <see cref="IMexcRestClientSpotApiAccount.StartUserStreamAsync(CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method</param>
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>

@@ -34,7 +34,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Withdraw funds
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#withdraw-new" /></para>
         /// </summary>
-        /// <param name="asset">Asset</param>
+        /// <param name="asset">Asset, for example `BTC`</param>
         /// <param name="address">Address to withdraw to</param>
         /// <param name="quantity">Quantity to withdraw</param>
         /// <param name="clientOrderId">Order id</param>
@@ -59,7 +59,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get deposit history
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#deposit-history-supporting-network" /></para>
         /// </summary>
-        /// <param name="asset">Filter by asset</param>
+        /// <param name="asset">Filter by asset, for example `BTC`</param>
         /// <param name="status">Filter by status</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
@@ -72,7 +72,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get withdrawal history
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#withdraw-history-supporting-network" /></para>
         /// </summary>
-        /// <param name="asset">Filter by asset</param>
+        /// <param name="asset">Filter by asset, for example `BTC`</param>
         /// <param name="status">Filter by status</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
@@ -85,7 +85,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Generate a deposit address
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#generate-deposit-address-supporting-network" /></para>
         /// </summary>
-        /// <param name="asset">Asset</param>
+        /// <param name="asset">Asset, for example `BTC`</param>
         /// <param name="network">Network</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -95,7 +95,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get deposit addresses
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#deposit-address-supporting-network" /></para>
         /// </summary>
-        /// <param name="asset">Asset</param>
+        /// <param name="asset">Asset, for example `BTC`</param>
         /// <param name="network">Filter by network</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -105,7 +105,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get withdrawal addresses
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#withdraw-address-supporting-network" /></para>
         /// </summary>
-        /// <param name="asset">Filter by asset</param>
+        /// <param name="asset">Filter by asset, for example `BTC`</param>
         /// <param name="page">Page</param>
         /// <param name="pageSize">Page size</param>
         /// <param name="ct">Cancellation token</param>
@@ -116,7 +116,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Transfer between accounts
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#user-universal-transfer" /></para>
         /// </summary>
-        /// <param name="asset">The asset to transfer</param>
+        /// <param name="asset">The asset to transfer, for example `BTC`</param>
         /// <param name="fromAccountType">From account</param>
         /// <param name="toAccountType">To account</param>
         /// <param name="quantity">Quantity</param>
@@ -159,7 +159,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Convert small amount (dust) of certain assets to equal value Mx
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#dust-transfer" /></para>
         /// </summary>
-        /// <param name="assets">Assets to convert</param>
+        /// <param name="assets">Assets to convert, for example `BTC`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<MexcDustResult>> DustTransferAsync(IEnumerable<string> assets, CancellationToken ct = default);
@@ -197,13 +197,13 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get trade fee for a symbol
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-symbol-commission" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `BTCUSDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<MexcTradeFee>> GetTradeFeeAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
-        /// Start a user data stream for accessing private socket streams
+        /// Starts a user stream by requesting a listen key. This listen key can be used in a subsequent request to user subscribe methods in the socket client. The stream will close after 60 minutes unless <see cref="KeepAliveUserStreamAsync">KeepAliveUserStreamAsync</see> is called.
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#listen-key" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
