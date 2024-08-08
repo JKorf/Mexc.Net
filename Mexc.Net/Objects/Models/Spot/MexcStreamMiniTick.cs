@@ -53,7 +53,7 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// 24h volume
         /// </summary>
-        [JsonProperty("q")]
+        [JsonProperty("q"), JsonConverter(typeof(BigDecimalConverter))]
         public decimal Volume { get; set; }
         /// <summary>
         /// 24h quote volume
