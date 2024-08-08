@@ -127,6 +127,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 1.7.2 - 08 Aug 2024
+    * Fixed SpotApi.Account.GetUserAssetsAsync deserialization due to too large number being returned
+
 * Version 1.7.1 - 08 Aug 2024
     * Fixed deserialization issues caused by too big number value
 
