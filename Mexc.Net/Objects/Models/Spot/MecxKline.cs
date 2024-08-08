@@ -38,7 +38,7 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Volume
         /// </summary>
-        [ArrayProperty(5)]
+        [ArrayProperty(5), JsonConverter(typeof(BigDecimalConverter))]
         public decimal Volume { get; set; }
         /// <summary>
         /// Close Time

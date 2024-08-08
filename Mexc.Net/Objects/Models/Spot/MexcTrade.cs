@@ -16,7 +16,7 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Traded quantity
         /// </summary>
-        [JsonProperty("qty")]
+        [JsonProperty("qty"), JsonConverter(typeof(BigDecimalConverter))]
         public decimal Quantity { get; set; }
         /// <summary>
         /// Trade value

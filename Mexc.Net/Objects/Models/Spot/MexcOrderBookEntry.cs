@@ -18,7 +18,7 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// The quantity of this price in the order book
         /// </summary>
-        [ArrayProperty(1)]
+        [ArrayProperty(1), JsonConverter(typeof(BigDecimalConverter))]
         public decimal Quantity { get; set; }
     }
 }

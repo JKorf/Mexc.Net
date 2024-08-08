@@ -20,7 +20,7 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Best bid quantity
         /// </summary>
-        [JsonProperty("bidQty")]
+        [JsonProperty("bidQty"), JsonConverter(typeof(BigDecimalConverter))]
         public decimal? BestBidQuantity { get; set; }
         /// <summary>
         /// Best ask price
@@ -30,7 +30,7 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Best ask quantity
         /// </summary>
-        [JsonProperty("askQty")]
+        [JsonProperty("askQty"), JsonConverter(typeof(BigDecimalConverter))]
         public decimal? BestAskQuantity { get; set; }
     }
 }
