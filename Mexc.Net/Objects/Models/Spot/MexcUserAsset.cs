@@ -79,7 +79,7 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Max withdrawal
         /// </summary>
-        [JsonProperty("withdrawMax")]
+        [JsonProperty("withdrawMax"), JsonConverter(typeof(BigDecimalConverter))]
         public decimal WithdrawMax { get; set; }
         /// <summary>
         /// Minimal withdrawal

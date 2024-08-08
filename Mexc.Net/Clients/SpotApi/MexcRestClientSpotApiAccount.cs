@@ -275,7 +275,7 @@ namespace Mexc.Net.Clients.SpotApi
 
         #endregion
 
-        #region Get Mx Deduction Status
+        #region Get Trade Fee
 
         /// <inheritdoc />
         public async Task<WebCallResult<MexcTradeFee>> GetTradeFeeAsync(string symbol, CancellationToken ct = default)
