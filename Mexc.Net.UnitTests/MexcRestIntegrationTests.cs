@@ -15,7 +15,7 @@ namespace Mexc.Net.UnitTests
     [NonParallelizable]
     internal class MexcRestIntegrationTests : RestIntergrationTest<MexcRestClient>
     {
-        public override bool Run { get; set; } = true;
+        public override bool Run { get; set; }
 
         public MexcRestIntegrationTests()
         {
@@ -25,9 +25,6 @@ namespace Mexc.Net.UnitTests
         {
             var key = Environment.GetEnvironmentVariable("APIKEY");
             var sec = Environment.GetEnvironmentVariable("APISECRET");
-
-            key = "mx0vglXH1pl1WUt0Kd";
-            sec = "d812baf264d24b08817d618bcad3b062";
 
             Authenticated = key != null && sec != null;
             return new MexcRestClient(null, loggerFactory, opts =>
