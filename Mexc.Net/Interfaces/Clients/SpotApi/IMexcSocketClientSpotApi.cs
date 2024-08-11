@@ -16,6 +16,8 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
     /// </summary>
     public interface IMexcSocketClientSpotApi: ISocketApiClient
     {
+        IMexcSocketClientSpotApiShared SharedClient { get; }
+
         /// <summary>
         /// Subscribe to trade updates
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#trade-streams" /></para>

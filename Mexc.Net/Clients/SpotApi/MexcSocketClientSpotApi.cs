@@ -24,7 +24,7 @@ using System.Threading.Tasks;
 namespace Mexc.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    internal class MexcSocketClientSpotApi : SocketApiClient, IMexcSocketClientSpotApi
+    internal partial class MexcSocketClientSpotApi : SocketApiClient, IMexcSocketClientSpotApi
     {
         private static readonly MessagePath _idPath = MessagePath.Get().Property("id");
         private static readonly MessagePath _channelPath = MessagePath.Get().Property("c");
@@ -56,6 +56,8 @@ namespace Mexc.Net.Clients.SpotApi
 
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, ApiType? futuresType = null) => baseAsset.ToUpperInvariant() + quoteAsset.ToUpperInvariant();
+
+        public IMexcSocketClientSpotApiShared SharedClient => this;
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<IEnumerable<MexcStreamTrade>>> handler, CancellationToken ct = default)
