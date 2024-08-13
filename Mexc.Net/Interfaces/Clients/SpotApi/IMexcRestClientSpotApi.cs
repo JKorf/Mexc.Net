@@ -13,6 +13,8 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <returns></returns>
         ISpotClient CommonSpotClient { get; }
+        IMexcRestClientSpotApiShared SharedClient { get; }
+
         /// <summary>
         /// Endpoints related to account settings, info or actions
         /// </summary>

@@ -21,7 +21,7 @@ using CryptoExchange.Net.Converters.MessageParsing;
 namespace Mexc.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    internal class MexcRestClientSpotApi : RestApiClient, IMexcRestClientSpotApi, ISpotClient
+    internal partial class MexcRestClientSpotApi : RestApiClient, IMexcRestClientSpotApi, ISpotClient
     {
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Spot Api");
 
@@ -34,6 +34,7 @@ namespace Mexc.Net.Clients.SpotApi
 
         /// <inheritdoc />
         public ISpotClient CommonSpotClient => this;
+        public IMexcRestClientSpotApiShared SharedClient => this;
 
         /// <inheritdoc />
         public string ExchangeName => "Mexc";

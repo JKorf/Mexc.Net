@@ -14,6 +14,7 @@ using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.SharedApis.Models.Socket;
 using CryptoExchange.Net.SharedApis.Interfaces.Socket;
 using CryptoExchange.Net.SharedApis.SubscribeModels;
+using Mexc.Net.Objects.Options;
 
 namespace Mexc.Net.Clients.SpotApi
 {
@@ -41,6 +42,96 @@ namespace Mexc.Net.Clients.SpotApi
         {
             var symbol = FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType);
             var result = await SubscribeToBookTickerUpdatesAsync(symbol, update => handler(update.As(new SharedBookTicker(update.Data.BestAskPrice, update.Data.BestAskQuantity, update.Data.BestBidPrice, update.Data.BestBidQuantity))), ct).ConfigureAwait(false);
+
+            return result;
+        }
+
+        async Task<CallResult<UpdateSubscription>> IBalanceSocketClient.SubscribeToBalanceUpdatesAsync(SharedRequest request, Action<DataEvent<IEnumerable<SharedBalance>>> handler, CancellationToken ct)
+        {
+            var restClient = new MexcRestClient(opts =>
+            {
+                opts.ApiCredentials = ApiOptions.ApiCredentials ?? ClientOptions.ApiCredentials;
+                opts.Environment = ((MexcSocketOptions)ClientOptions).Environment;
+            });
+
+            var listenKey = await restClient.SpotApi.Account.StartUserStreamAsync().ConfigureAwait(false);
+            if (!listenKey)
+                return listenKey.As<UpdateSubscription>(default);
+
+            var result = await SubscribeToAccountUpdatesAsync(listenKey.Data,
+                update => handler(update.As<IEnumerable<SharedBalance>>(new[] { new SharedBalance(update.Data.Asset, update.Data.Free, update.Data.Free + update.Data.Frozen) })),
+                ct: ct).ConfigureAwait(false);
+
+            return result;
+        }
+
+        async Task<CallResult<UpdateSubscription>> ISpotOrderSocketClient.SubscribeToOrderUpdatesAsync(SharedRequest request, Action<DataEvent<IEnumerable<SharedSpotOrder>>> handler, CancellationToken ct)
+        {
+            var restClient = new MexcRestClient(opts =>
+            {
+                opts.ApiCredentials = ApiOptions.ApiCredentials ?? ClientOptions.ApiCredentials;
+                opts.Environment = ((MexcSocketOptions)ClientOptions).Environment;
+            });
+
+            var listenKey = await restClient.SpotApi.Account.StartUserStreamAsync().ConfigureAwait(false);
+            if (!listenKey)
+                return listenKey.As<UpdateSubscription>(default);
+
+            var result = await SubscribeToOrderUpdatesAsync(listenKey.Data,
+                update => handler(update.As<IEnumerable<SharedSpotOrder>>(new[] {
+                    new SharedSpotOrder(
+                        update.Symbol!,
+                        update.Data.OrderId!,
+                        update.Data.OrderType == Enums.OrderType.Limit ? SharedOrderType.Limit : update.Data.OrderType == Enums.OrderType.Market ? SharedOrderType.Market : SharedOrderType.Other,
+                        update.Data.Side == Enums.OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                        (update.Data.Status == Enums.OrderStatus.Canceled || update.Data.Status == Enums.OrderStatus.PartiallyCanceled) ? SharedOrderStatus.Canceled : (update.Data.Status == Enums.OrderStatus.New || update.Data.Status == Enums.OrderStatus.PartiallyFilled) ? SharedOrderStatus.Open : SharedOrderStatus.Filled,
+                        update.Data.Timestamp)
+                    {
+                        ClientOrderId = update.Data.ClientOrderId,
+                        Price = update.Data.Price,
+                        Quantity = update.Data.Quantity,
+                        QuantityFilled = update.Data.Quantity - update.Data.QuantityRemaining,
+                        QuoteQuantity = update.Data.QuoteQuantity,
+                        QuoteQuantityFilled = update.Data.QuoteQuantity - update.Data.QuoteQuantityRemaining,
+                        AveragePrice = update.Data.AveragePrice,
+                        UpdateTime = update.Data.Timestamp,
+                        TimeInForce = update.Data.OrderType == Enums.OrderType.ImmediateOrCancel ? SharedTimeInForce.ImmediateOrCancel : update.Data.OrderType == Enums.OrderType.FillOrKill ? SharedTimeInForce.FillOrKill : null
+                    }
+                })),
+                ct: ct).ConfigureAwait(false);
+
+            return result;
+        }
+
+        async Task<CallResult<UpdateSubscription>> ISpotUserTradeSocketClient.SubscribeToUserTradeUpdatesAsync(SharedRequest request, Action<DataEvent<IEnumerable<SharedUserTrade>>> handler, CancellationToken ct)
+        {
+            var restClient = new MexcRestClient(opts =>
+            {
+                opts.ApiCredentials = ApiOptions.ApiCredentials ?? ClientOptions.ApiCredentials;
+                opts.Environment = ((MexcSocketOptions)ClientOptions).Environment;
+            });
+
+#warning Listenkey needs to be kept alive, do we handle or should user?
+            var listenKey = await restClient.SpotApi.Account.StartUserStreamAsync().ConfigureAwait(false);
+            if (!listenKey)
+                return listenKey.As<UpdateSubscription>(default);
+
+            var result = await SubscribeToUserTradeUpdatesAsync(
+                listenKey.Data,
+                update => handler(update.As<IEnumerable<SharedUserTrade>>(new[] {
+                    new SharedUserTrade(
+                        update.Data.OrderId,
+                        update.Data.TradeId.ToString(),
+                        update.Data.Quantity,
+                        update.Data.Price,                        
+                        update.Data.TradeTime)
+                    {
+                        Role = update.Data.IsMaker ? SharedRole.Maker : SharedRole.Taker,
+                        Fee = update.Data.Fee,
+                        FeeAsset = update.Data.FeeAsset
+                    }
+                })),
+                ct: ct).ConfigureAwait(false);
 
             return result;
         }

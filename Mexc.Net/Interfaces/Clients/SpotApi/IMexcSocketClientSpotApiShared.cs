@@ -8,7 +8,10 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
     public interface IMexcSocketClientSpotApiShared :
         ITickerSocketClient,
         ITradeSocketClient,
-        IBookTickerSocketClient
+        IBookTickerSocketClient,
+        IBalanceSocketClient,
+        ISpotOrderSocketClient,
+        ISpotUserTradeSocketClient
     {
     }
 }
