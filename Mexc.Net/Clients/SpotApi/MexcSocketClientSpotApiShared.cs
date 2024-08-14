@@ -120,6 +120,7 @@ namespace Mexc.Net.Clients.SpotApi
                 listenKey.Data,
                 update => handler(update.As<IEnumerable<SharedUserTrade>>(new[] {
                     new SharedUserTrade(
+                        update.Symbol!,
                         update.Data.OrderId,
                         update.Data.TradeId.ToString(),
                         update.Data.Quantity,

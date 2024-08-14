@@ -97,5 +97,10 @@ namespace Mexc.Net.Objects.Models.Spot
         /// </summary>
         [JsonProperty("isWorking")]
         public bool IsWorking { get; set; }
+        /// <summary>
+        /// Original quote order quantity
+        /// </summary>
+        [JsonProperty("origQuoteOrderQty")]
+        public decimal? QuoteQuantity { get; set; }
     }
 }
