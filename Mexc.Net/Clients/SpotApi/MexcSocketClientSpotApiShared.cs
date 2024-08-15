@@ -15,6 +15,7 @@ using CryptoExchange.Net.SharedApis.Models.Socket;
 using CryptoExchange.Net.SharedApis.Interfaces.Socket;
 using CryptoExchange.Net.SharedApis.SubscribeModels;
 using Mexc.Net.Objects.Options;
+using CryptoExchange.Net.SharedApis.Models;
 
 namespace Mexc.Net.Clients.SpotApi
 {
@@ -22,31 +23,31 @@ namespace Mexc.Net.Clients.SpotApi
     {
         public string Exchange => MexcExchange.ExchangeName;
 
-        async Task<CallResult<UpdateSubscription>> ITickerSocketClient.SubscribeToTickerUpdatesAsync(TickerSubscribeRequest request, Action<DataEvent<SharedTicker>> handler, CancellationToken ct)
+        async Task<ExchangeResult<UpdateSubscription>> ITickerSocketClient.SubscribeToTickerUpdatesAsync(TickerSubscribeRequest request, Action<DataEvent<SharedTicker>> handler, CancellationToken ct)
         {
             var symbol = FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType);
             var result = await SubscribeToMiniTickerUpdatesAsync(symbol, update => handler(update.As(new SharedTicker(symbol, update.Data.LastPrice, update.Data.HighPrice, update.Data.LowPrice)))).ConfigureAwait(false);
 
-            return result;
+            return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }
 
-        async Task<CallResult<UpdateSubscription>> ITradeSocketClient.SubscribeToTradeUpdatesAsync(TradeSubscribeRequest request, Action<DataEvent<IEnumerable<SharedTrade>>> handler, CancellationToken ct)
+        async Task<ExchangeResult<UpdateSubscription>> ITradeSocketClient.SubscribeToTradeUpdatesAsync(TradeSubscribeRequest request, Action<DataEvent<IEnumerable<SharedTrade>>> handler, CancellationToken ct)
         {
             var symbol = FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType);
             var result = await SubscribeToTradeUpdatesAsync(symbol, update => handler(update.As(update.Data.Select(x => new SharedTrade(x.Quantity, x.Price, x.Timestamp)))), ct).ConfigureAwait(false);
 
-            return result;
+            return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }
 
-        async Task<CallResult<UpdateSubscription>> IBookTickerSocketClient.SubscribeToBookTickerUpdatesAsync(BookTickerSubscribeRequest request, Action<DataEvent<SharedBookTicker>> handler, CancellationToken ct)
+        async Task<ExchangeResult<UpdateSubscription>> IBookTickerSocketClient.SubscribeToBookTickerUpdatesAsync(BookTickerSubscribeRequest request, Action<DataEvent<SharedBookTicker>> handler, CancellationToken ct)
         {
             var symbol = FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType);
             var result = await SubscribeToBookTickerUpdatesAsync(symbol, update => handler(update.As(new SharedBookTicker(update.Data.BestAskPrice, update.Data.BestAskQuantity, update.Data.BestBidPrice, update.Data.BestBidQuantity))), ct).ConfigureAwait(false);
 
-            return result;
+            return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }
 
-        async Task<CallResult<UpdateSubscription>> IBalanceSocketClient.SubscribeToBalanceUpdatesAsync(SharedRequest request, Action<DataEvent<IEnumerable<SharedBalance>>> handler, CancellationToken ct)
+        async Task<ExchangeResult<UpdateSubscription>> IBalanceSocketClient.SubscribeToBalanceUpdatesAsync(SharedRequest request, Action<DataEvent<IEnumerable<SharedBalance>>> handler, CancellationToken ct)
         {
             var restClient = new MexcRestClient(opts =>
             {
@@ -56,16 +57,16 @@ namespace Mexc.Net.Clients.SpotApi
 
             var listenKey = await restClient.SpotApi.Account.StartUserStreamAsync().ConfigureAwait(false);
             if (!listenKey)
-                return listenKey.As<UpdateSubscription>(default);
+                return new ExchangeResult<UpdateSubscription>(Exchange, listenKey.As<UpdateSubscription>(default));
 
             var result = await SubscribeToAccountUpdatesAsync(listenKey.Data,
                 update => handler(update.As<IEnumerable<SharedBalance>>(new[] { new SharedBalance(update.Data.Asset, update.Data.Free, update.Data.Free + update.Data.Frozen) })),
                 ct: ct).ConfigureAwait(false);
 
-            return result;
+            return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }
 
-        async Task<CallResult<UpdateSubscription>> ISpotOrderSocketClient.SubscribeToOrderUpdatesAsync(SharedRequest request, Action<DataEvent<IEnumerable<SharedSpotOrder>>> handler, CancellationToken ct)
+        async Task<ExchangeResult<UpdateSubscription>> ISpotOrderSocketClient.SubscribeToOrderUpdatesAsync(SharedRequest request, Action<DataEvent<IEnumerable<SharedSpotOrder>>> handler, CancellationToken ct)
         {
             var restClient = new MexcRestClient(opts =>
             {
@@ -75,7 +76,7 @@ namespace Mexc.Net.Clients.SpotApi
 
             var listenKey = await restClient.SpotApi.Account.StartUserStreamAsync().ConfigureAwait(false);
             if (!listenKey)
-                return listenKey.As<UpdateSubscription>(default);
+                return new ExchangeResult<UpdateSubscription>(Exchange, listenKey.As<UpdateSubscription>(default));
 
             var result = await SubscribeToOrderUpdatesAsync(listenKey.Data,
                 update => handler(update.As<IEnumerable<SharedSpotOrder>>(new[] {
@@ -100,10 +101,10 @@ namespace Mexc.Net.Clients.SpotApi
                 })),
                 ct: ct).ConfigureAwait(false);
 
-            return result;
+            return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }
 
-        async Task<CallResult<UpdateSubscription>> ISpotUserTradeSocketClient.SubscribeToUserTradeUpdatesAsync(SharedRequest request, Action<DataEvent<IEnumerable<SharedUserTrade>>> handler, CancellationToken ct)
+        async Task<ExchangeResult<UpdateSubscription>> ISpotUserTradeSocketClient.SubscribeToUserTradeUpdatesAsync(SharedRequest request, Action<DataEvent<IEnumerable<SharedUserTrade>>> handler, CancellationToken ct)
         {
             var restClient = new MexcRestClient(opts =>
             {
@@ -114,7 +115,7 @@ namespace Mexc.Net.Clients.SpotApi
 #warning Listenkey needs to be kept alive, do we handle or should user?
             var listenKey = await restClient.SpotApi.Account.StartUserStreamAsync().ConfigureAwait(false);
             if (!listenKey)
-                return listenKey.As<UpdateSubscription>(default);
+                return new ExchangeResult<UpdateSubscription>(Exchange, listenKey.As<UpdateSubscription>(default));
 
             var result = await SubscribeToUserTradeUpdatesAsync(
                 listenKey.Data,
@@ -134,7 +135,7 @@ namespace Mexc.Net.Clients.SpotApi
                 })),
                 ct: ct).ConfigureAwait(false);
 
-            return result;
+            return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }
     }
 }

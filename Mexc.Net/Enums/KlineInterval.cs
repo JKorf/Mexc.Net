@@ -11,46 +11,46 @@ namespace Mexc.Net.Enums
         /// One minute
         /// </summary>
         [Map("1m", "Min1")]
-        OneMinute,
+        OneMinute = 60,
         /// <summary>
         /// Five minutes
         /// </summary>
         [Map("5m", "Min5")]
-        FiveMinutes,
+        FiveMinutes = 60 * 5,
         /// <summary>
         /// Fifteen minutes
         /// </summary>
         [Map("15m", "Min15")]
-        FifteenMinutes,
+        FifteenMinutes = 60 * 15,
         /// <summary>
         /// Thirty minutes
         /// </summary>
         [Map("30m", "Min30")]
-        ThirtyMinutes,
+        ThirtyMinutes = 60 * 30,
         /// <summary>
         /// One hour
         /// </summary>
         [Map("60m", "Min60")]
-        OneHour,
+        OneHour = 60 * 60,
         /// <summary>
         /// Four hours
         /// </summary>
         [Map("4h", "Hour4")]
-        FourHours,
+        FourHours = 60 * 60 * 4,
         /// <summary>
         /// One day
         /// </summary>
         [Map("1d", "Day1")]
-        OneDay,
+        OneDay = 60 * 60 * 24,
         /// <summary>
         /// One week
         /// </summary>
         [Map("1W", "Week1")]
-        OneWeek,
+        OneWeek = 60 * 60 * 24 * 7,
         /// <summary>
         /// One month
         /// </summary>
         [Map("1M", "Month1")]
-        OneMonth
+        OneMonth = 60 * 60 * 24 * 30
     }
 }
