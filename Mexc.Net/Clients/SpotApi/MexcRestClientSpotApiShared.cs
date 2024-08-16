@@ -41,24 +41,39 @@ namespace Mexc.Net.Clients.SpotApi
                 SharedQuantityType.Both,
                 SharedQuantityType.Both);
 
-        async Task<ExchangeWebResult<IEnumerable<SharedKline>>> IKlineRestClient.GetKlinesAsync(GetKlinesRequest request, CancellationToken ct)
+        async Task<ExchangeWebResult<IEnumerable<SharedKline>>> IKlineRestClient.GetKlinesAsync(GetKlinesRequest request, INextPageToken? pageToken, CancellationToken ct)
         {
             var interval = (Enums.KlineInterval)request.Interval;
             if (!Enum.IsDefined(typeof(Enums.KlineInterval), interval))
                 return new ExchangeWebResult<IEnumerable<SharedKline>>(Exchange, new ArgumentError("Interval not supported"));
 
+            // Determine page token
+            DateTime? fromTimestamp = null;
+            if (pageToken is DateTimeToken dateTimeToken)
+                fromTimestamp = dateTimeToken.LastTime;
+
+            // Get data
             var result = await ExchangeData.GetKlinesAsync(
-                FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType),
+                request.GetSymbol(FormatSymbol),
                 interval,
-                request.StartTime,
-                request.EndTime,
-                request.Limit,
+                fromTimestamp ?? request.Filter?.StartTime,
+                request.Filter?.EndTime,
+                request.Filter?.Limit ?? 1000,
                 ct: ct
                 ).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedKline>>(Exchange, default);
 
-            return result.AsExchangeResult(Exchange, result.Data.Select(x => new SharedKline(x.OpenTime, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.Volume)));
+            // Get next token
+            DateTimeToken? nextToken = null;
+            if (request.Filter?.StartTime != null && result.Data.Any())
+            {
+                var maxOpenTime = result.Data.Max(x => x.OpenTime);
+                if (maxOpenTime < request.Filter.EndTime!.Value.AddSeconds(-(int)request.Interval))
+                    nextToken = new DateTimeToken(maxOpenTime.AddSeconds((int)interval));
+            }
+            
+            return result.AsExchangeResult(Exchange, result.Data.Select(x => new SharedKline(x.OpenTime, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.Volume)), nextToken);
         }
 
         async Task<ExchangeWebResult<IEnumerable<SharedSpotSymbol>>> ISpotSymbolRestClient.GetSymbolsAsync(SharedRequest request, CancellationToken ct)
@@ -77,7 +92,7 @@ namespace Mexc.Net.Clients.SpotApi
 
         async Task<ExchangeWebResult<SharedTicker>> ITickerRestClient.GetTickerAsync(GetTickerRequest request, CancellationToken ct)
         {
-            var symbol = FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType);
+            var symbol = request.GetSymbol(FormatSymbol);
             var result = await ExchangeData.GetTickerAsync(symbol, ct).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<SharedTicker>(Exchange, default);
@@ -97,7 +112,7 @@ namespace Mexc.Net.Clients.SpotApi
         async Task<ExchangeWebResult<IEnumerable<SharedTrade>>> IRecentTradeRestClient.GetRecentTradesAsync(GetRecentTradesRequest request, CancellationToken ct)
         {
             var result = await ExchangeData.GetAggregatedTradeHistoryAsync(
-                FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType),
+                request.GetSymbol(FormatSymbol),
                 limit: request.Limit,
                 ct: ct).ConfigureAwait(false);
             if (!result)
@@ -118,7 +133,7 @@ namespace Mexc.Net.Clients.SpotApi
         async Task<ExchangeWebResult<SharedOrderId>> ISpotOrderRestClient.PlaceOrderAsync(PlaceSpotOrderRequest request, CancellationToken ct)
         {
             var result = await Trading.PlaceOrderAsync(
-                FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType),
+                request.GetSymbol(FormatSymbol),
                 request.Side == SharedOrderSide.Buy ? Enums.OrderSide.Buy : Enums.OrderSide.Sell,
                 GetPlaceOrderType(request.OrderType, request.TimeInForce),
                 request.Quantity,
@@ -134,7 +149,7 @@ namespace Mexc.Net.Clients.SpotApi
 
         async Task<ExchangeWebResult<SharedSpotOrder>> ISpotOrderRestClient.GetOrderAsync(GetOrderRequest request, CancellationToken ct)
         {
-            var order = await Trading.GetOrderAsync(FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType), request.OrderId).ConfigureAwait(false);
+            var order = await Trading.GetOrderAsync(request.GetSymbol(FormatSymbol), request.OrderId).ConfigureAwait(false);
             if (!order)
                 return order.AsExchangeResult<SharedSpotOrder>(Exchange, default);
 
@@ -186,12 +201,26 @@ namespace Mexc.Net.Clients.SpotApi
             }));
         }
         
-        async Task<ExchangeWebResult<IEnumerable<SharedSpotOrder>>> ISpotOrderRestClient.GetClosedOrdersAsync(GetSpotClosedOrdersRequest request, CancellationToken ct)
+        async Task<ExchangeWebResult<IEnumerable<SharedSpotOrder>>> ISpotOrderRestClient.GetClosedOrdersAsync(GetSpotClosedOrdersRequest request, INextPageToken? pageToken, CancellationToken ct)
         {
-            var symbol = FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType);
-            var order = await Trading.GetOrdersAsync(symbol: symbol, startTime: request.StartTime, endTime: request.EndTime, limit: request.Limit).ConfigureAwait(false);
+            // Determine page token
+            DateTime? fromTimestamp = null;
+            if (pageToken is DateTimeToken dateTimeToken)
+                fromTimestamp = dateTimeToken.LastTime;
+
+            var symbol = request.GetSymbol(FormatSymbol);
+            var order = await Trading.GetOrdersAsync(
+                symbol: symbol,
+                startTime: fromTimestamp ?? request.Filter?.StartTime,
+                endTime: request.Filter?.EndTime,
+                limit: request.Filter?.Limit).ConfigureAwait(false);
             if (!order)
                 return order.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, default);
+
+            // Get next token
+            DateTimeToken? nextToken = null;
+            if (order.Data.Count() == (request.Filter?.Limit ?? 100))
+                nextToken = new DateTimeToken(order.Data.Max(o => o.Timestamp));
 
             return order.AsExchangeResult(Exchange, order.Data.Where(x => x.Status == OrderStatus.Filled || x.Status == OrderStatus.Canceled).Select(x => new SharedSpotOrder(
                 x.Symbol,
@@ -209,12 +238,12 @@ namespace Mexc.Net.Clients.SpotApi
                 QuoteQuantityFilled = x.QuoteQuantityFilled,
                 TimeInForce = ParseTimeInForce(x.OrderType),
                 UpdateTime = x.UpdateTime
-            }));
+            }), nextToken);
         }
 
         async Task<ExchangeWebResult<IEnumerable<SharedUserTrade>>> ISpotOrderRestClient.GetOrderTradesAsync(GetOrderTradesRequest request, CancellationToken ct)
         {
-            var symbol = FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType);
+            var symbol = request.GetSymbol(FormatSymbol);
             var order = await Trading.GetUserTradesAsync(symbol: symbol, request.OrderId).ConfigureAwait(false);
             if (!order)
                 return order.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, default);
@@ -241,18 +270,18 @@ namespace Mexc.Net.Clients.SpotApi
                 fromTimestamp = dateTimeToken.LastTime;
 
             // Get data
-            var symbol = FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType);
+            var symbol = request.GetSymbol(FormatSymbol);
             var order = await Trading.GetUserTradesAsync(
                 symbol: symbol,
-                startTime: fromTimestamp ?? request.StartTime,
-                endTime: request.EndTime,
-                limit : request.Limit ?? 100).ConfigureAwait(false);
+                startTime: fromTimestamp ?? request.Filter?.StartTime,
+                endTime: request.Filter?.EndTime,
+                limit : request.Filter?.Limit ?? 100).ConfigureAwait(false);
             if (!order)
                 return order.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, default);
 
             // Get next token
             DateTimeToken? nextToken = null;
-            if (order.Data.Count() == (request.Limit ?? 100))
+            if (order.Data.Count() == (request.Filter?.Limit ?? 100))
                 nextToken = new DateTimeToken(order.Data.Max(o => o.Timestamp));
             
             return order.AsExchangeResult(Exchange, order.Data.Select(x => new SharedUserTrade(
@@ -271,7 +300,7 @@ namespace Mexc.Net.Clients.SpotApi
 
         async Task<ExchangeWebResult<SharedOrderId>> ISpotOrderRestClient.CancelOrderAsync(CancelOrderRequest request, CancellationToken ct)
         {
-            var order = await Trading.CancelOrderAsync(FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType), request.OrderId).ConfigureAwait(false);
+            var order = await Trading.CancelOrderAsync(request.GetSymbol(FormatSymbol), request.OrderId).ConfigureAwait(false);
             if (!order)
                 return order.AsExchangeResult<SharedOrderId>(Exchange, default);
 
