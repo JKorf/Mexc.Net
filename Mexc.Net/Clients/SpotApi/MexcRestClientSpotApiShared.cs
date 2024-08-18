@@ -76,7 +76,7 @@ namespace Mexc.Net.Clients.SpotApi
             return result.AsExchangeResult(Exchange, result.Data.Select(x => new SharedKline(x.OpenTime, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.Volume)), nextToken);
         }
 
-        async Task<ExchangeWebResult<IEnumerable<SharedSpotSymbol>>> ISpotSymbolRestClient.GetSymbolsAsync(SharedRequest request, CancellationToken ct)
+        async Task<ExchangeWebResult<IEnumerable<SharedSpotSymbol>>> ISpotSymbolRestClient.GetSpotSymbolsAsync(SharedRequest request, CancellationToken ct)
         {
             var result = await ExchangeData.GetExchangeInfoAsync(ct: ct).ConfigureAwait(false);
             if (!result)
@@ -130,7 +130,7 @@ namespace Mexc.Net.Clients.SpotApi
             return result.AsExchangeResult(Exchange, result.Data.Balances.Select(x => new SharedBalance(x.Asset, x.Available, x.Total)));
         }
 
-        async Task<ExchangeWebResult<SharedOrderId>> ISpotOrderRestClient.PlaceOrderAsync(PlaceSpotOrderRequest request, CancellationToken ct)
+        async Task<ExchangeWebResult<SharedId>> ISpotOrderRestClient.PlaceOrderAsync(PlaceSpotOrderRequest request, CancellationToken ct)
         {
             var result = await Trading.PlaceOrderAsync(
                 request.GetSymbol(FormatSymbol),
@@ -142,9 +142,9 @@ namespace Mexc.Net.Clients.SpotApi
                 clientOrderId: request.ClientOrderId).ConfigureAwait(false);
 
             if (!result)
-                return result.AsExchangeResult<SharedOrderId>(Exchange, default);
+                return result.AsExchangeResult<SharedId>(Exchange, default);
 
-            return result.AsExchangeResult(Exchange, new SharedOrderId(result.Data.OrderId.ToString()));
+            return result.AsExchangeResult(Exchange, new SharedId(result.Data.OrderId.ToString()));
         }
 
         async Task<ExchangeWebResult<SharedSpotOrder>> ISpotOrderRestClient.GetOrderAsync(GetOrderRequest request, CancellationToken ct)
@@ -298,13 +298,13 @@ namespace Mexc.Net.Clients.SpotApi
             }), nextToken);
         }
 
-        async Task<ExchangeWebResult<SharedOrderId>> ISpotOrderRestClient.CancelOrderAsync(CancelOrderRequest request, CancellationToken ct)
+        async Task<ExchangeWebResult<SharedId>> ISpotOrderRestClient.CancelOrderAsync(CancelOrderRequest request, CancellationToken ct)
         {
             var order = await Trading.CancelOrderAsync(request.GetSymbol(FormatSymbol), request.OrderId).ConfigureAwait(false);
             if (!order)
-                return order.AsExchangeResult<SharedOrderId>(Exchange, default);
+                return order.AsExchangeResult<SharedId>(Exchange, default);
 
-            return order.AsExchangeResult(Exchange, new SharedOrderId(request.OrderId));
+            return order.AsExchangeResult(Exchange, new SharedId(request.OrderId));
         }
 
         private SharedOrderStatus ParseOrderStatus(OrderStatus status)
