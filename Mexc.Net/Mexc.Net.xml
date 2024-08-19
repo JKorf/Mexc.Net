@@ -497,6 +497,26 @@
             Fill or kill
             </summary>
         </member>
+        <member name="T:Mexc.Net.Enums.SymbolStatus">
+            <summary>
+            Symbol status
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.SymbolStatus.Enabled">
+            <summary>
+            Trading is enabled
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.SymbolStatus.Paused">
+            <summary>
+            Trading is paused
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.SymbolStatus.Offline">
+            <summary>
+            Symbol is offline
+            </summary>
+        </member>
         <member name="T:Mexc.Net.Enums.TimeInForce">
             <summary>
             Time in force
@@ -530,6 +550,31 @@
         <member name="F:Mexc.Net.Enums.TimeInForce.GoodTillDate">
             <summary>
             Good til date
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Enums.TradeSidesStatus">
+            <summary>
+            Trade side enabled status
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.TradeSidesStatus.AllEnabled">
+            <summary>
+            Both buying and selling are enabled
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.TradeSidesStatus.BuyEnabled">
+            <summary>
+            Only buying is enabled
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.TradeSidesStatus.SellEnabled">
+            <summary>
+            Only selling is enabled
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.TradeSidesStatus.NoneEnabled">
+            <summary>
+            Not enabled
             </summary>
         </member>
         <member name="T:Mexc.Net.Enums.TranfserType">
@@ -2423,6 +2468,11 @@
         <member name="P:Mexc.Net.Objects.Models.Spot.MexcSymbol.MaxQuoteQuantityMarket">
             <summary>
             Max quote quantity for a single market order
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSymbol.TradeSidesEnabled">
+            <summary>
+            The trade sides that are enabled
             </summary>
         </member>
         <member name="T:Mexc.Net.Objects.Models.Spot.MexcTicker">
