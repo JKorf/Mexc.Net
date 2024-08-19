@@ -23,8 +23,8 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// The status of the symbol
         /// </summary>
-        [JsonProperty("status")]
-        public string Status { get; set; } = string.Empty;
+        [JsonProperty("status"), JsonConverter(typeof(EnumConverter))]
+        public SymbolStatus Status { get; set; }
         /// <summary>
         /// The base asset
         /// </summary>
@@ -115,6 +115,10 @@ namespace Mexc.Net.Objects.Models.Spot
         /// </summary>
         [JsonProperty("maxQuoteAmountMarket")]
         public decimal MaxQuoteQuantityMarket { get; set; }
-
+        /// <summary>
+        /// The trade sides that are enabled
+        /// </summary>
+        [JsonProperty("tradeSideType"), JsonConverter(typeof(EnumConverter))]
+        public TradeSidesStatus TradeSidesEnabled { get; set; }
     }
 }
