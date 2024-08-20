@@ -6,12 +6,18 @@ using System.Text;
 namespace Mexc.Net.Interfaces.Clients.SpotApi
 {
     public interface IMexcRestClientSpotApiShared :
-        ITickerRestClient,
-        ISpotSymbolRestClient,
-        IKlineRestClient,
-        IRecentTradeRestClient,
+        IAssetRestClient,
         IBalanceRestClient,
-        ISpotOrderRestClient
+        IDepositRestClient,
+        IKlineRestClient,
+        IOrderBookRestClient,
+        IRecentTradeRestClient,
+        ISpotOrderRestClient,
+        ISpotSymbolRestClient,
+        ITickerRestClient,
+        //ITradeHistoryRestClient
+        IWithdrawalRestClient,
+        IWithdrawRestClient
     {
     }
 }
