@@ -6,7 +6,7 @@ using System.Text;
 namespace Mexc.Net.Interfaces.Clients.SpotApi
 {
     public interface IMexcRestClientSpotApiShared :
-        IAssetRestClient,
+        IAssetsRestClient,
         IBalanceRestClient,
         IDepositRestClient,
         IKlineRestClient,
