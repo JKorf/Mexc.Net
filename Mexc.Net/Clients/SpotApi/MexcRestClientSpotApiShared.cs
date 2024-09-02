@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using CryptoExchange.Net.SharedApis.Enums;
 using CryptoExchange.Net.SharedApis.Models;
 using CryptoExchange.Net.SharedApis.Models.FilterOptions;
+using CryptoExchange.Net.SharedApis.Interfaces.Rest.Spot;
 
 namespace Mexc.Net.Clients.SpotApi
 {
@@ -95,32 +96,32 @@ namespace Mexc.Net.Clients.SpotApi
         #region Ticker client
 
         EndpointOptions<GetTickerRequest> ITickerRestClient.GetTickerOptions { get; } = new EndpointOptions<GetTickerRequest>(false);
-        async Task<ExchangeWebResult<SharedTicker>> ITickerRestClient.GetTickerAsync(GetTickerRequest request, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        async Task<ExchangeWebResult<SharedSpotTicker>> ITickerRestClient.GetTickerAsync(GetTickerRequest request, ExchangeParameters? exchangeParameters, CancellationToken ct)
         {
             var validationError = ((ITickerRestClient)this).GetTickerOptions.ValidateRequest(Exchange, request, exchangeParameters);
             if (validationError != null)
-                return new ExchangeWebResult<SharedTicker>(Exchange, validationError);
+                return new ExchangeWebResult<SharedSpotTicker>(Exchange, validationError);
 
             var symbol = request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType));
             var result = await ExchangeData.GetTickerAsync(symbol, ct).ConfigureAwait(false);
             if (!result)
-                return result.AsExchangeResult<SharedTicker>(Exchange, default);
+                return result.AsExchangeResult<SharedSpotTicker>(Exchange, default);
 
-            return result.AsExchangeResult(Exchange, new SharedTicker(symbol, result.Data.LastPrice, result.Data.HighPrice, result.Data.LowPrice, result.Data.Volume));
+            return result.AsExchangeResult(Exchange, new SharedSpotTicker(symbol, result.Data.LastPrice, result.Data.HighPrice, result.Data.LowPrice, result.Data.Volume));
         }
 
         EndpointOptions ITickerRestClient.GetTickersOptions { get; } = new EndpointOptions("GetTickersRequest", false);
-        async Task<ExchangeWebResult<IEnumerable<SharedTicker>>> ITickerRestClient.GetTickersAsync(ApiType? apiType, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        async Task<ExchangeWebResult<IEnumerable<SharedSpotTicker>>> ITickerRestClient.GetTickersAsync(ApiType? apiType, ExchangeParameters? exchangeParameters, CancellationToken ct)
         {
             var validationError = ((ITickerRestClient)this).GetTickersOptions.ValidateRequest(Exchange, exchangeParameters);
             if (validationError != null)
-                return new ExchangeWebResult<IEnumerable<SharedTicker>>(Exchange, validationError);
+                return new ExchangeWebResult<IEnumerable<SharedSpotTicker>>(Exchange, validationError);
 
             var result = await ExchangeData.GetTickersAsync(ct: ct).ConfigureAwait(false);
             if (!result)
-                return result.AsExchangeResult<IEnumerable<SharedTicker>>(Exchange, default);
+                return result.AsExchangeResult<IEnumerable<SharedSpotTicker>>(Exchange, default);
 
-            return result.AsExchangeResult<IEnumerable<SharedTicker>>(Exchange, result.Data.Select(x => new SharedTicker(x.Symbol, x.LastPrice, x.HighPrice, x.LowPrice, x.Volume)));
+            return result.AsExchangeResult<IEnumerable<SharedSpotTicker>>(Exchange, result.Data.Select(x => new SharedSpotTicker(x.Symbol, x.LastPrice, x.HighPrice, x.LowPrice, x.Volume)));
         }
 
         #endregion
