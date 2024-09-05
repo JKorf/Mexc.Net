@@ -49,9 +49,9 @@ namespace Mexc.Net.Clients.SpotApi
             var result = await ExchangeData.GetKlinesAsync(
                 request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
                 interval,
-                fromTimestamp ?? request.Filter?.StartTime,
-                request.Filter?.EndTime,
-                request.Filter?.Limit ?? 1000,
+                fromTimestamp ?? request.StartTime,
+                request.EndTime,
+                request.Limit ?? 1000,
                 ct: ct
                 ).ConfigureAwait(false);
             if (!result)
@@ -59,10 +59,10 @@ namespace Mexc.Net.Clients.SpotApi
 
             // Get next token
             DateTimeToken? nextToken = null;
-            if (request.Filter?.StartTime != null && result.Data.Any())
+            if (request.StartTime != null && result.Data.Any())
             {
                 var maxOpenTime = result.Data.Max(x => x.OpenTime);
-                if (maxOpenTime < request.Filter.EndTime!.Value.AddSeconds(-(int)request.Interval))
+                if (maxOpenTime < request.EndTime!.Value.AddSeconds(-(int)request.Interval))
                     nextToken = new DateTimeToken(maxOpenTime.AddSeconds((int)interval));
             }
             
@@ -294,15 +294,15 @@ namespace Mexc.Net.Clients.SpotApi
             var symbol = request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType));
             var order = await Trading.GetOrdersAsync(
                 symbol: symbol,
-                startTime: fromTimestamp ?? request.Filter?.StartTime,
-                endTime: request.Filter?.EndTime,
-                limit: request.Filter?.Limit).ConfigureAwait(false);
+                startTime: fromTimestamp ?? request.StartTime,
+                endTime: request.EndTime,
+                limit: request.Limit).ConfigureAwait(false);
             if (!order)
                 return order.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, default);
 
             // Get next token
             DateTimeToken? nextToken = null;
-            if (order.Data.Count() == (request.Filter?.Limit ?? 100))
+            if (order.Data.Count() == (request.Limit ?? 100))
                 nextToken = new DateTimeToken(order.Data.Max(o => o.Timestamp));
 
             return order.AsExchangeResult(Exchange, order.Data.Where(x => x.Status == OrderStatus.Filled || x.Status == OrderStatus.Canceled).Select(x => new SharedSpotOrder(
@@ -366,15 +366,15 @@ namespace Mexc.Net.Clients.SpotApi
             var symbol = request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType));
             var order = await Trading.GetUserTradesAsync(
                 symbol: symbol,
-                startTime: fromTimestamp ?? request.Filter?.StartTime,
-                endTime: request.Filter?.EndTime,
-                limit : request.Filter?.Limit ?? 100).ConfigureAwait(false);
+                startTime: fromTimestamp ?? request.StartTime,
+                endTime: request.EndTime,
+                limit : request.Limit ?? 100).ConfigureAwait(false);
             if (!order)
                 return order.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, default);
 
             // Get next token
             DateTimeToken? nextToken = null;
-            if (order.Data.Count() == (request.Filter?.Limit ?? 100))
+            if (order.Data.Count() == (request.Limit ?? 100))
                 nextToken = new DateTimeToken(order.Data.Max(o => o.Timestamp));
             
             return order.AsExchangeResult(Exchange, order.Data.Select(x => new SharedUserTrade(
@@ -538,16 +538,16 @@ namespace Mexc.Net.Clients.SpotApi
 #warning does it return newest or oldest first?
             var deposits = await Account.GetDepositHistoryAsync(
                 request.Asset,
-                startTime: fromTime ?? request.Filter?.StartTime,
-                endTime: request.Filter?.EndTime,
-                limit: request.Filter?.Limit ?? 1000,
+                startTime: fromTime ?? request.StartTime,
+                endTime: request.EndTime,
+                limit: request.Limit ?? 1000,
                 ct: ct).ConfigureAwait(false);
             if (!deposits)
                 return deposits.AsExchangeResult<IEnumerable<SharedDeposit>>(Exchange, default);
 
             // Determine next token
             DateTimeToken? nextToken = null;
-            if (deposits.Data.Count() == (request.Filter?.Limit ?? 1000))
+            if (deposits.Data.Count() == (request.Limit ?? 1000))
                 nextToken = new DateTimeToken(deposits.Data.Max(x => x.InsertTime));
 
             return deposits.AsExchangeResult(Exchange, deposits.Data.Select(x => new SharedDeposit(x.Asset, x.Quantity, x.Status == DepositStatus.Success, x.InsertTime)
@@ -627,16 +627,16 @@ namespace Mexc.Net.Clients.SpotApi
 #warning does it return newest or oldest first?
             var withdrawals = await Account.GetWithdrawHistoryAsync(
                 request.Asset,
-                startTime: fromTime ?? request.Filter?.StartTime,
-                endTime: request.Filter?.EndTime,
-                limit: request.Filter?.Limit ?? 1000,
+                startTime: fromTime ?? request.StartTime,
+                endTime: request.EndTime,
+                limit: request.Limit ?? 1000,
                 ct: ct).ConfigureAwait(false);
             if (!withdrawals)
                 return withdrawals.AsExchangeResult<IEnumerable<SharedWithdrawal>>(Exchange, default);
 
             // Determine next token
             DateTimeToken? nextToken = null;
-            if (withdrawals.Data.Count() == (request.Filter?.Limit ?? 1000))
+            if (withdrawals.Data.Count() == (request.Limit ?? 1000))
                 nextToken = new DateTimeToken(withdrawals.Data.Max(x => x.ApplyTime));
 
             return withdrawals.AsExchangeResult(Exchange, withdrawals.Data.Select(x => new SharedWithdrawal(x.Asset, x.Address ?? string.Empty, x.Quantity, x.Status == WithdrawStatus.Success, x.ApplyTime)
