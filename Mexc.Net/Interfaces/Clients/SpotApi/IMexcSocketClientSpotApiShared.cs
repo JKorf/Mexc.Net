@@ -9,6 +9,8 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         ITickerSocketClient,
         ITradeSocketClient,
         IBookTickerSocketClient,
+        IKlineSocketClient,
+        IOrderBookSocketClient,
         IBalanceSocketClient,
         ISpotOrderSocketClient,
         IUserTradeSocketClient
