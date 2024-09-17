@@ -516,7 +516,7 @@ namespace Mexc.Net.Clients.SpotApi
 
             return depositAddresses.AsExchangeResult<IEnumerable<SharedDepositAddress>>(Exchange, depositAddresses.Data.Select(x => new SharedDepositAddress(request.Asset, x.Address)
             {
-                Tag = x.Memo,
+                TagOrMemo = x.Memo,
                 Network = x.Network
             }
             ));
