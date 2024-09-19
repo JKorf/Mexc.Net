@@ -30,7 +30,7 @@ namespace Mexc.Net.Clients.SpotApi
 
         GetKlinesOptions IKlineRestClient.GetKlinesOptions { get; } = new GetKlinesOptions(SharedPaginationType.Descending, false)
         {
-            MaxRequestDataPoints = 1000
+            MaxRequestDataPoints = 500
         };
 
         async Task<ExchangeWebResult<IEnumerable<SharedKline>>> IKlineRestClient.GetKlinesAsync(GetKlinesRequest request, INextPageToken? pageToken, CancellationToken ct)
@@ -43,18 +43,30 @@ namespace Mexc.Net.Clients.SpotApi
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedKline>>(Exchange, validationError);
 
-            // Determine page token
-            DateTime? fromTimestamp = null;
+            // Determine pagination
+            // Data is normally returned oldest first, so to do newest first pagination we have to do some calc
+            DateTime endTime = request.EndTime ?? DateTime.UtcNow;
+            DateTime? startTime = request.StartTime;
             if (pageToken is DateTimeToken dateTimeToken)
-                fromTimestamp = dateTimeToken.LastTime;
+                endTime = dateTimeToken.LastTime;
+
+            var limit = request.Limit ?? 500;
+            if (startTime == null || startTime < endTime)
+            {
+                var offset = (int)interval * limit;
+                startTime = endTime.AddSeconds(-offset);
+            }
+
+            if (startTime < request.StartTime)
+                startTime = request.StartTime;
 
             // Get data
             var result = await ExchangeData.GetKlinesAsync(
                 request.Symbol.GetSymbol(FormatSymbol),
                 interval,
-                fromTimestamp ?? request.StartTime,
-                request.EndTime,
-                request.Limit ?? 1000,
+                startTime,
+                endTime,
+                limit,
                 ct: ct
                 ).ConfigureAwait(false);
             if (!result)
@@ -62,14 +74,14 @@ namespace Mexc.Net.Clients.SpotApi
 
             // Get next token
             DateTimeToken? nextToken = null;
-            if (request.StartTime != null && result.Data.Any())
+            if (result.Data.Count() == limit)
             {
-                var maxOpenTime = result.Data.Max(x => x.OpenTime);
-                if (maxOpenTime < request.EndTime!.Value.AddSeconds(-(int)request.Interval))
-                    nextToken = new DateTimeToken(maxOpenTime.AddSeconds((int)interval));
+                var minOpenTime = result.Data.Min(x => x.OpenTime);
+                if (request.StartTime == null || minOpenTime > request.StartTime.Value)
+                    nextToken = new DateTimeToken(minOpenTime.AddSeconds(-(int)(interval - 1)));
             }
-            
-            return result.AsExchangeResult(Exchange, result.Data.Select(x => new SharedKline(x.OpenTime, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.Volume)), nextToken);
+
+            return result.AsExchangeResult<IEnumerable<SharedKline>>(Exchange, result.Data.Reverse().Select(x => new SharedKline(x.OpenTime, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.Volume)).ToArray(), nextToken);
         }
 
         #endregion
@@ -87,12 +99,12 @@ namespace Mexc.Net.Clients.SpotApi
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedSpotSymbol>>(Exchange, default);
 
-            return result.AsExchangeResult(Exchange, result.Data.Symbols.Select(s => new SharedSpotSymbol(s.BaseAsset, s.QuoteAsset, s.Name, s.Status == SymbolStatus.Enabled)
+            return result.AsExchangeResult<IEnumerable<SharedSpotSymbol>>(Exchange, result.Data.Symbols.Select(s => new SharedSpotSymbol(s.BaseAsset, s.QuoteAsset, s.Name, s.IsSpotTradingAllowed && s.Status == SymbolStatus.Enabled)
             {
                 PriceDecimals = s.QuoteAssetPrecision,
                 QuantityDecimals = s.BaseAssetPrecision,
                 QuantityStep = s.BaseQuantityPrecision
-            }));
+            }).ToArray());
         }
 
         #endregion
@@ -111,7 +123,7 @@ namespace Mexc.Net.Clients.SpotApi
             if (!result)
                 return result.AsExchangeResult<SharedSpotTicker>(Exchange, default);
 
-            return result.AsExchangeResult(Exchange, new SharedSpotTicker(symbol, result.Data.LastPrice, result.Data.HighPrice, result.Data.LowPrice, result.Data.Volume, result.Data.PriceChangePercentage));
+            return result.AsExchangeResult(Exchange, new SharedSpotTicker(symbol, result.Data.LastPrice, result.Data.HighPrice, result.Data.LowPrice, result.Data.Volume, result.Data.PriceChangePercentage * 100));
         }
 
         EndpointOptions<GetTickersRequest> ISpotTickerRestClient.GetSpotTickersOptions { get; } = new EndpointOptions<GetTickersRequest>(false);
@@ -125,7 +137,7 @@ namespace Mexc.Net.Clients.SpotApi
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedSpotTicker>>(Exchange, default);
 
-            return result.AsExchangeResult<IEnumerable<SharedSpotTicker>>(Exchange, result.Data.Select(x => new SharedSpotTicker(x.Symbol, x.LastPrice, x.HighPrice, x.LowPrice, x.Volume, x.PriceChangePercentage)));
+            return result.AsExchangeResult<IEnumerable<SharedSpotTicker>>(Exchange, result.Data.Select(x => new SharedSpotTicker(x.Symbol, x.LastPrice, x.HighPrice, x.LowPrice, x.Volume, x.PriceChangePercentage * 100)).ToArray());
         }
 
         #endregion
@@ -146,7 +158,7 @@ namespace Mexc.Net.Clients.SpotApi
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedTrade>>(Exchange, default);
 
-            return result.AsExchangeResult(Exchange, result.Data.Select(x => new SharedTrade(x.Quantity, x.Price, x.Timestamp)));
+            return result.AsExchangeResult<IEnumerable<SharedTrade>>(Exchange, result.Data.Select(x => new SharedTrade(x.Quantity, x.Price, x.Timestamp)).ToArray());
         }
 
         #endregion
@@ -164,7 +176,7 @@ namespace Mexc.Net.Clients.SpotApi
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedBalance>>(Exchange, default);
 
-            return result.AsExchangeResult(Exchange, result.Data.Balances.Select(x => new SharedBalance(x.Asset, x.Available, x.Total)));
+            return result.AsExchangeResult<IEnumerable<SharedBalance>>(Exchange, result.Data.Balances.Select(x => new SharedBalance(x.Asset, x.Available, x.Total)).ToArray());
         }
 
         #endregion
@@ -189,6 +201,10 @@ namespace Mexc.Net.Clients.SpotApi
                 SharedQuantityType.BaseAsset,
                 SharedQuantityType.BaseAndQuoteAsset,
                 SharedQuantityType.BaseAndQuoteAsset));
+
+#warning check
+        SharedFeeDeductionType ISpotOrderRestClient.SpotFeeDeductionType => SharedFeeDeductionType.DeductFromOutput;
+        SharedFeeAssetType ISpotOrderRestClient.SpotFeeAssetType => SharedFeeAssetType.OutputAsset;
 
         async Task<ExchangeWebResult<SharedId>> ISpotOrderRestClient.PlaceSpotOrderAsync(PlaceSpotOrderRequest request, CancellationToken ct)
         {
@@ -263,7 +279,7 @@ namespace Mexc.Net.Clients.SpotApi
             if (!order)
                 return order.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, default);
 
-            return order.AsExchangeResult(Exchange, order.Data.Select(x => new SharedSpotOrder(
+            return order.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, order.Data.Select(x => new SharedSpotOrder(
                 x.Symbol,
                 x.OrderId,
                 ParseOrderType(x.OrderType),
@@ -279,7 +295,7 @@ namespace Mexc.Net.Clients.SpotApi
                 QuoteQuantityFilled = x.QuoteQuantityFilled,
                 TimeInForce = ParseTimeInForce(x.OrderType),
                 UpdateTime = x.UpdateTime
-            }));
+            }).ToArray());
         }
         
         PaginatedEndpointOptions<GetClosedOrdersRequest> ISpotOrderRestClient.GetClosedSpotOrdersOptions { get; } = new PaginatedEndpointOptions<GetClosedOrdersRequest>(SharedPaginationType.Ascending, true);
@@ -308,7 +324,7 @@ namespace Mexc.Net.Clients.SpotApi
             if (order.Data.Count() == (request.Limit ?? 100))
                 nextToken = new DateTimeToken(order.Data.Max(o => o.Timestamp));
 
-            return order.AsExchangeResult(Exchange, order.Data.Where(x => x.Status == OrderStatus.Filled || x.Status == OrderStatus.Canceled).Select(x => new SharedSpotOrder(
+            return order.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, order.Data.Where(x => x.Status == OrderStatus.Filled || x.Status == OrderStatus.Canceled).Select(x => new SharedSpotOrder(
                 x.Symbol,
                 x.OrderId,
                 ParseOrderType(x.OrderType),
@@ -324,7 +340,7 @@ namespace Mexc.Net.Clients.SpotApi
                 QuoteQuantityFilled = x.QuoteQuantityFilled,
                 TimeInForce = ParseTimeInForce(x.OrderType),
                 UpdateTime = x.UpdateTime
-            }), nextToken);
+            }).ToArray(), nextToken);
         }
 
         EndpointOptions<GetOrderTradesRequest> ISpotOrderRestClient.GetSpotOrderTradesOptions { get; } = new EndpointOptions<GetOrderTradesRequest>(true);
@@ -339,7 +355,7 @@ namespace Mexc.Net.Clients.SpotApi
             if (!order)
                 return order.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, default);
 
-            return order.AsExchangeResult(Exchange, order.Data.Select(x => new SharedUserTrade(
+            return order.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, order.Data.Select(x => new SharedUserTrade(
                 x.Symbol,
                 x.OrderId.ToString(),
                 x.Id.ToString(),
@@ -350,7 +366,7 @@ namespace Mexc.Net.Clients.SpotApi
                 Fee = x.Fee,
                 FeeAsset = x.FeeAsset,
                 Role = x.IsMaker ? SharedRole.Maker : SharedRole.Taker
-            }));
+            }).ToArray());
         }
 
         PaginatedEndpointOptions<GetUserTradesRequest> ISpotOrderRestClient.GetSpotUserTradesOptions { get; } = new PaginatedEndpointOptions<GetUserTradesRequest>(SharedPaginationType.Ascending, true);
@@ -380,7 +396,7 @@ namespace Mexc.Net.Clients.SpotApi
             if (order.Data.Count() == (request.Limit ?? 100))
                 nextToken = new DateTimeToken(order.Data.Max(o => o.Timestamp));
             
-            return order.AsExchangeResult(Exchange, order.Data.Select(x => new SharedUserTrade(
+            return order.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, order.Data.Select(x => new SharedUserTrade(
                 x.Symbol,
                 x.OrderId.ToString(),
                 x.Id.ToString(),
@@ -391,7 +407,7 @@ namespace Mexc.Net.Clients.SpotApi
                 Fee = x.Fee,
                 FeeAsset = x.FeeAsset,
                 Role = x.IsMaker ? SharedRole.Maker : SharedRole.Taker
-            }), nextToken);
+            }).ToArray(), nextToken);
         }
 
         EndpointOptions<CancelOrderRequest> ISpotOrderRestClient.CancelSpotOrderOptions { get; } = new EndpointOptions<CancelOrderRequest>(true);
@@ -472,7 +488,7 @@ namespace Mexc.Net.Clients.SpotApi
                     MinWithdrawQuantity = x.WithdrawMin,
                     WithdrawEnabled = x.WithdrawEnabled,
                     WithdrawFee = x.WithdrawFee
-                }).ToList()
+                }).ToArray()
             });
         }
 
@@ -498,8 +514,8 @@ namespace Mexc.Net.Clients.SpotApi
                     MinWithdrawQuantity = x.WithdrawMin,
                     WithdrawEnabled = x.WithdrawEnabled,
                     WithdrawFee = x.WithdrawFee
-                }).ToList()
-            }).ToList());
+                }).ToArray()
+            }).ToArray());
         }
 
         #endregion
@@ -522,7 +538,7 @@ namespace Mexc.Net.Clients.SpotApi
                 TagOrMemo = x.Memo,
                 Network = x.Network
             }
-            ));
+            ).ToArray());
         }
 
         GetDepositsOptions IDepositRestClient.GetDepositsOptions { get; } = new GetDepositsOptions(SharedPaginationType.Descending, true);
@@ -553,12 +569,12 @@ namespace Mexc.Net.Clients.SpotApi
             if (deposits.Data.Count() == (request.Limit ?? 1000))
                 nextToken = new DateTimeToken(deposits.Data.Max(x => x.InsertTime));
 
-            return deposits.AsExchangeResult(Exchange, deposits.Data.Select(x => new SharedDeposit(x.Asset, x.Quantity, x.Status == DepositStatus.Success, x.InsertTime)
+            return deposits.AsExchangeResult<IEnumerable<SharedDeposit>>(Exchange, deposits.Data.Select(x => new SharedDeposit(x.Asset, x.Quantity, x.Status == DepositStatus.Success, x.InsertTime)
             {
                 Network = x.Network,
                 TransactionId = x.TransactionId,
                 Tag = x.Memo
-            }), nextToken);
+            }).ToArray(), nextToken);
         }
 
         #endregion
@@ -642,14 +658,15 @@ namespace Mexc.Net.Clients.SpotApi
             if (withdrawals.Data.Count() == (request.Limit ?? 1000))
                 nextToken = new DateTimeToken(withdrawals.Data.Max(x => x.ApplyTime));
 
-            return withdrawals.AsExchangeResult(Exchange, withdrawals.Data.Select(x => new SharedWithdrawal(x.Asset, x.Address ?? string.Empty, x.Quantity, x.Status == WithdrawStatus.Success, x.ApplyTime)
+            return withdrawals.AsExchangeResult<IEnumerable<SharedWithdrawal>>(Exchange, withdrawals.Data.Select(x => new SharedWithdrawal(x.Asset, x.Address ?? string.Empty, x.Quantity, x.Status == WithdrawStatus.Success, x.ApplyTime)
             {
+                Id = x.Id,
                 Confirmations = x.Confirmations,
                 Network = x.Network,
                 Tag = x.Memo,
                 TransactionId = x.TransactionId,
                 Fee = x.TransactionFee
-            }));
+            }).ToArray());
         }
 
         #endregion
@@ -682,6 +699,53 @@ namespace Mexc.Net.Clients.SpotApi
 
         public Task<ExchangeWebResult<SharedAsset>> GetAssetAsync(GetAssetRequest request, ExchangeParameters? exchangeParameters = null, CancellationToken ct = default) => throw new NotImplementedException();
 
+        #endregion
+
+        #region Listen Key client
+
+        EndpointOptions<StartListenKeyRequest> IListenKeyRestClient.StartOptions { get; } = new EndpointOptions<StartListenKeyRequest>(true);
+        async Task<ExchangeWebResult<string>> IListenKeyRestClient.StartListenKeyAsync(StartListenKeyRequest request, CancellationToken ct)
+        {
+            var validationError = ((IListenKeyRestClient)this).StartOptions.ValidateRequest(Exchange, request, request.ApiType, SupportedApiTypes);
+            if (validationError != null)
+                return new ExchangeWebResult<string>(Exchange, validationError);
+
+            // Get data
+            var result = await Account.StartUserStreamAsync(ct: ct).ConfigureAwait(false);
+            if (!result)
+                return result.AsExchangeResult<string>(Exchange, default);
+
+            return result.AsExchangeResult(Exchange, result.Data);
+        }
+        EndpointOptions<KeepAliveListenKeyRequest> IListenKeyRestClient.KeepAliveOptions { get; } = new EndpointOptions<KeepAliveListenKeyRequest>(true);
+        async Task<ExchangeWebResult<string>> IListenKeyRestClient.KeepAliveListenKeyAsync(KeepAliveListenKeyRequest request, CancellationToken ct)
+        {
+            var validationError = ((IListenKeyRestClient)this).KeepAliveOptions.ValidateRequest(Exchange, request, request.ApiType, SupportedApiTypes);
+            if (validationError != null)
+                return new ExchangeWebResult<string>(Exchange, validationError);
+
+            // Get data
+            var result = await Account.KeepAliveUserStreamAsync(request.ListenKey, ct: ct).ConfigureAwait(false);
+            if (!result)
+                return result.AsExchangeResult<string>(Exchange, default);
+
+            return result.AsExchangeResult(Exchange, request.ListenKey);
+        }
+
+        EndpointOptions<StopListenKeyRequest> IListenKeyRestClient.StopOptions { get; } = new EndpointOptions<StopListenKeyRequest>(true);
+        async Task<ExchangeWebResult<string>> IListenKeyRestClient.StopListenKeyAsync(StopListenKeyRequest request, CancellationToken ct)
+        {
+            var validationError = ((IListenKeyRestClient)this).StopOptions.ValidateRequest(Exchange, request, request.ApiType, SupportedApiTypes);
+            if (validationError != null)
+                return new ExchangeWebResult<string>(Exchange, validationError);
+
+            // Get data
+            var result = await Account.StopUserStreamAsync(request.ListenKey, ct: ct).ConfigureAwait(false);
+            if (!result)
+                return result.AsExchangeResult<string>(Exchange, default);
+
+            return result.AsExchangeResult(Exchange, request.ListenKey);
+        }
         #endregion
     }
 }
