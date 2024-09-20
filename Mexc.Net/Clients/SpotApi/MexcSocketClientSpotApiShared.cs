@@ -23,7 +23,7 @@ namespace Mexc.Net.Clients.SpotApi
     internal partial class MexcSocketClientSpotApi : IMexcSocketClientSpotApiShared
     {
         public string Exchange => MexcExchange.ExchangeName;
-        public ApiType[] SupportedApiTypes { get; } = new[] { ApiType.Spot };
+        public TradingMode[] SupportedApiTypes { get; } = new[] { TradingMode.Spot };
 
         public void SetDefaultExchangeParameter(string key, object value) => ExchangeParameters.SetStaticParameter(Exchange, key, value);
         public void ResetDefaultExchangeParameters() => ExchangeParameters.ResetStaticParameters();
@@ -143,7 +143,7 @@ namespace Mexc.Net.Clients.SpotApi
         };
         async Task<ExchangeResult<UpdateSubscription>> ISpotOrderSocketClient.SubscribeToSpotOrderUpdatesAsync(SubscribeSpotOrderRequest request, Action<ExchangeEvent<IEnumerable<SharedSpotOrder>>> handler, CancellationToken ct)
         {
-            var validationError = ((ISpotOrderSocketClient)this).SubscribeSpotOrderOptions.ValidateRequest(Exchange, request, ApiType.Spot, SupportedApiTypes);
+            var validationError = ((ISpotOrderSocketClient)this).SubscribeSpotOrderOptions.ValidateRequest(Exchange, request, TradingMode.Spot, SupportedApiTypes);
             if (validationError != null)
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
@@ -161,9 +161,9 @@ namespace Mexc.Net.Clients.SpotApi
                         ClientOrderId = update.Data.ClientOrderId,
                         Price = update.Data.Price,
                         Quantity = update.Data.Quantity,
-                        QuantityFilled = update.Data.Quantity - update.Data.QuantityRemaining,
+                        QuantityFilled = update.Data.CumulativeQuantity,
                         QuoteQuantity = update.Data.QuoteQuantity,
-                        QuoteQuantityFilled = update.Data.QuoteQuantity - update.Data.QuoteQuantityRemaining,
+                        QuoteQuantityFilled = update.Data.CumulativeQuoteQuantity,
                         AveragePrice = update.Data.AveragePrice,
                         UpdateTime = update.Data.Timestamp,
                         TimeInForce = update.Data.OrderType == Enums.OrderType.ImmediateOrCancel ? SharedTimeInForce.ImmediateOrCancel : update.Data.OrderType == Enums.OrderType.FillOrKill ? SharedTimeInForce.FillOrKill : null
