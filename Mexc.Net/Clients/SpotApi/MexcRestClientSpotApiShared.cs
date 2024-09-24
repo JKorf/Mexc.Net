@@ -1,21 +1,6 @@
 ﻿using Mexc.Net.Enums;
 using Mexc.Net.Interfaces.Clients.SpotApi;
-using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.SharedApis.Interfaces;
-using CryptoExchange.Net.SharedApis.Models.Rest;
-using CryptoExchange.Net.SharedApis.ResponseModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using CryptoExchange.Net.SharedApis.Enums;
-using CryptoExchange.Net.SharedApis.Models;
-using CryptoExchange.Net.SharedApis.Interfaces.Rest.Spot;
-using CryptoExchange.Net.SharedApis.Models.Options.Endpoints;
-using CryptoExchange.Net.SharedApis.Interfaces.Rest;
-using CryptoExchange.Net.SharedApis.Models.Options;
+using CryptoExchange.Net.SharedApis;
 
 namespace Mexc.Net.Clients.SpotApi
 {
@@ -362,6 +347,7 @@ namespace Mexc.Net.Clients.SpotApi
                 x.Symbol,
                 x.OrderId.ToString(),
                 x.Id.ToString(),
+                x.IsBuyer ? SharedOrderSide.Buy : SharedOrderSide.Sell,
                 x.Quantity,
                 x.Price,
                 x.Timestamp)
@@ -405,6 +391,7 @@ namespace Mexc.Net.Clients.SpotApi
                 x.Symbol,
                 x.OrderId.ToString(),
                 x.Id.ToString(),
+                x.IsBuyer ? SharedOrderSide.Buy : SharedOrderSide.Sell,
                 x.Quantity,
                 x.Price,
                 x.Timestamp)
@@ -699,8 +686,6 @@ namespace Mexc.Net.Clients.SpotApi
 
             return withdrawal.AsExchangeResult(Exchange, TradingMode.Spot, new SharedId(withdrawal.Data.Id));
         }
-
-        public Task<ExchangeWebResult<SharedAsset>> GetAssetAsync(GetAssetRequest request, ExchangeParameters? exchangeParameters = null, CancellationToken ct = default) => throw new NotImplementedException();
 
         #endregion
 

@@ -1,5 +1,4 @@
-﻿using CryptoExchange.Net.Interfaces;
-using CryptoExchange.Net.Interfaces.CommonClients;
+﻿using CryptoExchange.Net.Interfaces.CommonClients;
 
 namespace Mexc.Net.Interfaces.Clients.SpotApi
 {
@@ -13,6 +12,10 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <returns></returns>
         ISpotClient CommonSpotClient { get; }
+
+        /// <summary>
+        /// Get the shared rest requests client
+        /// </summary>
         IMexcRestClientSpotApiShared SharedClient { get; }
 
         /// <summary>

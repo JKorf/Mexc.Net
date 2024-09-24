@@ -684,6 +684,11 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="P:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApi.SharedClient">
+            <summary>
+            Get the shared rest requests client
+            </summary>
+        </member>
         <member name="P:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApi.Account">
             <summary>
             Endpoints related to account settings, info or actions
@@ -1045,6 +1050,11 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
+        <member name="T:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiShared">
+            <summary>
+            Shared interface for Spot rest API usage
+            </summary>
+        </member>
         <member name="T:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiTrading">
             <summary>
             Mexc Spot trading endpoints, placing and mananging orders.
@@ -1158,6 +1168,11 @@
         <member name="T:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi">
             <summary>
             Spot API socket subscriptions and requests
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SharedClient">
+            <summary>
+            Get the shared socket subscription client
             </summary>
         </member>
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{Mexc.Net.Objects.Models.Spot.MexcStreamTrade}}},System.Threading.CancellationToken)">
@@ -1325,6 +1340,11 @@
             <param name="handler">Data handler</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
+        </member>
+        <member name="T:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApiShared">
+            <summary>
+            Shared interface for Spot socket API usage
+            </summary>
         </member>
         <member name="T:Mexc.Net.Interfaces.IMexcOrderBookFactory">
             <summary>

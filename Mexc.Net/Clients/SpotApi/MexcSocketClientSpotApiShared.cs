@@ -1,23 +1,6 @@
-﻿using Mexc.Net;
-using Mexc.Net.Interfaces.Clients.SpotApi;
-using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.SharedApis.ResponseModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using CryptoExchange.Net.SharedApis.Enums;
+﻿using Mexc.Net.Interfaces.Clients.SpotApi;
+using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Objects.Sockets;
-using CryptoExchange.Net.SharedApis.Models.Socket;
-using CryptoExchange.Net.SharedApis.Interfaces.Socket;
-using Mexc.Net.Objects.Options;
-using CryptoExchange.Net.SharedApis.Models;
-using CryptoExchange.Net.SharedApis.Models.Options.Endpoints;
-using CryptoExchange.Net.SharedApis.Interfaces.Socket.Spot;
-using CryptoExchange.Net.SharedApis.Models.Options.Subscriptions;
-using CryptoExchange.Net.SharedApis.Models.Options;
 
 namespace Mexc.Net.Clients.SpotApi
 {
@@ -198,6 +181,7 @@ namespace Mexc.Net.Clients.SpotApi
                         update.Symbol!,
                         update.Data.OrderId,
                         update.Data.TradeId.ToString(),
+                        update.Data.TradeSide == Enums.OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
                         update.Data.Quantity,
                         update.Data.Price,                        
                         update.Data.TradeTime)
