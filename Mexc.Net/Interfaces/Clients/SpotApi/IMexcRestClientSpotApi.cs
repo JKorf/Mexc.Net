@@ -8,9 +8,8 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
     public interface IMexcRestClientSpotApi: IRestApiClient
     {
         /// <summary>
-        /// Get the ISpotClient for this client. This is a common interface which allows for some basic operations without knowing any details of the exchange.
+        /// DEPRECATED; use <see cref="CryptoExchange.Net.SharedApis.ISharedClient" /> instead for common/shared functionality. See <see href="SHAREDDOCSURL" /> for more info.
         /// </summary>
-        /// <returns></returns>
         ISpotClient CommonSpotClient { get; }
 
         /// <summary>

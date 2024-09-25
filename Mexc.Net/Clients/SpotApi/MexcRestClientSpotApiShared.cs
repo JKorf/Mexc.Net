@@ -673,7 +673,6 @@ namespace Mexc.Net.Clients.SpotApi
             if (validationError != null)
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
-            // Get data
             var withdrawal = await Account.WithdrawAsync(
                 request.Asset,
                 request.Address,
