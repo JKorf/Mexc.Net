@@ -5,6 +5,7 @@ using CryptoExchange.Net.CommonObjects;
 using Mexc.Net.Enums;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.MessageParsing;
+using CryptoExchange.Net.SharedApis;
 
 namespace Mexc.Net.Clients.SpotApi
 {

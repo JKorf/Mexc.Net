@@ -4,6 +4,7 @@ using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
+using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Sockets;
 using Mexc.Net.Enums;
 using Mexc.Net.Interfaces.Clients.SpotApi;
