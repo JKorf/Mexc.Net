@@ -1,27 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using CryptoExchange.Net.Objects;
-using Microsoft.Extensions.Logging;
-using System.Net.Http;
-using Mexc.Net.Objects.Options;
-using CryptoExchange.Net.Authentication;
-using System.Threading.Tasks;
-using System.Threading;
-using CryptoExchange.Net.Converters;
-using Newtonsoft.Json;
+﻿using Mexc.Net.Objects.Options;
 using Mexc.Net.Interfaces.Clients.SpotApi;
 using CryptoExchange.Net.Interfaces.CommonClients;
-using System.Globalization;
 using CryptoExchange.Net.CommonObjects;
-using System.Linq;
 using Mexc.Net.Enums;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.MessageParsing;
+using CryptoExchange.Net.SharedApis;
 
 namespace Mexc.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    internal class MexcRestClientSpotApi : RestApiClient, IMexcRestClientSpotApi, ISpotClient
+    internal partial class MexcRestClientSpotApi : RestApiClient, IMexcRestClientSpotApi, ISpotClient
     {
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Spot Api");
 
@@ -34,6 +23,7 @@ namespace Mexc.Net.Clients.SpotApi
 
         /// <inheritdoc />
         public ISpotClient CommonSpotClient => this;
+        public IMexcRestClientSpotApiShared SharedClient => this;
 
         /// <inheritdoc />
         public string ExchangeName => "Mexc";
@@ -78,7 +68,7 @@ namespace Mexc.Net.Clients.SpotApi
             => new MexcAuthenticationProvider(credentials);
 
         /// <inheritdoc />
-        public override string FormatSymbol(string baseAsset, string quoteAsset) => baseAsset.ToUpperInvariant() + quoteAsset.ToUpperInvariant();
+        public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null) => baseAsset.ToUpperInvariant() + quoteAsset.ToUpperInvariant();
 
         internal async Task<WebCallResult<T>> SendRequestInternal<T>(string path, HttpMethod method, CancellationToken cancellationToken,
             Dictionary<string, object>? parameters = null, bool signed = false, HttpMethodParameterPosition? postPosition = null,

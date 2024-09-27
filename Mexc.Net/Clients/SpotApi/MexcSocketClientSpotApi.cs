@@ -4,6 +4,7 @@ using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
+using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Sockets;
 using Mexc.Net.Enums;
 using Mexc.Net.Interfaces.Clients.SpotApi;
@@ -24,7 +25,7 @@ using System.Threading.Tasks;
 namespace Mexc.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    internal class MexcSocketClientSpotApi : SocketApiClient, IMexcSocketClientSpotApi
+    internal partial class MexcSocketClientSpotApi : SocketApiClient, IMexcSocketClientSpotApi
     {
         private static readonly MessagePath _idPath = MessagePath.Get().Property("id");
         private static readonly MessagePath _channelPath = MessagePath.Get().Property("c");
@@ -55,7 +56,9 @@ namespace Mexc.Net.Clients.SpotApi
             => new MexcAuthenticationProvider(credentials);
 
         /// <inheritdoc />
-        public override string FormatSymbol(string baseAsset, string quoteAsset) => baseAsset.ToUpperInvariant() + quoteAsset.ToUpperInvariant();
+        public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null) => baseAsset.ToUpperInvariant() + quoteAsset.ToUpperInvariant();
+
+        public IMexcSocketClientSpotApiShared SharedClient => this;
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<IEnumerable<MexcStreamTrade>>> handler, CancellationToken ct = default)

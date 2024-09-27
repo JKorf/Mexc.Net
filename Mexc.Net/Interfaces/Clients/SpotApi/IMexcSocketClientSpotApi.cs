@@ -1,13 +1,6 @@
-﻿using CryptoExchange.Net.Interfaces;
-using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.Objects.Sockets;
+﻿using CryptoExchange.Net.Objects.Sockets;
 using Mexc.Net.Enums;
 using Mexc.Net.Objects.Models.Spot;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Mexc.Net.Interfaces.Clients.SpotApi
 {
@@ -16,6 +9,11 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
     /// </summary>
     public interface IMexcSocketClientSpotApi: ISocketApiClient
     {
+        /// <summary>
+        /// Get the shared socket subscription client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
+        /// </summary>
+        IMexcSocketClientSpotApiShared SharedClient { get; }
+
         /// <summary>
         /// Subscribe to trade updates
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#trade-streams" /></para>
