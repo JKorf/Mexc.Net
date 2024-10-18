@@ -23,6 +23,14 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<MexcAccountInfo>> GetAccountInfoAsync(CancellationToken ct = default);
 
         /// <summary>
+        /// Get KYC status for the account
+        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-kyc-status" /></para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<MexcKycStatus>> GetKycStatusAsync(CancellationToken ct = default);
+
+        /// <summary>
         /// Get a list of user assets and deposit/withdrawal data
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-the-currency-information" /></para>
         /// </summary>

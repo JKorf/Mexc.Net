@@ -36,6 +36,16 @@ namespace Mexc.Net.Clients.SpotApi
 
         #endregion
 
+        #region Get KYC Status
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<MexcKycStatus>> GetKycStatusAsync(CancellationToken ct = default)
+        {
+            return await _baseClient.SendRequestInternal<MexcKycStatus>("/api/v3/kyc/status", HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+        }
+
+        #endregion
+
         #region Get User Assets
 
         /// <inheritdoc />

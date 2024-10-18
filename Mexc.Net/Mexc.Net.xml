@@ -119,6 +119,9 @@
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiAccount.GetAccountInfoAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiAccount.GetKycStatusAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiAccount.GetUserAssetsAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -422,6 +425,31 @@
             One month
             </summary>
         </member>
+        <member name="T:Mexc.Net.Enums.KycStatus">
+            <summary>
+            KYC status
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.KycStatus.Unverified">
+            <summary>
+            Unverified
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.KycStatus.Primary">
+            <summary>
+            Primary
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.KycStatus.Advanced">
+            <summary>
+            Advanced
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.KycStatus.Institutional">
+            <summary>
+            Institutional
+            </summary>
+        </member>
         <member name="T:Mexc.Net.Enums.OrderSide">
             <summary>
             Order side
@@ -712,6 +740,14 @@
             <summary>
             Get account and balance info
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#account-information" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.GetKycStatusAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get KYC status for the account
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-kyc-status" /></para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -2047,6 +2083,16 @@
         <member name="P:Mexc.Net.Objects.Models.Spot.MexcId.Id">
             <summary>
             Id
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcKycStatus">
+            <summary>
+            KYC status
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcKycStatus.Status">
+            <summary>
+            Status
             </summary>
         </member>
         <member name="T:Mexc.Net.Objects.Models.Spot.MexcOrder">
