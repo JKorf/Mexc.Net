@@ -1,5 +1,6 @@
 ﻿using CryptoExchange.Net.Objects.Sockets;
 using Mexc.Net.Enums;
+using Mexc.Net.Objects.Models;
 using Mexc.Net.Objects.Models.Spot;
 
 namespace Mexc.Net.Interfaces.Clients.SpotApi
@@ -13,6 +14,11 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get the shared socket subscription client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
         /// </summary>
         IMexcSocketClientSpotApiShared SharedClient { get; }
+
+        /// <summary>
+        /// During reconnection the listenkey which was provided can be renewed by the client. This means the keep-alive mechanism should use this new listen key.
+        /// </summary>
+        public event Action<ListenKeyRenewedEvent>? ListenkeyRenewed;
 
         /// <summary>
         /// Subscribe to trade updates

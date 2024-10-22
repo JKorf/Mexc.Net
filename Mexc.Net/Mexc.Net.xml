@@ -1210,6 +1210,11 @@
             Get the shared socket subscription client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
             </summary>
         </member>
+        <member name="E:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.ListenkeyRenewed">
+            <summary>
+            During reconnection the listenkey which was provided can be renewed by the client. This means the keep-alive mechanism should use this new listen key.
+            </summary>
+        </member>
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{Mexc.Net.Objects.Models.Spot.MexcStreamTrade}}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to trade updates
@@ -1481,6 +1486,26 @@
         <member name="F:Mexc.Net.Objects.MexcApiAddresses.Default">
             <summary>
             The default addresses to connect to the mexc.com API
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.ListenKeyRenewedEvent">
+            <summary>
+            Listen key has been renewed by the client
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.ListenKeyRenewedEvent.OldKey">
+            <summary>
+            The previous listen key
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.ListenKeyRenewedEvent.NewKey">
+            <summary>
+            The new listen key
+            </summary>
+        </member>
+        <member name="M:Mexc.Net.Objects.Models.ListenKeyRenewedEvent.#ctor(System.String,System.String)">
+            <summary>
+            ctor
             </summary>
         </member>
         <member name="T:Mexc.Net.Objects.Models.MexcPaginated`1">

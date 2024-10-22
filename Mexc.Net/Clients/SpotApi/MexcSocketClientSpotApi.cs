@@ -2,25 +2,16 @@
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Converters.MessageParsing;
-using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Sockets;
 using Mexc.Net.Enums;
 using Mexc.Net.Interfaces.Clients.SpotApi;
+using Mexc.Net.Objects.Models;
 using Mexc.Net.Objects.Models.Spot;
 using Mexc.Net.Objects.Options;
 using Mexc.Net.Objects.Sockets.Models;
 using Mexc.Net.Objects.Sockets.Subscriptions;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Mexc.Net.Clients.SpotApi
 {
@@ -29,6 +20,8 @@ namespace Mexc.Net.Clients.SpotApi
     {
         private static readonly MessagePath _idPath = MessagePath.Get().Property("id");
         private static readonly MessagePath _channelPath = MessagePath.Get().Property("c");
+
+        public event Action<ListenKeyRenewedEvent>? ListenkeyRenewed;
 
         #region constructor/destructor
 
@@ -163,7 +156,7 @@ namespace Mexc.Net.Clients.SpotApi
             {
                 // If any of the subs on the connection is authenticated we request a new listenkey
                 // to prevent endlessly looping if the listenkey happens to be expired
-                var creds = ApiOptions.ApiCredentials ?? ClientOptions.ApiCredentials;
+                var creds = ApiOptions.ApiCredentials ?? ClientOptions.ApiCredentials ?? MexcRestOptions.Default.SpotOptions.ApiCredentials ?? MexcRestOptions.Default.ApiCredentials;
                 var client = new MexcRestClient(opts =>
                 {
                     if (creds != null)
@@ -172,7 +165,12 @@ namespace Mexc.Net.Clients.SpotApi
 
                 var listenKeyResult = await client.SpotApi.Account.StartUserStreamAsync().ConfigureAwait(false);
                 if (listenKeyResult)
+                {
+                    var oldKey = connection.ConnectionUri.Query.Split('=')[1];
+                    if (oldKey != listenKeyResult.Data)
+                        ListenkeyRenewed?.Invoke(new ListenKeyRenewedEvent(oldKey, listenKeyResult.Data));
                     return new Uri(BaseAddress + "?listenKey=" + listenKeyResult.Data);
+                }
             }
 
             return await base.GetReconnectUriAsync(connection).ConfigureAwait(false);
