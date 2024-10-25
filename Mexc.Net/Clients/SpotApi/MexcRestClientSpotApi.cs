@@ -68,7 +68,8 @@ namespace Mexc.Net.Clients.SpotApi
             => new MexcAuthenticationProvider(credentials);
 
         /// <inheritdoc />
-        public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null) => baseAsset.ToUpperInvariant() + quoteAsset.ToUpperInvariant();
+        public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
+            => MexcExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
 
         internal async Task<WebCallResult<T>> SendRequestInternal<T>(string path, HttpMethod method, CancellationToken cancellationToken,
             Dictionary<string, object>? parameters = null, bool signed = false, HttpMethodParameterPosition? postPosition = null,

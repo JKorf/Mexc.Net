@@ -2,6 +2,7 @@
 using CryptoExchange.Net.RateLimiting.Filters;
 using CryptoExchange.Net.RateLimiting.Guards;
 using CryptoExchange.Net.RateLimiting.Interfaces;
+using CryptoExchange.Net.SharedApis;
 
 namespace Mexc.Net
 {
@@ -26,6 +27,18 @@ namespace Mexc.Net
         public static string[] ApiDocsUrl { get; } = new[] {
             "https://mexcdevelop.github.io/apidocs/spot_v3_en/#introduction"
             };
+
+        /// <summary>
+        /// Format a base and quote asset to a Mexc recognized symbol 
+        /// </summary>
+        /// <param name="baseAsset">Base asset</param>
+        /// <param name="quoteAsset">Quote asset</param>
+        /// <param name="tradingMode">Trading mode</param>
+        /// <param name="deliverTime">Delivery time for delivery futures</param>
+        /// <returns></returns>
+        public static string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null) 
+            => baseAsset.ToUpperInvariant() + quoteAsset.ToUpperInvariant();
+
 
         /// <summary>
         /// Rate limiter configuration for the Mexc API

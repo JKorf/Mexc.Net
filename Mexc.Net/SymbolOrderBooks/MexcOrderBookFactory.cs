@@ -1,5 +1,6 @@
 ﻿using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.OrderBook;
+using CryptoExchange.Net.SharedApis;
 using Mexc.Net.Interfaces;
 using Mexc.Net.Interfaces.Clients;
 using Mexc.Net.Objects.Options;
@@ -27,7 +28,17 @@ namespace Mexc.Net.SymbolOrderBooks
         {
             _serviceProvider = serviceProvider;
 
-            Spot = new OrderBookFactory<MexcOrderBookOptions>((symbol, options) => CreateSpot(symbol, options), (baseAsset, quoteAsset, options) => CreateSpot(baseAsset.ToUpperInvariant() + quoteAsset.ToUpperInvariant(), options));
+            Spot = new OrderBookFactory<MexcOrderBookOptions>(
+                (symbol, options) => CreateSpot(symbol, options),
+                (sharedSymbol, options) => CreateSpot(MexcExchange.FormatSymbol(sharedSymbol.BaseAsset, sharedSymbol.QuoteAsset, sharedSymbol.TradingMode, sharedSymbol.DeliverTime), options));
+
+        }
+
+        /// <inheritdoc />
+        public ISymbolOrderBook Create(SharedSymbol symbol, Action<MexcOrderBookOptions>? options = null)
+        {
+            var symbolName = MexcExchange.FormatSymbol(symbol.BaseAsset, symbol.QuoteAsset, symbol.TradingMode, symbol.DeliverTime);
+            return CreateSpot(symbolName, options);
         }
 
         /// <inheritdoc />
