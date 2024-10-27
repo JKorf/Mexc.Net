@@ -1,6 +1,7 @@
 ﻿using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Trackers.Klines;
 using CryptoExchange.Net.Trackers.Trades;
+using Mexc.Net.Clients;
 using Mexc.Net.Interfaces;
 using Mexc.Net.Interfaces.Clients;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +13,14 @@ namespace Mexc.Net
     /// <inheritdoc />
     public class MexcTrackerFactory : IMexcTrackerFactory
     {
-        private readonly IServiceProvider _serviceProvider;
+        private readonly IServiceProvider? _serviceProvider;
+
+        /// <summary>
+        /// ctor
+        /// </summary>
+        public MexcTrackerFactory()
+        {
+        }
 
         /// <summary>
         /// ctor
@@ -26,11 +34,11 @@ namespace Mexc.Net
         /// <inheritdoc />
         public IKlineTracker CreateKlineTracker(SharedSymbol symbol, SharedKlineInterval interval, int? limit = null, TimeSpan? period = null)
         {
-            var restClient = _serviceProvider.GetRequiredService<IMexcRestClient>().SpotApi.SharedClient;
-            var socketClient = _serviceProvider.GetRequiredService<IMexcSocketClient>().SpotApi.SharedClient;
+            var restClient = (_serviceProvider?.GetRequiredService<IMexcRestClient>() ?? new MexcRestClient()).SpotApi.SharedClient;
+            var socketClient = (_serviceProvider?.GetRequiredService<IMexcSocketClient>() ?? new MexcSocketClient()).SpotApi.SharedClient;
 
             return new KlineTracker(
-                _serviceProvider.GetRequiredService<ILoggerFactory>().CreateLogger(restClient.Exchange),
+                _serviceProvider?.GetRequiredService<ILoggerFactory>().CreateLogger(restClient.Exchange),
                 restClient,
                 socketClient,
                 symbol,
@@ -42,12 +50,13 @@ namespace Mexc.Net
         /// <inheritdoc />
         public ITradeTracker CreateTradeTracker(SharedSymbol symbol, int? limit = null, TimeSpan? period = null)
         {
-            var restClient = _serviceProvider.GetRequiredService<IMexcRestClient>().SpotApi.SharedClient;
-            var socketClient = _serviceProvider.GetRequiredService<IMexcSocketClient>().SpotApi.SharedClient;
+            var restClient = (_serviceProvider?.GetRequiredService<IMexcRestClient>() ?? new MexcRestClient()).SpotApi.SharedClient;
+            var socketClient = (_serviceProvider?.GetRequiredService<IMexcSocketClient>() ?? new MexcSocketClient()).SpotApi.SharedClient;
 
             return new TradeTracker(
-                _serviceProvider.GetRequiredService<ILoggerFactory>().CreateLogger(restClient.Exchange),
+                _serviceProvider?.GetRequiredService<ILoggerFactory>().CreateLogger(restClient.Exchange),
                 restClient,
+                null,
                 socketClient,
                 symbol,
                 limit,
