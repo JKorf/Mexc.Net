@@ -1513,6 +1513,11 @@
         <member name="T:Mexc.Net.MexcTrackerFactory">
             <inheritdoc />
         </member>
+        <member name="M:Mexc.Net.MexcTrackerFactory.#ctor">
+            <summary>
+            ctor
+            </summary>
+        </member>
         <member name="M:Mexc.Net.MexcTrackerFactory.#ctor(System.IServiceProvider)">
             <summary>
             ctor
