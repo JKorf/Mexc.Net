@@ -1,5 +1,6 @@
 ﻿using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Interfaces;
+using Mexc.Net;
 using Mexc.Net.Clients;
 using Mexc.Net.Interfaces;
 using Mexc.Net.Interfaces.Clients;
@@ -61,6 +62,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddTransient<ICryptoRestClient, CryptoRestClient>();
             services.AddTransient<ICryptoSocketClient, CryptoSocketClient>();
             services.AddTransient<IMexcOrderBookFactory, MexcOrderBookFactory>();
+            services.AddTransient<IMexcTrackerFactory, MexcTrackerFactory>();
             services.AddTransient(x => x.GetRequiredService<IMexcRestClient>().SpotApi.CommonSpotClient);
 
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IMexcRestClient>().SpotApi.SharedClient);

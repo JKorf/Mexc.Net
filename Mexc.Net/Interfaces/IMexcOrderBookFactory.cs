@@ -1,4 +1,5 @@
 ﻿using CryptoExchange.Net.Interfaces;
+using CryptoExchange.Net.SharedApis;
 using Mexc.Net.Objects.Options;
 using System;
 
@@ -13,6 +14,14 @@ namespace Mexc.Net.Interfaces
         /// Spot order book factory methods
         /// </summary>
         public IOrderBookFactory<MexcOrderBookOptions> Spot { get; }
+
+        /// <summary>
+        /// Create a SymbolOrderBook for the symbol
+        /// </summary>
+        /// <param name="symbol">The symbol</param>
+        /// <param name="options">Book options</param>
+        /// <returns></returns>
+        ISymbolOrderBook Create(SharedSymbol symbol, Action<MexcOrderBookOptions>? options = null);
 
         /// <summary>
         /// Create a new spot SymbolOrderBook

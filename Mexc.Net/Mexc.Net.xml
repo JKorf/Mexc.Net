@@ -1396,12 +1396,44 @@
             Spot order book factory methods
             </summary>
         </member>
+        <member name="M:Mexc.Net.Interfaces.IMexcOrderBookFactory.Create(CryptoExchange.Net.SharedApis.SharedSymbol,System.Action{Mexc.Net.Objects.Options.MexcOrderBookOptions})">
+            <summary>
+            Create a SymbolOrderBook for the symbol
+            </summary>
+            <param name="symbol">The symbol</param>
+            <param name="options">Book options</param>
+            <returns></returns>
+        </member>
         <member name="M:Mexc.Net.Interfaces.IMexcOrderBookFactory.CreateSpot(System.String,System.Action{Mexc.Net.Objects.Options.MexcOrderBookOptions})">
             <summary>
             Create a new spot SymbolOrderBook
             </summary>
             <param name="symbol"></param>
             <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Mexc.Net.Interfaces.IMexcTrackerFactory">
+            <summary>
+            Tracker factory
+            </summary>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.IMexcTrackerFactory.CreateKlineTracker(CryptoExchange.Net.SharedApis.SharedSymbol,CryptoExchange.Net.SharedApis.SharedKlineInterval,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
+            <summary>
+            Create a new kline tracker
+            </summary>
+            <param name="symbol">The symbol</param>
+            <param name="interval">Kline interval</param>
+            <param name="limit">The max amount of klines to retain</param>
+            <param name="period">The max period the data should be retained</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.IMexcTrackerFactory.CreateTradeTracker(CryptoExchange.Net.SharedApis.SharedSymbol,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
+            <summary>
+            Create a new trade tracker for a symbol
+            </summary>
+            <param name="symbol">The symbol</param>
+            <param name="limit">The max amount of klines to retain</param>
+            <param name="period">The max period the data should be retained</param>
             <returns></returns>
         </member>
         <member name="T:Mexc.Net.MexcEnvironment">
@@ -1453,6 +1485,16 @@
             Urls to the API documentation
             </summary>
         </member>
+        <member name="M:Mexc.Net.MexcExchange.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
+            <summary>
+            Format a base and quote asset to a Mexc recognized symbol 
+            </summary>
+            <param name="baseAsset">Base asset</param>
+            <param name="quoteAsset">Quote asset</param>
+            <param name="tradingMode">Trading mode</param>
+            <param name="deliverTime">Delivery time for delivery futures</param>
+            <returns></returns>
+        </member>
         <member name="P:Mexc.Net.MexcExchange.RateLimiter">
             <summary>
             Rate limiter configuration for the Mexc API
@@ -1467,6 +1509,26 @@
             <summary>
             Event for when a rate limit is triggered
             </summary>
+        </member>
+        <member name="T:Mexc.Net.MexcTrackerFactory">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.MexcTrackerFactory.#ctor">
+            <summary>
+            ctor
+            </summary>
+        </member>
+        <member name="M:Mexc.Net.MexcTrackerFactory.#ctor(System.IServiceProvider)">
+            <summary>
+            ctor
+            </summary>
+            <param name="serviceProvider">Service provider for resolving logging and clients</param>
+        </member>
+        <member name="M:Mexc.Net.MexcTrackerFactory.CreateKlineTracker(CryptoExchange.Net.SharedApis.SharedSymbol,CryptoExchange.Net.SharedApis.SharedKlineInterval,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.MexcTrackerFactory.CreateTradeTracker(CryptoExchange.Net.SharedApis.SharedSymbol,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
+            <inheritdoc />
         </member>
         <member name="T:Mexc.Net.Objects.MexcApiAddresses">
             <summary>
@@ -3283,6 +3345,9 @@
             ctor
             </summary>
             <param name="serviceProvider">Service provider for resolving logging and clients</param>
+        </member>
+        <member name="M:Mexc.Net.SymbolOrderBooks.MexcOrderBookFactory.Create(CryptoExchange.Net.SharedApis.SharedSymbol,System.Action{Mexc.Net.Objects.Options.MexcOrderBookOptions})">
+            <inheritdoc />
         </member>
         <member name="M:Mexc.Net.SymbolOrderBooks.MexcOrderBookFactory.CreateSpot(System.String,System.Action{Mexc.Net.Objects.Options.MexcOrderBookOptions})">
             <inheritdoc />

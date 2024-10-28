@@ -49,7 +49,8 @@ namespace Mexc.Net.Clients.SpotApi
             => new MexcAuthenticationProvider(credentials);
 
         /// <inheritdoc />
-        public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null) => baseAsset.ToUpperInvariant() + quoteAsset.ToUpperInvariant();
+        public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
+            => MexcExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
 
         public IMexcSocketClientSpotApiShared SharedClient => this;
 
