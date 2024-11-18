@@ -5,6 +5,7 @@ using Mexc.Net.Interfaces.Clients;
 using Mexc.Net.Interfaces.Clients.SpotApi;
 using Mexc.Net.Objects.Options;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -21,16 +22,9 @@ namespace Mexc.Net.Clients
         /// <summary>
         /// Create a new instance of MexcSocketClient
         /// </summary>
-        /// <param name="loggerFactory">The logger factory</param>
-        public MexcSocketClient(ILoggerFactory? loggerFactory = null) : this((x) => { }, loggerFactory)
-        {
-        }
-
-        /// <summary>
-        /// Create a new instance of MexcSocketClient
-        /// </summary>
         /// <param name="optionsDelegate">Option configuration delegate</param>
-        public MexcSocketClient(Action<MexcSocketOptions> optionsDelegate) : this(optionsDelegate, null)
+        public MexcSocketClient(Action<MexcSocketOptions>? optionsDelegate = null)
+            : this(Options.Create(ApplyOptionsDelegate(optionsDelegate)), null)
         {
         }
 
@@ -38,14 +32,12 @@ namespace Mexc.Net.Clients
         /// Create a new instance of MexcSocketClient
         /// </summary>
         /// <param name="loggerFactory">The logger factory</param>
-        /// <param name="optionsDelegate">Option configuration delegate</param>
-        public MexcSocketClient(Action<MexcSocketOptions> optionsDelegate, ILoggerFactory? loggerFactory = null) : base(loggerFactory, "Mexc")
+        /// <param name="options">Option configuration</param>
+        public MexcSocketClient(IOptions<MexcSocketOptions> options, ILoggerFactory? loggerFactory = null) : base(loggerFactory, "Mexc")
         {
-            var options = MexcSocketOptions.Default.Copy();
-            optionsDelegate(options);
-            Initialize(options);
+            Initialize(options.Value);
 
-            SpotApi = AddApiClient(new MexcSocketClientSpotApi(_logger, options));
+            SpotApi = AddApiClient(new MexcSocketClientSpotApi(_logger, options.Value));
         }
         #endregion
 
@@ -55,9 +47,7 @@ namespace Mexc.Net.Clients
         /// <param name="optionsDelegate">Option configuration delegate</param>
         public static void SetDefaultOptions(Action<MexcSocketOptions> optionsDelegate)
         {
-            var options = MexcSocketOptions.Default.Copy();
-            optionsDelegate(options);
-            MexcSocketOptions.Default = options;
+            MexcSocketOptions.Default = ApplyOptionsDelegate(optionsDelegate);
         }
 
         /// <inheritdoc />
