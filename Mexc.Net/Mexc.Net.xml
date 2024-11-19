@@ -1488,6 +1488,16 @@
             Exchange name
             </summary>
         </member>
+        <member name="P:Mexc.Net.MexcExchange.DisplayName">
+            <summary>
+            Exchange name
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.MexcExchange.ImageUrl">
+            <summary>
+            Url to exchange image
+            </summary>
+        </member>
         <member name="P:Mexc.Net.MexcExchange.Url">
             <summary>
             Url to the main website
