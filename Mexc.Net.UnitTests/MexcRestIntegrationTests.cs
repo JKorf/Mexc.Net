@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
 
 namespace Mexc.Net.UnitTests
 {
@@ -27,11 +28,11 @@ namespace Mexc.Net.UnitTests
             var sec = Environment.GetEnvironmentVariable("APISECRET");
 
             Authenticated = key != null && sec != null;
-            return new MexcRestClient(null, loggerFactory, opts =>
+            return new MexcRestClient(null, loggerFactory, Options.Create(new Objects.Options.MexcRestOptions
             {
-                opts.OutputOriginalData = true;
-                opts.ApiCredentials = Authenticated ? new ApiCredentials(key, sec) : null;
-            });
+                OutputOriginalData = true,
+                ApiCredentials = Authenticated ? new ApiCredentials(key, sec) : null
+            }));
         }
 
         [Test]

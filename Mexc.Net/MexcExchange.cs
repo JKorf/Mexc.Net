@@ -17,6 +17,16 @@ namespace Mexc.Net
         public static string ExchangeName => "Mexc";
 
         /// <summary>
+        /// Exchange name
+        /// </summary>
+        public static string DisplayName => "Mexc";
+
+        /// <summary>
+        /// Url to exchange image
+        /// </summary>
+        public static string ImageUrl { get; } = "https://raw.githubusercontent.com/JKorf/Mexc.Net/master/Mexc.Net/Icon/icon.png";
+
+        /// <summary>
         /// Url to the main website
         /// </summary>
         public static string Url { get; } = "https://www.mexc.com";

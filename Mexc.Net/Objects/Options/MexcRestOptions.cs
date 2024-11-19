@@ -11,11 +11,19 @@ namespace Mexc.Net.Objects.Options
         /// <summary>
         /// Default options for new clients
         /// </summary>
-        public static MexcRestOptions Default { get; set; } = new MexcRestOptions()
+        internal static MexcRestOptions Default { get; set; } = new MexcRestOptions()
         {
             Environment = MexcEnvironment.Live,
             AutoTimestamp = true
         };
+
+        /// <summary>
+        /// ctor
+        /// </summary>
+        public MexcRestOptions()
+        {
+            Default?.Set(this);
+        }
 
         /// <summary>
         /// The default receive window for requests
@@ -32,13 +40,11 @@ namespace Mexc.Net.Objects.Options
         /// </summary>
         public RestApiOptions SpotOptions { get; private set; } = new RestApiOptions();
 
-        internal MexcRestOptions Copy()
+        internal MexcRestOptions Set(MexcRestOptions targetOptions)
         {
-            var options = Copy<MexcRestOptions>();
-            options.BrokerId = BrokerId;
-            options.ReceiveWindow = ReceiveWindow;
-            options.SpotOptions = SpotOptions.Copy<RestApiOptions>();
-            return options;
+            targetOptions = base.Set<MexcRestOptions>(targetOptions);
+            targetOptions.SpotOptions = SpotOptions.Set(targetOptions.SpotOptions);
+            return targetOptions;
         }
     }
 }

@@ -16,11 +16,11 @@
             </summary>
             <param name="optionsDelegate">Option configuration delegate</param>
         </member>
-        <member name="M:Mexc.Net.Clients.MexcRestClient.#ctor(System.Net.Http.HttpClient,Microsoft.Extensions.Logging.ILoggerFactory,System.Action{Mexc.Net.Objects.Options.MexcRestOptions})">
+        <member name="M:Mexc.Net.Clients.MexcRestClient.#ctor(System.Net.Http.HttpClient,Microsoft.Extensions.Logging.ILoggerFactory,Microsoft.Extensions.Options.IOptions{Mexc.Net.Objects.Options.MexcRestOptions})">
             <summary>
             Create a new instance of the MexcRestClient using provided options
             </summary>
-            <param name="optionsDelegate">Option configuration delegate</param>
+            <param name="options">Option configuration</param>
             <param name="loggerFactory">The logger factory</param>
             <param name="httpClient">Http client for this client</param>
         </member>
@@ -30,17 +30,14 @@
             </summary>
             <param name="optionsDelegate">Option configuration delegate</param>
         </member>
+        <member name="M:Mexc.Net.Clients.MexcRestClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <inheritdoc />
+        </member>
         <member name="T:Mexc.Net.Clients.MexcSocketClient">
             <inheritdoc />
         </member>
         <member name="P:Mexc.Net.Clients.MexcSocketClient.SpotApi">
             <inheritdoc />
-        </member>
-        <member name="M:Mexc.Net.Clients.MexcSocketClient.#ctor(Microsoft.Extensions.Logging.ILoggerFactory)">
-            <summary>
-            Create a new instance of MexcSocketClient
-            </summary>
-            <param name="loggerFactory">The logger factory</param>
         </member>
         <member name="M:Mexc.Net.Clients.MexcSocketClient.#ctor(System.Action{Mexc.Net.Objects.Options.MexcSocketOptions})">
             <summary>
@@ -48,12 +45,12 @@
             </summary>
             <param name="optionsDelegate">Option configuration delegate</param>
         </member>
-        <member name="M:Mexc.Net.Clients.MexcSocketClient.#ctor(System.Action{Mexc.Net.Objects.Options.MexcSocketOptions},Microsoft.Extensions.Logging.ILoggerFactory)">
+        <member name="M:Mexc.Net.Clients.MexcSocketClient.#ctor(Microsoft.Extensions.Options.IOptions{Mexc.Net.Objects.Options.MexcSocketOptions},Microsoft.Extensions.Logging.ILoggerFactory)">
             <summary>
             Create a new instance of MexcSocketClient
             </summary>
             <param name="loggerFactory">The logger factory</param>
-            <param name="optionsDelegate">Option configuration delegate</param>
+            <param name="options">Option configuration</param>
         </member>
         <member name="M:Mexc.Net.Clients.MexcSocketClient.SetDefaultOptions(System.Action{Mexc.Net.Objects.Options.MexcSocketOptions})">
             <summary>
@@ -684,6 +681,12 @@
             <summary>
             Spot API endpoints
             </summary>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.IMexcRestClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <summary>
+            Set the API credentials for this client. All Api clients in this client will use the new credentials, regardless of earlier set options.
+            </summary>
+            <param name="credentials">The credentials to set</param>
         </member>
         <member name="T:Mexc.Net.Interfaces.Clients.IMexcSocketClient">
             <summary>
@@ -1451,6 +1454,16 @@
             Spot Socket API address
             </summary>
         </member>
+        <member name="M:Mexc.Net.MexcEnvironment.#ctor">
+            <summary>
+            ctor for DI, use <see cref="M:Mexc.Net.MexcEnvironment.CreateCustom(System.String,System.String,System.String)"/> for creating a custom environment
+            </summary>
+        </member>
+        <member name="M:Mexc.Net.MexcEnvironment.GetEnvironmentByName(System.String)">
+            <summary>
+            Get the Mexc environment by name
+            </summary>
+        </member>
         <member name="P:Mexc.Net.MexcEnvironment.Live">
             <summary>
             Live environment
@@ -1473,6 +1486,16 @@
         <member name="P:Mexc.Net.MexcExchange.ExchangeName">
             <summary>
             Exchange name
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.MexcExchange.DisplayName">
+            <summary>
+            Exchange name
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.MexcExchange.ImageUrl">
+            <summary>
+            Url to exchange image
             </summary>
         </member>
         <member name="P:Mexc.Net.MexcExchange.Url">
@@ -3262,6 +3285,36 @@
             CurrencyId
             </summary>
         </member>
+        <member name="T:Mexc.Net.Objects.Options.MexcOptions">
+            <summary>
+            Mexc options
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Options.MexcOptions.Rest">
+            <summary>
+            Rest client options
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Options.MexcOptions.Socket">
+            <summary>
+            Socket client options
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Options.MexcOptions.Environment">
+            <summary>
+            Trade environment. Contains info about URL's to use to connect to the API. Use `MexcEnvironment` to swap environment, for example `Environment = MexcEnvironment.Live`
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Options.MexcOptions.ApiCredentials">
+            <summary>
+            The api credentials used for signing requests.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Options.MexcOptions.SocketClientLifeTime">
+            <summary>
+            The DI service lifetime for the IMexcSocketClient
+            </summary>
+        </member>
         <member name="T:Mexc.Net.Objects.Options.MexcOrderBookOptions">
             <summary>
             Options for the Kucoin SymbolOrderBook
@@ -3292,6 +3345,11 @@
             Default options for new clients
             </summary>
         </member>
+        <member name="M:Mexc.Net.Objects.Options.MexcRestOptions.#ctor">
+            <summary>
+            ctor
+            </summary>
+        </member>
         <member name="P:Mexc.Net.Objects.Options.MexcRestOptions.ReceiveWindow">
             <summary>
             The default receive window for requests
@@ -3315,6 +3373,11 @@
         <member name="P:Mexc.Net.Objects.Options.MexcSocketOptions.Default">
             <summary>
             Default options for new clients
+            </summary>
+        </member>
+        <member name="M:Mexc.Net.Objects.Options.MexcSocketOptions.#ctor">
+            <summary>
+            ctor
             </summary>
         </member>
         <member name="P:Mexc.Net.Objects.Options.MexcSocketOptions.SpotOptions">
@@ -3411,15 +3474,26 @@
             Extensions for DI
             </summary>
         </member>
-        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddMexc(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Mexc.Net.Objects.Options.MexcRestOptions},System.Action{Mexc.Net.Objects.Options.MexcSocketOptions},System.Nullable{Microsoft.Extensions.DependencyInjection.ServiceLifetime})">
+        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddMexc(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
             <summary>
-            Add the IMexcRestClient and IMexcSocketClient to the sevice collection so they can be injected
+            Add services such as the IMexcRestClient and IMexcSocketClient. Configures the services based on the provided configuration.
             </summary>
             <param name="services">The service collection</param>
-            <param name="defaultRestOptionsDelegate">Set default options for the rest client</param>
-            <param name="defaultSocketOptionsDelegate">Set default options for the socket client</param>
-            <param name="socketClientLifeTime">The lifetime of the IMexcSocketClient for the service collection. Defaults to Singleton.</param>
+            <param name="configuration">The configuration(section) containing the options</param>
             <returns></returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddMexc(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Mexc.Net.Objects.Options.MexcOptions})">
+            <summary>
+            Add services such as the IMexcRestClient and IMexcSocketClient. Services will be configured based on the provided options.
+            </summary>
+            <param name="services">The service collection</param>
+            <param name="optionsDelegate">Set options for the Mexc services</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddMexc(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Mexc.Net.Objects.Options.MexcRestOptions},System.Action{Mexc.Net.Objects.Options.MexcSocketOptions},System.Nullable{Microsoft.Extensions.DependencyInjection.ServiceLifetime})">
+            <summary>
+            DEPRECATED; use <see cref="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddMexc(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Mexc.Net.Objects.Options.MexcOptions})" /> instead
+            </summary>
         </member>
     </members>
 </doc>

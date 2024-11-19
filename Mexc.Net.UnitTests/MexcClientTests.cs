@@ -8,6 +8,10 @@ using NUnit.Framework.Legacy;
 using System.Diagnostics;
 using System.Reflection;
 using CryptoExchange.Net.Converters.JsonNet;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Mexc.Net.Interfaces.Clients;
+using CryptoExchange.Net.Objects;
 
 namespace Mexc.Net.UnitTests
 {
@@ -89,6 +93,106 @@ namespace Mexc.Net.UnitTests
         {
             CryptoExchange.Net.Testing.TestHelpers.CheckForMissingRestInterfaces<MexcRestClient>();
             CryptoExchange.Net.Testing.TestHelpers.CheckForMissingSocketInterfaces<MexcSocketClient>();
+        }
+
+        [Test]
+        [TestCase(TradeEnvironmentNames.Live, "https://api.mexc.com")]
+        [TestCase("", "https://api.mexc.com")]
+        public void TestConstructorEnvironments(string environmentName, string expected)
+        {
+            var configuration = new ConfigurationBuilder()
+                .AddInMemoryCollection(new Dictionary<string, string>
+                {
+                    { "Mexc:Environment:Name", environmentName },
+                }).Build();
+
+            var collection = new ServiceCollection();
+            collection.AddMexc(configuration.GetSection("Mexc"));
+            var provider = collection.BuildServiceProvider();
+
+            var client = provider.GetRequiredService<IMexcRestClient>();
+
+            var address = client.SpotApi.BaseAddress;
+
+            Assert.That(address, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void TestConstructorNullEnvironment()
+        {
+            var configuration = new ConfigurationBuilder()
+                .AddInMemoryCollection(new Dictionary<string, string>
+                {
+                    { "Mexc", null },
+                }).Build();
+
+            var collection = new ServiceCollection();
+            collection.AddMexc(configuration.GetSection("Mexc"));
+            var provider = collection.BuildServiceProvider();
+
+            var client = provider.GetRequiredService<IMexcRestClient>();
+
+            var address = client.SpotApi.BaseAddress;
+
+            Assert.That(address, Is.EqualTo("https://api.mexc.com"));
+        }
+
+        [Test]
+        public void TestConstructorApiOverwriteEnvironment()
+        {
+            var configuration = new ConfigurationBuilder()
+                .AddInMemoryCollection(new Dictionary<string, string>
+                {
+                    { "Mexc:Environment:Name", "test" },
+                    { "Mexc:Rest:Environment:Name", "live" },
+                }).Build();
+
+            var collection = new ServiceCollection();
+            collection.AddMexc(configuration.GetSection("Mexc"));
+            var provider = collection.BuildServiceProvider();
+
+            var client = provider.GetRequiredService<IMexcRestClient>();
+
+            var address = client.SpotApi.BaseAddress;
+
+            Assert.That(address, Is.EqualTo("https://api.mexc.com"));
+        }
+
+        [Test]
+        public void TestConstructorConfiguration()
+        {
+            var configuration = new ConfigurationBuilder()
+                .AddInMemoryCollection(new Dictionary<string, string>
+                {
+                    { "ApiCredentials:Key", "123" },
+                    { "ApiCredentials:Secret", "456" },
+                    { "ApiCredentials:PassPhrase", "222" },
+                    { "Socket:ApiCredentials:Key", "456" },
+                    { "Socket:ApiCredentials:Secret", "789" },
+                    { "Socket:ApiCredentials:PassPhrase", "111" },
+                    { "Rest:OutputOriginalData", "true" },
+                    { "Socket:OutputOriginalData", "false" },
+                    { "Rest:Proxy:Host", "host" },
+                    { "Rest:Proxy:Port", "80" },
+                    { "Socket:Proxy:Host", "host2" },
+                    { "Socket:Proxy:Port", "81" },
+                }).Build();
+
+            var collection = new ServiceCollection();
+            collection.AddMexc(configuration);
+            var provider = collection.BuildServiceProvider();
+
+            var restClient = provider.GetRequiredService<IMexcRestClient>();
+            var socketClient = provider.GetRequiredService<IMexcSocketClient>();
+
+            Assert.That(((BaseApiClient)restClient.SpotApi).OutputOriginalData, Is.True);
+            Assert.That(((BaseApiClient)socketClient.SpotApi).OutputOriginalData, Is.False);
+            Assert.That(((BaseApiClient)restClient.SpotApi).AuthenticationProvider.ApiKey, Is.EqualTo("123"));
+            Assert.That(((BaseApiClient)socketClient.SpotApi).AuthenticationProvider.ApiKey, Is.EqualTo("456"));
+            Assert.That(((BaseApiClient)restClient.SpotApi).ClientOptions.Proxy.Host, Is.EqualTo("host"));
+            Assert.That(((BaseApiClient)restClient.SpotApi).ClientOptions.Proxy.Port, Is.EqualTo(80));
+            Assert.That(((BaseApiClient)socketClient.SpotApi).ClientOptions.Proxy.Host, Is.EqualTo("host2"));
+            Assert.That(((BaseApiClient)socketClient.SpotApi).ClientOptions.Proxy.Port, Is.EqualTo(81));
         }
     }
 }

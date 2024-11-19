@@ -10,22 +10,30 @@ namespace Mexc.Net.Objects.Options
         /// <summary>
         /// Default options for new clients
         /// </summary>
-        public static MexcSocketOptions Default { get; set; } = new MexcSocketOptions()
+        internal static MexcSocketOptions Default { get; set; } = new MexcSocketOptions()
         {
             Environment = MexcEnvironment.Live,
             SocketSubscriptionsCombineTarget = 10
         };
 
         /// <summary>
+        /// ctor
+        /// </summary>
+        public MexcSocketOptions()
+        {
+            Default?.Set(this);
+        }
+
+        /// <summary>
         /// Options for the Spot API
         /// </summary>
         public SocketApiOptions SpotOptions { get; private set; } = new SocketApiOptions();
 
-        internal MexcSocketOptions Copy()
+        internal MexcSocketOptions Set(MexcSocketOptions targetOptions)
         {
-            var options = Copy<MexcSocketOptions>();
-            options.SpotOptions = SpotOptions.Copy<SocketApiOptions>();
-            return options;
+            targetOptions = base.Set<MexcSocketOptions>(targetOptions);
+            targetOptions.SpotOptions = SpotOptions.Set(targetOptions.SpotOptions);
+            return targetOptions;
         }
     }
 }

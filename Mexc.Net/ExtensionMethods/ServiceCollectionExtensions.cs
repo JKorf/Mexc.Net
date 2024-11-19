@@ -6,6 +6,8 @@ using Mexc.Net.Interfaces;
 using Mexc.Net.Interfaces.Clients;
 using Mexc.Net.Objects.Options;
 using Mexc.Net.SymbolOrderBooks;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using System;
 using System.Net;
 using System.Net.Http;
@@ -17,47 +19,115 @@ namespace Microsoft.Extensions.DependencyInjection
     /// </summary>
     public static class ServiceCollectionExtensions
     {
+
         /// <summary>
-        /// Add the IMexcRestClient and IMexcSocketClient to the sevice collection so they can be injected
+        /// Add services such as the IMexcRestClient and IMexcSocketClient. Configures the services based on the provided configuration.
         /// </summary>
         /// <param name="services">The service collection</param>
-        /// <param name="defaultRestOptionsDelegate">Set default options for the rest client</param>
-        /// <param name="defaultSocketOptionsDelegate">Set default options for the socket client</param>
-        /// <param name="socketClientLifeTime">The lifetime of the IMexcSocketClient for the service collection. Defaults to Singleton.</param>
+        /// <param name="configuration">The configuration(section) containing the options</param>
         /// <returns></returns>
         public static IServiceCollection AddMexc(
             this IServiceCollection services,
-            Action<MexcRestOptions>? defaultRestOptionsDelegate = null,
-            Action<MexcSocketOptions>? defaultSocketOptionsDelegate = null,
+            IConfiguration configuration)
+        {
+            var options = new MexcOptions();
+            // Reset environment so we know if theyre overriden
+            options.Rest.Environment = null!;
+            options.Socket.Environment = null!;
+            configuration.Bind(options);
+
+            if (options.Rest == null || options.Socket == null)
+                throw new ArgumentException("Options null");
+
+            var restEnvName = options.Rest.Environment?.Name ?? options.Environment?.Name ?? MexcEnvironment.Live.Name;
+            var socketEnvName = options.Socket.Environment?.Name ?? options.Environment?.Name ?? MexcEnvironment.Live.Name;
+            options.Rest.Environment = MexcEnvironment.GetEnvironmentByName(restEnvName) ?? options.Rest.Environment!;
+            options.Rest.ApiCredentials = options.Rest.ApiCredentials ?? options.ApiCredentials;
+            options.Socket.Environment = MexcEnvironment.GetEnvironmentByName(socketEnvName) ?? options.Socket.Environment!;
+            options.Socket.ApiCredentials = options.Socket.ApiCredentials ?? options.ApiCredentials;
+
+
+            services.AddSingleton(x => Options.Options.Create(options.Rest));
+            services.AddSingleton(x => Options.Options.Create(options.Socket));
+
+            return AddMexcCore(services, options.SocketClientLifeTime);
+        }
+
+        /// <summary>
+        /// Add services such as the IMexcRestClient and IMexcSocketClient. Services will be configured based on the provided options.
+        /// </summary>
+        /// <param name="services">The service collection</param>
+        /// <param name="optionsDelegate">Set options for the Mexc services</param>
+        /// <returns></returns>
+        public static IServiceCollection AddMexc(
+            this IServiceCollection services,
+            Action<MexcOptions>? optionsDelegate = null)
+        {
+            var options = new MexcOptions();
+            // Reset environment so we know if theyre overriden
+            options.Rest.Environment = null!;
+            options.Socket.Environment = null!;
+            optionsDelegate?.Invoke(options);
+            if (options.Rest == null || options.Socket == null)
+                throw new ArgumentException("Options null");
+
+            options.Rest.Environment = options.Rest.Environment ?? options.Environment ?? MexcEnvironment.Live;
+            options.Rest.ApiCredentials = options.Rest.ApiCredentials ?? options.ApiCredentials;
+            options.Socket.Environment = options.Socket.Environment ?? options.Environment ?? MexcEnvironment.Live;
+            options.Socket.ApiCredentials = options.Socket.ApiCredentials ?? options.ApiCredentials;
+
+            services.AddSingleton(x => Options.Options.Create(options.Rest));
+            services.AddSingleton(x => Options.Options.Create(options.Socket));
+
+            return AddMexcCore(services, options.SocketClientLifeTime);
+        }
+
+        /// <summary>
+        /// DEPRECATED; use <see cref="AddMexc(IServiceCollection, Action{MexcOptions}?)" /> instead
+        /// </summary>
+        public static IServiceCollection AddMexc(
+            this IServiceCollection services,
+            Action<MexcRestOptions> restDelegate,
+            Action<MexcSocketOptions>? socketDelegate = null,
             ServiceLifetime? socketClientLifeTime = null)
         {
-            var restOptions = MexcRestOptions.Default.Copy();
+            services.Configure<MexcRestOptions>((x) => { restDelegate?.Invoke(x); });
+            services.Configure<MexcSocketOptions>((x) => { socketDelegate?.Invoke(x); });
 
-            if (defaultRestOptionsDelegate != null)
-            {
-                defaultRestOptionsDelegate(restOptions);
-                MexcRestClient.SetDefaultOptions(defaultRestOptionsDelegate);
-            }
+            return AddMexcCore(services, socketClientLifeTime);
+        }
 
-            if (defaultSocketOptionsDelegate != null)
-                MexcSocketClient.SetDefaultOptions(defaultSocketOptionsDelegate);
+        private static IServiceCollection AddMexcCore(
+            this IServiceCollection services,
+            ServiceLifetime? socketClientLifeTime = null)
+        {
 
-            services.AddHttpClient<IMexcRestClient, MexcRestClient>(options =>
+            services.AddHttpClient<IMexcRestClient, MexcRestClient>((client, serviceProvider) =>
             {
-                options.Timeout = restOptions.RequestTimeout;
-            }).ConfigurePrimaryHttpMessageHandler(() =>
-            {
+                var options = serviceProvider.GetRequiredService<IOptions<MexcRestOptions>>().Value;
+                client.Timeout = options.RequestTimeout;
+                return new MexcRestClient(client, serviceProvider.GetRequiredService<ILoggerFactory>(), serviceProvider.GetRequiredService<IOptions<MexcRestOptions>>());
+            }).ConfigurePrimaryHttpMessageHandler((serviceProvider) => {
                 var handler = new HttpClientHandler();
-                if (restOptions.Proxy != null)
+                try
+                {
+                    handler.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
+                }
+                catch (PlatformNotSupportedException)
+                { }
+
+                var options = serviceProvider.GetRequiredService<IOptions<MexcRestOptions>>().Value;
+                if (options.Proxy != null)
                 {
                     handler.Proxy = new WebProxy
                     {
-                        Address = new Uri($"{restOptions.Proxy.Host}:{restOptions.Proxy.Port}"),
-                        Credentials = restOptions.Proxy.Password == null ? null : new NetworkCredential(restOptions.Proxy.Login, restOptions.Proxy.Password)
+                        Address = new Uri($"{options.Proxy.Host}:{options.Proxy.Port}"),
+                        Credentials = options.Proxy.Password == null ? null : new NetworkCredential(options.Proxy.Login, options.Proxy.Password)
                     };
                 }
                 return handler;
             });
+            services.Add(new ServiceDescriptor(typeof(IMexcSocketClient), x => { return new MexcSocketClient(x.GetRequiredService<IOptions<MexcSocketOptions>>(), x.GetRequiredService<ILoggerFactory>()); }, socketClientLifeTime ?? ServiceLifetime.Singleton));
 
             services.AddTransient<ICryptoRestClient, CryptoRestClient>();
             services.AddTransient<ICryptoSocketClient, CryptoSocketClient>();
@@ -67,11 +137,6 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IMexcRestClient>().SpotApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IMexcSocketClient>().SpotApi.SharedClient);
-
-            if (socketClientLifeTime == null)
-                services.AddSingleton<IMexcSocketClient, MexcSocketClient>();
-            else
-                services.Add(new ServiceDescriptor(typeof(IMexcSocketClient), typeof(MexcSocketClient), socketClientLifeTime.Value));
             return services;
         }
     }
