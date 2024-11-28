@@ -3290,31 +3290,6 @@
             Mexc options
             </summary>
         </member>
-        <member name="P:Mexc.Net.Objects.Options.MexcOptions.Rest">
-            <summary>
-            Rest client options
-            </summary>
-        </member>
-        <member name="P:Mexc.Net.Objects.Options.MexcOptions.Socket">
-            <summary>
-            Socket client options
-            </summary>
-        </member>
-        <member name="P:Mexc.Net.Objects.Options.MexcOptions.Environment">
-            <summary>
-            Trade environment. Contains info about URL's to use to connect to the API. Use `MexcEnvironment` to swap environment, for example `Environment = MexcEnvironment.Live`
-            </summary>
-        </member>
-        <member name="P:Mexc.Net.Objects.Options.MexcOptions.ApiCredentials">
-            <summary>
-            The api credentials used for signing requests.
-            </summary>
-        </member>
-        <member name="P:Mexc.Net.Objects.Options.MexcOptions.SocketClientLifeTime">
-            <summary>
-            The DI service lifetime for the IMexcSocketClient
-            </summary>
-        </member>
         <member name="T:Mexc.Net.Objects.Options.MexcOrderBookOptions">
             <summary>
             Options for the Kucoin SymbolOrderBook
