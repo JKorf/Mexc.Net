@@ -44,6 +44,7 @@ namespace Mexc.Net.Objects.Models.Spot
         /// Quantity
         /// </summary>
         [JsonProperty("v")]
+        [JsonConverter(typeof(BigDecimalConverter))]
         public decimal Quantity { get; set; }
     }
 }

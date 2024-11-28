@@ -53,6 +53,7 @@ namespace Mexc.Net.Objects.Models.Spot
         /// Volume
         /// </summary>
         [JsonProperty("v")]
+        [JsonConverter(typeof(BigDecimalConverter))]
         public decimal Volume { get; set; }
     }
 }
