@@ -28,16 +28,13 @@ namespace Mexc.Net.SymbolOrderBooks
         {
             _serviceProvider = serviceProvider;
 
-            Spot = new OrderBookFactory<MexcOrderBookOptions>(
-                (symbol, options) => CreateSpot(symbol, options),
-                (sharedSymbol, options) => CreateSpot(MexcExchange.FormatSymbol(sharedSymbol.BaseAsset, sharedSymbol.QuoteAsset, sharedSymbol.TradingMode, sharedSymbol.DeliverTime), options));
-
+            Spot = new OrderBookFactory<MexcOrderBookOptions>(CreateSpot, Create);
         }
 
         /// <inheritdoc />
         public ISymbolOrderBook Create(SharedSymbol symbol, Action<MexcOrderBookOptions>? options = null)
         {
-            var symbolName = MexcExchange.FormatSymbol(symbol.BaseAsset, symbol.QuoteAsset, symbol.TradingMode, symbol.DeliverTime);
+            var symbolName = symbol.GetSymbol(MexcExchange.FormatSymbol);
             return CreateSpot(symbolName, options);
         }
 
