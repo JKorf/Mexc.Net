@@ -1635,81 +1635,6 @@
             Data
             </summary>
         </member>
-        <member name="T:Mexc.Net.Objects.Models.Spot.MecxAggregatedTrade">
-            <summary>
-            Aggregated trade info
-            </summary>
-        </member>
-        <member name="P:Mexc.Net.Objects.Models.Spot.MecxAggregatedTrade.Price">
-            <summary>
-            Trade price
-            </summary>
-        </member>
-        <member name="P:Mexc.Net.Objects.Models.Spot.MecxAggregatedTrade.Quantity">
-            <summary>
-            Trade quantity
-            </summary>
-        </member>
-        <member name="P:Mexc.Net.Objects.Models.Spot.MecxAggregatedTrade.Timestamp">
-            <summary>
-            Timestamp
-            </summary>
-        </member>
-        <member name="P:Mexc.Net.Objects.Models.Spot.MecxAggregatedTrade.IsBuyerMaker">
-            <summary>
-            Buyer was maker
-            </summary>
-        </member>
-        <member name="P:Mexc.Net.Objects.Models.Spot.MecxAggregatedTrade.IsBestMatch">
-            <summary>
-            Best price match
-            </summary>
-        </member>
-        <member name="T:Mexc.Net.Objects.Models.Spot.MecxKline">
-            <summary>
-            Kline/candlestick info
-            </summary>
-        </member>
-        <member name="P:Mexc.Net.Objects.Models.Spot.MecxKline.OpenTime">
-            <summary>
-            The time this candlestick opened
-            </summary>
-        </member>
-        <member name="P:Mexc.Net.Objects.Models.Spot.MecxKline.OpenPrice">
-            <summary>
-            The price at which this candlestick opened
-            </summary>
-        </member>
-        <member name="P:Mexc.Net.Objects.Models.Spot.MecxKline.HighPrice">
-            <summary>
-            The highest price in this candlestick
-            </summary>
-        </member>
-        <member name="P:Mexc.Net.Objects.Models.Spot.MecxKline.LowPrice">
-            <summary>
-            The lowest price in this candlestick
-            </summary>
-        </member>
-        <member name="P:Mexc.Net.Objects.Models.Spot.MecxKline.ClosePrice">
-            <summary>
-            The price at which this candlestick closed
-            </summary>
-        </member>
-        <member name="P:Mexc.Net.Objects.Models.Spot.MecxKline.Volume">
-            <summary>
-            Volume
-            </summary>
-        </member>
-        <member name="P:Mexc.Net.Objects.Models.Spot.MecxKline.CloseTime">
-            <summary>
-            Close Time
-            </summary>
-        </member>
-        <member name="P:Mexc.Net.Objects.Models.Spot.MecxKline.QuoteVolume">
-            <summary>
-            Volume in quote asset
-            </summary>
-        </member>
         <member name="T:Mexc.Net.Objects.Models.Spot.MexcAccountInfo">
             <summary>
             Account info
@@ -1833,6 +1758,36 @@
         <member name="P:Mexc.Net.Objects.Models.Spot.MexcAccountUpdate.UpdateType">
             <summary>
             Trigger update type
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcAggregatedTrade">
+            <summary>
+            Aggregated trade info
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcAggregatedTrade.Price">
+            <summary>
+            Trade price
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcAggregatedTrade.Quantity">
+            <summary>
+            Trade quantity
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcAggregatedTrade.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcAggregatedTrade.IsBuyerMaker">
+            <summary>
+            Buyer was maker
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcAggregatedTrade.IsBestMatch">
+            <summary>
+            Best price match
             </summary>
         </member>
         <member name="T:Mexc.Net.Objects.Models.Spot.MexcAveragePrice">
@@ -2193,6 +2148,51 @@
         <member name="P:Mexc.Net.Objects.Models.Spot.MexcId.Id">
             <summary>
             Id
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcKline">
+            <summary>
+            Kline/candlestick info
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcKline.OpenTime">
+            <summary>
+            The time this candlestick opened
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcKline.OpenPrice">
+            <summary>
+            The price at which this candlestick opened
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcKline.HighPrice">
+            <summary>
+            The highest price in this candlestick
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcKline.LowPrice">
+            <summary>
+            The lowest price in this candlestick
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcKline.ClosePrice">
+            <summary>
+            The price at which this candlestick closed
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcKline.Volume">
+            <summary>
+            Volume
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcKline.CloseTime">
+            <summary>
+            Close Time
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcKline.QuoteVolume">
+            <summary>
+            Volume in quote asset
             </summary>
         </member>
         <member name="T:Mexc.Net.Objects.Models.Spot.MexcKycStatus">

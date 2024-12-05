@@ -117,7 +117,7 @@ namespace Mexc.Net.Clients.SpotApi
         #region Get Aggregated Trades List
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<MecxAggregatedTrade>>> GetAggregatedTradeHistoryAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<MexcAggregatedTrade>>> GetAggregatedTradeHistoryAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
         {
             limit?.ValidateIntBetween(nameof(limit), 1, 1000);
 
@@ -128,7 +128,7 @@ namespace Mexc.Net.Clients.SpotApi
             parameters.AddOptionalMilliseconds("startTime", startTime);
             parameters.AddOptionalMilliseconds("endTime", endTime);
             parameters.AddOptional("limit", limit);
-            return await _baseClient.SendRequestInternal<IEnumerable<MecxAggregatedTrade>>("/api/v3/aggTrades", HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            return await _baseClient.SendRequestInternal<IEnumerable<MexcAggregatedTrade>>("/api/v3/aggTrades", HttpMethod.Get, ct, parameters).ConfigureAwait(false);
         }
 
         #endregion
@@ -136,7 +136,7 @@ namespace Mexc.Net.Clients.SpotApi
         #region Get Klines
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<MecxKline>>> GetKlinesAsync(string symbol, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<MexcKline>>> GetKlinesAsync(string symbol, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
         {
             limit?.ValidateIntBetween(nameof(limit), 1, 1000);
 
@@ -148,7 +148,7 @@ namespace Mexc.Net.Clients.SpotApi
             parameters.AddOptionalMilliseconds("startTime", startTime);
             parameters.AddOptionalMilliseconds("endTime", endTime);
             parameters.AddOptional("limit", limit);
-            return await _baseClient.SendRequestInternal<IEnumerable<MecxKline>>("/api/v3/klines", HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            return await _baseClient.SendRequestInternal<IEnumerable<MexcKline>>("/api/v3/klines", HttpMethod.Get, ct, parameters).ConfigureAwait(false);
         }
 
         #endregion
