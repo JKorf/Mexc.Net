@@ -72,8 +72,7 @@ namespace Mexc.Net.Clients.SpotApi
             parameters.AddOptional("memo", memo);
             parameters.AddOptional("remark", remark);
             parameters.AddOptional("contractAddress", contractAddress);
-            var result = await _baseClient.SendRequestInternal<IEnumerable<MexcId>>("/api/v3/capital/withdraw", HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
-            return result.As<MexcId>(result.Data?.Single());
+            return await _baseClient.SendRequestInternal<MexcId>("/api/v3/capital/withdraw", HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
         #endregion
