@@ -131,6 +131,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 1.14.1 - 20 Dec 2024
+    * Fixed deserialization of too large decimal values in Ticker and Kline models
+
 * Version 1.14.0 - 13 Dec 2024
     * Fixed typo in MexcAggregatedTrade and MexcKline models
     * Fix for restClient.SpotApi.Account.WithdrawAsync deserialization
