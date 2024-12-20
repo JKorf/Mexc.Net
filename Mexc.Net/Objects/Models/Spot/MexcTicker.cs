@@ -66,7 +66,7 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Volume in quote asset
         /// </summary>
-        [JsonProperty("quoteVolume")]
+        [JsonProperty("quoteVolume"), JsonConverter(typeof(BigDecimalConverter))]
         public decimal? QuoteVolume { get; set; }
         /// <summary>
         /// Open timestamp

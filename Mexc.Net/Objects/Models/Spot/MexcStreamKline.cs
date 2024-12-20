@@ -22,7 +22,7 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Volume in quote asset
         /// </summary>
-        [JsonProperty("a")]
+        [JsonProperty("a"), JsonConverter(typeof(BigDecimalConverter))]
         public decimal QuoteVolume { get; set; }
         /// <summary>
         /// Close price
