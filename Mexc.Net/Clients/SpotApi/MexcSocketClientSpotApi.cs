@@ -11,6 +11,7 @@ using Mexc.Net.Objects.Models;
 using Mexc.Net.Objects.Models.Spot;
 using Mexc.Net.Objects.Options;
 using Mexc.Net.Objects.Sockets.Models;
+using Mexc.Net.Objects.Sockets.Queries;
 using Mexc.Net.Objects.Sockets.Subscriptions;
 
 namespace Mexc.Net.Clients.SpotApi
@@ -19,6 +20,7 @@ namespace Mexc.Net.Clients.SpotApi
     internal partial class MexcSocketClientSpotApi : SocketApiClient, IMexcSocketClientSpotApi
     {
         private static readonly MessagePath _idPath = MessagePath.Get().Property("id");
+        private static readonly MessagePath _msgPath = MessagePath.Get().Property("msg");
         private static readonly MessagePath _channelPath = MessagePath.Get().Property("c");
 
         public event Action<ListenKeyRenewedEvent>? ListenkeyRenewed;
@@ -30,6 +32,20 @@ namespace Mexc.Net.Clients.SpotApi
         {
             AddSystemSubscription(new MexcErrorSubscription(_logger));
             RateLimiter = MexcExchange.RateLimiter.SpotSocket;
+
+            RegisterPeriodicQuery(
+                "Ping",
+                TimeSpan.FromSeconds(30),
+                x => new MexcPingQuery(),
+                (connection, result) =>
+                {
+                    if (result.Error?.Message.Equals("Query timeout") == true)
+                    {
+                        // Ping timeout, reconnect
+                        _logger.LogWarning("[Sckt {SocketId}] Ping response timeout, reconnecting", connection.SocketId);
+                        _ = connection.TriggerReconnectAsync();
+                    }
+                });
         }
 
         #endregion
@@ -37,6 +53,10 @@ namespace Mexc.Net.Clients.SpotApi
         /// <inheritdoc />
         public override string? GetListenerIdentifier(IMessageAccessor messageAccessor)
         {
+            var msg = messageAccessor.GetValue<string?>(_msgPath);
+            if (msg?.Equals("PONG", StringComparison.OrdinalIgnoreCase) == true)
+                return "PONG";
+
             var id = messageAccessor.GetValue<int?>(_idPath);
             if (id != null)
                 return id.Value.ToString();

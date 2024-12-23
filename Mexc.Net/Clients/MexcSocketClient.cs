@@ -1,5 +1,6 @@
 ﻿using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.Objects.Options;
 using Mexc.Net.Clients.SpotApi;
 using Mexc.Net.Interfaces.Clients;
 using Mexc.Net.Interfaces.Clients.SpotApi;
@@ -40,6 +41,12 @@ namespace Mexc.Net.Clients
             SpotApi = AddApiClient(new MexcSocketClientSpotApi(_logger, options.Value));
         }
         #endregion
+
+        /// <inheritdoc />
+        public void SetOptions(UpdateOptions options)
+        {
+            SpotApi.SetOptions(options);
+        }
 
         /// <summary>
         /// Set the default options to be used when creating new clients

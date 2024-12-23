@@ -24,6 +24,9 @@
             <param name="loggerFactory">The logger factory</param>
             <param name="httpClient">Http client for this client</param>
         </member>
+        <member name="M:Mexc.Net.Clients.MexcRestClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
+            <inheritdoc />
+        </member>
         <member name="M:Mexc.Net.Clients.MexcRestClient.SetDefaultOptions(System.Action{Mexc.Net.Objects.Options.MexcRestOptions})">
             <summary>
             Set the default options to be used when creating new clients
@@ -51,6 +54,9 @@
             </summary>
             <param name="loggerFactory">The logger factory</param>
             <param name="options">Option configuration</param>
+        </member>
+        <member name="M:Mexc.Net.Clients.MexcSocketClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
+            <inheritdoc />
         </member>
         <member name="M:Mexc.Net.Clients.MexcSocketClient.SetDefaultOptions(System.Action{Mexc.Net.Objects.Options.MexcSocketOptions})">
             <summary>
@@ -682,6 +688,12 @@
             Spot API endpoints
             </summary>
         </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.IMexcRestClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
+            <summary>
+            Update specific options
+            </summary>
+            <param name="options">Options to update. Only specific options are changable after the client has been created</param>
+        </member>
         <member name="M:Mexc.Net.Interfaces.Clients.IMexcRestClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
             <summary>
             Set the API credentials for this client. All Api clients in this client will use the new credentials, regardless of earlier set options.
@@ -697,6 +709,12 @@
             <summary>
             Spot streams and requests
             </summary>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.IMexcSocketClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
+            <summary>
+            Update specific options
+            </summary>
+            <param name="options">Options to update. Only specific options are changable after the client has been created</param>
         </member>
         <member name="M:Mexc.Net.Interfaces.Clients.IMexcSocketClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
             <summary>
