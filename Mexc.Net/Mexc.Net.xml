@@ -1526,6 +1526,11 @@
             Urls to the API documentation
             </summary>
         </member>
+        <member name="P:Mexc.Net.MexcExchange.Type">
+            <summary>
+            Type of exchange
+            </summary>
+        </member>
         <member name="M:Mexc.Net.MexcExchange.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <summary>
             Format a base and quote asset to a Mexc recognized symbol 
