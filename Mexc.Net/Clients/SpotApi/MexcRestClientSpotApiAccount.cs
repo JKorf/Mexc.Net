@@ -257,6 +257,46 @@ namespace Mexc.Net.Clients.SpotApi
 
         #endregion
 
+        #region Internal Transfer
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<MexcTransferId>> TransferInternalAsync(
+            string asset,
+            decimal quantity,
+            TransferAccountType toAccountType,
+            string toAccount,
+            string? areaCode = null,
+            CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection()
+            {
+                { "asset", asset }
+            };
+            parameters.AddEnum("toAccountType", toAccountType);
+            parameters.Add("toAccount", toAccount);
+            parameters.AddString("amount", quantity);
+            parameters.AddOptional("areaCode", areaCode);
+            return await _baseClient.SendRequestInternal<MexcTransferId>("/api/v3/capital/transfer/internal", HttpMethod.Post, ct, parameters, signed: true).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Get Internal Transfer History
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<MexcPaginated<IEnumerable<MexcInternalTransfer>>>> GetInternalTransferHistoryAsync(string? transferId = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptional("tranId", transferId);
+            parameters.AddOptionalMillisecondsString("startTime", startTime);
+            parameters.AddOptionalMillisecondsString("endTime", endTime);
+            parameters.AddOptional("page", page);
+            parameters.AddOptional("limit", pageSize);
+            return await _baseClient.SendRequestInternal<MexcPaginated<IEnumerable<MexcInternalTransfer>>>("/api/v3/capital/transfer/internal", HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        #endregion
+
         #region Set Mx Deduction
 
         /// <inheritdoc />

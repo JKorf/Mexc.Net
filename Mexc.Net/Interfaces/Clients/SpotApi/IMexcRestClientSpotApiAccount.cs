@@ -185,6 +185,38 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<MexcPaginated<IEnumerable<MexcDustLog>>>> GetDustLogAsync(DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
+        /// Transfer an asset to another user on MEXC
+        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#internal-transfer" /></para>
+        /// </summary>
+        /// <param name="asset">Asset to transfer</param>
+        /// <param name="quantity">Quantity to transfer</param>
+        /// <param name="toAccountType">Type of identifier to transfer to</param>
+        /// <param name="toAccount">Account identifier</param>
+        /// <param name="areaCode">Area code</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<MexcTransferId>> TransferInternalAsync(
+            string asset,
+            decimal quantity,
+            TransferAccountType toAccountType,
+            string toAccount,
+            string? areaCode = null,
+            CancellationToken ct = default);
+
+        /// <summary>
+        /// Get internal transfer history
+        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#internal-transfer" /></para>
+        /// </summary>
+        /// <param name="transferId">Filter by transfer id</param>
+        /// <param name="startTime">Filter by start time</param>
+        /// <param name="endTime">Filter by end time</param>
+        /// <param name="page">Page</param>
+        /// <param name="pageSize">Page size</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<MexcPaginated<IEnumerable<MexcInternalTransfer>>>> GetInternalTransferHistoryAsync(string? transferId = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+
+        /// <summary>
         /// Set MX deduction status
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#enable-mx-deduct" /></para>
         /// </summary>
