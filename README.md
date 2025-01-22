@@ -132,6 +132,10 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 1.15.2 - 22 Jan 2025
+    * Added restClient.SpotApi.Account.TransferInternalAsync endpoint
+    * Added restClient.SpotApi.Account.GetInternalTransferHistoryAsync endpoint
+
 * Version 1.15.1 - 07 Jan 2025
     * Updated CryptoExchange.Net version
     * Added Type property to MexcExchange class
