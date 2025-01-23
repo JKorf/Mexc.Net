@@ -1,19 +1,14 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Mexc.Net.Objects.Sockets.Models
+﻿namespace Mexc.Net.Objects.Sockets.Models
 {
     internal class MexcUpdate<T>
     {
-        [JsonProperty("c")]
+        [JsonPropertyName("c")]
         public string Channel { get; set; } = string.Empty;
-        [JsonProperty("s")]
+        [JsonPropertyName("s")]
         public string Symbol { get; set; } = string.Empty;
-        [JsonProperty("t")]
+        [JsonPropertyName("t")]
         public DateTime Timestamp { get; set; }
-        [JsonProperty("d")]
+        [JsonPropertyName("d")]
         public T Data { get; set; } = default!;
     }
 }

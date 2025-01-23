@@ -1,15 +1,10 @@
-﻿using CryptoExchange.Net.Authentication;
-using CryptoExchange.Net.Clients;
+﻿using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Objects.Options;
 using Mexc.Net.Clients.SpotApi;
 using Mexc.Net.Interfaces.Clients;
 using Mexc.Net.Interfaces.Clients.SpotApi;
 using Mexc.Net.Objects.Options;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Mexc.Net.Clients
 {

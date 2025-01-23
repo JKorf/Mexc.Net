@@ -1,8 +1,4 @@
 ﻿using Mexc.Net.Enums;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.Json.Serialization;
 
 namespace Mexc.Net.Objects.Models.Spot
 {

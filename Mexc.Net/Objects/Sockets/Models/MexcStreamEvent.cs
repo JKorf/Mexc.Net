@@ -1,9 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Mexc.Net.Objects.Sockets.Models
+﻿namespace Mexc.Net.Objects.Sockets.Models
 {
     /// <summary>
     /// Stream event
@@ -13,7 +8,7 @@ namespace Mexc.Net.Objects.Sockets.Models
         /// <summary>
         /// Event type
         /// </summary>
-        [JsonProperty("e")]
+        [JsonPropertyName("e")]
         public string Event { get; set; } = string.Empty;
     }
 }

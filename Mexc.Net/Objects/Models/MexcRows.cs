@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-
+﻿
 namespace Mexc.Net.Objects.Models
 {
     /// <summary>
@@ -11,12 +10,12 @@ namespace Mexc.Net.Objects.Models
         /// <summary>
         /// Total records
         /// </summary>
-        [JsonProperty("total")]
+        [JsonPropertyName("total")]
         public int Total { get; set; }
         /// <summary>
         /// Data
         /// </summary>
-        [JsonProperty("rows")]
+        [JsonPropertyName("rows")]
         public T Data { get; set; } = default!;
     }
 }

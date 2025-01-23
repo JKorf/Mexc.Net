@@ -1,5 +1,4 @@
 ﻿using CryptoExchange.Net.Clients;
-using CryptoExchange.Net.Interfaces;
 using Mexc.Net;
 using Mexc.Net.Clients;
 using Mexc.Net.Interfaces;
@@ -8,9 +7,7 @@ using Mexc.Net.Objects.Options;
 using Mexc.Net.SymbolOrderBooks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-using System;
 using System.Net;
-using System.Net.Http;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace Mexc.Net.Objects.Models.Spot
+﻿namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Price info
@@ -10,12 +8,12 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Symbol name
         /// </summary>
-        [JsonProperty("symbol")]
+        [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// Last price
         /// </summary>
-        [JsonProperty("price")]
+        [JsonPropertyName("price")]
         public decimal Price { get; set; }
     }
 }

@@ -9,12 +9,12 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Maker fee
         /// </summary>
-        [JsonProperty("makerCommission")]
+        [JsonPropertyName("makerCommission")]
         public decimal MakerFee { get; set; }
         /// <summary>
         /// Taker fee
         /// </summary>
-        [JsonProperty("takerCommission")]
+        [JsonPropertyName("takerCommission")]
         public decimal TakerFee { get; set; }
     }
 }

@@ -1,0 +1,31 @@
+GET
+/api/v3/capital/transfer
+true
+{
+"rows":[
+{
+    "tranId":"11945860693",
+    "clientTranId":"test",
+    "asset":"BTC",
+    "amount":"0.1",
+    "fromAccountType":"SPOT",
+    "toAccountType":"FUTURES",
+    "fromSymbol":"SPOT",
+    "toSymbol":"FUTURE",
+    "status":"SUCCESS",
+    "timestamp":1544433325000
+},
+{
+    "tranId":"11945860693",
+    "clientTranId":"test",
+    "asset":"BTC",
+    "amount":"0.1",
+    "fromAccountType":"SPOT",
+    "toAccountType":"FUTURES",
+    "fromSymbol":"SPOT",
+    "toSymbol":"FUTURE",
+    "status":"SUCCESS",
+    "timestamp":1544433325000
+}],
+"total": 2
+}

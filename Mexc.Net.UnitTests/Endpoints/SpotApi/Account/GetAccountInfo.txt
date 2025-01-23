@@ -1,0 +1,20 @@
+GET
+/api/v3/account
+true
+{
+    "canTrade": true,
+    "canWithdraw": true,
+    "canDeposit": true,
+    "updateTime": null,
+    "accountType": "SPOT",
+    "balances": [{
+        "asset": "NBNTEST",
+        "free": "1111078",
+        "locked": "33"
+    }, {
+        "asset": "MAIN",
+        "free": "1020000",
+        "locked": "0"
+    }],
+    "permissions": ["SPOT"]
+}

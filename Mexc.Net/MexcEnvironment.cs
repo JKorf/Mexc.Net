@@ -1,5 +1,4 @@
-﻿using CryptoExchange.Net.Objects;
-using Mexc.Net.Objects;
+﻿using Mexc.Net.Objects;
 
 namespace Mexc.Net
 {

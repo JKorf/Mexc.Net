@@ -1,18 +1,17 @@
-﻿using Newtonsoft.Json;
-
+﻿
 namespace Mexc.Net.Objects.Models
 {
     internal record MexcResult
     {
-        [JsonProperty("code")]
+        [JsonPropertyName("code")]
         public int Code { get; set; }
-        [JsonProperty("msg")]
+        [JsonPropertyName("msg")]
         public string? Message { get; set; }
     }
 
     internal record MexcResult<T> : MexcResult
     {
-        [JsonProperty("data")]
+        [JsonPropertyName("data")]
         public T? Data { get; set; }
     }
 }

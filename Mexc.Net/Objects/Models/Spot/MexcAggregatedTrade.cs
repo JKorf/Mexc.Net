@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-
+﻿
 namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
@@ -11,27 +9,27 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Trade price
         /// </summary>
-        [JsonProperty("p")]
+        [JsonPropertyName("p")]
         public decimal Price { get; set; }
         /// <summary>
         /// Trade quantity
         /// </summary>
-        [JsonProperty("q")]
+        [JsonPropertyName("q")]
         public decimal Quantity { get; set; }
         /// <summary>
         /// Timestamp
         /// </summary>
-        [JsonProperty("T")]
+        [JsonPropertyName("T")]
         public DateTime Timestamp { get; set; }
         /// <summary>
         /// Buyer was maker
         /// </summary>
-        [JsonProperty("m")]
+        [JsonPropertyName("m")]
         public bool IsBuyerMaker { get; set; }
         /// <summary>
         /// Best price match
         /// </summary>
-        [JsonProperty("M")]
+        [JsonPropertyName("M")]
         public bool IsBestMatch { get; set; }
     }
 }

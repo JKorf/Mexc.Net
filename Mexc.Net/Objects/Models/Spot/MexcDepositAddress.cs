@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace Mexc.Net.Objects.Models.Spot
+﻿namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Deposit address
@@ -10,27 +8,27 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Asset
         /// </summary>
-        [JsonProperty("coin")]
+        [JsonPropertyName("coin")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// Network
         /// </summary>
-        [JsonProperty("network")]
+        [JsonPropertyName("network")]
         public string Network { get; set; } = string.Empty;
         /// <summary>
         /// Address
         /// </summary>
-        [JsonProperty("address")]
+        [JsonPropertyName("address")]
         public string Address { get; set; } = string.Empty;
         /// <summary>
         /// Tag
         /// </summary>
-        [JsonProperty("tag")]
+        [JsonPropertyName("tag")]
         public string? Tag { get; set; }
         /// <summary>
         /// Memo
         /// </summary>
-        [JsonProperty("memo")]
+        [JsonPropertyName("memo")]
         public string? Memo { get; set; }
     }
 }

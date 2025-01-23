@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-using Mexc.Net.Enums;
-using System;
+﻿using Mexc.Net.Enums;
 
 namespace Mexc.Net.Objects.Models.Spot
 {
@@ -12,47 +10,47 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Start time
         /// </summary>
-        [JsonProperty("t")]
+        [JsonPropertyName("t")]
         public DateTime StartTime { get; set; }
         /// <summary>
         /// End time
         /// </summary>
-        [JsonProperty("T")]
+        [JsonPropertyName("T")]
         public DateTime EndTime { get; set; }
         /// <summary>
         /// Volume in quote asset
         /// </summary>
-        [JsonProperty("a"), JsonConverter(typeof(BigDecimalConverter))]
+        [JsonPropertyName("a"), JsonConverter(typeof(BigDecimalConverter))]
         public decimal QuoteVolume { get; set; }
         /// <summary>
         /// Close price
         /// </summary>
-        [JsonProperty("c")]
+        [JsonPropertyName("c")]
         public decimal ClosePrice { get; set; }
         /// <summary>
         /// Highest price
         /// </summary>
-        [JsonProperty("h")]
+        [JsonPropertyName("h")]
         public decimal HighPrice { get; set; }
         /// <summary>
         /// Interval
         /// </summary>
-        [JsonProperty("i")]
+        [JsonPropertyName("i")]
         public KlineInterval Interval { get; set; }
         /// <summary>
         /// Lowest price
         /// </summary>
-        [JsonProperty("l")]
+        [JsonPropertyName("l")]
         public decimal LowPrice { get; set; }
         /// <summary>
         /// Open price
         /// </summary>
-        [JsonProperty("o")]
+        [JsonPropertyName("o")]
         public decimal OpenPrice { get; set; }
         /// <summary>
         /// Volume
         /// </summary>
-        [JsonProperty("v")]
+        [JsonPropertyName("v")]
         [JsonConverter(typeof(BigDecimalConverter))]
         public decimal Volume { get; set; }
     }

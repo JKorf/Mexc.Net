@@ -1,0 +1,30 @@
+GET
+/api/v3/capital/transfer/internal
+true
+  {
+    "page": 1,  
+    "totalRecords": 1,  
+    "totalPageNum": 1,  
+    "data": [
+             {
+      "tranId":"11945860693",
+      "asset":"BTC",
+      "amount":"0.1",
+      "toAccountType":"EMAIL",
+      "toAccount":"156283619@outlook.com",
+      "fromAccount":"156283618@outlook.com",
+      "status":"SUCCESS",
+      "timestamp":1544433325000
+    },
+    {
+      "tranId":"",
+      "asset":"BTC",
+      "amount":"0.8",
+      "toAccountType":"UID",
+      "fromAccount":"156283619@outlook.com",
+      "toAccount":"87658765",
+      "status":"SUCCESS",
+      "timestamp":1544433325000
+    }
+    ]
+}

@@ -4,10 +4,7 @@ using Mexc.Net.Clients.SpotApi;
 using Mexc.Net.Interfaces.Clients;
 using Mexc.Net.Interfaces.Clients.SpotApi;
 using Mexc.Net.Objects.Options;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System;
-using System.Net.Http;
 
 namespace Mexc.Net.Clients
 {

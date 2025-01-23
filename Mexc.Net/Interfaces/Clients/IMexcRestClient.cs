@@ -1,5 +1,4 @@
-﻿using CryptoExchange.Net.Interfaces;
-using CryptoExchange.Net.Objects.Options;
+﻿using CryptoExchange.Net.Objects.Options;
 using Mexc.Net.Interfaces.Clients.SpotApi;
 
 namespace Mexc.Net.Interfaces.Clients

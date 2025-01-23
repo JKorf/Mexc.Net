@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace Mexc.Net.Objects.Models.Spot
+﻿namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Eligible dust asset
@@ -10,32 +8,32 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Resulting Mx
         /// </summary>
-        [JsonProperty("convertMx")]
+        [JsonPropertyName("convertMx")]
         public decimal ConvertMx { get; set; }
         /// <summary>
         /// Dust worth
         /// </summary>
-        [JsonProperty("convertUsdt")]
+        [JsonPropertyName("convertUsdt")]
         public decimal ConvertUsdt { get; set; }
         /// <summary>
         /// Current balance
         /// </summary>
-        [JsonProperty("balance")]
+        [JsonPropertyName("balance")]
         public decimal Balance { get; set; }
         /// <summary>
         /// Asset name
         /// </summary>
-        [JsonProperty("asset")]
+        [JsonPropertyName("asset")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// Code
         /// </summary>
-        [JsonProperty("code")]
+        [JsonPropertyName("code")]
         public string Code { get; set; } = string.Empty;
         /// <summary>
         /// Message
         /// </summary>
-        [JsonProperty("message")]
+        [JsonPropertyName("message")]
         public string Message { get; set; } = string.Empty;
     }
 }

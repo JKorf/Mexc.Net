@@ -1,29 +1,19 @@
-﻿using CryptoExchange.Net;
-using CryptoExchange.Net.Objects;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Threading;
+﻿using System.Diagnostics;
 using Mexc.Net.Enums;
 using Mexc.Net.Objects.Models.Spot;
 using Mexc.Net.Interfaces.Clients.SpotApi;
 using Mexc.Net.Objects.Models;
-using System.Linq;
 
 namespace Mexc.Net.Clients.SpotApi
 {
     /// <inheritdoc />
     internal class MexcRestClientSpotApiExchangeData : IMexcRestClientSpotApiExchangeData
     {
-        private readonly ILogger _logger;
         private readonly MexcRestClientSpotApi _baseClient;
+        private static readonly RequestDefinitionCache _definitions = new RequestDefinitionCache();
 
-        internal MexcRestClientSpotApiExchangeData(ILogger logger, MexcRestClientSpotApi baseClient)
+        internal MexcRestClientSpotApiExchangeData(MexcRestClientSpotApi baseClient)
         {
-            _logger = logger;
             _baseClient = baseClient;
         }
 
@@ -33,7 +23,8 @@ namespace Mexc.Net.Clients.SpotApi
         public async Task<WebCallResult<long>> PingAsync(CancellationToken ct = default)
         {
             var sw = Stopwatch.StartNew();
-            var result = await _baseClient.SendRequestInternal<object>("/api/v3/ping", HttpMethod.Get, ct).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/ping", MexcExchange.RateLimiter.SpotRest, 1);
+            var result = await _baseClient.SendAsync<object>(request, null, ct).ConfigureAwait(false);
             sw.Stop();
             return result ? result.As(sw.ElapsedMilliseconds) : result.As<long>(default!);
         }
@@ -45,7 +36,8 @@ namespace Mexc.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default)
         {
-            var result = await _baseClient.SendRequestInternal<MexcServerTime>("/api/v3/time", HttpMethod.Get, ct).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/time", MexcExchange.RateLimiter.SpotRest, 1);
+            var result = await _baseClient.SendAsync<MexcServerTime>(request, null, ct).ConfigureAwait(false);
             return result.As(result.Data?.ServerTime ?? default);
         }
 
@@ -56,7 +48,8 @@ namespace Mexc.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<string>>> GetApiSymbolsAsync(CancellationToken ct = default)
         {
-            var result = await _baseClient.SendRequestInternal<MexcResult<IEnumerable<string>>>("/api/v3/defaultSymbols", HttpMethod.Get, ct).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/defaultSymbols", MexcExchange.RateLimiter.SpotRest, 1);
+            var result = await _baseClient.SendAsync<MexcResult<IEnumerable<string>>>(request, null, ct).ConfigureAwait(false);
             if (!result)
                 return result.As<IEnumerable<string>>(default);
 
@@ -75,7 +68,8 @@ namespace Mexc.Net.Clients.SpotApi
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("symbols", symbols != null ? string.Join(",", symbols): null);
-            return await _baseClient.SendRequestInternal<MexcExchangeInfo>("/api/v3/exchangeInfo", HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/exchangeInfo", MexcExchange.RateLimiter.SpotRest, 10);
+            return await _baseClient.SendAsync<MexcExchangeInfo>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -92,7 +86,8 @@ namespace Mexc.Net.Clients.SpotApi
                 { "symbol", symbol }
             };
             parameters.AddOptional("limit", limit);
-            return await _baseClient.SendRequestInternal<MexcOrderBook>("/api/v3/depth", HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/depth", MexcExchange.RateLimiter.SpotRest, 1);
+            return await _baseClient.SendAsync<MexcOrderBook>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -109,7 +104,8 @@ namespace Mexc.Net.Clients.SpotApi
                 { "symbol", symbol }
             };
             parameters.AddOptional("limit", limit);
-            return await _baseClient.SendRequestInternal<IEnumerable<MexcTrade>>("/api/v3/trades", HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/trades", MexcExchange.RateLimiter.SpotRest, 5);
+            return await _baseClient.SendAsync<IEnumerable<MexcTrade>>(request, parameters, ct).ConfigureAwait(false);            
         }
 
         #endregion
@@ -128,7 +124,8 @@ namespace Mexc.Net.Clients.SpotApi
             parameters.AddOptionalMilliseconds("startTime", startTime);
             parameters.AddOptionalMilliseconds("endTime", endTime);
             parameters.AddOptional("limit", limit);
-            return await _baseClient.SendRequestInternal<IEnumerable<MexcAggregatedTrade>>("/api/v3/aggTrades", HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/aggTrades", MexcExchange.RateLimiter.SpotRest, 1);
+            return await _baseClient.SendAsync<IEnumerable<MexcAggregatedTrade>>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -148,7 +145,8 @@ namespace Mexc.Net.Clients.SpotApi
             parameters.AddOptionalMilliseconds("startTime", startTime);
             parameters.AddOptionalMilliseconds("endTime", endTime);
             parameters.AddOptional("limit", limit);
-            return await _baseClient.SendRequestInternal<IEnumerable<MexcKline>>("/api/v3/klines", HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/klines", MexcExchange.RateLimiter.SpotRest, 1);
+            return await _baseClient.SendAsync<IEnumerable<MexcKline>>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -162,7 +160,8 @@ namespace Mexc.Net.Clients.SpotApi
             {
                 { "symbol", symbol }
             };
-            return await _baseClient.SendRequestInternal<MexcAveragePrice>("/api/v3/avgPrice", HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/avgPrice", MexcExchange.RateLimiter.SpotRest, 1);
+            return await _baseClient.SendAsync<MexcAveragePrice>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -174,13 +173,16 @@ namespace Mexc.Net.Clients.SpotApi
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("symbol", symbol);
-            return await _baseClient.SendRequestInternal<MexcTicker>("/api/v3/ticker/24hr", HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/ticker/24hr", MexcExchange.RateLimiter.SpotRest, 1);
+            return await _baseClient.SendAsync<MexcTicker>(request, parameters, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<MexcTicker>>> GetTickersAsync(CancellationToken ct = default)
         {
-            return await _baseClient.SendRequestInternal<IEnumerable<MexcTicker>>("/api/v3/ticker/24hr", HttpMethod.Get, ct).ConfigureAwait(false);
+#warning check weight, same method/url
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/ticker/24hr", MexcExchange.RateLimiter.SpotRest, 40);
+            return await _baseClient.SendAsync<IEnumerable<MexcTicker>>(request, null, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -192,7 +194,8 @@ namespace Mexc.Net.Clients.SpotApi
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("symbols", symbols == null ? null : string.Join(",", symbols));
-            return await _baseClient.SendRequestInternal<IEnumerable<MexcPrice>>("/api/v3/ticker/price", HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/ticker/price", MexcExchange.RateLimiter.SpotRest, 2);
+            return await _baseClient.SendAsync<IEnumerable<MexcPrice>>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -204,7 +207,8 @@ namespace Mexc.Net.Clients.SpotApi
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("symbols", symbols == null ? null : string.Join(",", symbols));
-            return await _baseClient.SendRequestInternal<IEnumerable<MexcBookPrice>>("/api/v3/ticker/bookTicker", HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/ticker/bookTicker", MexcExchange.RateLimiter.SpotRest, 1);
+            return await _baseClient.SendAsync<IEnumerable<MexcBookPrice>>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion

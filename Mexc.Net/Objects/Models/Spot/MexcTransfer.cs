@@ -1,6 +1,4 @@
 ﻿using Mexc.Net.Enums;
-using Newtonsoft.Json;
-using System;
 
 namespace Mexc.Net.Objects.Models.Spot
 {
@@ -12,52 +10,52 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Transfer id
         /// </summary>
-        [JsonProperty("tranId")]
+        [JsonPropertyName("tranId")]
         public string TransferId { get; set; } = string.Empty;
         /// <summary>
         /// Client transfer id
         /// </summary>
-        [JsonProperty("clientTranId")]
+        [JsonPropertyName("clientTranId")]
         public string ClientTransferId { get; set; } = string.Empty;
         /// <summary>
         /// Asset
         /// </summary>
-        [JsonProperty("asset")]
+        [JsonPropertyName("asset")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// Quantity
         /// </summary>
-        [JsonProperty("amount")]
+        [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }
         /// <summary>
         /// From account type
         /// </summary>
-        [JsonProperty("fromAccountType")]
+        [JsonPropertyName("fromAccountType")]
         public AccountType FromAccountType { get; set; }
         /// <summary>
         /// To account type
         /// </summary>
-        [JsonProperty("toAccountType")]
+        [JsonPropertyName("toAccountType")]
         public AccountType ToAccountType { get; set; }
         /// <summary>
         /// From symbol
         /// </summary>
-        [JsonProperty("fromSymbol")]
+        [JsonPropertyName("fromSymbol")]
         public string? FromSymbol { get; set; } = string.Empty;
         /// <summary>
         /// To symbol
         /// </summary>
-        [JsonProperty("toSymbol")]
+        [JsonPropertyName("toSymbol")]
         public string? ToSymbol { get; set; } = string.Empty;
         /// <summary>
         /// Status
         /// </summary>
-        [JsonProperty("status")]
+        [JsonPropertyName("status")]
         public string Status { get; set; } = string.Empty;
         /// <summary>
         /// Timestamp
         /// </summary>
-        [JsonProperty("timestamp")]
+        [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
     }
 }

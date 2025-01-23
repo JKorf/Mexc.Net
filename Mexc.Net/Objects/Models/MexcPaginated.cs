@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace Mexc.Net.Objects.Models
+﻿namespace Mexc.Net.Objects.Models
 {
     /// <summary>
     /// Paginated result
@@ -11,22 +9,22 @@ namespace Mexc.Net.Objects.Models
         /// <summary>
         /// Total records
         /// </summary>
-        [JsonProperty("totalRecords")]
+        [JsonPropertyName("totalRecords")]
         public int Total { get; set; }
         /// <summary>
         /// Page
         /// </summary>
-        [JsonProperty("page")]
+        [JsonPropertyName("page")]
         public int Page { get; set; }
         /// <summary>
         /// Total pages
         /// </summary>
-        [JsonProperty("totalPageNum")]
+        [JsonPropertyName("totalPageNum")]
         public int TotalPages { get; set; }
         /// <summary>
         /// Data
         /// </summary>
-        [JsonProperty("data")]
+        [JsonPropertyName("data")]
         public T Data { get; set; } = default!;
     }
 }

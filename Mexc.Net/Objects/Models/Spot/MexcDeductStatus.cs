@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-
+﻿
 namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
@@ -10,7 +9,7 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Is deduction enabled
         /// </summary>
-        [JsonProperty("mxDeductEnable")]
+        [JsonPropertyName("mxDeductEnable")]
         public bool MxDeductionEnable { get; set; }
     }
 }

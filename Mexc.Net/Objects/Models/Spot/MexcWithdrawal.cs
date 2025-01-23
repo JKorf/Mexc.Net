@@ -1,7 +1,4 @@
-﻿using CryptoExchange.Net.Converters;
-using Mexc.Net.Enums;
-using Newtonsoft.Json;
-using System;
+﻿using Mexc.Net.Enums;
 
 namespace Mexc.Net.Objects.Models.Spot
 {
@@ -13,87 +10,87 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Withdrawal id
         /// </summary>
-        [JsonProperty("id")]
+        [JsonPropertyName("id")]
         public string Id { get; set; } = string.Empty;
         /// <summary>
         /// Transaction id
         /// </summary>
-        [JsonProperty("txId")]
+        [JsonPropertyName("txId")]
         public string? TransactionId { get; set; }
         /// <summary>
         /// Asset
         /// </summary>
-        [JsonProperty("coin")]
+        [JsonPropertyName("coin")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// Network
         /// </summary>
-        [JsonProperty("network")]
+        [JsonPropertyName("network")]
         public string Network { get; set; } = string.Empty;
         /// <summary>
         /// Withdrawal address
         /// </summary>
-        [JsonProperty("address")]
+        [JsonPropertyName("address")]
         public string? Address { get; set; }
         /// <summary>
         /// Quantity
         /// </summary>
-        [JsonProperty("amount")]
+        [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }
         /// <summary>
         /// Transfer type
         /// </summary>
-        [JsonProperty("transferType"), JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("transferType"), JsonConverter(typeof(EnumConverter))]
         public TranfserType TransferType { get; set; }
         /// <summary>
         /// Withdrawal status
         /// </summary>
-        [JsonProperty("status"), JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("status"), JsonConverter(typeof(EnumConverter))]
         public WithdrawStatus Status { get; set; }
         /// <summary>
         /// Transaction fee
         /// </summary>
-        [JsonProperty("transactionFee")]
+        [JsonPropertyName("transactionFee")]
         public decimal TransactionFee { get; set; }
         /// <summary>
         /// Network confirmations
         /// </summary>
-        [JsonProperty("confirmNo")]
+        [JsonPropertyName("confirmNo")]
         public int? Confirmations { get; set; }
         /// <summary>
         /// Apply time
         /// </summary>
-        [JsonProperty("applyTime")]
+        [JsonPropertyName("applyTime")]
         public DateTime ApplyTime { get; set; }
         /// <summary>
         /// Remarks
         /// </summary>
-        [JsonProperty("remark")]
+        [JsonPropertyName("remark")]
         public string? Remark { get; set; }
         /// <summary>
         /// Memo
         /// </summary>
-        [JsonProperty("memo")]
+        [JsonPropertyName("memo")]
         public string? Memo { get; set; }
         /// <summary>
         /// Transaction hash
         /// </summary>
-        [JsonProperty("transHash")]
+        [JsonPropertyName("transHash")]
         public string? TransactionHash { get; set; }
         /// <summary>
         /// Last update time
         /// </summary>
-        [JsonProperty("updateTime")]
+        [JsonPropertyName("updateTime")]
         public DateTime? UpdateTime { get; set; }
         /// <summary>
         /// Asset id
         /// </summary>
-        [JsonProperty("coinId")]
+        [JsonPropertyName("coinId")]
         public string? AssetId { get; set; }
         /// <summary>
         /// CurrencyId
         /// </summary>
-        [JsonProperty("vcoinId")]
+        [JsonPropertyName("vcoinId")]
         public string? CurrencyId { get; set; }
     }
 }

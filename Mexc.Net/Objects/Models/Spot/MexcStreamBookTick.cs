@@ -1,10 +1,4 @@
-﻿using Newtonsoft.Json;
-using Mexc.Net.Enums;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using CryptoExchange.Net.Interfaces;
-using Mexc.Net.Objects.Sockets.Models;
+﻿using Mexc.Net.Objects.Sockets.Models;
 
 namespace Mexc.Net.Objects.Models.Spot
 {
@@ -16,23 +10,23 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Best ask price
         /// </summary>
-        [JsonProperty("a")]
+        [JsonPropertyName("a")]
         public decimal BestAskPrice { get; set; }
         /// <summary>
         /// Best ask quantity
         /// </summary>
-        [JsonProperty("A")]
+        [JsonPropertyName("A")]
         [JsonConverter(typeof(BigDecimalConverter))]
         public decimal BestAskQuantity { get; set; }
         /// <summary>
         /// Best bid price
         /// </summary>
-        [JsonProperty("b")]
+        [JsonPropertyName("b")]
         public decimal BestBidPrice { get; set; }
         /// <summary>
         /// Best bid quantity
         /// </summary>
-        [JsonProperty("B")]
+        [JsonPropertyName("B")]
         [JsonConverter(typeof(BigDecimalConverter))]
         public decimal BestBidQuantity { get; set; }
     }

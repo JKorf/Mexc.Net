@@ -1,0 +1,15 @@
+GET
+/api/v3/aggTrades
+false
+[
+  {
+    "a": null,
+    "f": null,
+    "l": null,
+    "p": "46782.67",
+    "q": "0.0038",
+    "T": 1641380483000,
+    "m": false,
+    "M": true
+  }
+]

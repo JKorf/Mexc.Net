@@ -1,17 +1,12 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Mexc.Net.Objects.Sockets.Models
+﻿namespace Mexc.Net.Objects.Sockets.Models
 {
     internal class MexcRequest
     {
-        [JsonProperty("id")]
+        [JsonPropertyName("id")]
         public int Id { get; set; }
-        [JsonProperty("method")]
+        [JsonPropertyName("method")]
         public string Method { get; set; } = string.Empty;
-        [JsonProperty("params")]
+        [JsonPropertyName("params")]
         public IEnumerable<string> Parameters { get; set; } = Array.Empty<string>();
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Mexc.Net.Objects.Models.Spot
+﻿namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Server time
@@ -10,6 +8,7 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Current server time
         /// </summary>
+        [JsonPropertyName("serverTime")]
         public DateTime ServerTime { get; set; }
     }
 }

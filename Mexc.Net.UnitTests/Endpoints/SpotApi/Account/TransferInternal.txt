@@ -1,0 +1,6 @@
+POST
+/api/v3/capital/transfer/internal
+true
+{
+"tranId": "c45d800a47ba4cbc876a5cd29388319"
+}

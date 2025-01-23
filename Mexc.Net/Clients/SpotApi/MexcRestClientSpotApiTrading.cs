@@ -1,26 +1,17 @@
-﻿using CryptoExchange.Net.Objects;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Threading;
-using Mexc.Net.Enums;
+﻿using Mexc.Net.Enums;
 using Mexc.Net.Objects.Models.Spot;
 using Mexc.Net.Interfaces.Clients.SpotApi;
-using System.Linq;
 
 namespace Mexc.Net.Clients.SpotApi
 {
     /// <inheritdoc />
     internal class MexcRestClientSpotApiTrading : IMexcRestClientSpotApiTrading
     {
-        private readonly ILogger _logger;
         private readonly MexcRestClientSpotApi _baseClient;
+        private static readonly RequestDefinitionCache _definitions = new RequestDefinitionCache();
 
-        internal MexcRestClientSpotApiTrading(ILogger logger, MexcRestClientSpotApi baseClient)
+        internal MexcRestClientSpotApiTrading(MexcRestClientSpotApi baseClient)
         {
-            _logger = logger;
             _baseClient = baseClient;
         }
 
@@ -40,7 +31,8 @@ namespace Mexc.Net.Clients.SpotApi
             parameters.AddOptionalString("price", price);
             parameters.AddOptional("newClientOrderId", clientOrderId);
 
-            var result = await _baseClient.SendRequestInternal<object>("/api/v3/order/test", HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v3/order/test", MexcExchange.RateLimiter.SpotRest, 1, true);
+            var result = await _baseClient.SendAsync<object>(request, parameters, ct).ConfigureAwait(false);
             return result.AsDataless();
         }
 
@@ -62,7 +54,8 @@ namespace Mexc.Net.Clients.SpotApi
             parameters.AddOptionalString("price", price);
             parameters.AddOptional("newClientOrderId", clientOrderId);
 
-            var result = await _baseClient.SendRequestInternal<MexcOrder>("/api/v3/order", HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v3/order", MexcExchange.RateLimiter.SpotRest, 1, true);
+            var result = await _baseClient.SendAsync<MexcOrder>(request, parameters, ct).ConfigureAwait(false);
             if (result)
                 _baseClient.InvokeOrderPlaced(new CryptoExchange.Net.CommonObjects.OrderId { Id = result.Data.OrderId, SourceObject = result.Data });
 
@@ -84,7 +77,8 @@ namespace Mexc.Net.Clients.SpotApi
             parameters.AddOptional("origClientOrderId", clientOrderId);
             parameters.AddOptional("newClientOrderId", newClientOrderId);
 
-            var result = await _baseClient.SendRequestInternal<MexcOrder>("/api/v3/order", HttpMethod.Delete, ct, parameters, true).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Delete, "/api/v3/order", MexcExchange.RateLimiter.SpotRest, 1, true);
+            var result = await _baseClient.SendAsync<MexcOrder>(request, parameters, ct).ConfigureAwait(false);
             if (result)
                 _baseClient.InvokeOrderCanceled(new CryptoExchange.Net.CommonObjects.OrderId { Id = result.Data.OrderId, SourceObject = result.Data });
 
@@ -110,7 +104,8 @@ namespace Mexc.Net.Clients.SpotApi
                 { "symbol", string.Join(",", symbols) }
             };
 
-            var result = await _baseClient.SendRequestInternal<IEnumerable<MexcOrder>>("/api/v3/openOrders", HttpMethod.Delete, ct, parameters, true).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Delete, "/api/v3/openOrders", MexcExchange.RateLimiter.SpotRest, 1, true);
+            var result = await _baseClient.SendAsync<IEnumerable<MexcOrder>>(request, parameters, ct).ConfigureAwait(false);
             if (result)
             {
                 foreach(var item in result.Data)
@@ -133,7 +128,8 @@ namespace Mexc.Net.Clients.SpotApi
             parameters.AddOptional("orderId", orderId);
             parameters.AddOptional("origClientOrderId", clientOrderId);
 
-            return await _baseClient.SendRequestInternal<MexcOrder>("/api/v3/order", HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/order", MexcExchange.RateLimiter.SpotRest, 2, true);
+            return await _baseClient.SendAsync<MexcOrder>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -148,7 +144,8 @@ namespace Mexc.Net.Clients.SpotApi
                 { "symbol", symbol }
             };
 
-            return await _baseClient.SendRequestInternal<IEnumerable<MexcOrder>>("/api/v3/openOrders", HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/openOrders", MexcExchange.RateLimiter.SpotRest, 3, true);
+            return await _baseClient.SendAsync<IEnumerable<MexcOrder>>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -166,7 +163,8 @@ namespace Mexc.Net.Clients.SpotApi
             parameters.AddOptionalMilliseconds("endTime", endTime);
             parameters.AddOptional("limit", limit);
 
-            return await _baseClient.SendRequestInternal<IEnumerable<MexcOrder>>("/api/v3/allOrders", HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/allOrders", MexcExchange.RateLimiter.SpotRest, 10, true);
+            return await _baseClient.SendAsync<IEnumerable<MexcOrder>>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -185,7 +183,8 @@ namespace Mexc.Net.Clients.SpotApi
             parameters.AddOptional("limit", limit);
             parameters.AddOptional("orderId", orderId);
 
-            return await _baseClient.SendRequestInternal<IEnumerable<MexcUserTrade>>("/api/v3/myTrades", HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/myTrades", MexcExchange.RateLimiter.SpotRest, 10, true);
+            return await _baseClient.SendAsync<IEnumerable<MexcUserTrade>>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion

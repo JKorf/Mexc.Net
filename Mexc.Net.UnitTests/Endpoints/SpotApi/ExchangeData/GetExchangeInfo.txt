@@ -1,0 +1,4 @@
+GET
+/api/v3/exchangeInfo
+false
+{"timezone":"CST","serverTime":1737623435453,"rateLimits":[],"exchangeFilters":[],"symbols":[{"symbol":"BROCKUSDT","status":"1","baseAsset":"BROCK","baseAssetPrecision":2,"quoteAsset":"USDT","quotePrecision":5,"quoteAssetPrecision":5,"baseCommissionPrecision":2,"quoteCommissionPrecision":5,"orderTypes":["LIMIT","MARKET","LIMIT_MAKER"],"isSpotTradingAllowed":true,"isMarginTradingAllowed":false,"quoteAmountPrecision":"1","baseSizePrecision":"0","permissions":["SPOT"],"filters":[],"maxQuoteAmount":"2000000","makerCommission":"0.0005","takerCommission":"0.0005","quoteAmountPrecisionMarket":"1","maxQuoteAmountMarket":"100000","fullName":"Bitrock","tradeSideType":1}]}
