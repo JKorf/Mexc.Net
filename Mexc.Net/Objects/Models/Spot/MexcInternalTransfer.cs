@@ -1,5 +1,4 @@
 ﻿using Mexc.Net.Enums;
-using System.Text.Json.Serialization;
 
 namespace Mexc.Net.Objects.Models.Spot
 {

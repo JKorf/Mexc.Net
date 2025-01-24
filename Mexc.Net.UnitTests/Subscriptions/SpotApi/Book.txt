@@ -1,0 +1,14 @@
+> { "id": "|1|", "method": "SUBSCRIPTION", "params": [ "spot@public.increase.depth.v3.api@ETHUSDT" ]}
+< { "id": |1|, "code":0, "msg":"spot@public.increase.depth.v3.api@ETHUSDT" }
+= 
+{
+    "c":"spot@public.increase.depth.v3.api@ETHUSDT",  
+    "d":{
+        "asks":[{                                   
+            "p":"20290.89",     
+            "v":"0.000000"}], 
+        "e":"spot@public.increase.depth.v3.api", 
+    "r":"3407459756"},   
+    "s":"ETHUSDT",                      
+    "t":1661932660144                   
+}

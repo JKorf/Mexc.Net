@@ -1,0 +1,17 @@
+POST
+/api/v3/capital/deposit/address
+true
+[
+  {
+      "coin": "USDT",
+      "network": "TRC20",
+      "address": "TXobiKkdciupZrhdvZyTSSLjE8CmZAufS",
+      "tag": null
+  },
+  {
+     "coin": "EOS",
+     "network": "EOS",
+     "address": "zzqqqqqqqqqq",
+     "memo": "MX10068"
+  }
+]

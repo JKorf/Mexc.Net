@@ -1,8 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
@@ -13,37 +9,37 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Asset
         /// </summary>
-        [JsonProperty("a")]
+        [JsonPropertyName("a")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// Timestamp
         /// </summary>
-        [JsonProperty("c")]
+        [JsonPropertyName("c")]
         public DateTime Timestamp { get; set; }
         /// <summary>
         /// New free quantity
         /// </summary>
-        [JsonProperty("f")]
+        [JsonPropertyName("f")]
         public decimal Free { get; set; }
         /// <summary>
         /// Changed free quantity
         /// </summary>
-        [JsonProperty("fd")]
+        [JsonPropertyName("fd")]
         public decimal FreeChange { get; set; }
         /// <summary>
         /// New frozen quantity
         /// </summary>
-        [JsonProperty("l")]
+        [JsonPropertyName("l")]
         public decimal Frozen { get; set; }
         /// <summary>
         /// Changed frozen quantity
         /// </summary>
-        [JsonProperty("ld")]
+        [JsonPropertyName("ld")]
         public decimal FrozenChange { get; set; }
         /// <summary>
         /// Trigger update type
         /// </summary>
-        [JsonProperty("o")]
+        [JsonPropertyName("o")]
         public string UpdateType { get; set; } = string.Empty;
     }
 }

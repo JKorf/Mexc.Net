@@ -101,6 +101,9 @@
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.ParseRateLimitResponse(System.Int32,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.Collections.Generic.IEnumerable{System.String}}},CryptoExchange.Net.Interfaces.IMessageAccessor)">
+            <inheritdoc />
+        </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.ParseErrorResponse(System.Int32,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.Collections.Generic.IEnumerable{System.String}}},CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
@@ -1694,6 +1697,25 @@
             Data
             </summary>
         </member>
+        <member name="T:Mexc.Net.Objects.Models.MexcRateLimitError">
+            <summary>
+            Mexc rate limit error
+            </summary>
+        </member>
+        <member name="M:Mexc.Net.Objects.Models.MexcRateLimitError.#ctor(System.String)">
+            <summary>
+            ctor
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Mexc.Net.Objects.Models.MexcRateLimitError.#ctor(System.Nullable{System.Int32},System.String,System.Object)">
+            <summary>
+            ctor
+            </summary>
+            <param name="code"></param>
+            <param name="message"></param>
+            <param name="data"></param>
+        </member>
         <member name="T:Mexc.Net.Objects.Models.MexcRows`1">
             <summary>
             Rows result
@@ -2350,6 +2372,11 @@
             Quantity
             </summary>
         </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcOrder.IcebergQty">
+            <summary>
+            Iceberg quantity
+            </summary>
+        </member>
         <member name="P:Mexc.Net.Objects.Models.Spot.MexcOrder.QuantityFilled">
             <summary>
             Quantity filled
@@ -2810,9 +2837,19 @@
             Best bid price
             </summary>
         </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcTicker.BestBidQuantity">
+            <summary>
+            Best bid quantity
+            </summary>
+        </member>
         <member name="P:Mexc.Net.Objects.Models.Spot.MexcTicker.BestAskPrice">
             <summary>
             Best ask price
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcTicker.BestAskQuantity">
+            <summary>
+            Best ask quantity
             </summary>
         </member>
         <member name="P:Mexc.Net.Objects.Models.Spot.MexcTicker.OpenPrice">

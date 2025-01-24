@@ -1,7 +1,5 @@
-﻿using CryptoExchange.Net.Interfaces;
-using CryptoExchange.Net.SharedApis;
+﻿using CryptoExchange.Net.SharedApis;
 using Mexc.Net.Objects.Options;
-using System;
 
 namespace Mexc.Net.Interfaces
 {

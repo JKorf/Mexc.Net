@@ -1,8 +1,4 @@
-﻿using Newtonsoft.Json;
-using Mexc.Net.Enums;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Mexc.Net.Enums;
 
 namespace Mexc.Net.Objects.Models.Spot
 {
@@ -14,77 +10,77 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Quote quantity remaining
         /// </summary>
-        [JsonProperty("A")]
+        [JsonPropertyName("A")]
         public decimal QuoteQuantityRemaining { get; set; }
         /// <summary>
         /// Creation time
         /// </summary>
-        [JsonProperty("O")]
+        [JsonPropertyName("O")]
         public DateTime Timestamp { get; set; }
         /// <summary>
         /// Order side
         /// </summary>
-        [JsonProperty("S")]
+        [JsonPropertyName("S")]
         public OrderSide Side { get; set; }
         /// <summary>
         /// Quantity remaining
         /// </summary>
-        [JsonProperty("V")]
+        [JsonPropertyName("V")]
         public decimal QuantityRemaining { get; set; }
         /// <summary>
         /// Quote quantity
         /// </summary>
-        [JsonProperty("a")]
+        [JsonPropertyName("a")]
         public decimal QuoteQuantity { get; set; }
         /// <summary>
         /// Client order id
         /// </summary>
-        [JsonProperty("c")]
+        [JsonPropertyName("c")]
         public string ClientOrderId { get; set; } = string.Empty;
         /// <summary>
         /// Order id
         /// </summary>
-        [JsonProperty("i")]
+        [JsonPropertyName("i")]
         public string? OrderId { get; set; }
         /// <summary>
         /// Is maker
         /// </summary>
-        [JsonProperty("m")]
+        [JsonPropertyName("m")]
         public bool IsMaker { get; set; }
         /// <summary>
         /// Order type
         /// </summary>
-        [JsonProperty("o")]
+        [JsonPropertyName("o")]
         public OrderType OrderType { get; set; }
         /// <summary>
         /// Price
         /// </summary>
-        [JsonProperty("p")]
+        [JsonPropertyName("p")]
         public decimal Price { get; set; }
         /// <summary>
         /// Order status
         /// </summary>
-        [JsonProperty("s")]
+        [JsonPropertyName("s")]
         public OrderStatus Status { get; set; }
         /// <summary>
         /// Quantity
         /// </summary>
-        [JsonProperty("v")]
+        [JsonPropertyName("v")]
         public decimal Quantity { get; set; }
         /// <summary>
         /// Average exceution price
         /// </summary>
-        [JsonProperty("ap")]
+        [JsonPropertyName("ap")]
         public decimal? AveragePrice { get; set; }
         /// <summary>
         /// Cumulative quantity
         /// </summary>
-        [JsonProperty("cv")]
+        [JsonPropertyName("cv")]
         public decimal? CumulativeQuantity { get; set; }
         /// <summary>
         /// Cumulative quote quantity
         /// </summary>
-        [JsonProperty("ca")]
+        [JsonPropertyName("ca")]
         public decimal? CumulativeQuoteQuantity { get; set; }
     }
 }

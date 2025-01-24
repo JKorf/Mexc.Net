@@ -1,0 +1,13 @@
+POST
+/api/v3/order
+true
+{
+    "symbol": "MXUSDT",
+    "orderId": "06a480e69e604477bfb48dddd5f0b750",
+    "orderListId": -1,
+    "price": "0.1",
+    "origQty": "50",
+    "type": "LIMIT",
+    "side": "BUY",
+    "transactTime": 1666676533741
+}

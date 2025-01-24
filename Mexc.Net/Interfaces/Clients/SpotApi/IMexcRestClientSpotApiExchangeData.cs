@@ -1,10 +1,5 @@
-﻿using CryptoExchange.Net.Objects;
-using Mexc.Net.Enums;
+﻿using Mexc.Net.Enums;
 using Mexc.Net.Objects.Models.Spot;
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Mexc.Net.Interfaces.Clients.SpotApi
 {

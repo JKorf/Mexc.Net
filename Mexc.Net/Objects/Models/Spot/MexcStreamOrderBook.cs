@@ -1,10 +1,4 @@
-﻿using Newtonsoft.Json;
-using Mexc.Net.Enums;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using CryptoExchange.Net.Interfaces;
-using Mexc.Net.Objects.Sockets.Models;
+﻿using Mexc.Net.Objects.Sockets.Models;
 
 namespace Mexc.Net.Objects.Models.Spot
 {
@@ -16,17 +10,17 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Asks
         /// </summary>
-        [JsonProperty("asks")]
+        [JsonPropertyName("asks")]
         public IEnumerable<MexcStreamOrderBookEntry> Asks { get; set; } = Array.Empty<MexcStreamOrderBookEntry>();
         /// <summary>
         /// Bids
         /// </summary>
-        [JsonProperty("bids")]
+        [JsonPropertyName("bids")]
         public IEnumerable<MexcStreamOrderBookEntry> Bids { get; set; } = Array.Empty<MexcStreamOrderBookEntry>();
         /// <summary>
         /// Sequence
         /// </summary>
-        [JsonProperty("r")]
+        [JsonPropertyName("r")]
         public string Sequence { get; set; } = string.Empty;
     }
 
@@ -38,12 +32,12 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Price
         /// </summary>
-        [JsonProperty("p")]
+        [JsonPropertyName("p")]
         public decimal Price { get; set; }
         /// <summary>
         /// Quantity
         /// </summary>
-        [JsonProperty("v")]
+        [JsonPropertyName("v")]
         [JsonConverter(typeof(BigDecimalConverter))]
         public decimal Quantity { get; set; }
     }

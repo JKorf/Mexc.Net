@@ -3,10 +3,8 @@ using CryptoExchange.Net.Clients;
 using Mexc.Net.Clients;
 using Mexc.Net.Objects.Models;
 using Mexc.Net.UnitTests.Helpers;
-using Newtonsoft.Json;
+using System.Text.Json;
 using NUnit.Framework.Legacy;
-using System.Diagnostics;
-using System.Reflection;
 using CryptoExchange.Net.Converters.JsonNet;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -44,7 +42,7 @@ namespace Mexc.Net.UnitTests
                 Message = "Error occured"
             };
 
-            TestHelpers.SetResponse((MexcRestClient)client, JsonConvert.SerializeObject(resultObj), System.Net.HttpStatusCode.BadRequest);
+            TestHelpers.SetResponse((MexcRestClient)client, JsonSerializer.Serialize(resultObj), System.Net.HttpStatusCode.BadRequest);
 
             // act
             var result = await client.SpotApi.ExchangeData.GetTickersAsync();

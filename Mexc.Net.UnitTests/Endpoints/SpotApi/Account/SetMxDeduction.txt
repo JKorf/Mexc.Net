@@ -1,0 +1,11 @@
+POST
+/api/v3/mxDeduct/enable
+true
+{
+  "data":{
+    "mxDeductEnable":true
+  },
+  "code":0,
+  "msg":"success",
+  "timestamp":1669109672280
+} 

@@ -1,8 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-
-namespace Mexc.Net.Objects.Models.Spot
+﻿namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Order book info
@@ -12,19 +8,19 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Last update id
         /// </summary>
-        [JsonProperty("lastUpdateId")]
+        [JsonPropertyName("lastUpdateId")]
         public long LastUpdateId { get; set; }
 
         /// <summary>
         /// The list of bids
         /// </summary>
-        [JsonProperty("bids")]
+        [JsonPropertyName("bids")]
         public IEnumerable<MexcOrderBookEntry> Bids { get; set; } = Array.Empty<MexcOrderBookEntry>();
 
         /// <summary>
         /// The list of asks
         /// </summary>
-        [JsonProperty("asks")]
+        [JsonPropertyName("asks")]
         public IEnumerable<MexcOrderBookEntry> Asks { get; set; } = Array.Empty<MexcOrderBookEntry>();
     }
 }

@@ -1,7 +1,4 @@
 ﻿using Mexc.Net.Enums;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 
 namespace Mexc.Net.Objects.Models.Spot
 {
@@ -13,112 +10,113 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// The symbol
         /// </summary>
-        [JsonProperty("symbol")]
+        [JsonPropertyName("symbol")]
         public string Name { get; set; } = string.Empty;
         /// <summary>
         /// The full base asset name
         /// </summary>
-        [JsonProperty("fullName")]
+        [JsonPropertyName("fullName")]
         public string BaseAssetName { get; set; } = string.Empty;
         /// <summary>
         /// The status of the symbol
         /// </summary>
-        [JsonProperty("status"), JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("status"), JsonConverter(typeof(EnumConverter))]
         public SymbolStatus Status { get; set; }
         /// <summary>
         /// The base asset
         /// </summary>
-        [JsonProperty("baseAsset")]
+        [JsonPropertyName("baseAsset")]
         public string BaseAsset { get; set; } = string.Empty;
         /// <summary>
         /// The precision of the base asset
         /// </summary>
-        [JsonProperty("baseAssetPrecision")]
+        [JsonPropertyName("baseAssetPrecision")]
         public int BaseAssetPrecision { get; set; }
         /// <summary>
         /// The quote asset
         /// </summary>
-        [JsonProperty("quoteAsset")]
+        [JsonPropertyName("quoteAsset")]
         public string QuoteAsset { get; set; } = string.Empty;
         /// <summary>
         /// The precision of the quote asset
         /// </summary>
-        [JsonProperty("quotePrecision")]
+        [JsonPropertyName("quotePrecision")]
         public int QuoteAssetPrecision { get; set; }
         /// <summary>
         /// Quote asset fee precision
         /// </summary>
-        [JsonProperty("quoteCommissionPrecision")]
+        [JsonPropertyName("quoteCommissionPrecision")]
         public int QuoteAssetFeePrecision { get; set; }
         /// <summary>
         /// Base asset fee precision
         /// </summary>
-        [JsonProperty("baseCommissionPrecision")]
+        [JsonPropertyName("baseCommissionPrecision")]
         public int BaseAssetFeePrecision { get; set; }
         /// <summary>
         /// Allowed order types
         /// </summary>
-        [JsonProperty("orderTypes")]
+        [JsonPropertyName("orderTypes")]
         public IEnumerable<OrderType> OrderTypes { get; set; } = Array.Empty<OrderType>();
         /// <summary>
         /// Quote quantity market orders allowed
         /// </summary>
-        [JsonProperty("quoteOrderQtyMarketAllowed")]
+        [JsonPropertyName("quoteOrderQtyMarketAllowed")]
         public bool QuoteOrderQuantityMarketAllowed { get; set; }
         /// <summary>
         /// Spot trading orders allowed
         /// </summary>
-        [JsonProperty("isSpotTradingAllowed")]
+        [JsonPropertyName("isSpotTradingAllowed")]
         public bool IsSpotTradingAllowed { get; set; }
         /// <summary>
         /// Margin trading orders allowed
         /// </summary>
-        [JsonProperty("isMarginTradingAllowed")]
+        [JsonPropertyName("isMarginTradingAllowed")]
         public bool IsMarginTradingAllowed { get; set; }
         /// <summary>
         /// Quote quantity precision
         /// </summary>
-        [JsonProperty("quoteAmountPrecision")]
+        [JsonPropertyName("quoteAmountPrecision")]
         public decimal QuoteQuantityPrecision { get; set; }
         /// <summary>
         /// Quote quantity precision
         /// </summary>
-        [JsonProperty("baseSizePrecision")]
+        [JsonPropertyName("baseSizePrecision")]
         public decimal BaseQuantityPrecision { get; set; }
 
         /// <summary>
         /// Permissions types
         /// </summary>
+        [JsonPropertyName("permissions")]
         public IEnumerable<string> Permissions { get; set; } = Array.Empty<string>();
         /// <summary>
         /// Max quote quantity for a single order
         /// </summary>
-        [JsonProperty("maxQuoteAmount")]
+        [JsonPropertyName("maxQuoteAmount")]
         public decimal MaxQuoteQuantity { get; set; }
         /// <summary>
         /// Maker fee rate
         /// </summary>
-        [JsonProperty("makerCommission")]
+        [JsonPropertyName("makerCommission")]
         public decimal MakerFee { get; set; }
         /// <summary>
         /// Taker fee rate
         /// </summary>
-        [JsonProperty("takerCommission")]
+        [JsonPropertyName("takerCommission")]
         public decimal TakerFee { get; set; }
         /// <summary>
         /// Quote quantity precision for market orders
         /// </summary>
-        [JsonProperty("quoteAmountPrecisionMarket")]
+        [JsonPropertyName("quoteAmountPrecisionMarket")]
         public decimal QuoteQuantityPrecisionMarket { get; set; }
         /// <summary>
         /// Max quote quantity for a single market order
         /// </summary>
-        [JsonProperty("maxQuoteAmountMarket")]
+        [JsonPropertyName("maxQuoteAmountMarket")]
         public decimal MaxQuoteQuantityMarket { get; set; }
         /// <summary>
         /// The trade sides that are enabled
         /// </summary>
-        [JsonProperty("tradeSideType"), JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("tradeSideType"), JsonConverter(typeof(EnumConverter))]
         public TradeSidesStatus TradeSidesEnabled { get; set; }
     }
 }

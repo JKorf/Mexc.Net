@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace Mexc.Net.Objects.Models.Spot
+﻿namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Id
@@ -10,7 +8,7 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Id
         /// </summary>
-        [JsonProperty("id")]
+        [JsonPropertyName("id")]
         public string Id { get; set; } = string.Empty;
     }
 }

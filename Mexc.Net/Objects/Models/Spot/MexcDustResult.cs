@@ -1,8 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-
-namespace Mexc.Net.Objects.Models.Spot
+﻿namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Dust transfer result
@@ -12,22 +8,22 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Successfully converted
         /// </summary>
-        [JsonProperty("successList")]
+        [JsonPropertyName("successList")]
         public IEnumerable<string> Successful { get; set; } = Array.Empty<string>();
         /// <summary>
         /// Failed to convert
         /// </summary>
-        [JsonProperty("failedList")]
+        [JsonPropertyName("failedList")]
         public IEnumerable<MexcFailedDust> Failed { get; set; } = Array.Empty<MexcFailedDust>();
         /// <summary>
         /// Total converted
         /// </summary>
-        [JsonProperty("totalConvert")]
+        [JsonPropertyName("totalConvert")]
         public decimal TotalConverted { get; set; }
         /// <summary>
         /// Convert fee
         /// </summary>
-        [JsonProperty("convertFee")]
+        [JsonPropertyName("convertFee")]
         public decimal ConvertFee { get; set; }
     }
 
@@ -39,17 +35,17 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Asset name
         /// </summary>
-        [JsonProperty("asset")]
+        [JsonPropertyName("asset")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// Message
         /// </summary>
-        [JsonProperty("message")]
+        [JsonPropertyName("message")]
         public string Message { get; set; } = string.Empty;
         /// <summary>
         /// Code
         /// </summary>
-        [JsonProperty("code")]
+        [JsonPropertyName("code")]
         public int Code { get; set; }
     }
 }

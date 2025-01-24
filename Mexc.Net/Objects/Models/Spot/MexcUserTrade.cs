@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-
-namespace Mexc.Net.Objects.Models.Spot
+﻿namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
     /// User trade info
@@ -11,72 +8,72 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Symbol
         /// </summary>
-        [JsonProperty("symbol")]
+        [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// Trade id
         /// </summary>
-        [JsonProperty("id")]
+        [JsonPropertyName("id")]
         public string Id { get; set; } = string.Empty;
         /// <summary>
         /// Order id
         /// </summary>
-        [JsonProperty("orderId")]
+        [JsonPropertyName("orderId")]
         public string OrderId { get; set; } = string.Empty;
         /// <summary>
         /// Price
         /// </summary>
-        [JsonProperty("price")]
+        [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
         /// Quantity
         /// </summary>
-        [JsonProperty("qty")]
+        [JsonPropertyName("qty")]
         public decimal Quantity { get; set; }
         /// <summary>
         /// Quote quantity
         /// </summary>
-        [JsonProperty("quoteQty")]
+        [JsonPropertyName("quoteQty")]
         public decimal QuoteQuantity { get; set; }
         /// <summary>
         /// Fee
         /// </summary>
-        [JsonProperty("commission")]
+        [JsonPropertyName("commission")]
         public decimal Fee { get; set; }
         /// <summary>
         /// Fee asset
         /// </summary>
-        [JsonProperty("commissionAsset")]
+        [JsonPropertyName("commissionAsset")]
         public string FeeAsset { get; set; } = string.Empty;
         /// <summary>
         /// Timestamp
         /// </summary>
-        [JsonProperty("time")]
+        [JsonPropertyName("time")]
         public DateTime Timestamp { get; set; }
         /// <summary>
         /// Is buyer
         /// </summary>
-        [JsonProperty("isBuyer")]
+        [JsonPropertyName("isBuyer")]
         public bool IsBuyer { get; set; }
         /// <summary>
         /// Is maker
         /// </summary>
-        [JsonProperty("isMaker")]
+        [JsonPropertyName("isMaker")]
         public bool IsMaker { get; set; }
         /// <summary>
         /// Is best match
         /// </summary>
-        [JsonProperty("isBestMatch")]
+        [JsonPropertyName("isBestMatch")]
         public bool IsBestMatch { get; set; }
         /// <summary>
         /// Is self trade
         /// </summary>
-        [JsonProperty("isSelfTrade")]
+        [JsonPropertyName("isSelfTrade")]
         public bool IsSelfTrade { get; set; }
         /// <summary>
         /// Client order id
         /// </summary>
-        [JsonProperty("clientOrderId")]
+        [JsonPropertyName("clientOrderId")]
         public string? ClientOrderId { get; set; }
     }
 }

@@ -5,8 +5,6 @@ using Mexc.Net.Clients;
 using Mexc.Net.Interfaces;
 using Mexc.Net.Interfaces.Clients;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using System;
 
 namespace Mexc.Net
 {

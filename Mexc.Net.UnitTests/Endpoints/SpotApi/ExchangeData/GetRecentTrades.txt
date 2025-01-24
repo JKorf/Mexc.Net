@@ -1,0 +1,7 @@
+GET
+/api/v3/trades
+false
+[
+  {"id":null,"price":"3219.58","qty":"0.04757","quoteQty":"153.1554206","time":1737623988881,"isBuyerMaker":false,"isBestMatch":true,"tradeType":"BID"},
+  {"id":null,"price":"3219.58","qty":"0.09293","quoteQty":"299.1955694","time":1737623988876,"isBuyerMaker":true,"isBestMatch":true,"tradeType":"ASK"}
+]

@@ -1,0 +1,21 @@
+GET
+/api/v3/capital/convert/list
+true
+[
+    {
+           "convertMx": "0.000009",
+           "convertUsdt": "0.000009",
+           "balance": "0.000441",
+           "asset": "USDT",
+           "code": "30021",
+           "message": "xxxxxxx"
+ },
+{
+           "convertMx": "0.000009",
+           "convertUsdt": "0.000009",
+           "balance": "0.000441",
+           "asset": "BTC",
+           "code": "30021",
+           "message": "xxxxxxx"
+ }
+]

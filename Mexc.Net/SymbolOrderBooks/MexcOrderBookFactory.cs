@@ -1,12 +1,9 @@
-﻿using CryptoExchange.Net.Interfaces;
-using CryptoExchange.Net.OrderBook;
+﻿using CryptoExchange.Net.OrderBook;
 using CryptoExchange.Net.SharedApis;
 using Mexc.Net.Interfaces;
 using Mexc.Net.Interfaces.Clients;
 using Mexc.Net.Objects.Options;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using System;
 
 namespace Mexc.Net.SymbolOrderBooks
 {

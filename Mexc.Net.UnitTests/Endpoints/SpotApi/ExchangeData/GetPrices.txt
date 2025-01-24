@@ -1,0 +1,13 @@
+GET
+/api/v3/ticker/price
+false
+[
+  {
+    "symbol": "BTCUSDT",
+    "price": "6.65"
+  },
+  {
+    "symbol": "ETHUSDT",
+    "price": "5.65"
+  }
+]

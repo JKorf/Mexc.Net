@@ -1,0 +1,22 @@
+> { "id": "|1|", "method": "SUBSCRIPTION", "params": [ "spot@private.deals.v3.api" ]}
+< { "id": |1|, "code":0, "msg":"spot@private.deals.v3.api" }
+= 
+{
+    "c": "spot@private.deals.v3.api",
+    "d": {
+        "p": "1.804",
+        "v": "0.31",
+        "a": "0.55924",
+        "S": 1,
+        "T": 1678901086198,
+        "t": "5bbb6ad8b4474570b155610e30d960cd",
+        "c": "",
+        "i": "2dd9655f9fa2438fa1709510d7c1afd9",
+        "m": 0,
+        "st": 0,
+        "n": "0.000248206380027431",
+        "N": "MX"
+    },
+    "s": "MXUSDT",
+    "t": 1661938980285
+}

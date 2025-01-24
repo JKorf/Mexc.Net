@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-
-namespace Mexc.Net.Objects.Models.Spot
+﻿namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Etf info
@@ -11,47 +8,47 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Symbol
         /// </summary>
-        [JsonProperty("symbol")]
+        [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// Net value
         /// </summary>
-        [JsonProperty("netValue")]
+        [JsonPropertyName("netValue")]
         public decimal NetValue { get; set; }
         /// <summary>
         /// Fee rate
         /// </summary>
-        [JsonProperty("feeRate")]
+        [JsonPropertyName("feeRate")]
         public decimal FeeRate { get; set; }
         /// <summary>
         /// Timestamp
         /// </summary>
-        [JsonProperty("timestamp")]
+        [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
         /// <summary>
         /// Target leverage
         /// </summary>
-        [JsonProperty("leverage")]
+        [JsonPropertyName("leverage")]
         public decimal Leverage { get; set; }
         /// <summary>
         /// Real leverage
         /// </summary>
-        [JsonProperty("realLeverage")]
+        [JsonPropertyName("realLeverage")]
         public decimal RealLeverage { get; set; }
         /// <summary>
         /// Times merged
         /// </summary>
-        [JsonProperty("mergedTimes")]
+        [JsonPropertyName("mergedTimes")]
         public int MergedTimes { get; set; }
         /// <summary>
         /// Last merge time
         /// </summary>
-        [JsonProperty("lastMergedTime")]
+        [JsonPropertyName("lastMergedTime")]
         public DateTime LastMergeTime { get; set; }
         /// <summary>
         /// Basket
         /// </summary>
-        [JsonProperty("basket")]
+        [JsonPropertyName("basket")]
         public decimal Basket { get; set; }
     }
 }

@@ -1,7 +1,4 @@
 ﻿using Mexc.Net.Enums;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 
 namespace Mexc.Net.Objects.Models.Spot
 {
@@ -13,57 +10,57 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Maker fee
         /// </summary>
-        [JsonProperty("makerCommission")]
+        [JsonPropertyName("makerCommission")]
         public decimal? MakerFee { get; set; }
         /// <summary>
         /// Taker fee
         /// </summary>
-        [JsonProperty("takerCommission")]
+        [JsonPropertyName("takerCommission")]
         public decimal? TakerFee { get; set; }
         /// <summary>
         /// Buyer fee
         /// </summary>
-        [JsonProperty("buyerCommission")]
+        [JsonPropertyName("buyerCommission")]
         public decimal? BuyerFee { get; set; }
         /// <summary>
         /// Seller fee
         /// </summary>
-        [JsonProperty("sellerCommission")]
+        [JsonPropertyName("sellerCommission")]
         public decimal? SellerFee { get; set; }
         /// <summary>
         /// Can trade
         /// </summary>
-        [JsonProperty("canTrade")]
+        [JsonPropertyName("canTrade")]
         public bool CanTrade { get; set; }
         /// <summary>
         /// Can withdraw
         /// </summary>
-        [JsonProperty("canWithdraw")]
+        [JsonPropertyName("canWithdraw")]
         public bool CanWithdraw { get; set; }
         /// <summary>
         /// Can deposit
         /// </summary>
-        [JsonProperty("canDeposit")]
+        [JsonPropertyName("canDeposit")]
         public bool CanDeposit { get; set; }
         /// <summary>
         /// Update time
         /// </summary>
-        [JsonProperty("updateTime")]
+        [JsonPropertyName("updateTime")]
         public DateTime? UpdateTime { get; set; }
         /// <summary>
         /// Account type
         /// </summary>
-        [JsonProperty("accountType")]
+        [JsonPropertyName("accountType")]
         public AccountType AccountType { get; set; }
         /// <summary>
         /// Balances
         /// </summary>
-        [JsonProperty("balances")]
+        [JsonPropertyName("balances")]
         public IEnumerable<MexcAccountBalance> Balances { get; set; } = Array.Empty<MexcAccountBalance>();
         /// <summary>
         /// Permissions
         /// </summary>
-        [JsonProperty("permissions")]
+        [JsonPropertyName("permissions")]
         public IEnumerable<string> Permissions { get; set; } = Array.Empty<string>();
     }
 
@@ -75,17 +72,17 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// The asset this balance is for
         /// </summary>
-        [JsonProperty("asset")]
+        [JsonPropertyName("asset")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// The quantity that isn't locked in a trade
         /// </summary>
-        [JsonProperty("free")]
+        [JsonPropertyName("free")]
         public decimal Available { get; set; }
         /// <summary>
         /// The quantity that is currently locked in a trade
         /// </summary>
-        [JsonProperty("locked")]
+        [JsonPropertyName("locked")]
         public decimal Locked { get; set; }
         /// <summary>
         /// The total balance of this asset (Free + Locked)

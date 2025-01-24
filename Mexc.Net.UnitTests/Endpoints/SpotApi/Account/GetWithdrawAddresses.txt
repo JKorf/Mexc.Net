@@ -1,0 +1,24 @@
+GET
+/api/v3/capital/withdraw/address
+true
+{
+    "data": [
+        {
+            "coin": "USDT",
+            "network": "TRC20",
+            "address": "TArGWdTApuuZtiWMjupXqbZqQYsBTy126o",
+            "addressTag": "test",
+            "memo": null
+        },
+        {
+            "coin": "USDT",
+            "network": "BEP20(BSC)",
+            "address": "0xa82898C70BeB5E1b1621fdA62fD17Ba27227BBC5",
+            "addressTag": "usdt",
+            "memo": null
+        }
+    ],
+    "totalRecords": 2,
+    "page": 1,
+    "totalPageNum": 1
+}

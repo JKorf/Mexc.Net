@@ -1,0 +1,4 @@
+GET
+/api/v3/defaultSymbols
+false
+{"data":["SNTUSDT","CGPTUSDT","HEGICUSDT"],"code":0,"msg":"success","timestamp":1737623243056}

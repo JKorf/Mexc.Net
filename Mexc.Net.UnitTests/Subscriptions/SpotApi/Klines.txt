@@ -1,0 +1,20 @@
+> { "id": "|1|", "method": "SUBSCRIPTION", "params": [ "spot@public.kline.v3.api@ETHUSDT@Day1" ]}
+< { "id": |1|, "code":0, "msg":"spot@public.kline.v3.api@ETHUSDT@Day1" }
+= 
+{
+    "c":"spot@public.kline.v3.api@ETHUSDT@Day1",  
+    "d":{
+            "k":{
+                "T":1661931900,                     
+                "a":29043.48804658,  
+                "c":20279.43,                
+                "h":20284.93,                
+                "i":"Min15",                 
+                "l":20277.52,                
+                "o":20284.93,                
+                "t":1661931000,          
+                "v":1.43211},                
+            "e":"spot@public.kline.v3.api@ETHUSDT@Day1"},                    
+    "s":"ETHUSDT",                      
+    "t":1661931016878                    
+}

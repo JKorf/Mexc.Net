@@ -1,0 +1,7 @@
+GET
+/api/v3/avgPrice
+false
+{
+  "mins": 5,
+  "price": "9.35751834"
+}

@@ -1,13 +1,6 @@
-﻿using CryptoExchange.Net;
-using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.Objects.Sockets;
+﻿using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
 using Mexc.Net.Objects.Sockets.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Mexc.Net.Objects.Sockets.Queries
 {

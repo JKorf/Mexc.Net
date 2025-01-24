@@ -6,6 +6,7 @@ using Mexc.Net.Enums;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.SharedApis;
+using Mexc.Net.Objects.Models;
 
 namespace Mexc.Net.Clients.SpotApi
 {
@@ -43,9 +44,9 @@ namespace Mexc.Net.Clients.SpotApi
         internal MexcRestClientSpotApi(ILogger logger, HttpClient? httpClient, MexcRestOptions options)
             : base(logger, httpClient, options.Environment.SpotRestAddress, options, options.SpotOptions)
         {
-            Account = new MexcRestClientSpotApiAccount(logger, this);
-            ExchangeData = new MexcRestClientSpotApiExchangeData(logger, this);
-            Trading = new MexcRestClientSpotApiTrading(logger, this);
+            Account = new MexcRestClientSpotApiAccount(this);
+            ExchangeData = new MexcRestClientSpotApiExchangeData(this);
+            Trading = new MexcRestClientSpotApiTrading(this);
 
             RequestBodyEmptyContent = "";
             RequestBodyFormat = RequestBodyFormat.FormData;
@@ -67,21 +68,66 @@ namespace Mexc.Net.Clients.SpotApi
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
             => new MexcAuthenticationProvider(credentials);
 
-        /// <inheritdoc />
-        public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
-            => MexcExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
+        protected override IStreamMessageAccessor CreateAccessor() => new SystemTextJsonStreamMessageAccessor();
 
-        internal async Task<WebCallResult<T>> SendRequestInternal<T>(string path, HttpMethod method, CancellationToken cancellationToken,
-            Dictionary<string, object>? parameters = null, bool signed = false, HttpMethodParameterPosition? postPosition = null,
-            ArrayParametersSerialization? arraySerialization = null) where T : class
+        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer();
+
+
+        internal Task<WebCallResult<T>> SendAsync<T>(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null, Dictionary<string, string>? requestHeaders = null) where T : class
+            => SendToAddressAsync<T>(BaseAddress, definition, parameters, cancellationToken, weight, requestHeaders);
+
+        internal async Task<WebCallResult<T>> SendToAddressAsync<T>(string baseAddress, RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null, Dictionary<string, string>? requestHeaders = null) where T : class
         {
-            var result = await SendRequestAsync<T>(new Uri(BaseAddress.AppendPath(path)), method, cancellationToken, parameters, signed, null, postPosition, arraySerialization, 0).ConfigureAwait(false);
+            var result = await base.SendAsync<T>(baseAddress, definition, parameters, cancellationToken, requestHeaders, weight).ConfigureAwait(false);
             if (!result && result.Error!.Code == 700003 && (ApiOptions.AutoTimestamp ?? ClientOptions.AutoTimestamp))
             {
                 _logger.Log(LogLevel.Debug, "Received Invalid Timestamp error, triggering new time sync");
                 _timeSyncState.LastSyncTime = DateTime.MinValue;
             }
+
             return result;
+        }
+
+        /// <inheritdoc />
+        public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
+            => MexcExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
+
+        /// <inheritdoc />
+        protected override ServerRateLimitError ParseRateLimitResponse(int httpStatusCode, IEnumerable<KeyValuePair<string, IEnumerable<string>>> responseHeaders, IMessageAccessor accessor)
+        {
+            var error = GetRateLimitError(accessor);
+            var retryAfterHeader = responseHeaders.SingleOrDefault(r => r.Key.Equals("Retry-After", StringComparison.InvariantCultureIgnoreCase));
+            if (retryAfterHeader.Value?.Any() != true)
+                return error;
+
+            var value = retryAfterHeader.Value.First();
+            if (!int.TryParse(value, out var seconds))
+                return error;
+
+            if (seconds == 0)
+            {
+                var now = DateTime.UtcNow;
+                seconds = (int)(new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0, DateTimeKind.Utc).AddMinutes(1) - now).TotalSeconds + 1;
+            }
+
+            error.RetryAfter = DateTime.UtcNow.AddSeconds(seconds);
+            return error;
+        }
+
+        private MexcRateLimitError GetRateLimitError(IMessageAccessor accessor)
+        {
+            if (!accessor.IsJson)
+                return new MexcRateLimitError(accessor.GetOriginalString());
+
+            var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));
+            var msg = accessor.GetValue<string>(MessagePath.Get().Property("msg"));
+            if (msg == null)
+                return new MexcRateLimitError(accessor.GetOriginalString());
+
+            if (code == null)
+                return new MexcRateLimitError(msg);
+
+            return new MexcRateLimitError(code.Value, msg, null);
         }
 
         /// <inheritdoc />

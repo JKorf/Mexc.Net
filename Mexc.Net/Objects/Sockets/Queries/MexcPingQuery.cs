@@ -1,8 +1,5 @@
 ﻿using CryptoExchange.Net.Sockets;
 using Mexc.Net.Objects.Sockets.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Mexc.Net.Objects.Sockets.Queries
 {

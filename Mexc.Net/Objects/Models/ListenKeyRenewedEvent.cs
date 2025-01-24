@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Mexc.Net.Objects.Models
+﻿namespace Mexc.Net.Objects.Models
 {
     /// <summary>
     /// Listen key has been renewed by the client

@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace Mexc.Net.Objects.Models.Spot
+﻿namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Transfer id
@@ -10,7 +8,7 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Transfer id
         /// </summary>
-        [JsonProperty("tranId")]
+        [JsonPropertyName("tranId")]
         public string TransferId { get; set; } = string.Empty;
     }
 }

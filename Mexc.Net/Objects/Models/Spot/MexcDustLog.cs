@@ -1,8 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-
-namespace Mexc.Net.Objects.Models.Spot
+﻿namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Dust log entry
@@ -12,22 +8,22 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Total converted
         /// </summary>
-        [JsonProperty("totalConvert")]
+        [JsonPropertyName("totalConvert")]
         public decimal TotalConverted { get; set; }
         /// <summary>
         /// Total fee
         /// </summary>
-        [JsonProperty("totalFee")]
+        [JsonPropertyName("totalFee")]
         public decimal TotalFee { get; set; }
         /// <summary>
         /// Timestamp
         /// </summary>
-        [JsonProperty("convertTime")]
+        [JsonPropertyName("convertTime")]
         public DateTime ConvertTime { get; set; }
         /// <summary>
         /// Details
         /// </summary>
-        [JsonProperty("convertDetails")]
+        [JsonPropertyName("convertDetails")]
         public IEnumerable<MexcDustLogDetails> Details { get; set; } = Array.Empty<MexcDustLogDetails>();
     }
     
@@ -39,32 +35,32 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Id
         /// </summary>
-        [JsonProperty("id")]
+        [JsonPropertyName("id")]
         public string Id { get; set; } = string.Empty;
         /// <summary>
         /// Converted
         /// </summary>
-        [JsonProperty("convert")]
+        [JsonPropertyName("convert")]
         public decimal Converted { get; set; }
         /// <summary>
         /// Fee
         /// </summary>
-        [JsonProperty("fee")]
+        [JsonPropertyName("fee")]
         public decimal Fee { get; set; }
         /// <summary>
         /// Quantity
         /// </summary>
-        [JsonProperty("amount")]
+        [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }
         /// <summary>
         /// Timestamp
         /// </summary>
-        [JsonProperty("time")]
+        [JsonPropertyName("time")]
         public DateTime Timestamp { get; set; }
         /// <summary>
         /// Asset
         /// </summary>
-        [JsonProperty("asset")]
+        [JsonPropertyName("asset")]
         public string Asset { get; set; } = string.Empty;
     }
 }

@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-
+﻿
 namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
@@ -11,72 +9,82 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Symbol name
         /// </summary>
-        [JsonProperty("symbol")]
+        [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// Price change
         /// </summary>
-        [JsonProperty("priceChange")]
+        [JsonPropertyName("priceChange")]
         public decimal PriceChange { get; set; }
         /// <summary>
         /// Price change percentage
         /// </summary>
-        [JsonProperty("priceChangePercent")]
+        [JsonPropertyName("priceChangePercent")]
         public decimal PriceChangePercentage { get; set; }
         /// <summary>
         /// Previous day close price
         /// </summary>
-        [JsonProperty("prevClosePrice")]
+        [JsonPropertyName("prevClosePrice")]
         public decimal PrevDayClosePrice { get; set; }
         /// <summary>
         /// Last price
         /// </summary>
-        [JsonProperty("lastPrice")]
+        [JsonPropertyName("lastPrice")]
         public decimal LastPrice { get; set; }
         /// <summary>
         /// Best bid price
         /// </summary>
-        [JsonProperty("bidPrice")]
+        [JsonPropertyName("bidPrice")]
         public decimal BestBidPrice { get; set; }
+        /// <summary>
+        /// Best bid quantity
+        /// </summary>
+        [JsonPropertyName("bidQty")]
+        public decimal? BestBidQuantity { get; set; }
         /// <summary>
         /// Best ask price
         /// </summary>
-        [JsonProperty("askPrice")]
+        [JsonPropertyName("askPrice")]
         public decimal BestAskPrice { get; set; }
+        /// <summary>
+        /// Best ask quantity
+        /// </summary>
+        [JsonPropertyName("askQty")]
+        public decimal? BestAskQuantity { get; set; }
         /// <summary>
         /// Open price
         /// </summary>
-        [JsonProperty("openPrice")]
+        [JsonPropertyName("openPrice")]
         public decimal OpenPrice { get; set; }
         /// <summary>
         /// High price
         /// </summary>
-        [JsonProperty("highPrice")]
+        [JsonPropertyName("highPrice")]
         public decimal HighPrice { get; set; }
         /// <summary>
         /// Low price
         /// </summary>
-        [JsonProperty("lowPrice")]
+        [JsonPropertyName("lowPrice")]
         public decimal LowPrice { get; set; }
         /// <summary>
         /// Volume
         /// </summary>
-        [JsonProperty("volume"), JsonConverter(typeof(BigDecimalConverter))]
+        [JsonPropertyName("volume"), JsonConverter(typeof(BigDecimalConverter))]
         public decimal Volume { get; set; }
         /// <summary>
         /// Volume in quote asset
         /// </summary>
-        [JsonProperty("quoteVolume"), JsonConverter(typeof(BigDecimalConverter))]
+        [JsonPropertyName("quoteVolume"), JsonConverter(typeof(BigDecimalConverter))]
         public decimal? QuoteVolume { get; set; }
         /// <summary>
         /// Open timestamp
         /// </summary>
-        [JsonProperty("openTime")]
+        [JsonPropertyName("openTime")]
         public DateTime OpenTime { get; set; }
         /// <summary>
         /// Close timestamp
         /// </summary>
-        [JsonProperty("closeTime")]
+        [JsonPropertyName("closeTime")]
         public DateTime CloseTime { get; set; }
     }
 }

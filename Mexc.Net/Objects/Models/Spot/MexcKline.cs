@@ -1,6 +1,4 @@
 ﻿using CryptoExchange.Net.Converters;
-using Newtonsoft.Json;
-using System;
 
 namespace Mexc.Net.Objects.Models.Spot
 {

@@ -1,7 +1,4 @@
-﻿using CryptoExchange.Net.Converters;
-using Mexc.Net.Enums;
-using Newtonsoft.Json;
-using System;
+﻿using Mexc.Net.Enums;
 
 namespace Mexc.Net.Objects.Models.Spot
 {
@@ -13,52 +10,52 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Quantity
         /// </summary>
-        [JsonProperty("amount")]
+        [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }
         /// <summary>
         /// Asset
         /// </summary>
-        [JsonProperty("coin")]
+        [JsonPropertyName("coin")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// Network
         /// </summary>
-        [JsonProperty("network")]
+        [JsonPropertyName("network")]
         public string Network { get; set; } = string.Empty;
         /// <summary>
         /// Status
         /// </summary>
-        [JsonProperty("status"), JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("status"), JsonConverter(typeof(EnumConverter))]
         public DepositStatus Status { get; set; }
         /// <summary>
         /// Address
         /// </summary>
-        [JsonProperty("address")]
+        [JsonPropertyName("address")]
         public string Address { get; set; } = string.Empty;
         /// <summary>
         /// Transaction id
         /// </summary>
-        [JsonProperty("txId")]
+        [JsonPropertyName("txId")]
         public string TransactionId { get; set; } = string.Empty;
         /// <summary>
         /// Insert time
         /// </summary>
-        [JsonProperty("insertTime")]
+        [JsonPropertyName("insertTime")]
         public DateTime InsertTime { get; set; }
         /// <summary>
         /// Confirmations needed for unlocking the funds
         /// </summary>
-        [JsonProperty("unlockConfirm")]
+        [JsonPropertyName("unlockConfirm")]
         public int UnlockConfirmations { get; set; }
         /// <summary>
         /// Current confirmations
         /// </summary>
-        [JsonProperty("confirmTimes")]
+        [JsonPropertyName("confirmTimes")]
         public int Confirmations { get; set; }
         /// <summary>
         /// Memo
         /// </summary>
-        [JsonProperty("memo")]
+        [JsonPropertyName("memo")]
         public string? Memo { get; set; }
     }
 }

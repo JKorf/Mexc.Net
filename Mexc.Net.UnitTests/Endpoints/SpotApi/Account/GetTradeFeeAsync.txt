@@ -1,0 +1,12 @@
+GET
+/api/v3/tradeFee
+true
+{
+  "data":{
+    "makerCommission":0.003000000000000000,
+    "takerCommission":0.003000000000000000
+  },
+  "code":0,
+  "msg":"success",
+  "timestamp":1669109672717
+}

@@ -1,0 +1,6 @@
+GET
+/api/v3/kyc/status
+true
+{
+"status": "1"
+}
