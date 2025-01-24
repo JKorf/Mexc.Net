@@ -174,15 +174,14 @@ namespace Mexc.Net.Clients.SpotApi
             var parameters = new ParameterCollection();
             parameters.AddOptional("symbol", symbol);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/ticker/24hr", MexcExchange.RateLimiter.SpotRest, 1);
-            return await _baseClient.SendAsync<MexcTicker>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<MexcTicker>(request, parameters, ct, 1).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<MexcTicker>>> GetTickersAsync(CancellationToken ct = default)
         {
-#warning check weight, same method/url
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/ticker/24hr", MexcExchange.RateLimiter.SpotRest, 40);
-            return await _baseClient.SendAsync<IEnumerable<MexcTicker>>(request, null, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<IEnumerable<MexcTicker>>(request, null, ct, 40).ConfigureAwait(false);
         }
 
         #endregion
