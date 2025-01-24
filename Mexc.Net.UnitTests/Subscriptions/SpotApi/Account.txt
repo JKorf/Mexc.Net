@@ -1,0 +1,16 @@
+> { "id": "|1|", "method": "SUBSCRIPTION", "params": [ "spot@private.account.v3.api" ]}
+< { "id": |1|, "code":0, "msg":"spot@private.account.v3.api" }
+= 
+{
+    "c": "spot@private.account.v3.api",
+    "d": {
+        "a": "USDT",
+        "c": 1678185928428,
+        "f": "302.185113007893322435",
+        "fd": "-4.990689704",
+        "l": "4.990689704",
+        "ld": "4.990689704",
+        "o": "ENTRUST_PLACE"
+    },
+    "t": 1678185928435
+}

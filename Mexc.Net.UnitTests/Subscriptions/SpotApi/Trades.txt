@@ -1,0 +1,15 @@
+> { "id": "|1|", "method": "SUBSCRIPTION", "params": [ "spot@public.deals.v3.api@ETHUSDT" ]}
+< { "id": |1|, "code":0, "msg":"spot@public.deals.v3.api@ETHUSDT" }
+= 
+{
+    "c":"spot@public.deals.v3.api@ETHUSDT",    
+    "d":{
+            "deals":[{
+                    "S":2,                        
+                    "p":"20233.84",               
+                    "t":1661927587825,                      
+                    "v":"0.001028"}],                           
+            "e":"spot@public.deals.v3.api"},                    
+    "s":"ETHUSDT",                                       
+    "t":1661927587836                      
+}        

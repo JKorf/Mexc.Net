@@ -1,0 +1,21 @@
+> { "id": "|1|", "method": "SUBSCRIPTION", "params": [ "spot@public.miniTicker.v3.api@ETHUSDT@UTC+0" ]}
+< { "id": |1|, "code":0, "msg":"spot@public.miniTicker.v3.api@ETHUSDT@UTC+0" }
+= 
+{
+  "d":
+   {"s":"ETHUSDT",
+    "p":"36474.74",
+    "r":"0.0354",
+    "tr":"0.0354",
+    "h":"36549.72",
+    "l":"35101.68",
+    "v":"375173478.65",
+    "q":"10557.72895",
+    "lastRT":"-1",
+    "MT":"0",
+    "NV":"--",
+    "t":"1699502456050"},
+  "c":"spot@public.miniTicker.v3.api@ETHUSDT@UTC+0",
+  "t":1699502456051,
+  "s":"ETHUSDT"
+}          

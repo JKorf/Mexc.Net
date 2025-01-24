@@ -1,0 +1,14 @@
+> { "id": "|1|", "method": "SUBSCRIPTION", "params": [ "spot@public.bookTicker.v3.api@ETHUSDT" ]}
+< { "id": |1|, "code":0, "msg":"spot@public.bookTicker.v3.api@ETHUSDT" }
+= 
+{
+ "c":"spot@public.bookTicker.v3.api@ETHUSDT",
+ "d":{
+    
+    "A":"40.66000000",
+    "B":"31.21000000",  
+    "a":"25.36520000",
+    "b":"25.35190000"},  
+ "s":"ETHUSDT", 
+ "t":1661932660144 
+}
