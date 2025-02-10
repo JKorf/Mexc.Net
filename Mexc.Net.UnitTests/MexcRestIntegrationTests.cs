@@ -14,7 +14,7 @@ using Microsoft.Extensions.Options;
 namespace Mexc.Net.UnitTests
 {
     [NonParallelizable]
-    internal class MexcRestIntegrationTests : RestIntergrationTest<MexcRestClient>
+    internal class MexcRestIntegrationTests : RestIntegrationTest<MexcRestClient>
     {
         public override bool Run { get; set; }
 

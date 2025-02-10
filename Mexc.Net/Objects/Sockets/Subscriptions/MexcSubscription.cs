@@ -22,7 +22,7 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
         public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
         {
             var data = (MexcUpdate<T>)message.Data;
-            _handler.Invoke(message.As(data.Data, data.Channel, data.Symbol, SocketUpdateType.Update));
+            _handler.Invoke(message.As(data.Data, data.Channel, data.Symbol, SocketUpdateType.Update).WithDataTimestamp(data.Timestamp));
             return new CallResult(null);
         }
 
