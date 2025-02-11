@@ -133,6 +133,12 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 2.1.0 - 11 Feb 2025
+    * Updated CryptoExchange.Net to version 8.8.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
+    * Added support for more SharedKlineInterval values
+    * Added setting of DataTime value on websocket DataEvent updates
+    * Fix Mono runtime exception on rest client construction using DI
+
 * Version 2.0.0 - 24 Jan 2025
     * Updated CryptoExchange.Net to version 8.7.1, see https://github.com/JKorf/CryptoExchange.Net/releases/
     * Added client side-ratelimiting implementation
