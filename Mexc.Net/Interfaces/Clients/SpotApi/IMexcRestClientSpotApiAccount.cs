@@ -113,7 +113,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="pageSize">Page size</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcPaginated<IEnumerable<MexcWithdrawAddress>>>> GetWithdrawAddressesAsync(string? asset = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<WebCallResult<MexcPaginated<MexcWithdrawAddress[]>>> GetWithdrawAddressesAsync(string? asset = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Transfer between accounts
@@ -139,7 +139,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="pageSize">Page size</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcRows<IEnumerable<MexcTransfer>>>> GetTransferHistoryAsync(AccountType fromAccount, AccountType toAccount, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<WebCallResult<MexcRows<MexcTransfer[]>>> GetTransferHistoryAsync(AccountType fromAccount, AccountType toAccount, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get info on a transfer
@@ -177,7 +177,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="pageSize">Page size</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcPaginated<IEnumerable<MexcDustLog>>>> GetDustLogAsync(DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<WebCallResult<MexcPaginated<MexcDustLog[]>>> GetDustLogAsync(DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Transfer an asset to another user on MEXC
@@ -209,7 +209,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="pageSize">Page size</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcPaginated<IEnumerable<MexcInternalTransfer>>>> GetInternalTransferHistoryAsync(string? transferId = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<WebCallResult<MexcPaginated<MexcInternalTransfer[]>>> GetInternalTransferHistoryAsync(string? transferId = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Set MX deduction status

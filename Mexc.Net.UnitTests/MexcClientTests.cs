@@ -5,11 +5,11 @@ using Mexc.Net.Objects.Models;
 using Mexc.Net.UnitTests.Helpers;
 using System.Text.Json;
 using NUnit.Framework.Legacy;
-using CryptoExchange.Net.Converters.JsonNet;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Mexc.Net.Interfaces.Clients;
 using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Converters.SystemTextJson;
 
 namespace Mexc.Net.UnitTests
 {

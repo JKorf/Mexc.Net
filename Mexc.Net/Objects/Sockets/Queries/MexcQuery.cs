@@ -10,7 +10,7 @@ namespace Mexc.Net.Objects.Sockets.Queries
 
         public override HashSet<string> ListenerIdentifiers { get; set; }
 
-        public MexcQuery(string method, IEnumerable<string> parameters, bool authenticated, int weight = 1) : base(new MexcRequest
+        public MexcQuery(string method, string[] parameters, bool authenticated, int weight = 1) : base(new MexcRequest
         {
             Id = ExchangeHelpers.NextId(),
             Method = method,

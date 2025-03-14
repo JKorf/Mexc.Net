@@ -7,14 +7,14 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
 {
     internal class MexcSubscription<T> : Subscription<MexcResponse, MexcResponse>
     {
-        private IEnumerable<string> _topics;
+        private string[] _topics;
         private readonly Action<DataEvent<T>> _handler;
 
         public override HashSet<string> ListenerIdentifiers { get; set; }
 
         public MexcSubscription(ILogger logger, IEnumerable<string> topics, Action<DataEvent<T>> handler, bool authenticated) : base(logger, authenticated)
         {
-            _topics = topics;
+            _topics = topics.ToArray();
             _handler = handler;
             ListenerIdentifiers = new HashSet<string>(_topics);
         }

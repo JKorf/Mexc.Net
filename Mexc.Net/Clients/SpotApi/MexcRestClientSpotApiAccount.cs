@@ -157,14 +157,14 @@ namespace Mexc.Net.Clients.SpotApi
         #region Get Withdraw Addresses
 
         /// <inheritdoc />
-        public async Task<WebCallResult<MexcPaginated<IEnumerable<MexcWithdrawAddress>>>> GetWithdrawAddressesAsync(string? asset = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
+        public async Task<WebCallResult<MexcPaginated<MexcWithdrawAddress[]>>> GetWithdrawAddressesAsync(string? asset = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("coin", asset);
             parameters.AddOptional("page", page);
             parameters.AddOptional("limit", pageSize);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/capital/withdraw/address", MexcExchange.RateLimiter.SpotRest, 10, true);
-            return await _baseClient.SendAsync<MexcPaginated<IEnumerable<MexcWithdrawAddress>>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<MexcPaginated<MexcWithdrawAddress[]>>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -192,7 +192,7 @@ namespace Mexc.Net.Clients.SpotApi
         #region Get Transfer History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<MexcRows<IEnumerable<MexcTransfer>>>> GetTransferHistoryAsync(AccountType fromAccount, AccountType toAccount, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
+        public async Task<WebCallResult<MexcRows<MexcTransfer[]>>> GetTransferHistoryAsync(AccountType fromAccount, AccountType toAccount, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddEnum("fromAccountType", fromAccount);
@@ -203,7 +203,7 @@ namespace Mexc.Net.Clients.SpotApi
             parameters.AddOptional("size", pageSize);
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/capital/transfer", MexcExchange.RateLimiter.SpotRest, 1, true);
-            return await _baseClient.SendAsync<MexcRows<IEnumerable<MexcTransfer>>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<MexcRows<MexcTransfer[]>>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -253,7 +253,7 @@ namespace Mexc.Net.Clients.SpotApi
         #region Get Dust Log
 
         /// <inheritdoc />
-        public async Task<WebCallResult<MexcPaginated<IEnumerable<MexcDustLog>>>> GetDustLogAsync(DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
+        public async Task<WebCallResult<MexcPaginated<MexcDustLog[]>>> GetDustLogAsync(DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptionalMillisecondsString("startTime", startTime);
@@ -262,7 +262,7 @@ namespace Mexc.Net.Clients.SpotApi
             parameters.AddOptional("limit", pageSize);
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/capital/convert", MexcExchange.RateLimiter.SpotRest, 1, true);
-            return await _baseClient.SendAsync<MexcPaginated<IEnumerable<MexcDustLog>>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<MexcPaginated<MexcDustLog[]>>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -296,7 +296,7 @@ namespace Mexc.Net.Clients.SpotApi
         #region Get Internal Transfer History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<MexcPaginated<IEnumerable<MexcInternalTransfer>>>> GetInternalTransferHistoryAsync(string? transferId = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
+        public async Task<WebCallResult<MexcPaginated<MexcInternalTransfer[]>>> GetInternalTransferHistoryAsync(string? transferId = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("tranId", transferId);
@@ -306,7 +306,7 @@ namespace Mexc.Net.Clients.SpotApi
             parameters.AddOptional("limit", pageSize);
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/capital/transfer/internal", MexcExchange.RateLimiter.SpotRest, 1, true);
-            return await _baseClient.SendAsync<MexcPaginated<IEnumerable<MexcInternalTransfer>>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<MexcPaginated<MexcInternalTransfer[]>>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion

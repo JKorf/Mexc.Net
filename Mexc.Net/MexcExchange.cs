@@ -44,7 +44,7 @@ namespace Mexc.Net
         /// </summary>
         public static ExchangeType Type { get; } = ExchangeType.CEX;
 
-        internal static JsonSerializerContext SerializerContext = new KucoinSourceGenerationContext();
+        internal static JsonSerializerContext SerializerContext = new MexcSourceGenerationContext();
 
         /// <summary>
         /// Format a base and quote asset to a Mexc recognized symbol 

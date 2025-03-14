@@ -79,21 +79,11 @@
         <member name="P:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.Trading">
             <inheritdoc />
         </member>
-        <member name="P:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.CommonSpotClient">
+        <member name="P:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.SharedClient">
             <inheritdoc />
         </member>
         <member name="P:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.ExchangeName">
             <inheritdoc />
-        </member>
-        <member name="E:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.OnOrderPlaced">
-            <summary>
-            Event triggered when an order is placed via this client. Only available for Spot orders
-            </summary>
-        </member>
-        <member name="E:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.OnOrderCanceled">
-            <summary>
-            Event triggered when an order is canceled via this client. Note that this does not trigger when using CancelAllOrdersAsync. Only available for Spot orders
-            </summary>
         </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
@@ -101,10 +91,10 @@
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
-        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.ParseRateLimitResponse(System.Int32,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.Collections.Generic.IEnumerable{System.String}}},CryptoExchange.Net.Interfaces.IMessageAccessor)">
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.ParseRateLimitResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
-        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.ParseErrorResponse(System.Int32,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.Collections.Generic.IEnumerable{System.String}}},CryptoExchange.Net.Interfaces.IMessageAccessor)">
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.ParseErrorResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.GetServerTimestampAsync">
@@ -114,9 +104,6 @@
             <inheritdoc />
         </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.GetTimeOffset">
-            <inheritdoc />
-        </member>
-        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.GetSymbolName(System.String,System.String)">
             <inheritdoc />
         </member>
         <member name="T:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiAccount">
@@ -278,10 +265,10 @@
         <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
-        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{Mexc.Net.Objects.Models.Spot.MexcStreamTrade}}},System.Threading.CancellationToken)">
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamTrade[]}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{Mexc.Net.Objects.Models.Spot.MexcStreamTrade}}},System.Threading.CancellationToken)">
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamTrade[]}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToKlineUpdatesAsync(System.String,Mexc.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamKline}},System.Threading.CancellationToken)">
@@ -314,7 +301,7 @@
         <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToMiniTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick}},System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToMiniTickerUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick}}},System.String,System.Threading.CancellationToken)">
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToMiniTickerUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick[]}},System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToAccountUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcAccountUpdate}},System.Threading.CancellationToken)">
@@ -331,6 +318,745 @@
         </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.GetAuthenticationRequestAsync(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.Boolean">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.Decimal">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.NullableDecimal">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.AccountType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.DepositStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.KlineInterval">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.KycStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.OrderSide">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.OrderStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.OrderType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.OrderTypeArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.SymbolStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.TimeInForce">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.NullableTimeInForce">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.TradeSidesStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.TranfserType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.TransferAccountType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.WithdrawStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcPaginatedMexcDustLogArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcPaginatedMexcInternalTransferArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcPaginatedMexcWithdrawAddressArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcResult">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcResultArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcResultMexcDeductStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcResultMexcTradeFee">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcResultStringArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcRowsMexcTransferArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcAccountBalance">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcAccountBalanceArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcAccountInfo">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcAccountInfoArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcAccountUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcAccountUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcAggregatedTrade">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcAggregatedTradeArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcAveragePrice">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcAveragePriceArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcBookPrice">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcBookPriceArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcDeductStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcDeductStatusArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcDeposit">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcDepositArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcDepositAddress">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcDepositAddressArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcDustLog">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcDustLogArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcDustLogDetails">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcDustLogDetailsArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcDustResult">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcDustResultArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcEligibleDust">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcEligibleDustArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcEtf">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcEtfArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcExchangeInfo">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcExchangeInfoArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcFailedDust">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcFailedDustArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcId">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcIdArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcInternalTransfer">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcInternalTransferArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcKline">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcKlineArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcKycStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcKycStatusArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcListenKey">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcListenKeyArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcNetwork">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcNetworkArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcOrder">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcOrderArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcOrderBook">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcOrderBookArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcOrderBookEntry">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcOrderBookEntryArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcPrice">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcPriceArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcServerTime">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcServerTimeArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcStreamBookTick">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcStreamBookTickArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcStreamKline">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcStreamKlineArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcStreamMiniTick">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcStreamMiniTickArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcStreamOrderBook">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcStreamOrderBookArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcStreamOrderBookEntry">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcStreamOrderBookEntryArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcStreamTrade">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcStreamTradeArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcSymbol">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcSymbolArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcTicker">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcTickerArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcTrade">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcTradeArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcTradeFee">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcTradeFeeArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcTransfer">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcTransferArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcTransferId">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcTransferIdArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUserAsset">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUserAssetArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUserOrderUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUserOrderUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUserTrade">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUserTradeArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUserTradeUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUserTradeUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcWithdrawAddress">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcWithdrawAddressArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcWithdrawal">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcWithdrawalArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcKlineUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcKlineUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcRequest">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcResponse">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcStreamEvent">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcStreamEventArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcTradeUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcTradeUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUpdateMexcAccountUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUpdateMexcStreamBookTick">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUpdateMexcStreamMiniTickArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUpdateMexcStreamMiniTick">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUpdateMexcStreamOrderBook">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUpdateMexcUserOrderUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUpdateMexcUserTradeUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUpdateMexcKlineUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUpdateMexcTradeUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.IDictionaryStringObject">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.DateTime">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.NullableDateTime">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.Int32">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.NullableInt32">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.Int64">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.NullableInt64">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.Object">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.String">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.StringArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.Default">
+            <summary>
+            The default <see cref="T:System.Text.Json.Serialization.JsonSerializerContext"/> associated with a default <see cref="T:System.Text.Json.JsonSerializerOptions"/> instance.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.GeneratedSerializerOptions">
+            <summary>
+            The source-generated options associated with this context.
+            </summary>
+        </member>
+        <member name="M:Mexc.Net.Converters.MexcSourceGenerationContext.#ctor">
+            <inheritdoc/>
+        </member>
+        <member name="M:Mexc.Net.Converters.MexcSourceGenerationContext.#ctor(System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Mexc.Net.Converters.MexcSourceGenerationContext.GetTypeInfo(System.Type)">
+            <inheritdoc/>
         </member>
         <member name="T:Mexc.Net.Enums.AccountType">
             <summary>
@@ -756,14 +1482,9 @@
             Mexc Spot API endpoints
             </summary>
         </member>
-        <member name="P:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApi.CommonSpotClient">
-            <summary>
-            DEPRECATED; use <see cref="T:CryptoExchange.Net.SharedApis.ISharedClient" /> instead for common/shared functionality. See <see href="https://jkorf.github.io/CryptoExchange.Net/docs/index.html#shared" /> for more info.
-            </summary>
-        </member>
         <member name="P:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApi.SharedClient">
             <summary>
-            Get the shared rest requests client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
+            Get the shared rest requests client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
             </summary>
         </member>
         <member name="P:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApi.Account">
@@ -1291,7 +2012,7 @@
             During reconnection the listenkey which was provided can be renewed by the client. This means the keep-alive mechanism should use this new listen key.
             </summary>
         </member>
-        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{Mexc.Net.Objects.Models.Spot.MexcStreamTrade}}},System.Threading.CancellationToken)">
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamTrade[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to trade updates
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#trade-streams" /></para>
@@ -1301,7 +2022,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{Mexc.Net.Objects.Models.Spot.MexcStreamTrade}}},System.Threading.CancellationToken)">
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamTrade[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to trade updates
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#trade-streams" /></para>
@@ -1417,7 +2138,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToMiniTickerUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick}}},System.String,System.Threading.CancellationToken)">
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToMiniTickerUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick[]}},System.String,System.Threading.CancellationToken)">
             <summary>
             Subscribe to mini ticker updates for all symbols
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#minitickers" /></para>

@@ -147,7 +147,7 @@ namespace Mexc.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToMiniTickerUpdatesAsync(Action<DataEvent<MexcStreamMiniTick[]>> handler, string? timezone = null, CancellationToken ct = default)
         {
-            var subscription = new MexcSubscription<IEnumerable<MexcStreamMiniTick>>(_logger, new[] { "spot@public.miniTickers.v3.api@" + (timezone ?? "UTC+0") }, handler, false);
+            var subscription = new MexcSubscription<MexcStreamMiniTick[]>(_logger, new[] { "spot@public.miniTickers.v3.api@" + (timezone ?? "UTC+0") }, handler, false);
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
 

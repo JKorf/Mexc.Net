@@ -49,12 +49,12 @@ namespace Mexc.Net.Clients.SpotApi
         public async Task<WebCallResult<string[]>> GetApiSymbolsAsync(CancellationToken ct = default)
         {
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/defaultSymbols", MexcExchange.RateLimiter.SpotRest, 1);
-            var result = await _baseClient.SendAsync<MexcResult<IEnumerable<string>>>(request, null, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<MexcResult<string[]>>(request, null, ct).ConfigureAwait(false);
             if (!result)
                 return result.As<string[]>(default);
 
             if (result.Data.Code != 0)
-                return result.AsError<IEnumerable<string>>(new ServerError(result.Data.Code, result.Data.Message!));
+                return result.AsError<string[]>(new ServerError(result.Data.Code, result.Data.Message!));
 
             return result.As(result.Data.Data!);
         }
