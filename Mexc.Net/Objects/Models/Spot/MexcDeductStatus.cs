@@ -1,9 +1,11 @@
-﻿
+using CryptoExchange.Net.Converters.SystemTextJson;
+
 namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Mexc MX deduct status
     /// </summary>
+    [SerializationModel]
     public record MexcDeductStatus
     {
         /// <summary>

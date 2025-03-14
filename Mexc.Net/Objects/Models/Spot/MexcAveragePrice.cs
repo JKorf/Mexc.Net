@@ -1,9 +1,11 @@
-﻿
+using CryptoExchange.Net.Converters.SystemTextJson;
+
 namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Average price info
     /// </summary>
+    [SerializationModel]
     public record MexcAveragePrice
     {
         /// <summary>

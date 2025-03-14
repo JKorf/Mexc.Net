@@ -1,6 +1,8 @@
-﻿
+using CryptoExchange.Net.Converters.SystemTextJson;
+
 namespace Mexc.Net.Objects.Models
 {
+    [SerializationModel]
     internal record MexcResult
     {
         [JsonPropertyName("code")]
@@ -9,6 +11,7 @@ namespace Mexc.Net.Objects.Models
         public string? Message { get; set; }
     }
 
+    [SerializationModel]
     internal record MexcResult<T> : MexcResult
     {
         [JsonPropertyName("data")]

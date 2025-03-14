@@ -1,8 +1,10 @@
-﻿namespace Mexc.Net.Objects.Models.Spot
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Dust log entry
     /// </summary>
+    [SerializationModel]
     public record MexcDustLog
     {
         /// <summary>
@@ -24,12 +26,13 @@
         /// Details
         /// </summary>
         [JsonPropertyName("convertDetails")]
-        public IEnumerable<MexcDustLogDetails> Details { get; set; } = Array.Empty<MexcDustLogDetails>();
+        public MexcDustLogDetails[] Details { get; set; } = Array.Empty<MexcDustLogDetails>();
     }
     
     /// <summary>
     /// Dust log details
     /// </summary>
+    [SerializationModel]
     public record MexcDustLogDetails
     {
         /// <summary>

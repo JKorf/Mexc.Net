@@ -1,10 +1,13 @@
-﻿using CryptoExchange.Net.Attributes;
+using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Attributes;
 
 namespace Mexc.Net.Enums
 {
     /// <summary>
     /// Trade side enabled status
     /// </summary>
+    [JsonConverter(typeof(EnumConverter<TradeSidesStatus>))]
     public enum TradeSidesStatus
     {
         /// <summary>

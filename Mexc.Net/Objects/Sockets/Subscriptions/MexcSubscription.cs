@@ -23,7 +23,7 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
         {
             var data = (MexcUpdate<T>)message.Data;
             _handler.Invoke(message.As(data.Data, data.Channel, data.Symbol, SocketUpdateType.Update).WithDataTimestamp(data.Timestamp));
-            return new CallResult(null);
+            return CallResult.SuccessResult;
         }
 
         public override Type? GetMessageType(IMessageAccessor message) => typeof(MexcUpdate<T>);

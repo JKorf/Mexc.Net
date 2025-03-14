@@ -1,5 +1,7 @@
-﻿namespace Mexc.Net.Objects.Models.Spot
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace Mexc.Net.Objects.Models.Spot
 {
+    [SerializationModel]
     internal record MexcListenKey
     {
         [JsonPropertyName("listenKey")]

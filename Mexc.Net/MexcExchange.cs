@@ -3,6 +3,7 @@ using CryptoExchange.Net.RateLimiting.Filters;
 using CryptoExchange.Net.RateLimiting.Guards;
 using CryptoExchange.Net.RateLimiting.Interfaces;
 using CryptoExchange.Net.SharedApis;
+using Mexc.Net.Converters;
 
 namespace Mexc.Net
 {
@@ -42,6 +43,8 @@ namespace Mexc.Net
         /// Type of exchange
         /// </summary>
         public static ExchangeType Type { get; } = ExchangeType.CEX;
+
+        internal static JsonSerializerContext SerializerContext = new KucoinSourceGenerationContext();
 
         /// <summary>
         /// Format a base and quote asset to a Mexc recognized symbol 

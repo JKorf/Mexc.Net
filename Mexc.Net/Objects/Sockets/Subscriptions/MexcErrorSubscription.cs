@@ -15,7 +15,7 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
         public override CallResult HandleMessage(SocketConnection connection, DataEvent<MexcResponse> message)
         {
             _logger.LogError("Server Error: {Error}", message.Data.Message);
-            return new CallResult(null);
+            return CallResult.SuccessResult;
         }
     }
 }

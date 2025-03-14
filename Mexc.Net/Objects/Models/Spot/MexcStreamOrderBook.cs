@@ -1,22 +1,24 @@
-﻿using Mexc.Net.Objects.Sockets.Models;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using Mexc.Net.Objects.Sockets.Models;
 
 namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Order book
     /// </summary>
+    [SerializationModel]
     public record MexcStreamOrderBook : MexcStreamEvent
     {
         /// <summary>
         /// Asks
         /// </summary>
         [JsonPropertyName("asks")]
-        public IEnumerable<MexcStreamOrderBookEntry> Asks { get; set; } = Array.Empty<MexcStreamOrderBookEntry>();
+        public MexcStreamOrderBookEntry[] Asks { get; set; } = Array.Empty<MexcStreamOrderBookEntry>();
         /// <summary>
         /// Bids
         /// </summary>
         [JsonPropertyName("bids")]
-        public IEnumerable<MexcStreamOrderBookEntry> Bids { get; set; } = Array.Empty<MexcStreamOrderBookEntry>();
+        public MexcStreamOrderBookEntry[] Bids { get; set; } = Array.Empty<MexcStreamOrderBookEntry>();
         /// <summary>
         /// Sequence
         /// </summary>
@@ -27,6 +29,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// Order book entry
     /// </summary>
+    [SerializationModel]
     public record MexcStreamOrderBookEntry : ISymbolOrderBookEntry
     {
         /// <summary>

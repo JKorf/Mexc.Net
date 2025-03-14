@@ -1,9 +1,11 @@
-﻿
+using CryptoExchange.Net.Converters.SystemTextJson;
+
 namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Ticker info
     /// </summary>
+    [SerializationModel]
     public record MexcTicker
     {
         /// <summary>

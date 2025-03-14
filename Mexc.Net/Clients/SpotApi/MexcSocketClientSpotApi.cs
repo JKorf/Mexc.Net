@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.SharedApis;
@@ -48,9 +48,9 @@ namespace Mexc.Net.Clients.SpotApi
 
         #endregion
 
-        protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor();
+        protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(MexcExchange.SerializerContext));
 
-        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer();
+        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(MexcExchange.SerializerContext));
 
         /// <inheritdoc />
         public override string? GetListenerIdentifier(IMessageAccessor messageAccessor)
@@ -77,11 +77,11 @@ namespace Mexc.Net.Clients.SpotApi
         public IMexcSocketClientSpotApiShared SharedClient => this;
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<IEnumerable<MexcStreamTrade>>> handler, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<MexcStreamTrade[]>> handler, CancellationToken ct = default)
             => await SubscribeToTradeUpdatesAsync(new[] { symbol }, handler, ct).ConfigureAwait(false);
 
             /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<IEnumerable<MexcStreamTrade>>> handler, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<MexcStreamTrade[]>> handler, CancellationToken ct = default)
         {
             var subscription = new MexcSubscription<MexcTradeUpdate>(_logger, symbols.Select(s => "spot@public.deals.v3.api@" + s), x => handler(x.As(x.Data.Data)), false);
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
@@ -145,7 +145,7 @@ namespace Mexc.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToMiniTickerUpdatesAsync(Action<DataEvent<IEnumerable<MexcStreamMiniTick>>> handler, string? timezone = null, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToMiniTickerUpdatesAsync(Action<DataEvent<MexcStreamMiniTick[]>> handler, string? timezone = null, CancellationToken ct = default)
         {
             var subscription = new MexcSubscription<IEnumerable<MexcStreamMiniTick>>(_logger, new[] { "spot@public.miniTickers.v3.api@" + (timezone ?? "UTC+0") }, handler, false);
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);

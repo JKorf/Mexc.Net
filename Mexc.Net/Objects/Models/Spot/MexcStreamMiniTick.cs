@@ -1,10 +1,12 @@
-﻿using Mexc.Net.Objects.Sockets.Models;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using Mexc.Net.Objects.Sockets.Models;
 
 namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Mini ticker
     /// </summary>
+    [SerializationModel]
     public record MexcStreamMiniTick : MexcStreamEvent
     {
         /// <summary>

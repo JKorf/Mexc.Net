@@ -1,20 +1,22 @@
-﻿namespace Mexc.Net.Objects.Models.Spot
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Dust transfer result
     /// </summary>
+    [SerializationModel]
     public record MexcDustResult
     {
         /// <summary>
         /// Successfully converted
         /// </summary>
         [JsonPropertyName("successList")]
-        public IEnumerable<string> Successful { get; set; } = Array.Empty<string>();
+        public string[] Successful { get; set; } = Array.Empty<string>();
         /// <summary>
         /// Failed to convert
         /// </summary>
         [JsonPropertyName("failedList")]
-        public IEnumerable<MexcFailedDust> Failed { get; set; } = Array.Empty<MexcFailedDust>();
+        public MexcFailedDust[] Failed { get; set; } = Array.Empty<MexcFailedDust>();
         /// <summary>
         /// Total converted
         /// </summary>
@@ -30,6 +32,7 @@
     /// <summary>
     /// Failed dust asset
     /// </summary>
+    [SerializationModel]
     public record MexcFailedDust
     {
         /// <summary>

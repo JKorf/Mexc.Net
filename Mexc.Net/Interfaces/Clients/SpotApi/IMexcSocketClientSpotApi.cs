@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Objects.Sockets;
+using CryptoExchange.Net.Objects.Sockets;
 using Mexc.Net.Enums;
 using Mexc.Net.Objects.Models;
 using Mexc.Net.Objects.Models.Spot;
@@ -28,7 +28,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<IEnumerable<MexcStreamTrade>>> handler, CancellationToken ct = default);
+        Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<MexcStreamTrade[]>> handler, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to trade updates
@@ -38,7 +38,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<IEnumerable<MexcStreamTrade>>> handler, CancellationToken ct = default);
+        Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<MexcStreamTrade[]>> handler, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to kline/candlestick updates
@@ -154,7 +154,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToMiniTickerUpdatesAsync(Action<DataEvent<IEnumerable<MexcStreamMiniTick>>> handler, string? timezone = null, CancellationToken ct = default);
+        Task<CallResult<UpdateSubscription>> SubscribeToMiniTickerUpdatesAsync(Action<DataEvent<MexcStreamMiniTick[]>> handler, string? timezone = null, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to account balance updates. Prior to using this, the <see cref="IMexcRestClientSpotApiAccount.StartUserStreamAsync(CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method should be called to start the stream and obtaining a listen key.

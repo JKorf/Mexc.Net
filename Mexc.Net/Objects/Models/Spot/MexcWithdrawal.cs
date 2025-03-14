@@ -1,10 +1,12 @@
-﻿using Mexc.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using Mexc.Net.Enums;
 
 namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Withdrawal info
     /// </summary>
+    [SerializationModel]
     public record MexcWithdrawal
     {
         /// <summary>
@@ -40,12 +42,12 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Transfer type
         /// </summary>
-        [JsonPropertyName("transferType"), JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("transferType")]
         public TranfserType TransferType { get; set; }
         /// <summary>
         /// Withdrawal status
         /// </summary>
-        [JsonPropertyName("status"), JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("status")]
         public WithdrawStatus Status { get; set; }
         /// <summary>
         /// Transaction fee

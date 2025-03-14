@@ -1,10 +1,12 @@
-﻿
+using CryptoExchange.Net.Converters.SystemTextJson;
+
 namespace Mexc.Net.Objects.Models
 {
     /// <summary>
     /// Rows result
     /// </summary>
     /// <typeparam name="T"></typeparam>
+    [SerializationModel]
     public record MexcRows<T>
     {
         /// <summary>

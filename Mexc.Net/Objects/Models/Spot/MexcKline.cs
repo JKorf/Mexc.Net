@@ -1,11 +1,14 @@
-﻿using CryptoExchange.Net.Converters;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Converters;
+using Mexc.Net.Converters;
 
 namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Kline/candlestick info
     /// </summary>
-    [JsonConverter(typeof(ArrayConverter))]
+    [JsonConverter(typeof(ArrayConverter<MexcKline, MexcSourceGenerationContext>))]
+    [SerializationModel]
     public record MexcKline
     {
         /// <summary>
