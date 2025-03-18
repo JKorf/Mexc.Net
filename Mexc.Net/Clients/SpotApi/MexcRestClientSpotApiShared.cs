@@ -216,8 +216,8 @@ namespace Mexc.Net.Clients.SpotApi
                 request.Symbol.GetSymbol(FormatSymbol),
                 request.Side == SharedOrderSide.Buy ? Enums.OrderSide.Buy : Enums.OrderSide.Sell,
                 GetPlaceOrderType(request.OrderType, request.TimeInForce),
-                request.Quantity,
-                request.QuoteQuantity,
+                request.Quantity?.QuantityInBaseAsset,
+                request.Quantity?.QuantityInQuoteAsset,
                 request.Price,
                 clientOrderId: request.ClientOrderId,
                 ct: ct).ConfigureAwait(false);
@@ -250,10 +250,8 @@ namespace Mexc.Net.Clients.SpotApi
             {
                 ClientOrderId = order.Data.ClientOrderId,
                 OrderPrice = order.Data.Price,
-                Quantity = order.Data.Quantity,
-                QuantityFilled = order.Data.QuantityFilled,
-                QuoteQuantity = order.Data.QuoteQuantity,
-                QuoteQuantityFilled = order.Data.QuoteQuantityFilled,
+                OrderQuantity = new SharedOrderQuantity(order.Data.Quantity, order.Data.QuoteQuantity),
+                QuantityFilled = new SharedOrderQuantity(order.Data.QuantityFilled, order.Data.QuoteQuantityFilled),
                 TimeInForce = ParseTimeInForce(order.Data.OrderType),
                 UpdateTime = order.Data.UpdateTime
             });
@@ -292,10 +290,8 @@ namespace Mexc.Net.Clients.SpotApi
             {
                 ClientOrderId = x.ClientOrderId,
                 OrderPrice = x.Price,
-                Quantity = x.Quantity,
-                QuantityFilled = x.QuantityFilled,
-                QuoteQuantity = x.QuoteQuantity,
-                QuoteQuantityFilled = x.QuoteQuantityFilled,
+                OrderQuantity = new SharedOrderQuantity(x.Quantity, x.QuoteQuantity),
+                QuantityFilled = new SharedOrderQuantity(x.QuantityFilled, x.QuoteQuantityFilled),
                 TimeInForce = ParseTimeInForce(x.OrderType),
                 UpdateTime = x.UpdateTime
             }).ToArray());
@@ -340,10 +336,8 @@ namespace Mexc.Net.Clients.SpotApi
             {
                 ClientOrderId = x.ClientOrderId,
                 OrderPrice = x.Price,
-                Quantity = x.Quantity,
-                QuantityFilled = x.QuantityFilled,
-                QuoteQuantity = x.QuoteQuantity,
-                QuoteQuantityFilled = x.QuoteQuantityFilled,
+                OrderQuantity = new SharedOrderQuantity(x.Quantity, x.QuoteQuantity),
+                QuantityFilled = new SharedOrderQuantity(x.QuantityFilled, x.QuoteQuantityFilled),
                 TimeInForce = ParseTimeInForce(x.OrderType),
                 UpdateTime = x.UpdateTime
             }).ToArray(), nextToken);

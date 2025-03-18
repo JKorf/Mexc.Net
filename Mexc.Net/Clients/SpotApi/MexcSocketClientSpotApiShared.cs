@@ -161,10 +161,8 @@ namespace Mexc.Net.Clients.SpotApi
                     {
                         ClientOrderId = update.Data.ClientOrderId,
                         OrderPrice = update.Data.Price,
-                        Quantity = update.Data.Quantity,
-                        QuantityFilled = update.Data.CumulativeQuantity,
-                        QuoteQuantity = update.Data.QuoteQuantity,
-                        QuoteQuantityFilled = update.Data.CumulativeQuoteQuantity,
+                        OrderQuantity = new SharedOrderQuantity(update.Data.Quantity, update.Data.QuoteQuantity),
+                        QuantityFilled = new SharedOrderQuantity(update.Data.CumulativeQuantity, update.Data.CumulativeQuoteQuantity),
                         AveragePrice = update.Data.AveragePrice,
                         UpdateTime = update.Data.Timestamp,
                         TimeInForce = update.Data.OrderType == Enums.OrderType.ImmediateOrCancel ? SharedTimeInForce.ImmediateOrCancel : update.Data.OrderType == Enums.OrderType.FillOrKill ? SharedTimeInForce.FillOrKill : null
