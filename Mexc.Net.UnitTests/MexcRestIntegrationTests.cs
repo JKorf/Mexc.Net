@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
+using Mexc.Net.SymbolOrderBooks;
 
 namespace Mexc.Net.UnitTests
 {
@@ -86,5 +87,10 @@ namespace Mexc.Net.UnitTests
             await RunAndCheckResult(client => client.SpotApi.Trading.GetUserTradesAsync("ETHUSDT", default, default, default, default, default), true);
         }
 
+        [Test]
+        public async Task TestOrderBooks()
+        {
+            await TestOrderBook(new MexcSpotSymbolOrderBook("ETHUSDT"));
+        }
     }
 }
