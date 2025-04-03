@@ -220,7 +220,10 @@
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiExchangeData.GetPricesAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiExchangeData.GetBookPricesAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiExchangeData.GetBookPricesAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiExchangeData.GetBookPricesAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="T:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiTrading">
@@ -1873,12 +1876,20 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData.GetBookPricesAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData.GetBookPricesAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get the best book prices
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#symbol-order-book-ticker" /></para>
             </summary>
-            <param name="symbols">Filter by symbol, for example `BTCUSDT`</param>
+            <param name="symbol">Filter by symbol, for example `BTCUSDT`</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData.GetBookPricesAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get the best book prices
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#symbol-order-book-ticker" /></para>
+            </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>

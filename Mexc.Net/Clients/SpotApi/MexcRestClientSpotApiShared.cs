@@ -140,6 +140,31 @@ namespace Mexc.Net.Clients.SpotApi
 
         #endregion
 
+        #region Book Ticker client
+
+        EndpointOptions<GetBookTickerRequest> IBookTickerRestClient.GetBookTickerOptions { get; } = new EndpointOptions<GetBookTickerRequest>(false);
+        async Task<ExchangeWebResult<SharedBookTicker>> IBookTickerRestClient.GetBookTickerAsync(GetBookTickerRequest request, CancellationToken ct)
+        {
+            var validationError = ((IBookTickerRestClient)this).GetBookTickerOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedBookTicker>(Exchange, validationError);
+
+            var resultTicker = await ExchangeData.GetBookPricesAsync(request.Symbol.GetSymbol(FormatSymbol), ct: ct).ConfigureAwait(false);
+            if (!resultTicker)
+                return resultTicker.AsExchangeResult<SharedBookTicker>(Exchange, null, default);
+
+            var ticker = resultTicker.Data;
+            return resultTicker.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedBookTicker(
+                ExchangeSymbolCache.ParseSymbol(_topicId, ticker.Symbol),
+                ticker.Symbol,
+                ticker.BestAskPrice ?? 0,
+                ticker.BestAskQuantity ?? 0,
+                ticker.BestBidPrice ?? 0,
+                ticker.BestBidQuantity ?? 0));
+        }
+
+        #endregion
+
         #region Recent Trade client
         GetRecentTradesOptions IRecentTradeRestClient.GetRecentTradesOptions { get; } = new GetRecentTradesOptions(1000, false);
 
@@ -183,7 +208,6 @@ namespace Mexc.Net.Clients.SpotApi
         #endregion
 
         #region Spot Order client
-
 
         SharedFeeDeductionType ISpotOrderRestClient.SpotFeeDeductionType => SharedFeeDeductionType.AddToCost;
         SharedFeeAssetType ISpotOrderRestClient.SpotFeeAssetType => SharedFeeAssetType.QuoteAsset;
@@ -253,7 +277,8 @@ namespace Mexc.Net.Clients.SpotApi
                 OrderQuantity = new SharedOrderQuantity(order.Data.Quantity, order.Data.QuoteQuantity),
                 QuantityFilled = new SharedOrderQuantity(order.Data.QuantityFilled, order.Data.QuoteQuantityFilled),
                 TimeInForce = ParseTimeInForce(order.Data.OrderType),
-                UpdateTime = order.Data.UpdateTime
+                UpdateTime = order.Data.UpdateTime,
+                TriggerPrice = order.Data.StopPrice
             });
         }
 
@@ -293,7 +318,8 @@ namespace Mexc.Net.Clients.SpotApi
                 OrderQuantity = new SharedOrderQuantity(x.Quantity, x.QuoteQuantity),
                 QuantityFilled = new SharedOrderQuantity(x.QuantityFilled, x.QuoteQuantityFilled),
                 TimeInForce = ParseTimeInForce(x.OrderType),
-                UpdateTime = x.UpdateTime
+                UpdateTime = x.UpdateTime,
+                TriggerPrice = x.StopPrice
             }).ToArray());
         }
         
@@ -339,7 +365,8 @@ namespace Mexc.Net.Clients.SpotApi
                 OrderQuantity = new SharedOrderQuantity(x.Quantity, x.QuoteQuantity),
                 QuantityFilled = new SharedOrderQuantity(x.QuantityFilled, x.QuoteQuantityFilled),
                 TimeInForce = ParseTimeInForce(x.OrderType),
-                UpdateTime = x.UpdateTime
+                UpdateTime = x.UpdateTime,
+                TriggerPrice = x.StopPrice
             }).ToArray(), nextToken);
         }
 

@@ -199,13 +199,25 @@ namespace Mexc.Net.Clients.SpotApi
 
         #endregion
 
+        #region Get Book Price
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<MexcBookPrice>> GetBookPricesAsync(string symbol, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptional("symbol", symbol);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/ticker/bookTicker", MexcExchange.RateLimiter.SpotRest, 1);
+            return await _baseClient.SendAsync<MexcBookPrice>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
         #region Get Book Prices
 
         /// <inheritdoc />
-        public async Task<WebCallResult<MexcBookPrice[]>> GetBookPricesAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default)
+        public async Task<WebCallResult<MexcBookPrice[]>> GetBookPricesAsync(CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            parameters.AddOptional("symbols", symbols == null ? null : string.Join(",", symbols));
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/ticker/bookTicker", MexcExchange.RateLimiter.SpotRest, 1);
             return await _baseClient.SendAsync<MexcBookPrice[]>(request, parameters, ct).ConfigureAwait(false);
         }

@@ -125,10 +125,18 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get the best book prices
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#symbol-order-book-ticker" /></para>
         /// </summary>
-        /// <param name="symbols">Filter by symbol, for example `BTCUSDT`</param>
+        /// <param name="symbol">Filter by symbol, for example `BTCUSDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcBookPrice[]>> GetBookPricesAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default);
+        Task<WebCallResult<MexcBookPrice>> GetBookPricesAsync(string symbol, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get the best book prices
+        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#symbol-order-book-ticker" /></para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<MexcBookPrice[]>> GetBookPricesAsync(CancellationToken ct = default);
 
     }
 }
