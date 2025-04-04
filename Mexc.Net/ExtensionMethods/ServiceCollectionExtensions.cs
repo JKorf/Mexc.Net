@@ -28,7 +28,7 @@ namespace Microsoft.Extensions.DependencyInjection
             IConfiguration configuration)
         {
             var options = new MexcOptions();
-            // Reset environment so we know if theyre overriden
+            // Reset environment so we know if they're overridden
             options.Rest.Environment = null!;
             options.Socket.Environment = null!;
             configuration.Bind(options);
@@ -61,7 +61,7 @@ namespace Microsoft.Extensions.DependencyInjection
             Action<MexcOptions>? optionsDelegate = null)
         {
             var options = new MexcOptions();
-            // Reset environment so we know if theyre overriden
+            // Reset environment so we know if they're overridden
             options.Rest.Environment = null!;
             options.Socket.Environment = null!;
             optionsDelegate?.Invoke(options);
@@ -79,26 +79,10 @@ namespace Microsoft.Extensions.DependencyInjection
             return AddMexcCore(services, options.SocketClientLifeTime);
         }
 
-        /// <summary>
-        /// DEPRECATED; use <see cref="AddMexc(IServiceCollection, Action{MexcOptions}?)" /> instead
-        /// </summary>
-        public static IServiceCollection AddMexc(
-            this IServiceCollection services,
-            Action<MexcRestOptions> restDelegate,
-            Action<MexcSocketOptions>? socketDelegate = null,
-            ServiceLifetime? socketClientLifeTime = null)
-        {
-            services.Configure<MexcRestOptions>((x) => { restDelegate?.Invoke(x); });
-            services.Configure<MexcSocketOptions>((x) => { socketDelegate?.Invoke(x); });
-
-            return AddMexcCore(services, socketClientLifeTime);
-        }
-
         private static IServiceCollection AddMexcCore(
             this IServiceCollection services,
             ServiceLifetime? socketClientLifeTime = null)
         {
-
             services.AddHttpClient<IMexcRestClient, MexcRestClient>((client, serviceProvider) =>
             {
                 var options = serviceProvider.GetRequiredService<IOptions<MexcRestOptions>>().Value;

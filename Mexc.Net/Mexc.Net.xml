@@ -4354,10 +4354,5 @@
             <param name="optionsDelegate">Set options for the Mexc services</param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddMexc(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Mexc.Net.Objects.Options.MexcRestOptions},System.Action{Mexc.Net.Objects.Options.MexcSocketOptions},System.Nullable{Microsoft.Extensions.DependencyInjection.ServiceLifetime})">
-            <summary>
-            DEPRECATED; use <see cref="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddMexc(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Mexc.Net.Objects.Options.MexcOptions})" /> instead
-            </summary>
-        </member>
     </members>
 </doc>
