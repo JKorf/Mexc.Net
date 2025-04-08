@@ -1445,12 +1445,13 @@
             <summary>
             Spot API endpoints
             </summary>
+            <see cref="T:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApi"/>
         </member>
         <member name="M:Mexc.Net.Interfaces.Clients.IMexcRestClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
             <summary>
             Update specific options
             </summary>
-            <param name="options">Options to update. Only specific options are changable after the client has been created</param>
+            <param name="options">Options to update. Only specific options are changeable after the client has been created</param>
         </member>
         <member name="M:Mexc.Net.Interfaces.Clients.IMexcRestClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
             <summary>
@@ -1467,12 +1468,13 @@
             <summary>
             Spot streams and requests
             </summary>
+            <see cref="T:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi"/>
         </member>
         <member name="M:Mexc.Net.Interfaces.Clients.IMexcSocketClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
             <summary>
             Update specific options
             </summary>
-            <param name="options">Options to update. Only specific options are changable after the client has been created</param>
+            <param name="options">Options to update. Only specific options are changeable after the client has been created</param>
         </member>
         <member name="M:Mexc.Net.Interfaces.Clients.IMexcSocketClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
             <summary>
@@ -1494,16 +1496,19 @@
             <summary>
             Endpoints related to account settings, info or actions
             </summary>
+            <see cref="T:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount"/>
         </member>
         <member name="P:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApi.ExchangeData">
             <summary>
             Endpoints related to retrieving market and system data
             </summary>
+            <see cref="T:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData"/>
         </member>
         <member name="P:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApi.Trading">
             <summary>
             Endpoints related to orders and trades
             </summary>
+            <see cref="T:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiTrading"/>
         </member>
         <member name="T:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount">
             <summary>
@@ -2015,7 +2020,7 @@
         </member>
         <member name="P:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SharedClient">
             <summary>
-            Get the shared socket subscription client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
+            Get the shared socket subscription client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
             </summary>
         </member>
         <member name="E:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.ListenkeyRenewed">
@@ -2133,7 +2138,7 @@
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#miniticker" /></para>
             </summary>
             <param name="symbol">The symbol, for example `BTCUSDT`</param>
-            <param name="timezone">The timezone to base the statistics on, in the vorm of `UTC+1`. Defaults to `UTC+0`</param>
+            <param name="timezone">The timezone to base the statistics on, in the form of `UTC+1`. Defaults to `UTC+0`</param>
             <param name="handler">Data handler</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -2144,7 +2149,7 @@
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#miniticker" /></para>
             </summary>
             <param name="symbols">The symbols, for example `BTCUSDT`</param>
-            <param name="timezone">The timezone to base the statistics on, in the vorm of `UTC+1`. Defaults to `UTC+0`</param>
+            <param name="timezone">The timezone to base the statistics on, in the form of `UTC+1`. Defaults to `UTC+0`</param>
             <param name="handler">Data handler</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -2154,7 +2159,7 @@
             Subscribe to mini ticker updates for all symbols
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#minitickers" /></para>
             </summary>
-            <param name="timezone">The timezone to base the statistics on, in the vorm of `UTC+1`. Defaults to `UTC+0`</param>
+            <param name="timezone">The timezone to base the statistics on, in the form of `UTC+1`. Defaults to `UTC+0`</param>
             <param name="handler">Data handler</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
