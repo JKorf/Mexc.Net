@@ -1,5 +1,7 @@
 ﻿using CryptoExchange.Net.Clients;
+using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Mexc.Net
 {
@@ -45,7 +47,12 @@ namespace Mexc.Net
             {
                 if (uriParameters != null)
                     uri = uri.SetParameters(uriParameters, arraySerialization);
-                parameters.Add("signature", SignHMACSHA256(parameterPosition == HttpMethodParameterPosition.InUri ? uri.Query.Replace("?", "") : parameters.ToFormData()));
+
+                // Url encoded values to upper
+                var query = uri.Query.Replace("?", "")
+                    .Replace("%5b", "%5B").Replace("%7b", "%7B").Replace("%3a", "%3A").Replace("%2c", "%2C").Replace("%7d", "%7D").Replace("%5d", "%5D");
+
+                parameters.Add("signature", SignHMACSHA256(parameterPosition == HttpMethodParameterPosition.InUri ? query : parameters.ToFormData()));
             }
             else
             {

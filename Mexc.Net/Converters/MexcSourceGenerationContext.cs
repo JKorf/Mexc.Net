@@ -3,8 +3,9 @@ using Mexc.Net.Objects.Models.Spot;
 using Mexc.Net.Objects.Sockets.Models;
 
 namespace Mexc.Net.Converters
-{  
-
+{
+    [JsonSerializable(typeof(MexcPlaceOrderRequest[]))]
+    [JsonSerializable(typeof(MexcOrderResult[]))]
     // End manual defined attributes
 
     [JsonSerializable(typeof(MexcUpdate<MexcStreamMiniTick[]>))]

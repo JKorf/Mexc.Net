@@ -39,6 +39,14 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<MexcOrder>> PlaceOrderAsync(string symbol, OrderSide side, OrderType type, decimal? quantity = null, decimal? quoteQuantity = null, decimal? price = null, string? clientOrderId = null, CancellationToken ct = default);
 
         /// <summary>
+        /// Place multiple new orders in a single request
+        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#batch-orders" /></para>
+        /// </summary>
+        /// <param name="requests">Order requests, max 20</param>
+        /// <param name="ct">Cancelation Token</param>
+        Task<WebCallResult<CallResult<MexcOrderResult>[]>> PlaceMultipleOrdersAsync(IEnumerable<MexcPlaceOrderRequest> requests, CancellationToken ct = default);
+
+        /// <summary>
         /// Cancel an order
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#cancel-order" /></para>
         /// </summary>

@@ -1,6 +1,7 @@
 using Mexc.Net.Enums;
 using Mexc.Net.Objects.Models.Spot;
 using Mexc.Net.Interfaces.Clients.SpotApi;
+using System.Text.Json;
 
 namespace Mexc.Net.Clients.SpotApi
 {
@@ -57,6 +58,38 @@ namespace Mexc.Net.Clients.SpotApi
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v3/order", MexcExchange.RateLimiter.SpotRest, 1, true);
             var result = await _baseClient.SendAsync<MexcOrder>(request, parameters, ct).ConfigureAwait(false);
             return result;
+        }
+
+        #endregion
+
+        #region Place Multiple Orders
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<CallResult<MexcOrderResult>[]>> PlaceMultipleOrdersAsync(IEnumerable<MexcPlaceOrderRequest> requests, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection()
+            {
+                { "batchOrders", JsonSerializer.Serialize(requests.ToArray(), options: SerializerOptions.WithConverters(MexcExchange.SerializerContext)) }
+            };
+
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v3/batchOrders", MexcExchange.RateLimiter.SpotRest, 1, true);
+            var resultData = await _baseClient.SendAsync<MexcOrderResult[]>(request, parameters, ct).ConfigureAwait(false);
+            if (!resultData)
+                return resultData.As<CallResult<MexcOrderResult>[]>(default);
+
+            var result = new List<CallResult<MexcOrderResult>>();
+            foreach (var item in resultData.Data)
+            {
+                if (item.ErrorCode != null)
+                    result.Add(new CallResult<MexcOrderResult>(new ServerError(item.ErrorCode.Value, item.ErrorMessage!)));
+                else
+                    result.Add(new CallResult<MexcOrderResult>(item));
+            }
+
+            if (result.All(x => !x.Success))
+                return resultData.AsErrorWithData(new ServerError("All errors failed"), result.ToArray());
+
+            return resultData.As(result.ToArray());
         }
 
         #endregion

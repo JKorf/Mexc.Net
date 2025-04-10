@@ -235,6 +235,9 @@
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiTrading.PlaceOrderAsync(System.String,Mexc.Net.Enums.OrderSide,Mexc.Net.Enums.OrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiTrading.PlaceMultipleOrdersAsync(System.Collections.Generic.IEnumerable{Mexc.Net.Objects.Models.Spot.MexcPlaceOrderRequest},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiTrading.CancelOrderAsync(System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -703,6 +706,26 @@
             </summary>
         </member>
         <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcOrderBookEntryArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcOrderResult">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcOrderResultArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcPlaceOrderRequest">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcPlaceOrderRequestArray">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -1937,6 +1960,14 @@
             <param name="clientOrderId">Client order id</param>
             <param name="ct">Cancelation Token</param>
             <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiTrading.PlaceMultipleOrdersAsync(System.Collections.Generic.IEnumerable{Mexc.Net.Objects.Models.Spot.MexcPlaceOrderRequest},System.Threading.CancellationToken)">
+            <summary>
+            Place multiple new orders in a single request
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#batch-orders" /></para>
+            </summary>
+            <param name="requests">Order requests, max 20</param>
+            <param name="ct">Cancelation Token</param>
         </member>
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiTrading.CancelOrderAsync(System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
             <summary>
@@ -3212,6 +3243,76 @@
         <member name="P:Mexc.Net.Objects.Models.Spot.MexcOrderBookEntry.Quantity">
             <summary>
             The quantity of this price in the order book
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcOrderResult">
+            <summary>
+            Order result
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcOrderResult.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcOrderResult.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcOrderResult.ClientOrderId">
+            <summary>
+            Client order id
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcOrderResult.ErrorMessage">
+            <summary>
+            Error message
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcOrderResult.ErrorCode">
+            <summary>
+            Error code
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcPlaceOrderRequest">
+            <summary>
+            Place order request
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcPlaceOrderRequest.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcPlaceOrderRequest.Side">
+            <summary>
+            Order side
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcPlaceOrderRequest.Type">
+            <summary>
+            Order type
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcPlaceOrderRequest.Quantity">
+            <summary>
+            Order quantity
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcPlaceOrderRequest.QuoteQuantity">
+            <summary>
+            Quote order quantity
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcPlaceOrderRequest.Price">
+            <summary>
+            Order price
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcPlaceOrderRequest.ClientOrderId">
+            <summary>
+            Client order id
             </summary>
         </member>
         <member name="T:Mexc.Net.Objects.Models.Spot.MexcPrice">
