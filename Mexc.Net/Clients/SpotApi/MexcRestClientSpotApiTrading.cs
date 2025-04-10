@@ -87,7 +87,7 @@ namespace Mexc.Net.Clients.SpotApi
             }
 
             if (result.All(x => !x.Success))
-                return resultData.AsErrorWithData(new ServerError("All errors failed"), result.ToArray());
+                return resultData.AsErrorWithData(new ServerError("All orders failed"), result.ToArray());
 
             return resultData.As(result.ToArray());
         }
