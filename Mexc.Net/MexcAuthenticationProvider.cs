@@ -1,5 +1,5 @@
-﻿using CryptoExchange.Net.Clients;
-using System.Text;
+﻿using System.Text;
+using CryptoExchange.Net.Clients;
 
 namespace Mexc.Net
 {
@@ -21,11 +21,11 @@ namespace Mexc.Net
             HttpMethodParameterPosition parameterPosition,
             RequestBodyFormat requestBodyFormat)
         {
-            headers ??= new Dictionary<string, string>();
-            headers.Add("X-MEXC-APIKEY", _credentials.Key);
-
             if (!auth)
                 return;
+
+            headers ??= new Dictionary<string, string>();
+            headers.Add("X-MEXC-APIKEY", _credentials.Key);
 
             IDictionary<string, object> parameters;
             if (parameterPosition == HttpMethodParameterPosition.InUri)
