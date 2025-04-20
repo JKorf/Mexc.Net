@@ -11,7 +11,7 @@ namespace Mexc.Net.UnitTests
     [NonParallelizable]
     internal class MexcSocketIntegrationTests : SocketIntegrationTest<MexcSocketClient>
     {
-        public override bool Run { get; set; } = true;
+        public override bool Run { get; set; } = false;
 
         public MexcSocketIntegrationTests()
         {
