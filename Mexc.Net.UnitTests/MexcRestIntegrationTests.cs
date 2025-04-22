@@ -17,7 +17,7 @@ namespace Mexc.Net.UnitTests
     [NonParallelizable]
     internal class MexcRestIntegrationTests : RestIntegrationTest<MexcRestClient>
     {
-        public override bool Run { get; set; }
+        public override bool Run { get; set; } = true;
 
         public MexcRestIntegrationTests()
         {
@@ -27,6 +27,9 @@ namespace Mexc.Net.UnitTests
         {
             var key = Environment.GetEnvironmentVariable("APIKEY");
             var sec = Environment.GetEnvironmentVariable("APISECRET");
+
+            key = "mx0vglbTnNWL9YWMPc";
+            sec = "bcba5d99624a4ee4927f28561343edbb";
 
             Authenticated = key != null && sec != null;
             return new MexcRestClient(null, loggerFactory, Options.Create(new Objects.Options.MexcRestOptions
@@ -76,7 +79,8 @@ namespace Mexc.Net.UnitTests
             await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetAveragePriceAsync("ETHUSDT", default), false);
             await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetTickerAsync("ETHUSDT", default), false);
             await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetPricesAsync(default, default), false);
-            await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetBookPricesAsync(default, default), false);
+            await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetBookPricesAsync("ETHUSDT", default), false);
+            await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetBookPricesAsync(default), false);
         }
 
         [Test]
