@@ -23,11 +23,11 @@ namespace Mexc.Net
             HttpMethodParameterPosition parameterPosition,
             RequestBodyFormat requestBodyFormat)
         {
-            headers ??= new Dictionary<string, string>();
-            headers.Add("X-MEXC-APIKEY", _credentials.Key);
-
             if (!auth)
                 return;
+
+            headers ??= new Dictionary<string, string>();
+            headers.Add("X-MEXC-APIKEY", _credentials.Key);
 
             IDictionary<string, object> parameters;
             if (parameterPosition == HttpMethodParameterPosition.InUri)
