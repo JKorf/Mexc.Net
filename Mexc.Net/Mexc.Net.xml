@@ -2305,6 +2305,12 @@
             Get the Mexc environment by name
             </summary>
         </member>
+        <member name="P:Mexc.Net.MexcEnvironment.All">
+            <summary>
+            Available environment names
+            </summary>
+            <returns></returns>
+        </member>
         <member name="P:Mexc.Net.MexcEnvironment.Live">
             <summary>
             Live environment
