@@ -179,11 +179,9 @@ namespace Mexc.Net.Clients.SpotApi
             {
                 // If any of the subs on the connection is authenticated we request a new listenkey
                 // to prevent endlessly looping if the listenkey happens to be expired
-                var creds = ApiOptions.ApiCredentials ?? ClientOptions.ApiCredentials ?? MexcRestOptions.Default.SpotOptions.ApiCredentials ?? MexcRestOptions.Default.ApiCredentials;
                 var client = new MexcRestClient(opts =>
                 {
-                    if (creds != null)
-                        opts.ApiCredentials = creds;
+                    opts.ApiCredentials = ApiCredentials;
                 });
 
                 var listenKeyResult = await client.SpotApi.Account.StartUserStreamAsync().ConfigureAwait(false);
