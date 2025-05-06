@@ -94,7 +94,7 @@
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.ParseRateLimitResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
-        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.ParseErrorResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor)">
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.ParseErrorResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor,System.Exception)">
             <inheritdoc />
         </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.GetServerTimestampAsync">
@@ -2487,7 +2487,7 @@
             </summary>
             <param name="message"></param>
         </member>
-        <member name="M:Mexc.Net.Objects.Models.MexcRateLimitError.#ctor(System.Nullable{System.Int32},System.String,System.Object)">
+        <member name="M:Mexc.Net.Objects.Models.MexcRateLimitError.#ctor(System.Nullable{System.Int32},System.String,System.Exception)">
             <summary>
             ctor
             </summary>

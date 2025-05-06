@@ -19,7 +19,7 @@
         /// <param name="code"></param>
         /// <param name="message"></param>
         /// <param name="data"></param>
-        public MexcRateLimitError(int? code, string message, object? data) : base(code, message, data)
+        public MexcRateLimitError(int? code, string message, Exception? exception) : base(code, message, exception)
         {
         }
     }

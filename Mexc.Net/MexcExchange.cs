@@ -1,4 +1,5 @@
-﻿using CryptoExchange.Net.RateLimiting;
+﻿using CryptoExchange.Net.Converters;
+using CryptoExchange.Net.RateLimiting;
 using CryptoExchange.Net.RateLimiting.Filters;
 using CryptoExchange.Net.RateLimiting.Guards;
 using CryptoExchange.Net.RateLimiting.Interfaces;
@@ -44,7 +45,7 @@ namespace Mexc.Net
         /// </summary>
         public static ExchangeType Type { get; } = ExchangeType.CEX;
 
-        internal static JsonSerializerContext SerializerContext = new MexcSourceGenerationContext();
+        internal static JsonSerializerContext SerializerContext = JsonSerializerContextCache.GetOrCreate<MexcSourceGenerationContext>();
 
         /// <summary>
         /// Format a base and quote asset to a Mexc recognized symbol 
