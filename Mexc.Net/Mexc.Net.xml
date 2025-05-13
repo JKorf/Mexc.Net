@@ -2491,9 +2491,6 @@
             <summary>
             ctor
             </summary>
-            <param name="code"></param>
-            <param name="message"></param>
-            <param name="data"></param>
         </member>
         <member name="T:Mexc.Net.Objects.Models.MexcRows`1">
             <summary>

@@ -7,7 +7,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// Kline/candlestick info
     /// </summary>
-    [JsonConverter(typeof(ArrayConverter<MexcKline, MexcSourceGenerationContext>))]
+    [JsonConverter(typeof(ArrayConverter<MexcKline>))]
     [SerializationModel]
     public record MexcKline
     {

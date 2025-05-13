@@ -7,7 +7,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// An entry in the order book
     /// </summary>
-    [JsonConverter(typeof(ArrayConverter<MexcOrderBookEntry, MexcSourceGenerationContext>))]
+    [JsonConverter(typeof(ArrayConverter<MexcOrderBookEntry>))]
     [SerializationModel]
     public record MexcOrderBookEntry : ISymbolOrderBookEntry
     {
