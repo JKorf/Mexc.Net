@@ -135,6 +135,27 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 3.0.0 - 13 May 2025
+    * Updated CryptoExchange.Net to version 9.0.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
+    * Added support for Native AOT compilation
+    * Added RateLimitUpdated event
+    * Added SharedSymbol response property to all Shared interfaces response models returning a symbol name
+    * Added GenerateClientOrderId method to Spot Shared client
+    * Added IBookTickerRestClient implementation to SpotApi Shared clients
+    * Added TriggerPrice property to SharedSpotOrder model
+    * Added OptionalExchangeParameters and Supported properties to EndpointOptions
+    * Added restClient.SpotApi.Trading.PlaceMultipleOrdersAsync endpoint
+    * Added restClient.SpotApi.ExchangeData.GetBookPricesAsync endpoint for single symbol
+    * Added QuoteVolume property mapping to SharedSpotTicker model
+    * Added All property to retrieve all available environment on MexcEnvironment
+    * Refactored Shared clients quantity parameters and responses to use SharedQuantity
+    * Updated all IEnumerable response and model types to array response types
+    * Removed Newtonsoft.Json dependency
+    * Removed legacy ISpotClient implementation
+    * Removed legacy AddMexc(restOptions, socketOptions) DI overload
+    * Fixed some typos
+    * Fixed AveragePrice being return 0 instead of null for Shared order updates
+
 * Version 3.0.0-beta3 - 01 May 2025
     * Updated CryptoExchange.Net version to 9.0.0-beta5
     * Added property to retrieve all available API environments
