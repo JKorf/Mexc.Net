@@ -1,8 +1,10 @@
-﻿namespace Mexc.Net.Objects.Models.Spot
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
     /// User trade info
     /// </summary>
+    [SerializationModel]
     public record MexcUserTrade
     {
         /// <summary>

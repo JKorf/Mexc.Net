@@ -1,11 +1,14 @@
-﻿using CryptoExchange.Net.Converters;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Converters;
+using Mexc.Net.Converters;
 
 namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
     /// An entry in the order book
     /// </summary>
-    [JsonConverter(typeof(ArrayConverter))]
+    [JsonConverter(typeof(ArrayConverter<MexcOrderBookEntry>))]
+    [SerializationModel]
     public record MexcOrderBookEntry : ISymbolOrderBookEntry
     {
         /// <summary>

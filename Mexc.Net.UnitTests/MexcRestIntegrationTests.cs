@@ -10,13 +10,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
+using Mexc.Net.SymbolOrderBooks;
 
 namespace Mexc.Net.UnitTests
 {
     [NonParallelizable]
     internal class MexcRestIntegrationTests : RestIntegrationTest<MexcRestClient>
     {
-        public override bool Run { get; set; }
+        public override bool Run { get; set; } = false;
 
         public MexcRestIntegrationTests()
         {
@@ -75,7 +76,8 @@ namespace Mexc.Net.UnitTests
             await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetAveragePriceAsync("ETHUSDT", default), false);
             await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetTickerAsync("ETHUSDT", default), false);
             await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetPricesAsync(default, default), false);
-            await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetBookPricesAsync(default, default), false);
+            await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetBookPricesAsync("ETHUSDT", default), false);
+            await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetBookPricesAsync(default), false);
         }
 
         [Test]
@@ -86,5 +88,10 @@ namespace Mexc.Net.UnitTests
             await RunAndCheckResult(client => client.SpotApi.Trading.GetUserTradesAsync("ETHUSDT", default, default, default, default, default), true);
         }
 
+        [Test]
+        public async Task TestOrderBooks()
+        {
+            await TestOrderBook(new MexcSpotSymbolOrderBook("ETHUSDT"));
+        }
     }
 }

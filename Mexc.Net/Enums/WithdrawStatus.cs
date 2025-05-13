@@ -1,10 +1,13 @@
-﻿using CryptoExchange.Net.Attributes;
+using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Attributes;
 
 namespace Mexc.Net.Enums
 {
     /// <summary>
     /// Withdrawal status
     /// </summary>
+    [JsonConverter(typeof(EnumConverter<WithdrawStatus>))]
     public enum WithdrawStatus
     {
         /// <summary>

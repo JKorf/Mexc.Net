@@ -12,6 +12,7 @@ Mexc.Net is a strongly typed client library for accessing the [Mexc REST and Web
 * Extensive logging
 * Support for different environments
 * Easy integration with other exchange client based on the CryptoExchange.Net base library
+* Native AOT support
 
 ## Supported Frameworks
 The library is targeting both `.NET Standard 2.0` and `.NET Standard 2.1` for optimal compatibility
@@ -134,6 +135,33 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 3.0.0-beta3 - 01 May 2025
+    * Updated CryptoExchange.Net version to 9.0.0-beta5
+    * Added property to retrieve all available API environments
+
+* Version 3.0.0-beta2 - 23 Apr 2025
+    * Updated CryptoExchange.Net to version 9.0.0-beta2
+    * Added Shared spot ticker QuoteVolume mapping
+
+* Version 3.0.0-beta1 - 22 Apr 2025
+    * Updated CryptoExchange.Net to version 9.0.0-beta1, see https://github.com/JKorf/CryptoExchange.Net/releases/
+    * Added support for Native AOT compilation
+    * Added RateLimitUpdated event
+    * Added SharedSymbol response property to all Shared interfaces response models returning a symbol name
+    * Added GenerateClientOrderId method to Spot Shared client
+    * Added IBookTickerRestClient implementation to SpotApi Shared clients
+    * Added TriggerPrice property to SharedSpotOrder model
+    * Added OptionalExchangeParameters and Supported properties to EndpointOptions
+    * Added restClient.SpotApi.Trading.PlaceMultipleOrdersAsync endpoint
+    * Added restClient.SpotApi.ExchangeData.GetBookPricesAsync endpoint for single symbol
+    * Refactored Shared clients quantity parameters and responses to use SharedQuantity
+    * Updated all IEnumerable response and model types to array response types
+    * Removed Newtonsoft.Json dependency
+    * Removed legacy ISpotClient implementation
+    * Removed legacy AddMexc(restOptions, socketOptions) DI overload
+    * Fixed restClient.SpotApi.ExchangeData.GetKlinesAsync returning signature error
+    * Fixed some typos
+
 * Version 2.1.0 - 11 Feb 2025
     * Updated CryptoExchange.Net to version 8.8.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
     * Added support for more SharedKlineInterval values

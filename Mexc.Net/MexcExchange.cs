@@ -1,8 +1,10 @@
-﻿using CryptoExchange.Net.RateLimiting;
+﻿using CryptoExchange.Net.Converters;
+using CryptoExchange.Net.RateLimiting;
 using CryptoExchange.Net.RateLimiting.Filters;
 using CryptoExchange.Net.RateLimiting.Guards;
 using CryptoExchange.Net.RateLimiting.Interfaces;
 using CryptoExchange.Net.SharedApis;
+using Mexc.Net.Converters;
 
 namespace Mexc.Net
 {
@@ -43,6 +45,8 @@ namespace Mexc.Net
         /// </summary>
         public static ExchangeType Type { get; } = ExchangeType.CEX;
 
+        internal static JsonSerializerContext SerializerContext = JsonSerializerContextCache.GetOrCreate<MexcSourceGenerationContext>();
+
         /// <summary>
         /// Format a base and quote asset to a Mexc recognized symbol 
         /// </summary>
@@ -71,6 +75,11 @@ namespace Mexc.Net
         /// </summary>
         public event Action<RateLimitEvent> RateLimitTriggered;
 
+        /// <summary>
+        /// Event when the rate limit is updated. Note that it's only updated when a request is send, so there are no specific updates when the current usage is decaying.
+        /// </summary>
+        public event Action<RateLimitUpdateEvent> RateLimitUpdated;
+
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         internal MexcRateLimiters()
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
@@ -87,7 +96,9 @@ namespace Mexc.Net
                                             .AddGuard(new RateLimitGuard(RateLimitGuard.PerEndpoint, [], 500, TimeSpan.FromSeconds(10), RateLimitWindowType.Sliding)); // 500 request per 10 seconds per IP for each endpoint
 
             SpotSocket.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            SpotSocket.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
             SpotRest.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            SpotRest.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
         }
 
         internal IRateLimitGate SpotSocket { get; private set; }

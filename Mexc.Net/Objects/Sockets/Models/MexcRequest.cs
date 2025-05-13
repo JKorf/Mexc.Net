@@ -1,4 +1,4 @@
-﻿namespace Mexc.Net.Objects.Sockets.Models
+namespace Mexc.Net.Objects.Sockets.Models
 {
     internal class MexcRequest
     {
@@ -7,6 +7,6 @@
         [JsonPropertyName("method")]
         public string Method { get; set; } = string.Empty;
         [JsonPropertyName("params")]
-        public IEnumerable<string> Parameters { get; set; } = Array.Empty<string>();
+        public string[] Parameters { get; set; } = Array.Empty<string>();
     }
 }

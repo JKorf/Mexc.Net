@@ -1,8 +1,10 @@
-﻿namespace Mexc.Net.Objects.Sockets.Models
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace Mexc.Net.Objects.Sockets.Models
 {
     /// <summary>
     /// Stream event
     /// </summary>
+    [SerializationModel]
     public abstract record MexcStreamEvent
     {
         /// <summary>

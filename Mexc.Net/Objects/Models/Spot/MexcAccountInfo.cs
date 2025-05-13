@@ -1,10 +1,12 @@
-﻿using Mexc.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using Mexc.Net.Enums;
 
 namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Account info
     /// </summary>
+    [SerializationModel]
     public record MexcAccountInfo
     {
         /// <summary>
@@ -56,17 +58,18 @@ namespace Mexc.Net.Objects.Models.Spot
         /// Balances
         /// </summary>
         [JsonPropertyName("balances")]
-        public IEnumerable<MexcAccountBalance> Balances { get; set; } = Array.Empty<MexcAccountBalance>();
+        public MexcAccountBalance[] Balances { get; set; } = Array.Empty<MexcAccountBalance>();
         /// <summary>
         /// Permissions
         /// </summary>
         [JsonPropertyName("permissions")]
-        public IEnumerable<string> Permissions { get; set; } = Array.Empty<string>();
+        public string[] Permissions { get; set; } = Array.Empty<string>();
     }
 
     /// <summary>
     /// Balance info
     /// </summary>
+    [SerializationModel]
     public record MexcAccountBalance
     {
         /// <summary>

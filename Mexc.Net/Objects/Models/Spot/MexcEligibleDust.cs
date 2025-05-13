@@ -1,8 +1,10 @@
-﻿namespace Mexc.Net.Objects.Models.Spot
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Eligible dust asset
     /// </summary>
+    [SerializationModel]
     public record MexcEligibleDust
     {
         /// <summary>

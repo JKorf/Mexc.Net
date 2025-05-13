@@ -1,10 +1,12 @@
-﻿using Mexc.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using Mexc.Net.Enums;
 
 namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
     /// User trade update
     /// </summary>
+    [SerializationModel]
     public record MexcUserTradeUpdate
     {
         /// <summary>

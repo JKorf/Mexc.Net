@@ -1,8 +1,10 @@
-﻿namespace Mexc.Net.Objects.Models.Spot
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Exchange info
     /// </summary>
+    [SerializationModel]
     public record MexcExchangeInfo
     {
         /// <summary>
@@ -20,6 +22,6 @@
         /// All symbols supported
         /// </summary>
         [JsonPropertyName("symbols")]
-        public IEnumerable<MexcSymbol> Symbols { get; set; } = Array.Empty<MexcSymbol>();
+        public MexcSymbol[] Symbols { get; set; } = Array.Empty<MexcSymbol>();
     }
 }

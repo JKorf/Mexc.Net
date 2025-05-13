@@ -1,4 +1,4 @@
-﻿using Mexc.Net.Enums;
+using Mexc.Net.Enums;
 using Mexc.Net.Objects.Models;
 using Mexc.Net.Objects.Models.Spot;
 
@@ -31,7 +31,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<MexcUserAsset>>> GetUserAssetsAsync(CancellationToken ct = default);
+        Task<WebCallResult<MexcUserAsset[]>> GetUserAssetsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Withdraw funds
@@ -69,7 +69,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">Filter by limit</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<MexcDeposit>>> GetDepositHistoryAsync(string? asset = null, DepositStatus? status = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
+        Task<WebCallResult<MexcDeposit[]>> GetDepositHistoryAsync(string? asset = null, DepositStatus? status = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get withdrawal history
@@ -82,7 +82,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">Filter by limit</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<MexcWithdrawal>>> GetWithdrawHistoryAsync(string? asset = null, WithdrawStatus? status = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
+        Task<WebCallResult<MexcWithdrawal[]>> GetWithdrawHistoryAsync(string? asset = null, WithdrawStatus? status = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Generate a deposit address
@@ -92,7 +92,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="network">Network</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<MexcDepositAddress>>> GenerateDepositAddressAsync(string asset, string network, CancellationToken ct = default);
+        Task<WebCallResult<MexcDepositAddress[]>> GenerateDepositAddressAsync(string asset, string network, CancellationToken ct = default);
 
         /// <summary>
         /// Get deposit addresses
@@ -102,7 +102,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="network">Filter by network</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<MexcDepositAddress>>> GetDepositAddressesAsync(string asset, string? network = null, CancellationToken ct = default);
+        Task<WebCallResult<MexcDepositAddress[]>> GetDepositAddressesAsync(string asset, string? network = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get withdrawal addresses
@@ -113,7 +113,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="pageSize">Page size</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcPaginated<IEnumerable<MexcWithdrawAddress>>>> GetWithdrawAddressesAsync(string? asset = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<WebCallResult<MexcPaginated<MexcWithdrawAddress[]>>> GetWithdrawAddressesAsync(string? asset = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Transfer between accounts
@@ -139,7 +139,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="pageSize">Page size</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcRows<IEnumerable<MexcTransfer>>>> GetTransferHistoryAsync(AccountType fromAccount, AccountType toAccount, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<WebCallResult<MexcRows<MexcTransfer[]>>> GetTransferHistoryAsync(AccountType fromAccount, AccountType toAccount, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get info on a transfer
@@ -156,7 +156,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<MexcEligibleDust>>> GetAssetsForDustTransferAsync(CancellationToken ct = default);
+        Task<WebCallResult<MexcEligibleDust[]>> GetAssetsForDustTransferAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Convert small amount (dust) of certain assets to equal value Mx
@@ -177,7 +177,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="pageSize">Page size</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcPaginated<IEnumerable<MexcDustLog>>>> GetDustLogAsync(DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<WebCallResult<MexcPaginated<MexcDustLog[]>>> GetDustLogAsync(DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Transfer an asset to another user on MEXC
@@ -209,7 +209,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="pageSize">Page size</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcPaginated<IEnumerable<MexcInternalTransfer>>>> GetInternalTransferHistoryAsync(string? transferId = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<WebCallResult<MexcPaginated<MexcInternalTransfer[]>>> GetInternalTransferHistoryAsync(string? transferId = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Set MX deduction status

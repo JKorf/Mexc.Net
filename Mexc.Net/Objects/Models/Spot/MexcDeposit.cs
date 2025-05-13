@@ -1,10 +1,12 @@
-﻿using Mexc.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using Mexc.Net.Enums;
 
 namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Deposit info
     /// </summary>
+    [SerializationModel]
     public record MexcDeposit
     {
         /// <summary>
@@ -25,7 +27,7 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Status
         /// </summary>
-        [JsonPropertyName("status"), JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("status")]
         public DepositStatus Status { get; set; }
         /// <summary>
         /// Address

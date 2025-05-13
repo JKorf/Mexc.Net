@@ -1,8 +1,10 @@
-﻿namespace Mexc.Net.Objects.Models.Spot
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Order book info
     /// </summary>
+    [SerializationModel]
     public record MexcOrderBook
     {
         /// <summary>
@@ -15,12 +17,12 @@
         /// The list of bids
         /// </summary>
         [JsonPropertyName("bids")]
-        public IEnumerable<MexcOrderBookEntry> Bids { get; set; } = Array.Empty<MexcOrderBookEntry>();
+        public MexcOrderBookEntry[] Bids { get; set; } = Array.Empty<MexcOrderBookEntry>();
 
         /// <summary>
         /// The list of asks
         /// </summary>
         [JsonPropertyName("asks")]
-        public IEnumerable<MexcOrderBookEntry> Asks { get; set; } = Array.Empty<MexcOrderBookEntry>();
+        public MexcOrderBookEntry[] Asks { get; set; } = Array.Empty<MexcOrderBookEntry>();
     }
 }

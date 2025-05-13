@@ -1,9 +1,11 @@
-﻿
+using CryptoExchange.Net.Converters.SystemTextJson;
+
 namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Trade fee
     /// </summary>
+    [SerializationModel]
     public record MexcTradeFee
     {
         /// <summary>

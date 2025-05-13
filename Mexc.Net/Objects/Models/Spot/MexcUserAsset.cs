@@ -1,9 +1,11 @@
-﻿
+using CryptoExchange.Net.Converters.SystemTextJson;
+
 namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
     /// User asset info
     /// </summary>
+    [SerializationModel]
     public record MexcUserAsset
     {
         /// <summary>
@@ -20,12 +22,13 @@ namespace Mexc.Net.Objects.Models.Spot
         /// Asset network info
         /// </summary>
         [JsonPropertyName("networkList")]
-        public IEnumerable<MexcNetwork> Networks { get; set; } = Array.Empty<MexcNetwork>();
+        public MexcNetwork[] Networks { get; set; } = Array.Empty<MexcNetwork>();
     }
 
     /// <summary>
     /// Network info
     /// </summary>
+    [SerializationModel]
     public record MexcNetwork
     {
         /// <summary>

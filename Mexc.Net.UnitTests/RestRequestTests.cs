@@ -17,7 +17,7 @@ namespace Mexc.Net.UnitTests
                 opts.ApiCredentials = new ApiCredentials("123", "456");
                 opts.OutputOriginalData = true;
             });
-            var tester = new RestRequestValidator<MexcRestClient>(client, "Endpoints/SpotApi/Account", "https://api.mexc.com", IsAuthenticated, stjCompare: true);
+            var tester = new RestRequestValidator<MexcRestClient>(client, "Endpoints/SpotApi/Account", "https://api.mexc.com", IsAuthenticated);
             await tester.ValidateAsync(client => client.SpotApi.Account.GetAccountInfoAsync(), "GetAccountInfo");
             await tester.ValidateAsync(client => client.SpotApi.Account.GetKycStatusAsync(), "GetKycStatus");
             await tester.ValidateAsync(client => client.SpotApi.Account.GetUserAssetsAsync(), "GetUserAssets");
@@ -52,7 +52,7 @@ namespace Mexc.Net.UnitTests
                 opts.ApiCredentials = new ApiCredentials("123", "456");
                 opts.OutputOriginalData = true;
             });
-            var tester = new RestRequestValidator<MexcRestClient>(client, "Endpoints/SpotApi/ExchangeData", "https://api.mexc.com", IsAuthenticated, stjCompare: true);
+            var tester = new RestRequestValidator<MexcRestClient>(client, "Endpoints/SpotApi/ExchangeData", "https://api.mexc.com", IsAuthenticated);
             await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetServerTimeAsync(), "GetServerTime", skipResponseValidation: true);
             await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetApiSymbolsAsync(), "GetApiSymbols", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetExchangeInfoAsync(), "GetExchangeInfo", ignoreProperties: ["rateLimits", "exchangeFilters", "quoteAssetPrecision", "orderTypes", "filters"]);
@@ -76,7 +76,7 @@ namespace Mexc.Net.UnitTests
                 opts.ApiCredentials = new ApiCredentials("123", "456");
                 opts.OutputOriginalData = true;
             });
-            var tester = new RestRequestValidator<MexcRestClient>(client, "Endpoints/SpotApi/Trading", "https://api.mexc.com", IsAuthenticated, stjCompare: true);
+            var tester = new RestRequestValidator<MexcRestClient>(client, "Endpoints/SpotApi/Trading", "https://api.mexc.com", IsAuthenticated);
             await tester.ValidateAsync(client => client.SpotApi.Trading.PlaceTestOrderAsync("ETHUSDT", Enums.OrderSide.Buy, Enums.OrderType.Market), "PlaceTestOrder");
             await tester.ValidateAsync(client => client.SpotApi.Trading.PlaceOrderAsync("ETHUSDT", Enums.OrderSide.Buy, Enums.OrderType.Market), "PlaceOrder", ignoreProperties: ["orderListId"]);
             await tester.ValidateAsync(client => client.SpotApi.Trading.CancelOrderAsync("ETHUSDT"), "CancelOrder");

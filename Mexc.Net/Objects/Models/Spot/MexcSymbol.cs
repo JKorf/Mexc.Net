@@ -1,10 +1,12 @@
-﻿using Mexc.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using Mexc.Net.Enums;
 
 namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Symbol info
     /// </summary>
+    [SerializationModel]
     public record MexcSymbol
     {
         /// <summary>
@@ -20,7 +22,7 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// The status of the symbol
         /// </summary>
-        [JsonPropertyName("status"), JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("status")]
         public SymbolStatus Status { get; set; }
         /// <summary>
         /// The base asset
@@ -56,7 +58,7 @@ namespace Mexc.Net.Objects.Models.Spot
         /// Allowed order types
         /// </summary>
         [JsonPropertyName("orderTypes")]
-        public IEnumerable<OrderType> OrderTypes { get; set; } = Array.Empty<OrderType>();
+        public OrderType[] OrderTypes { get; set; } = Array.Empty<OrderType>();
         /// <summary>
         /// Quote quantity market orders allowed
         /// </summary>
@@ -87,7 +89,7 @@ namespace Mexc.Net.Objects.Models.Spot
         /// Permissions types
         /// </summary>
         [JsonPropertyName("permissions")]
-        public IEnumerable<string> Permissions { get; set; } = Array.Empty<string>();
+        public string[] Permissions { get; set; } = Array.Empty<string>();
         /// <summary>
         /// Max quote quantity for a single order
         /// </summary>
@@ -116,7 +118,7 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// The trade sides that are enabled
         /// </summary>
-        [JsonPropertyName("tradeSideType"), JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("tradeSideType")]
         public TradeSidesStatus TradeSidesEnabled { get; set; }
     }
 }
