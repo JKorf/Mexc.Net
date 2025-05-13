@@ -67,10 +67,14 @@ namespace Mexc.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<CallResult<MexcOrderResult>[]>> PlaceMultipleOrdersAsync(IEnumerable<MexcPlaceOrderRequest> requests, CancellationToken ct = default)
         {
+#pragma warning disable IL2026 // Members annotated with 'RequiresUnreferencedCodeAttribute' require dynamic access otherwise can break functionality when trimming application code
+#pragma warning disable IL3050 // Calling members annotated with 'RequiresDynamicCodeAttribute' may break functionality when AOT compiling.
             var parameters = new ParameterCollection()
             {
                 { "batchOrders", JsonSerializer.Serialize(requests.ToArray(), options: SerializerOptions.WithConverters(MexcExchange.SerializerContext)) }
             };
+#pragma warning restore IL2026
+#pragma warning restore IL3050
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v3/batchOrders", MexcExchange.RateLimiter.SpotRest, 1, true);
             var resultData = await _baseClient.SendAsync<MexcOrderResult[]>(request, parameters, ct).ConfigureAwait(false);
