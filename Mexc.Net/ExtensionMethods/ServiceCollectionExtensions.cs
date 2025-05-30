@@ -115,6 +115,12 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddTransient<ICryptoSocketClient, CryptoSocketClient>();
             services.AddTransient<IMexcOrderBookFactory, MexcOrderBookFactory>();
             services.AddTransient<IMexcTrackerFactory, MexcTrackerFactory>();
+            services.AddSingleton<IMexcUserClientProvider, MexcUserClientProvider>(x =>
+            new MexcUserClientProvider(
+                x.GetRequiredService<HttpClient>(),
+                x.GetRequiredService<ILoggerFactory>(),
+                x.GetRequiredService<IOptions<MexcRestOptions>>(),
+                x.GetRequiredService<IOptions<MexcSocketOptions>>()));
 
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IMexcRestClient>().SpotApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IMexcSocketClient>().SpotApi.SharedClient);
