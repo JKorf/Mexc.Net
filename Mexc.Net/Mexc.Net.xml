@@ -52,6 +52,12 @@
         <member name="M:Mexc.Net.Clients.FuturesApi.MexcRestClientFuturesApiExchangeData.GetServerTimeAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Mexc.Net.Clients.FuturesApi.MexcRestClientFuturesApiExchangeData.GetContractsAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.FuturesApi.MexcRestClientFuturesApiExchangeData.GetTransferableAssetsAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:Mexc.Net.Clients.FuturesApi.MexcRestClientFuturesApiTrading">
             <inheritdoc />
         </member>
@@ -437,6 +443,11 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.ContractStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.DepositStatus">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
@@ -468,6 +479,16 @@
             </summary>
         </member>
         <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.OrderTypeArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.PositionOpenType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.RiskLimitType">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -507,7 +528,27 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcContract">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcContractArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcFuturesResponseMexcContractArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcFuturesResponseInt64">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcFuturesResponseStringArray">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -1137,6 +1178,11 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.Int32Array">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.Int64">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
@@ -1194,6 +1240,36 @@
         <member name="F:Mexc.Net.Enums.AccountType.Futures">
             <summary>
             Futures account
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Enums.ContractStatus">
+            <summary>
+            Contract status
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.ContractStatus.Enabled">
+            <summary>
+            Trading is enabled
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.ContractStatus.Delivering">
+            <summary>
+            Delivering
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.ContractStatus.Completed">
+            <summary>
+            Completed
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.ContractStatus.Offline">
+            <summary>
+            Symbol is offline
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.ContractStatus.Paused">
+            <summary>
+            Trading is paused
             </summary>
         </member>
         <member name="T:Mexc.Net.Enums.DepositStatus">
@@ -1384,6 +1460,41 @@
         <member name="F:Mexc.Net.Enums.OrderType.FillOrKill">
             <summary>
             Fill or kill
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Enums.PositionOpenType">
+            <summary>
+            Position open type
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.PositionOpenType.Isolated">
+            <summary>
+            Isolated
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.PositionOpenType.Cross">
+            <summary>
+            Cross
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.PositionOpenType.Both">
+            <summary>
+            Both
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Enums.RiskLimitType">
+            <summary>
+            Risk limit type
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.RiskLimitType.ByVolume">
+            <summary>
+            By volume
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.RiskLimitType.ByValue">
+            <summary>
+            By value
             </summary>
         </member>
         <member name="T:Mexc.Net.Enums.SymbolStatus">
@@ -1601,6 +1712,21 @@
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiExchangeData.GetContractsAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get contracts
+            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#market-endpoints" /></para>
+            </summary>
+            <param name="symbol">Filter by symbol</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiExchangeData.GetTransferableAssetsAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get transferable assets
+            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-transferable-currencies" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
         </member>
         <member name="T:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiShared">
             <summary>
@@ -2653,6 +2779,236 @@
         <member name="F:Mexc.Net.Objects.MexcApiAddresses.Default">
             <summary>
             The default addresses to connect to the mexc.com API
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Futures.MexcContract">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.DisplayName">
+            <summary>
+            Display name
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.DisplayNameEnglish">
+            <summary>
+            Display name english
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.PositionOpenType">
+            <summary>
+            Position open type
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.BaseAsset">
+            <summary>
+            Base asset
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.QuoteAsset">
+            <summary>
+            Quote asset
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.SettleAsset">
+            <summary>
+            Settle asset
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.ContractSize">
+            <summary>
+            Contract size
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.MinLeverage">
+            <summary>
+            Min leverage
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.MaxLeverage">
+            <summary>
+            Max leverage
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.PriceScale">
+            <summary>
+            Price scale
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.VolumeScale">
+            <summary>
+            Volume scale
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.QuantityScale">
+            <summary>
+            Quantity scale
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.PriceUnit">
+            <summary>
+            Price unit
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.VolumeUnit">
+            <summary>
+            Volume unit
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.MinQuantity">
+            <summary>
+            Min quantity
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.MaxQuantity">
+            <summary>
+            Max quantity
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.BidLimitPriceRate">
+            <summary>
+            Bid limit price rate
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.AskLimitPriceRate">
+            <summary>
+            Ask limit price rate
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.TakerFeeRate">
+            <summary>
+            Taker fee rate
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.MakerFeeRate">
+            <summary>
+            Maker fee rate
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.MaintenanceMarginRate">
+            <summary>
+            Maintenance margin rate
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.InitialMarginRate">
+            <summary>
+            Initial margin rate
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.RiskBaseVolume">
+            <summary>
+            Risk base volume
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.RiskIncreaseVolume">
+            <summary>
+            Risk increase volume
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.RiskIncreaseMmr">
+            <summary>
+            Risk increase maintenance margin rate
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.RiskIncreaseImr">
+            <summary>
+            Risk increase imr
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.RiskLevelLimit">
+            <summary>
+            Risk level limit
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.PriceCoefficientVariation">
+            <summary>
+            Price coefficient variation
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.IndexOrigin">
+            <summary>
+            Index origin
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.MaxNumberOfOrders">
+            <summary>
+            Max number of orders
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.ContractStatus">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.IsNew">
+            <summary>
+            Is new
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.IsHot">
+            <summary>
+            Is hot
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.IsHidden">
+            <summary>
+            Is hidden
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.ConceptPlate">
+            <summary>
+            Concept plate
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.RiskLimitType">
+            <summary>
+            Risk limit type
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.MarketOrderMaxLevel">
+            <summary>
+            Market order max level
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.MarketOrderPriceLimitRate1">
+            <summary>
+            Market order price limit rate 1
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.MarketOrderPriceLimitRate2">
+            <summary>
+            Market order price limit rate 2
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.TriggerProtect">
+            <summary>
+            Trigger protect
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.Appraisal">
+            <summary>
+            Appraisal
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.ShowAppraisalCountdown">
+            <summary>
+            Show appraisal countdown
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.AutomaticDelivery">
+            <summary>
+            Automatic delivery
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcContract.ApiAllowed">
+            <summary>
+            Api allowed
             </summary>
         </member>
         <member name="T:Mexc.Net.Objects.Models.ListenKeyRenewedEvent">

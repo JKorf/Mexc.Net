@@ -95,13 +95,19 @@ namespace Mexc.Net
             SpotRest = new RateLimitGate("Spot Rest")
                                             .AddGuard(new RateLimitGuard(RateLimitGuard.PerEndpoint, [], 500, TimeSpan.FromSeconds(10), RateLimitWindowType.Sliding)); // 500 request per 10 seconds per IP for each endpoint
 
+            FuturesRest = new RateLimitGate("Futures Rest");
+
             SpotSocket.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
             SpotSocket.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
             SpotRest.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
             SpotRest.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
+            FuturesRest.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            FuturesRest.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
         }
 
         internal IRateLimitGate SpotSocket { get; private set; }
         internal IRateLimitGate SpotRest { get; private set; }
+#warning TODO
+        internal IRateLimitGate FuturesRest { get; private set; }
     }
 }

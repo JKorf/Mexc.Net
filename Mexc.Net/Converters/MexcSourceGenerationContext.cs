@@ -8,6 +8,8 @@ namespace Mexc.Net.Converters
     [JsonSerializable(typeof(MexcPlaceOrderRequest[]))]
     [JsonSerializable(typeof(MexcOrderResult[]))]
     [JsonSerializable(typeof(MexcFuturesResponse<long>))]
+    [JsonSerializable(typeof(MexcFuturesResponse<MexcContract[]>))]
+    [JsonSerializable(typeof(MexcFuturesResponse<string[]>))]
     // End manual defined attributes
 
     [JsonSerializable(typeof(MexcUpdate<MexcStreamMiniTick[]>))]
