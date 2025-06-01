@@ -4,10 +4,76 @@
         <name>Mexc.Net</name>
     </assembly>
     <members>
+        <member name="T:Mexc.Net.Clients.FuturesApi.MexcRestClientFuturesApi">
+            <inheritdoc />
+        </member>
+        <member name="P:Mexc.Net.Clients.FuturesApi.MexcRestClientFuturesApi.Account">
+            <inheritdoc />
+        </member>
+        <member name="P:Mexc.Net.Clients.FuturesApi.MexcRestClientFuturesApi.ExchangeData">
+            <inheritdoc />
+        </member>
+        <member name="P:Mexc.Net.Clients.FuturesApi.MexcRestClientFuturesApi.Trading">
+            <inheritdoc />
+        </member>
+        <member name="P:Mexc.Net.Clients.FuturesApi.MexcRestClientFuturesApi.SharedClient">
+            <inheritdoc />
+        </member>
+        <member name="P:Mexc.Net.Clients.FuturesApi.MexcRestClientFuturesApi.ExchangeName">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.FuturesApi.MexcRestClientFuturesApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.FuturesApi.MexcRestClientFuturesApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.FuturesApi.MexcRestClientFuturesApi.ParseRateLimitResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.FuturesApi.MexcRestClientFuturesApi.ParseErrorResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor,System.Exception)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.FuturesApi.MexcRestClientFuturesApi.GetServerTimestampAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.FuturesApi.MexcRestClientFuturesApi.GetTimeSyncInfo">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.FuturesApi.MexcRestClientFuturesApi.GetTimeOffset">
+            <inheritdoc />
+        </member>
+        <member name="T:Mexc.Net.Clients.FuturesApi.MexcRestClientFuturesApiAccount">
+            <inheritdoc />
+        </member>
+        <member name="T:Mexc.Net.Clients.FuturesApi.MexcRestClientFuturesApiExchangeData">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.FuturesApi.MexcRestClientFuturesApiExchangeData.GetServerTimeAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:Mexc.Net.Clients.FuturesApi.MexcRestClientFuturesApiTrading">
+            <inheritdoc />
+        </member>
+        <member name="T:Mexc.Net.Clients.FuturesApi.MexcSocketClientFuturesApi">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.FuturesApi.MexcSocketClientFuturesApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.FuturesApi.MexcSocketClientFuturesApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.FuturesApi.MexcSocketClientFuturesApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
+            <inheritdoc />
+        </member>
         <member name="T:Mexc.Net.Clients.MexcRestClient">
             <inheritdoc />
         </member>
         <member name="P:Mexc.Net.Clients.MexcRestClient.SpotApi">
+            <inheritdoc />
+        </member>
+        <member name="P:Mexc.Net.Clients.MexcRestClient.FuturesApi">
             <inheritdoc />
         </member>
         <member name="M:Mexc.Net.Clients.MexcRestClient.#ctor(System.Action{Mexc.Net.Objects.Options.MexcRestOptions})">
@@ -40,6 +106,9 @@
             <inheritdoc />
         </member>
         <member name="P:Mexc.Net.Clients.MexcSocketClient.SpotApi">
+            <inheritdoc />
+        </member>
+        <member name="P:Mexc.Net.Clients.MexcSocketClient.FuturesApi">
             <inheritdoc />
         </member>
         <member name="M:Mexc.Net.Clients.MexcSocketClient.#ctor(System.Action{Mexc.Net.Objects.Options.MexcSocketOptions})">
@@ -434,6 +503,11 @@
             </summary>
         </member>
         <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.WithdrawStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcFuturesResponseInt64">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -1482,6 +1556,77 @@
             Manual
             </summary>
         </member>
+        <member name="T:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApi">
+            <summary>
+            Mexc Futures API endpoints
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApi.SharedClient">
+            <summary>
+            Get the shared rest requests client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApi.Account">
+            <summary>
+            Endpoints related to account settings, info or actions
+            </summary>
+            <see cref="T:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiAccount"/>
+        </member>
+        <member name="P:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApi.ExchangeData">
+            <summary>
+            Endpoints related to retrieving market and system data
+            </summary>
+            <see cref="T:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiExchangeData"/>
+        </member>
+        <member name="P:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApi.Trading">
+            <summary>
+            Endpoints related to orders and trades
+            </summary>
+            <see cref="T:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiTrading"/>
+        </member>
+        <member name="T:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiAccount">
+            <summary>
+            Mexc Futures account endpoints. Account endpoints include balance info, withdraw/deposit info and requesting and account settings
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiExchangeData">
+            <summary>
+            Mexc Futures exchange data endpoints. Exchange data includes market data (tickers, order books, etc) and system status.
+            </summary>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiExchangeData.GetServerTimeAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get the server time
+            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#market-endpoints" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="T:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiShared">
+            <summary>
+            Shared interface for Futures rest API usage
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiTrading">
+            <summary>
+            Mexc Futures trading endpoints, placing and mananging orders.
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcSocketClientFuturesApi">
+            <summary>
+            Futures API socket subscriptions and requests
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcSocketClientFuturesApi.SharedClient">
+            <summary>
+            Get the shared socket subscription client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcSocketClientFuturesApiShared">
+            <summary>
+            Shared interface for Futures socket API usage
+            </summary>
+        </member>
         <member name="T:Mexc.Net.Interfaces.Clients.IMexcRestClient">
             <summary>
             Client for accessing the Mexc Rest API. 
@@ -1492,6 +1637,12 @@
             Spot API endpoints
             </summary>
             <see cref="T:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApi"/>
+        </member>
+        <member name="P:Mexc.Net.Interfaces.Clients.IMexcRestClient.FuturesApi">
+            <summary>
+            Futures API endpoints
+            </summary>
+            <see cref="T:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApi"/>
         </member>
         <member name="M:Mexc.Net.Interfaces.Clients.IMexcRestClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
             <summary>
@@ -1515,6 +1666,12 @@
             Spot streams and requests
             </summary>
             <see cref="T:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi"/>
+        </member>
+        <member name="P:Mexc.Net.Interfaces.Clients.IMexcSocketClient.FuturesApi">
+            <summary>
+            Futures streams and requests
+            </summary>
+            <see cref="T:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcSocketClientFuturesApi"/>
         </member>
         <member name="M:Mexc.Net.Interfaces.Clients.IMexcSocketClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
             <summary>
@@ -2347,9 +2504,19 @@
             Spot Socket API address
             </summary>
         </member>
+        <member name="P:Mexc.Net.MexcEnvironment.FuturesRestAddress">
+            <summary>
+            Futures Rest API address
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.MexcEnvironment.FuturesSocketAddress">
+            <summary>
+            Futures Socket API address
+            </summary>
+        </member>
         <member name="M:Mexc.Net.MexcEnvironment.#ctor">
             <summary>
-            ctor for DI, use <see cref="M:Mexc.Net.MexcEnvironment.CreateCustom(System.String,System.String,System.String)"/> for creating a custom environment
+            ctor for DI, use <see cref="M:Mexc.Net.MexcEnvironment.CreateCustom(System.String,System.String,System.String,System.String,System.String)"/> for creating a custom environment
             </summary>
         </member>
         <member name="M:Mexc.Net.MexcEnvironment.GetEnvironmentByName(System.String)">
@@ -2368,14 +2535,10 @@
             Live environment
             </summary>
         </member>
-        <member name="M:Mexc.Net.MexcEnvironment.CreateCustom(System.String,System.String,System.String)">
+        <member name="M:Mexc.Net.MexcEnvironment.CreateCustom(System.String,System.String,System.String,System.String,System.String)">
             <summary>
             Create a custom environment
             </summary>
-            <param name="name"></param>
-            <param name="spotRestAddress"></param>
-            <param name="spotSocketAddress"></param>
-            <returns></returns>
         </member>
         <member name="T:Mexc.Net.MexcExchange">
             <summary>
@@ -2475,6 +2638,16 @@
         <member name="P:Mexc.Net.Objects.MexcApiAddresses.SpotSocketAddress">
             <summary>
             The address used by the MexcClient for the Spot Socket API
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.MexcApiAddresses.FuturesRestAddress">
+            <summary>
+            The address used by the MexcClient for the Futures Rest API
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.MexcApiAddresses.FuturesSocketAddress">
+            <summary>
+            The address used by the MexcClient for the Futures Socket API
             </summary>
         </member>
         <member name="F:Mexc.Net.Objects.MexcApiAddresses.Default">
@@ -4395,6 +4568,11 @@
             Spot API options
             </summary>
         </member>
+        <member name="P:Mexc.Net.Objects.Options.MexcRestOptions.FuturesOptions">
+            <summary>
+            Futures API options
+            </summary>
+        </member>
         <member name="T:Mexc.Net.Objects.Options.MexcSocketOptions">
             <summary>
             Mexc Socket client options
@@ -4413,6 +4591,11 @@
         <member name="P:Mexc.Net.Objects.Options.MexcSocketOptions.SpotOptions">
             <summary>
             Options for the Spot API
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Options.MexcSocketOptions.FuturesOptions">
+            <summary>
+            Options for the Futures API
             </summary>
         </member>
         <member name="T:Mexc.Net.Objects.Sockets.Models.MexcStreamEvent">

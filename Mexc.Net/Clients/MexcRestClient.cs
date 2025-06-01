@@ -1,7 +1,9 @@
 ﻿using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Objects.Options;
+using Mexc.Net.Clients.FuturesApi;
 using Mexc.Net.Clients.SpotApi;
 using Mexc.Net.Interfaces.Clients;
+using Mexc.Net.Interfaces.Clients.FuturesApi;
 using Mexc.Net.Interfaces.Clients.SpotApi;
 using Mexc.Net.Objects.Options;
 using Microsoft.Extensions.Options;
@@ -13,6 +15,8 @@ namespace Mexc.Net.Clients
     {
         /// <inheritdoc />
         public IMexcRestClientSpotApi SpotApi { get; }
+        /// <inheritdoc />
+        public IMexcRestClientFuturesApi FuturesApi { get; }
 
         #region constructor/destructor
 
@@ -36,6 +40,7 @@ namespace Mexc.Net.Clients
             Initialize(options.Value);
 
             SpotApi = AddApiClient(new MexcRestClientSpotApi(_logger, httpClient, options.Value));
+            FuturesApi = AddApiClient(new MexcRestClientFuturesApi(_logger, httpClient, options.Value));
         }
 
         #endregion
@@ -44,6 +49,7 @@ namespace Mexc.Net.Clients
         public void SetOptions(UpdateOptions options)
         {
             SpotApi.SetOptions(options);
+            FuturesApi.SetOptions(options);
         }
 
         /// <summary>
@@ -59,6 +65,7 @@ namespace Mexc.Net.Clients
         public void SetApiCredentials(ApiCredentials apiCredentials)
         {
             SpotApi.SetApiCredentials(apiCredentials);
+            FuturesApi.SetApiCredentials(apiCredentials);
         }
     }
 }

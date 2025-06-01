@@ -39,10 +39,18 @@ namespace Mexc.Net.Objects.Options
         /// </summary>
         public RestApiOptions SpotOptions { get; private set; } = new RestApiOptions();
 
+        /// <summary>
+        /// Futures API options
+        /// </summary>
+        public RestApiOptions FuturesOptions { get; private set; } = new RestApiOptions();
+
         internal MexcRestOptions Set(MexcRestOptions targetOptions)
         {
             targetOptions = base.Set<MexcRestOptions>(targetOptions);
+            targetOptions.ReceiveWindow = ReceiveWindow;
+            targetOptions.BrokerId = BrokerId;
             targetOptions.SpotOptions = SpotOptions.Set(targetOptions.SpotOptions);
+            targetOptions.FuturesOptions = FuturesOptions.Set(targetOptions.FuturesOptions);
             return targetOptions;
         }
     }

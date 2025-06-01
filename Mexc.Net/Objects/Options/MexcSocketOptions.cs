@@ -28,11 +28,17 @@ namespace Mexc.Net.Objects.Options
         /// Options for the Spot API
         /// </summary>
         public SocketApiOptions SpotOptions { get; private set; } = new SocketApiOptions();
+        /// <summary>
+        /// Options for the Futures API
+        /// </summary>
+        public SocketApiOptions FuturesOptions { get; private set; } = new SocketApiOptions();
+
 
         internal MexcSocketOptions Set(MexcSocketOptions targetOptions)
         {
             targetOptions = base.Set<MexcSocketOptions>(targetOptions);
             targetOptions.SpotOptions = SpotOptions.Set(targetOptions.SpotOptions);
+            targetOptions.FuturesOptions = FuturesOptions.Set(targetOptions.FuturesOptions);
             return targetOptions;
         }
     }

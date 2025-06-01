@@ -1,4 +1,5 @@
 ﻿using CryptoExchange.Net.Objects.Options;
+using Mexc.Net.Interfaces.Clients.FuturesApi;
 using Mexc.Net.Interfaces.Clients.SpotApi;
 
 namespace Mexc.Net.Interfaces.Clients
@@ -13,6 +14,11 @@ namespace Mexc.Net.Interfaces.Clients
         /// </summary>
         /// <see cref="IMexcSocketClientSpotApi"/>
         IMexcSocketClientSpotApi SpotApi { get; }
+        /// <summary>
+        /// Futures streams and requests
+        /// </summary>
+        /// <see cref="IMexcSocketClientFuturesApi"/>
+        IMexcSocketClientFuturesApi FuturesApi { get; }
 
         /// <summary>
         /// Update specific options
