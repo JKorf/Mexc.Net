@@ -1,14 +1,30 @@
-﻿namespace Mexc.Net.Objects.Sockets.Models
+﻿using ProtoBuf;
+
+namespace Mexc.Net.Objects.Sockets.Models
 {
-    internal class MexcUpdate<T>
+    [ProtoContract]
+    [ProtoInclude(301, typeof(MexcUpdateTrades))]
+    internal abstract class MexcUpdate<T>
     {
+        [ProtoMember(1)]
         [JsonPropertyName("c")]
         public string Channel { get; set; } = string.Empty;
         [JsonPropertyName("s")]
+        [ProtoMember(3)]
         public string Symbol { get; set; } = string.Empty;
         [JsonPropertyName("t")]
-        public DateTime Timestamp { get; set; }
-        [JsonPropertyName("d")]
-        public T Data { get; set; } = default!;
+        [ProtoMember(5)]
+        public long CreateTime { get; set; }
+        [ProtoMember(6)]
+        public long SendTime { get; set; }
+
+        public abstract T Data { get; set; }
+    }
+
+    [ProtoContract]
+    internal class MexcUpdateTrades : MexcUpdate<MexcTradeUpdate>
+    {
+        [ProtoMember(301)]
+        public override MexcTradeUpdate Data { get; set; }
     }
 }

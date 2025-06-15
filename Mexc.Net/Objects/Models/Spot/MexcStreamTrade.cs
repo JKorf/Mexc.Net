@@ -1,5 +1,6 @@
 using CryptoExchange.Net.Converters.SystemTextJson;
 using Mexc.Net.Enums;
+using ProtoBuf;
 
 namespace Mexc.Net.Objects.Models.Spot
 {
@@ -7,28 +8,33 @@ namespace Mexc.Net.Objects.Models.Spot
     /// Trade info
     /// </summary>
     [SerializationModel]
+    [ProtoContract]
     public record MexcStreamTrade
     {
         /// <summary>
         /// Order side
         /// </summary>
         [JsonPropertyName("S")]
-        public OrderSide Side { get; set; }
+        [ProtoMember(3)]
+        public int Side { get; set; }
         /// <summary>
         /// Price
         /// </summary>
         [JsonPropertyName("p")]
+        [ProtoMember(1)]
         public decimal Price { get; set; }
         /// <summary>
         /// Quantity
         /// </summary>
         [JsonPropertyName("v")]
         [JsonConverter(typeof(BigDecimalConverter))]
+        [ProtoMember(2)]
         public decimal Quantity { get; set; }
         /// <summary>
         /// Trade time
         /// </summary>
         [JsonPropertyName("t")]
-        public DateTime Timestamp { get; set; }
+        [ProtoMember(4)]
+        public long Timestamp { get; set; }
     }
 }

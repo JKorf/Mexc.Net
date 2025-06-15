@@ -20,7 +20,7 @@
         public static MexcApiAddresses Default = new MexcApiAddresses
         {
             SpotRestAddress = "https://api.mexc.com",
-            SpotSocketAddress = "wss://wbs.mexc.com/ws"
+            SpotSocketAddress = "ws://wbs-api.mexc.com/ws"
         };
     }
 }
