@@ -294,10 +294,58 @@
         <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
-        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamTrade[]}},System.Threading.CancellationToken)">
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamTrade[]}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamTrade[]}},System.Threading.CancellationToken)">
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamTrade[]}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToKlineUpdatesAsync(System.String,Mexc.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamKline}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToKlineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},Mexc.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamKline}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToAggregatedOrderBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook[]}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToAggregatedOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook[]}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToPartialOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToPartialOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToBookTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamBookTick}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToBookTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamBookTick}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToMiniTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick}},System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToMiniTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick}},System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToMiniTickerUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick[]}},System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToAccountUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcAccountUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToOrderUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcUserOrderUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToUserTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcUserTradeUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.GetReconnectUriAsync(CryptoExchange.Net.Sockets.SocketConnection)">
@@ -437,6 +485,51 @@
             </summary>
         </member>
         <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcRowsMexcTransferArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUpdateMexcAccountUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUpdateMexcStreamBookTick">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUpdateMexcStreamMiniTickArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUpdateMexcStreamMiniTick">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUpdateMexcStreamOrderBook">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUpdateMexcUserOrderUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUpdateMexcUserTradeUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUpdateMiniTicker">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUpdateMiniTickers">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -911,16 +1004,6 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
-        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcKlineUpdate">
-            <summary>
-            Defines the source generated JSON serialization contract metadata for a given type.
-            </summary>
-        </member>
-        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcKlineUpdateArray">
-            <summary>
-            Defines the source generated JSON serialization contract metadata for a given type.
-            </summary>
-        </member>
         <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcRequest">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
@@ -937,61 +1020,6 @@
             </summary>
         </member>
         <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcStreamEventArray">
-            <summary>
-            Defines the source generated JSON serialization contract metadata for a given type.
-            </summary>
-        </member>
-        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcTradeUpdate">
-            <summary>
-            Defines the source generated JSON serialization contract metadata for a given type.
-            </summary>
-        </member>
-        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcTradeUpdateArray">
-            <summary>
-            Defines the source generated JSON serialization contract metadata for a given type.
-            </summary>
-        </member>
-        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUpdateMexcAccountUpdate">
-            <summary>
-            Defines the source generated JSON serialization contract metadata for a given type.
-            </summary>
-        </member>
-        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUpdateMexcStreamBookTick">
-            <summary>
-            Defines the source generated JSON serialization contract metadata for a given type.
-            </summary>
-        </member>
-        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUpdateMexcStreamMiniTickArray">
-            <summary>
-            Defines the source generated JSON serialization contract metadata for a given type.
-            </summary>
-        </member>
-        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUpdateMexcStreamMiniTick">
-            <summary>
-            Defines the source generated JSON serialization contract metadata for a given type.
-            </summary>
-        </member>
-        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUpdateMexcStreamOrderBook">
-            <summary>
-            Defines the source generated JSON serialization contract metadata for a given type.
-            </summary>
-        </member>
-        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUpdateMexcUserOrderUpdate">
-            <summary>
-            Defines the source generated JSON serialization contract metadata for a given type.
-            </summary>
-        </member>
-        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUpdateMexcUserTradeUpdate">
-            <summary>
-            Defines the source generated JSON serialization contract metadata for a given type.
-            </summary>
-        </member>
-        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUpdateMexcKlineUpdate">
-            <summary>
-            Defines the source generated JSON serialization contract metadata for a given type.
-            </summary>
-        </member>
-        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUpdateMexcTradeUpdate">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -1268,6 +1296,11 @@
         <member name="F:Mexc.Net.Enums.OrderType.FillOrKill">
             <summary>
             Fill or kill
+            </summary>
+        </member>
+        <member name="F:Mexc.Net.Enums.OrderType.TpSlOrder">
+            <summary>
+            Take profit / Stop loss order
             </summary>
         </member>
         <member name="T:Mexc.Net.Enums.SymbolStatus">
@@ -2069,22 +2102,192 @@
             During reconnection the listenkey which was provided can be renewed by the client. This means the keep-alive mechanism should use this new listen key.
             </summary>
         </member>
-        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamTrade[]}},System.Threading.CancellationToken)">
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamTrade[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to trade updates
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#trade-streams" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `BTCUSDT`</param>
+            <param name="updateInterval">Interval for updates, either 10 or 100 ms</param>
+            <param name="handler">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamTrade[]}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to trade updates
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#trade-streams" /></para>
+            </summary>
+            <param name="symbols">The symbols to subscribe, for example `BTCUSDT`</param>
+            <param name="updateInterval">Interval for updates, either 10 or 100 ms</param>
+            <param name="handler">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToKlineUpdatesAsync(System.String,Mexc.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamKline}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to kline/candlestick updates
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#kline-streams" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `BTCUSDT`</param>
+            <param name="interval">The interval of the candles</param>
+            <param name="handler">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToKlineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},Mexc.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamKline}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to kline/candlestick updates
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#kline-streams" /></para>
+            </summary>
+            <param name="symbols">The symbols, for example `BTCUSDT`</param>
+            <param name="interval">The interval of the candles</param>
+            <param name="handler">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to orderbook change updates
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#diff-depth-stream" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `BTCUSDT`</param>
+            <param name="updateInterval">Interval for updates, either 10 or 100 ms</param>
+            <param name="handler">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to orderbook change updates
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#diff-depth-stream" /></para>
+            </summary>
+            <param name="symbols">The symbols, for example `BTCUSDT`</param>
+            <param name="updateInterval">Interval for updates, either 10 or 100 ms</param>
+            <param name="handler">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToAggregatedOrderBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook[]}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to orderbook change updates
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#diff-depth-stream" /></para>
             </summary>
             <param name="symbol">The symbol, for example `BTCUSDT`</param>
             <param name="handler">Data handler</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamTrade[]}},System.Threading.CancellationToken)">
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToAggregatedOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook[]}},System.Threading.CancellationToken)">
             <summary>
-            Subscribe to trade updates
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#trade-streams" /></para>
+            Subscribe to orderbook change updates
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#diff-depth-stream" /></para>
             </summary>
-            <param name="symbols">The symbols to subscribe, for example `BTCUSDT`</param>
+            <param name="symbols">The symbols, for example `BTCUSDT`</param>
+            <param name="handler">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToPartialOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to full orderbook updates
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#partial-book-depth-streams" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `BTCUSDT`</param>
+            <param name="depth">The depth of the book, 5, 10 or 20</param>
+            <param name="handler">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToPartialOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to full orderbook updates
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#partial-book-depth-streams" /></para>
+            </summary>
+            <param name="symbols">The symbols, for example `BTCUSDT`</param>
+            <param name="depth">The depth of the book, 5, 10 or 20</param>
+            <param name="handler">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToBookTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamBookTick}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to book ticker (best bid/ask) updates
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#individual-symbol-book-ticker-streams" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `BTCUSDT`</param>
+            <param name="handler">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToBookTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamBookTick}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to book ticker (best bid/ask) updates
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#individual-symbol-book-ticker-streams" /></para>
+            </summary>
+            <param name="symbols">The symbols, for example `BTCUSDT`</param>
+            <param name="handler">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToMiniTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick}},System.String,System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to mini ticker updates
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#miniticker" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `BTCUSDT`</param>
+            <param name="timezone">The timezone to base the statistics on, in the form of `UTC+1`. Defaults to `UTC+0`</param>
+            <param name="handler">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToMiniTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick}},System.String,System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to mini ticker updates
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#miniticker" /></para>
+            </summary>
+            <param name="symbols">The symbols, for example `BTCUSDT`</param>
+            <param name="timezone">The timezone to base the statistics on, in the form of `UTC+1`. Defaults to `UTC+0`</param>
+            <param name="handler">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToMiniTickerUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick[]}},System.String,System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to mini ticker updates for all symbols
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#minitickers" /></para>
+            </summary>
+            <param name="timezone">The timezone to base the statistics on, in the form of `UTC+1`. Defaults to `UTC+0`</param>
+            <param name="handler">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToAccountUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcAccountUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to account balance updates. Prior to using this, the <see cref="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.StartUserStreamAsync(System.Threading.CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method should be called to start the stream and obtaining a listen key.
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#spot-account-upadte" /></para>
+            </summary>
+            <param name="listenKey">Listen key retrieved by the <see cref="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.StartUserStreamAsync(System.Threading.CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method</param>
+            <param name="handler">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToOrderUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcUserOrderUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to account order updates. Prior to using this, the <see cref="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.StartUserStreamAsync(System.Threading.CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method should be called to start the stream and obtaining a listen key.
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#spot-account-orders" /></para>
+            </summary>
+            <param name="listenKey">Listen key retrieved by the <see cref="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.StartUserStreamAsync(System.Threading.CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method</param>
+            <param name="handler">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToUserTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcUserTradeUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to account trade updates. Prior to using this, the <see cref="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.StartUserStreamAsync(System.Threading.CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method should be called to start the stream and obtaining a listen key.
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#spot-account-deals" /></para>
+            </summary>
+            <param name="listenKey">Listen key retrieved by the <see cref="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.StartUserStreamAsync(System.Threading.CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method</param>
             <param name="handler">Data handler</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -2370,6 +2573,91 @@
         <member name="P:Mexc.Net.Objects.Models.MexcRows`1.Data">
             <summary>
             Data
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Protobuf.ProtoAccountUpdate">
+            <summary>
+            Account update
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Protobuf.ProtoAccountUpdate.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Protobuf.ProtoAccountUpdate.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Protobuf.ProtoAccountUpdate.Free">
+            <summary>
+            New free quantity
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Protobuf.ProtoAccountUpdate.FreeChange">
+            <summary>
+            Changed free quantity
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Protobuf.ProtoAccountUpdate.Frozen">
+            <summary>
+            New frozen quantity
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Protobuf.ProtoAccountUpdate.FrozenChange">
+            <summary>
+            Changed frozen quantity
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Protobuf.ProtoAccountUpdate.UpdateType">
+            <summary>
+            Trigger update type
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Protobuf.ProtoStreamKline.StartTime">
+            <summary>
+            Start time
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Protobuf.ProtoStreamKline.EndTime">
+            <summary>
+            End time
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Protobuf.ProtoStreamKline.QuoteVolume">
+            <summary>
+            Volume in quote asset
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Protobuf.ProtoStreamKline.ClosePrice">
+            <summary>
+            Close price
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Protobuf.ProtoStreamKline.HighPrice">
+            <summary>
+            Highest price
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Protobuf.ProtoStreamKline.Interval">
+            <summary>
+            Interval
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Protobuf.ProtoStreamKline.LowPrice">
+            <summary>
+            Lowest price
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Protobuf.ProtoStreamKline.OpenPrice">
+            <summary>
+            Open price
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Protobuf.ProtoStreamKline.Volume">
+            <summary>
+            Volume
             </summary>
         </member>
         <member name="T:Mexc.Net.Objects.Models.Spot.MexcAccountInfo">
@@ -4170,6 +4458,11 @@
         <member name="P:Mexc.Net.Objects.Options.MexcOrderBookOptions.Limit">
             <summary>
             The top amount of results to keep in sync. If for example limit=10 is used, the order book will contain the 10 best bids and 10 best asks. Leaving this null will sync the full order book
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Options.MexcOrderBookOptions.UpdateInterval">
+            <summary>
+            Update interval, either 10 or 100ms
             </summary>
         </member>
         <member name="P:Mexc.Net.Objects.Options.MexcOrderBookOptions.InitialDataTimeout">

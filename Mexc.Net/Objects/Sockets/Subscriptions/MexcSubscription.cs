@@ -1,5 +1,6 @@
 ﻿using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
+using Mexc.Net.Objects.Models.Protobuf;
 using Mexc.Net.Objects.Sockets.Models;
 using Mexc.Net.Objects.Sockets.Queries;
 
@@ -23,7 +24,8 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
         public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
         {
             var data = (T)message.Data;
-            _handler.Invoke(message.As(data.Data, data.Channel, data.Symbol, SocketUpdateType.Update)/*.WithDataTimestamp(data.Timestamp)*/);
+            var time = data.SendTime ?? data.CreateTime;
+            _handler.Invoke(message.As(data.Data, data.Channel, data.Symbol, SocketUpdateType.Update).WithDataTimestamp(time == null ? null : DateTimeConverter.ParseFromDouble(time.Value)));
             return CallResult.SuccessResult;
         }
 

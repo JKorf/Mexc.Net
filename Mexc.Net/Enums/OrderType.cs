@@ -34,6 +34,10 @@ namespace Mexc.Net.Enums
         /// Fill or kill
         /// </summary>
         [Map("FILL_OR_KILL", "4")]
-        FillOrKill
+        FillOrKill,
+        /// <summary>
+        /// Take profit / Stop loss order
+        /// </summary>
+        TpSlOrder
     }
 }

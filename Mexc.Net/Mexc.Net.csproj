@@ -58,6 +58,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CryptoExchange.Net\CryptoExchange.Net\CryptoExchange.Net.csproj" />
+    <ProjectReference Include="..\..\CryptoExchange.Net\CryptoExchange.Net.Protobuf\CryptoExchange.Net.Protobuf.csproj" />
   </ItemGroup>
 </Project>

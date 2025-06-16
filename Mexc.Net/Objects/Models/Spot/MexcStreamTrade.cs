@@ -16,7 +16,7 @@ namespace Mexc.Net.Objects.Models.Spot
         /// </summary>
         [JsonPropertyName("S")]
         [ProtoMember(3)]
-        public int Side { get; set; }
+        public OrderSide Side { get; set; }
         /// <summary>
         /// Price
         /// </summary>
@@ -35,6 +35,6 @@ namespace Mexc.Net.Objects.Models.Spot
         /// </summary>
         [JsonPropertyName("t")]
         [ProtoMember(4)]
-        public long Timestamp { get; set; }
+        public DateTime Timestamp { get; set; }
     }
 }
