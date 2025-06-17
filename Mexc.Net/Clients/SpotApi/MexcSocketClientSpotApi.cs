@@ -4,6 +4,7 @@ using CryptoExchange.Net.Converters.Protobuf;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Sockets;
+using Mexc.Net.Converters;
 using Mexc.Net.Enums;
 using Mexc.Net.Interfaces.Clients.SpotApi;
 using Mexc.Net.Objects.Models;
@@ -52,7 +53,7 @@ namespace Mexc.Net.Clients.SpotApi
 
         //protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(MexcExchange.SerializerContext));
         protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType type) =>
-            type == WebSocketMessageType.Binary ? new ProtobufByteMessageAccessor<SocketEvent>() :
+            type == WebSocketMessageType.Binary ? new ProtobufByteMessageAccessor<SocketEvent>(ProtobufInclude.Model) :
             new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(MexcExchange.SerializerContext));
 
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(MexcExchange.SerializerContext));
