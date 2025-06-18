@@ -1,5 +1,4 @@
-﻿using Mexc.Net.Objects.Models.Spot;
-using Mexc.Net.Objects.Sockets.Models;
+﻿using Mexc.Net.Objects.Sockets.Models;
 using ProtoBuf;
 using System;
 using System.Collections.Generic;

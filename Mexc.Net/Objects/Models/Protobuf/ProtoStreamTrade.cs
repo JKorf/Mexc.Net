@@ -1,9 +1,10 @@
 using CryptoExchange.Net.Converters.SystemTextJson;
 using Mexc.Net.Enums;
+using Mexc.Net.Objects.Models.Spot;
 using Mexc.Net.Objects.Sockets.Models;
 using ProtoBuf;
 
-namespace Mexc.Net.Objects.Models.Spot
+namespace Mexc.Net.Objects.Models.Protobuf
 {
     [ProtoContract]
     internal record ProtoStreamTrade

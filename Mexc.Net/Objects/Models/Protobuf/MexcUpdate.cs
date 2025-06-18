@@ -10,9 +10,9 @@ namespace Mexc.Net.Objects.Models.Protobuf
         public abstract string Channel { get; set; }
         [JsonPropertyName("s")]
         public abstract string Symbol { get; set; }
-        public abstract long? CreateTime { get; set; }
+        public abstract long CreateTime { get; set; }
         [JsonPropertyName("t")]
-        public abstract long? SendTime { get; set; }
+        public abstract long SendTime { get; set; }
         public abstract T Data { get; set; }
     }
 
@@ -24,9 +24,9 @@ namespace Mexc.Net.Objects.Models.Protobuf
         [ProtoMember(3)]
         public override string Symbol { get; set; } = string.Empty;
         [ProtoMember(5)]
-        public override long? CreateTime { get; set; }
+        public override long CreateTime { get; set; }
         [ProtoMember(6)]
-        public override long? SendTime { get; set; }
+        public override long SendTime { get; set; }
         [ProtoMember(314)]
         public override ProtoTradeUpdate Data { get; set; } = default!;
     }
@@ -39,9 +39,9 @@ namespace Mexc.Net.Objects.Models.Protobuf
         [ProtoMember(3)]
         public override string Symbol { get; set; } = string.Empty;
         [ProtoMember(5)]
-        public override long? CreateTime { get; set; }
+        public override long CreateTime { get; set; }
         [ProtoMember(6)]
-        public override long? SendTime { get; set; }
+        public override long SendTime { get; set; }
         [ProtoMember(308)]
         public override ProtoStreamKline Data { get; set; } = default!;
     }
@@ -54,9 +54,9 @@ namespace Mexc.Net.Objects.Models.Protobuf
         [ProtoMember(3)]
         public override string Symbol { get; set; } = string.Empty;
         [ProtoMember(5)]
-        public override long? CreateTime { get; set; }
+        public override long CreateTime { get; set; }
         [ProtoMember(6)]
-        public override long? SendTime { get; set; }
+        public override long SendTime { get; set; }
         [ProtoMember(311)]
         public override ProtoStreamBookTickerUpdate Data { get; set; } = default!;
     }
@@ -69,9 +69,9 @@ namespace Mexc.Net.Objects.Models.Protobuf
         [ProtoMember(3)]
         public override string Symbol { get; set; } = string.Empty;
         [ProtoMember(5)]
-        public override long? CreateTime { get; set; }
+        public override long CreateTime { get; set; }
         [ProtoMember(6)]
-        public override long? SendTime { get; set; }
+        public override long SendTime { get; set; }
         [ProtoMember(313)]
         public override ProtoOrderBookUpdate Data { get; set; } = default!;
     }
@@ -84,9 +84,9 @@ namespace Mexc.Net.Objects.Models.Protobuf
         [ProtoMember(3)]
         public override string Symbol { get; set; } = string.Empty;
         [ProtoMember(5)]
-        public override long? CreateTime { get; set; }
+        public override long CreateTime { get; set; }
         [ProtoMember(6)]
-        public override long? SendTime { get; set; }
+        public override long SendTime { get; set; }
         [ProtoMember(312)]
         public override ProtoAggOrderBookUpdate Data { get; set; } = default!;
     }
@@ -99,9 +99,9 @@ namespace Mexc.Net.Objects.Models.Protobuf
         [ProtoMember(3)]
         public override string Symbol { get; set; } = string.Empty;
         [ProtoMember(5)]
-        public override long? CreateTime { get; set; }
+        public override long CreateTime { get; set; }
         [ProtoMember(6)]
-        public override long? SendTime { get; set; }
+        public override long SendTime { get; set; }
         [ProtoMember(303)]
         public override ProtoOrderBookUpdate Data { get; set; } = default!;
     }
@@ -114,9 +114,9 @@ namespace Mexc.Net.Objects.Models.Protobuf
         [ProtoMember(3)]
         public override string Symbol { get; set; } = string.Empty;
         [ProtoMember(5)]
-        public override long? CreateTime { get; set; }
+        public override long CreateTime { get; set; }
         [ProtoMember(6)]
-        public override long? SendTime { get; set; }
+        public override long SendTime { get; set; }
         [ProtoMember(307)]
         public override ProtoAccountUpdate Data { get; set; } = default!;
     }
@@ -129,9 +129,9 @@ namespace Mexc.Net.Objects.Models.Protobuf
         [ProtoMember(3)]
         public override string Symbol { get; set; } = string.Empty;
         [ProtoMember(5)]
-        public override long? CreateTime { get; set; }
+        public override long CreateTime { get; set; }
         [ProtoMember(6)]
-        public override long? SendTime { get; set; }
+        public override long SendTime { get; set; }
         [ProtoMember(304)]
         public override ProtoOrderUpdate Data { get; set; } = default!;
     }
@@ -144,9 +144,9 @@ namespace Mexc.Net.Objects.Models.Protobuf
         [ProtoMember(3)]
         public override string Symbol { get; set; } = string.Empty;
         [ProtoMember(5)]
-        public override long? CreateTime { get; set; }
+        public override long CreateTime { get; set; }
         [ProtoMember(6)]
-        public override long? SendTime { get; set; }
+        public override long SendTime { get; set; }
         [ProtoMember(306)]
         public override ProtoUserTradeUpdate Data { get; set; } = default!;
     }
@@ -157,9 +157,9 @@ namespace Mexc.Net.Objects.Models.Protobuf
         public override string Channel { get; set; } = string.Empty;
         [JsonPropertyName("s")]
         public override string Symbol { get; set; } = string.Empty;
-        public override long? CreateTime { get; set; }
+        public override long CreateTime { get; set; }
         [JsonPropertyName("t")]
-        public override long? SendTime { get; set; }
+        public override long SendTime { get; set; }
         [JsonPropertyName("d")]
         public override MexcStreamMiniTick Data { get; set; } = default!;
     }
@@ -170,9 +170,9 @@ namespace Mexc.Net.Objects.Models.Protobuf
         public override string Channel { get; set; } = string.Empty;
         [JsonPropertyName("s")]
         public override string Symbol { get; set; } = string.Empty;
-        public override long? CreateTime { get; set; }
+        public override long CreateTime { get; set; }
         [JsonPropertyName("t")]
-        public override long? SendTime { get; set; }
+        public override long SendTime { get; set; }
         [JsonPropertyName("d")]
         public override MexcStreamMiniTick[] Data { get; set; } = default!;
     }

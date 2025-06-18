@@ -24,8 +24,8 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
         public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
         {
             var data = (T)message.Data;
-            var time = data.SendTime ?? data.CreateTime;
-            _handler.Invoke(message.As(data.Data, data.Channel, data.Symbol, SocketUpdateType.Update).WithDataTimestamp(time == null ? null : DateTimeConverter.ParseFromDouble(time.Value)));
+            var time = data.SendTime != 0 ? data.SendTime : data.CreateTime;
+            _handler.Invoke(message.As(data.Data, data.Channel, data.Symbol, SocketUpdateType.Update).WithDataTimestamp(time == 0 ? null : DateTimeConverter.ParseFromDouble(time)));
             return CallResult.SuccessResult;
         }
 

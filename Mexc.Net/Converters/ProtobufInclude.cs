@@ -24,6 +24,19 @@ namespace Mexc.Net.Converters
                 _model.Add(typeof(MexcUpdateBookTicker));
                 _model.Add(typeof(ProtoStreamBookTickerUpdate));
                 _model.Add(typeof(ProtoStreamBookTicker));
+                _model.Add(typeof(List<ProtoStreamBookTicker>));
+
+                _model.Add(typeof(MexcUpdatePartialOrderBook));
+                _model.Add(typeof(ProtoOrderBookUpdate));
+                _model.Add(typeof(ProtoStreamBookEntry));
+
+                _model.Add(typeof(MexcUpdateTrades));
+                _model.Add(typeof(ProtoTradeUpdate));
+                _model.Add(typeof(ProtoStreamTrade));
+
+                _model.Add(typeof(MexcUpdateKlines));
+                _model.Add(typeof(ProtoStreamKline));
+
                 _model.UseImplicitZeroDefaults = false;
                 return _model;
             }
