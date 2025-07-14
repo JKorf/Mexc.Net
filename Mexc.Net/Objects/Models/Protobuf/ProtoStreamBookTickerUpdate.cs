@@ -11,6 +11,6 @@ namespace Mexc.Net.Objects.Models.Protobuf
     internal record ProtoStreamBookTickerUpdate
     {
         [ProtoMember(1)]
-        public List<ProtoStreamBookTicker> Data { get; set; } = [];
+        public ProtoStreamBookTicker[] Data { get; set; } = [];
     }
 }

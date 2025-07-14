@@ -13,6 +13,7 @@ using Mexc.Net.Objects.Models.Spot;
 using Mexc.Net.Objects.Options;
 using Mexc.Net.Objects.Sockets.Queries;
 using Mexc.Net.Objects.Sockets.Subscriptions;
+using ProtoBuf.Serializers;
 using System.Net.WebSockets;
 
 namespace Mexc.Net.Clients.SpotApi
@@ -51,7 +52,6 @@ namespace Mexc.Net.Clients.SpotApi
 
         #endregion
 
-        //protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(MexcExchange.SerializerContext));
         protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType type) =>
             type == WebSocketMessageType.Binary ? new ProtobufByteMessageAccessor<SocketEvent>(ProtobufInclude.Model) :
             new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(MexcExchange.SerializerContext));
@@ -111,7 +111,7 @@ namespace Mexc.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(IEnumerable<string> symbols, int updateInterval, Action<DataEvent<MexcStreamOrderBook>> handler, CancellationToken ct = default)
         {
-            var subscription = new MexcSubscription<MexcUpdateOrderBook, ProtoOrderBookUpdate>(_logger, symbols.Select(s => "spot@public.aggre.depth.v3.api.pb@" + updateInterval + "@" + s), x => handler(x.As(x.Data.ToModel())), false);
+            var subscription = new MexcSubscription<MexcUpdateOrderBook, ProtoOrderBookUpdate>(_logger, symbols.Select(s => "spot@public.aggre.depth.v3.api.pb@" + updateInterval + "ms@" + s), x => handler(x.As(x.Data.ToModel())), false);
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
 
@@ -171,6 +171,8 @@ namespace Mexc.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToAccountUpdatesAsync(string listenKey, Action<DataEvent<MexcAccountUpdate>> handler, CancellationToken ct = default)
         {
+            listenKey.ValidateNotNull(nameof(listenKey));
+
             var subscription = new MexcSubscription<MexcUpdateAccount, ProtoAccountUpdate>(_logger, new[] { "spot@private.account.v3.api.pb" }, x => handler(x.As(x.Data.ToModel())), true);
             return await SubscribeAsync(BaseAddress + "?listenKey=" + listenKey, subscription, ct).ConfigureAwait(false);
         }
@@ -178,6 +180,8 @@ namespace Mexc.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(string listenKey, Action<DataEvent<MexcUserOrderUpdate>> handler, CancellationToken ct = default)
         {
+            listenKey.ValidateNotNull(nameof(listenKey));
+
             var subscription = new MexcSubscription<MexcUpdateOrder, ProtoOrderUpdate>(_logger, new[] { "spot@private.orders.v3.api.pb" }, x => handler(x.As(x.Data.ToModel())), true);
             return await SubscribeAsync(BaseAddress + "?listenKey=" + listenKey, subscription, ct).ConfigureAwait(false);
         }
@@ -185,6 +189,8 @@ namespace Mexc.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToUserTradeUpdatesAsync(string listenKey, Action<DataEvent<MexcUserTradeUpdate>> handler, CancellationToken ct = default)
         {
+            listenKey.ValidateNotNull(nameof(listenKey));
+
             var subscription = new MexcSubscription<MexcUpdateUserTrade, ProtoUserTradeUpdate>(_logger, new[] { "spot@private.deals.v3.api.pb" }, x => handler(x.As(x.Data.ToModel())), true);
             return await SubscribeAsync(BaseAddress + "?listenKey=" + listenKey, subscription, ct).ConfigureAwait(false);
         }
