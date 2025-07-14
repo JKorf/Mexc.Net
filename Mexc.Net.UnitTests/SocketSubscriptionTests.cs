@@ -16,9 +16,9 @@ namespace Mexc.Net.UnitTests
                 opts.ApiCredentials = new ApiCredentials("123", "456");
             });
             var tester = new SocketSubscriptionValidator<MexcSocketClient>(client, "Subscriptions/SpotApi", "wss://wbs.mexc.com", "d");
-            await tester.ValidateAsync<MexcStreamTrade[]>((client, handler) => client.SpotApi.SubscribeToTradeUpdatesAsync("ETHUSDT", handler), "Trades", nestedJsonProperty: "d.deals");
+            await tester.ValidateAsync<MexcStreamTrade[]>((client, handler) => client.SpotApi.SubscribeToTradeUpdatesAsync("ETHUSDT", 10, handler), "Trades", nestedJsonProperty: "d.deals");
             await tester.ValidateAsync<MexcStreamKline>((client, handler) => client.SpotApi.SubscribeToKlineUpdatesAsync("ETHUSDT", Enums.KlineInterval.OneDay, handler), "Klines", nestedJsonProperty: "d.k");
-            await tester.ValidateAsync<MexcStreamOrderBook>((client, handler) => client.SpotApi.SubscribeToOrderBookUpdatesAsync("ETHUSDT", handler), "Book");
+            await tester.ValidateAsync<MexcStreamOrderBook>((client, handler) => client.SpotApi.SubscribeToOrderBookUpdatesAsync("ETHUSDT", 10, handler), "Book");
             await tester.ValidateAsync<MexcStreamOrderBook>((client, handler) => client.SpotApi.SubscribeToPartialOrderBookUpdatesAsync("ETHUSDT", 10, handler), "PartialBook");
             await tester.ValidateAsync<MexcStreamBookTick>((client, handler) => client.SpotApi.SubscribeToBookTickerUpdatesAsync("ETHUSDT", handler), "BookTicker");
             await tester.ValidateAsync<MexcStreamMiniTick>((client, handler) => client.SpotApi.SubscribeToMiniTickerUpdatesAsync("ETHUSDT", handler), "MiniTicker", ignoreProperties: ["lastRT", "MT", "NV"]);
