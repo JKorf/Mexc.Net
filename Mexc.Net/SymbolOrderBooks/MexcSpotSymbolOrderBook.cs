@@ -13,6 +13,7 @@ namespace Mexc.Net.SymbolOrderBooks
     /// </summary>
     public class MexcSpotSymbolOrderBook : SymbolOrderBook
     {
+        private readonly int? _updateInterval;
         private readonly bool _clientOwner;
         private readonly IMexcRestClient _restClient;
         private readonly IMexcSocketClient _socketClient;
@@ -50,6 +51,7 @@ namespace Mexc.Net.SymbolOrderBooks
 
             _strictLevels = false;
             _sequencesAreConsecutive = options?.Limit == null;
+            _updateInterval = options?.UpdateInterval;
 
             Levels = options?.Limit;
 
@@ -63,7 +65,7 @@ namespace Mexc.Net.SymbolOrderBooks
         {
             CallResult<UpdateSubscription> subResult;
             if (Levels == null)
-                subResult = await _socketClient.SpotApi.SubscribeToOrderBookUpdatesAsync(Symbol, HandleUpdate).ConfigureAwait(false);
+                subResult = await _socketClient.SpotApi.SubscribeToOrderBookUpdatesAsync(Symbol, _updateInterval ?? 10, HandleUpdate).ConfigureAwait(false);
             else
                 subResult = await _socketClient.SpotApi.SubscribeToPartialOrderBookUpdatesAsync(Symbol, Levels.Value, HandleUpdate).ConfigureAwait(false);
 

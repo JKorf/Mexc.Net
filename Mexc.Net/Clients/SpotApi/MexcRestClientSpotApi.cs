@@ -104,7 +104,7 @@ namespace Mexc.Net.Clients.SpotApi
 
         private MexcRateLimitError GetRateLimitError(IMessageAccessor accessor)
         {
-            if (!accessor.IsJson)
+            if (!accessor.IsValid)
                 return new MexcRateLimitError(accessor.GetOriginalString());
 
             var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));
@@ -121,7 +121,7 @@ namespace Mexc.Net.Clients.SpotApi
         /// <inheritdoc />
         protected override Error ParseErrorResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor, Exception? exception)
         {
-            if (!accessor.IsJson)
+            if (!accessor.IsValid)
                 return new ServerError(null, "Unknown request error", exception: exception);
 
             var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));

@@ -1,4 +1,5 @@
 using Mexc.Net.Objects.Models;
+using Mexc.Net.Objects.Models.Protobuf;
 using Mexc.Net.Objects.Models.Spot;
 using Mexc.Net.Objects.Sockets.Models;
 
@@ -14,8 +15,6 @@ namespace Mexc.Net.Converters
     [JsonSerializable(typeof(MexcPaginated<MexcInternalTransfer[]>))]
     [JsonSerializable(typeof(MexcResult<string[]>))]
     [JsonSerializable(typeof(MexcRows<MexcTransfer[]>))]
-    [JsonSerializable(typeof(MexcUpdate<MexcTradeUpdate>))]
-    [JsonSerializable(typeof(MexcUpdate<MexcKlineUpdate>))]
     [JsonSerializable(typeof(MexcUpdate<MexcStreamOrderBook>))]
     [JsonSerializable(typeof(MexcUpdate<MexcStreamBookTick>))]
     [JsonSerializable(typeof(MexcUpdate<MexcStreamMiniTick>))]
@@ -66,11 +65,11 @@ namespace Mexc.Net.Converters
     [JsonSerializable(typeof(MexcUserTrade[]))]
     [JsonSerializable(typeof(MexcUserTradeUpdate[]))]
     [JsonSerializable(typeof(MexcWithdrawal[]))]
-    [JsonSerializable(typeof(MexcKlineUpdate[]))]
     [JsonSerializable(typeof(MexcStreamEvent[]))]
-    [JsonSerializable(typeof(MexcTradeUpdate[]))]
     [JsonSerializable(typeof(MexcResponse))]
     [JsonSerializable(typeof(MexcRequest))]
+    [JsonSerializable(typeof(MexcUpdateMiniTicker))]
+    [JsonSerializable(typeof(MexcUpdateMiniTickers))]
     [JsonSerializable(typeof(int?))]
     [JsonSerializable(typeof(int))]
     [JsonSerializable(typeof(long?))]

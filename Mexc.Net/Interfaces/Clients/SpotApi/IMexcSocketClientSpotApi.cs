@@ -25,20 +25,22 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#trade-streams" /></para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
+        /// <param name="updateInterval">Interval for updates, either 10 or 100 ms</param>
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<MexcStreamTrade[]>> handler, CancellationToken ct = default);
+        Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, int updateInterval, Action<DataEvent<MexcStreamTrade[]>> handler, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to trade updates
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#trade-streams" /></para>
         /// </summary>
         /// <param name="symbols">The symbols to subscribe, for example `BTCUSDT`</param>
+        /// <param name="updateInterval">Interval for updates, either 10 or 100 ms</param>
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<MexcStreamTrade[]>> handler, CancellationToken ct = default);
+        Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(IEnumerable<string> symbols, int updateInterval, Action<DataEvent<MexcStreamTrade[]>> handler, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to kline/candlestick updates
@@ -67,10 +69,32 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#diff-depth-stream" /></para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
+        /// <param name="updateInterval">Interval for updates, either 10 or 100 ms</param>
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, Action<DataEvent<MexcStreamOrderBook>> handler, CancellationToken ct = default);
+        Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, int updateInterval, Action<DataEvent<MexcStreamOrderBook>> handler, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to orderbook change updates
+        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#diff-depth-stream" /></para>
+        /// </summary>
+        /// <param name="symbols">The symbols, for example `BTCUSDT`</param>
+        /// <param name="updateInterval">Interval for updates, either 10 or 100 ms</param>
+        /// <param name="handler">Data handler</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(IEnumerable<string> symbols, int updateInterval, Action<DataEvent<MexcStreamOrderBook>> handler, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to orderbook change updates
+        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#diff-depth-stream" /></para>
+        /// </summary>
+        /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
+        /// <param name="handler">Data handler</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToAggregatedOrderBookUpdatesAsync(string symbol, Action<DataEvent<MexcStreamOrderBook[]>> handler, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to orderbook change updates
@@ -80,7 +104,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<MexcStreamOrderBook>> handler, CancellationToken ct = default);
+        Task<CallResult<UpdateSubscription>> SubscribeToAggregatedOrderBookUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<MexcStreamOrderBook[]>> handler, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to full orderbook updates
