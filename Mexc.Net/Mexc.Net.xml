@@ -294,6 +294,9 @@
         <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamTrade[]}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamTrade[]}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -304,6 +307,9 @@
             <inheritdoc />
         </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToKlineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},Mexc.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamKline}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook}},System.Threading.CancellationToken)">
@@ -2102,6 +2108,16 @@
             During reconnection the listenkey which was provided can be renewed by the client. This means the keep-alive mechanism should use this new listen key.
             </summary>
         </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamTrade[]}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to trade updates
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#trade-streams" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `BTCUSDT`</param>
+            <param name="handler">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamTrade[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to trade updates
@@ -2142,6 +2158,16 @@
             </summary>
             <param name="symbols">The symbols, for example `BTCUSDT`</param>
             <param name="interval">The interval of the candles</param>
+            <param name="handler">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to orderbook change updates
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#diff-depth-stream" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `BTCUSDT`</param>
             <param name="handler">Data handler</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>

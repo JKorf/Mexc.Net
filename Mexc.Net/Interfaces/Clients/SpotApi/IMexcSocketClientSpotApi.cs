@@ -25,6 +25,16 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#trade-streams" /></para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
+        /// <param name="handler">Data handler</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<MexcStreamTrade[]>> handler, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to trade updates
+        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#trade-streams" /></para>
+        /// </summary>
+        /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
         /// <param name="updateInterval">Interval for updates, either 10 or 100 ms</param>
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
@@ -63,6 +73,16 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(IEnumerable<string> symbols, KlineInterval interval, Action<DataEvent<MexcStreamKline>> handler, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to orderbook change updates
+        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#diff-depth-stream" /></para>
+        /// </summary>
+        /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
+        /// <param name="handler">Data handler</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, Action<DataEvent<MexcStreamOrderBook>> handler, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to orderbook change updates

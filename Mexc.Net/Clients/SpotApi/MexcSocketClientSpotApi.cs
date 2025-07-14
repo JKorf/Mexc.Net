@@ -83,6 +83,10 @@ namespace Mexc.Net.Clients.SpotApi
         public IMexcSocketClientSpotApiShared SharedClient => this;
 
         /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<MexcStreamTrade[]>> handler, CancellationToken ct = default)
+            => await SubscribeToTradeUpdatesAsync(new[] { symbol }, 10, handler, ct).ConfigureAwait(false);
+
+        /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, int interval, Action<DataEvent<MexcStreamTrade[]>> handler, CancellationToken ct = default)
             => await SubscribeToTradeUpdatesAsync(new[] { symbol }, interval, handler, ct).ConfigureAwait(false);
 
@@ -103,6 +107,10 @@ namespace Mexc.Net.Clients.SpotApi
             var subscription = new MexcSubscription<MexcUpdateKlines, ProtoStreamKline>(_logger, symbols.Select(s => "spot@public.kline.v3.api.pb@" + s + "@" + GetIntervalString(interval)), x => handler(x.As(x.Data.ToModel())), false);
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, Action<DataEvent<MexcStreamOrderBook>> handler, CancellationToken ct = default)
+            => await SubscribeToOrderBookUpdatesAsync(new[] { symbol }, 10, handler, ct).ConfigureAwait(false);
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, int updateInterval, Action<DataEvent<MexcStreamOrderBook>> handler, CancellationToken ct = default)
