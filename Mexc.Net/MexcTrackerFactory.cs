@@ -35,16 +35,15 @@ namespace Mexc.Net
             var restClient = (_serviceProvider?.GetRequiredService<IMexcRestClient>() ?? new MexcRestClient()).SpotApi.SharedClient;
             var socketClient = (_serviceProvider?.GetRequiredService<IMexcSocketClient>() ?? new MexcSocketClient()).SpotApi.SharedClient;
 
-            throw new NotImplementedException();
-            //return new KlineTracker(
-            //    _serviceProvider?.GetRequiredService<ILoggerFactory>().CreateLogger(restClient.Exchange),
-            //    restClient,
-            //    socketClient,
-            //    symbol,
-            //    interval,
-            //    limit,
-            //    period
-            //    );
+            return new KlineTracker(
+                _serviceProvider?.GetRequiredService<ILoggerFactory>().CreateLogger(restClient.Exchange),
+                restClient,
+                socketClient,
+                symbol,
+                interval,
+                limit,
+                period
+                );
         }
         /// <inheritdoc />
         public ITradeTracker CreateTradeTracker(SharedSymbol symbol, int? limit = null, TimeSpan? period = null)
