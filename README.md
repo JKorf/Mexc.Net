@@ -137,6 +137,13 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 3.2.0 - 14 Jul 2025
+    * Updated from CryptoExchange.Net version 9.1.0 to CryptoExchange.Net.Protobuf version 9.2.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
+    * Added updateInterval parameter to socketClient.SpotApi.SubscribeToTradeUpdatesAsync and SubscribeToOrderBookUpdatesAsync subscriptions
+    * Added socketClient.SpotApi.SubscribeToOrderBookUpdatesAsync subscription
+    * Added check for listenKey being null to subscription requiring a listenKey
+    * Updated spot websocket implementation to use the protobuf protocol
+
 * Version 3.1.1 - 20 Jun 2025
     * Fixed mapping of ClientOrderId in restClient.SpotApi.Trading.PlaceMultipleOrdersAsync response
 
