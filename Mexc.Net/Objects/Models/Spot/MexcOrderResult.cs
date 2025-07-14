@@ -24,7 +24,7 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// Client order id
         /// </summary>
-        [JsonPropertyName("newClientOrderId")]
+        [JsonPropertyName("clientOrderId")]
         public string? ClientOrderId { get; set; }
 
         /// <summary>
