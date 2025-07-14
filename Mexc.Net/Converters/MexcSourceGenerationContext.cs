@@ -15,8 +15,6 @@ namespace Mexc.Net.Converters
     [JsonSerializable(typeof(MexcPaginated<MexcInternalTransfer[]>))]
     [JsonSerializable(typeof(MexcResult<string[]>))]
     [JsonSerializable(typeof(MexcRows<MexcTransfer[]>))]
-    //[JsonSerializable(typeof(MexcUpdate<MexcTradeUpdate>))]
-    //[JsonSerializable(typeof(MexcUpdate<MexcKlineUpdate>))]
     [JsonSerializable(typeof(MexcUpdate<MexcStreamOrderBook>))]
     [JsonSerializable(typeof(MexcUpdate<MexcStreamBookTick>))]
     [JsonSerializable(typeof(MexcUpdate<MexcStreamMiniTick>))]

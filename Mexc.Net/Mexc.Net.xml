@@ -4167,7 +4167,7 @@
         </member>
         <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserOrderUpdate.AveragePrice">
             <summary>
-            Average exceution price
+            Average execution price
             </summary>
         </member>
         <member name="P:Mexc.Net.Objects.Models.Spot.MexcUserOrderUpdate.CumulativeQuantity">

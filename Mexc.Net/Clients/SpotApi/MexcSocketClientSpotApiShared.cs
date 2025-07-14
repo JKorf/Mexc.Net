@@ -45,7 +45,7 @@ namespace Mexc.Net.Clients.SpotApi
             var symbol = request.Symbol.GetSymbol(FormatSymbol);
             var result = await SubscribeToTradeUpdatesAsync(symbol, 10, update => handler(update.AsExchangeEvent<SharedTrade[]>(Exchange, update.Data.Select(x => new SharedTrade(x.Quantity, x.Price, x.Timestamp)
             {
-                //Side = x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell
+                Side = x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell
             }).ToArray())), ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
@@ -116,9 +116,9 @@ namespace Mexc.Net.Clients.SpotApi
         EndpointOptions<SubscribeBalancesRequest> IBalanceSocketClient.SubscribeBalanceOptions { get; } = new EndpointOptions<SubscribeBalancesRequest>(false)
         {
             RequiredOptionalParameters = new List<ParameterDescription>
-                {
-                    new ParameterDescription(nameof(SubscribeBalancesRequest.ListenKey), typeof(string), "The listenkey for user data", "123123123")
-                }
+            {
+                new ParameterDescription(nameof(SubscribeBalancesRequest.ListenKey), typeof(string), "The listenkey for user data", "123123123")
+            }
         };
         async Task<ExchangeResult<UpdateSubscription>> IBalanceSocketClient.SubscribeToBalanceUpdatesAsync(SubscribeBalancesRequest request, Action<ExchangeEvent<SharedBalance[]>> handler, CancellationToken ct)
         {
@@ -140,9 +140,9 @@ namespace Mexc.Net.Clients.SpotApi
         EndpointOptions<SubscribeSpotOrderRequest> ISpotOrderSocketClient.SubscribeSpotOrderOptions { get; } = new EndpointOptions<SubscribeSpotOrderRequest>(false)
         {
             RequiredOptionalParameters = new List<ParameterDescription>
-                {
-                    new ParameterDescription(nameof(SubscribeSpotOrderRequest.ListenKey), typeof(string), "The listenkey for user data", "123123123")
-                }
+            {
+                new ParameterDescription(nameof(SubscribeSpotOrderRequest.ListenKey), typeof(string), "The listenkey for user data", "123123123")
+            }
         };
         async Task<ExchangeResult<UpdateSubscription>> ISpotOrderSocketClient.SubscribeToSpotOrderUpdatesAsync(SubscribeSpotOrderRequest request, Action<ExchangeEvent<SharedSpotOrder[]>> handler, CancellationToken ct)
         {
@@ -153,23 +153,23 @@ namespace Mexc.Net.Clients.SpotApi
             var result = await SubscribeToOrderUpdatesAsync(
                 request.ListenKey!,
                 update => handler(update.AsExchangeEvent<SharedSpotOrder[]>(Exchange, new[] {
-                        new SharedSpotOrder(
-                            ExchangeSymbolCache.ParseSymbol(_topicId, update.Symbol),
-                            update.Symbol!,
-                            update.Data.OrderId!,
-                            update.Data.OrderType == Enums.OrderType.Limit ? SharedOrderType.Limit : update.Data.OrderType == Enums.OrderType.Market ? SharedOrderType.Market : SharedOrderType.Other,
-                            update.Data.Side == Enums.OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                            (update.Data.Status == Enums.OrderStatus.Canceled || update.Data.Status == Enums.OrderStatus.PartiallyCanceled) ? SharedOrderStatus.Canceled : (update.Data.Status == Enums.OrderStatus.New || update.Data.Status == Enums.OrderStatus.PartiallyFilled) ? SharedOrderStatus.Open : SharedOrderStatus.Filled,
-                            update.Data.Timestamp)
-                        {
-                            ClientOrderId = update.Data.ClientOrderId,
-                            OrderPrice = update.Data.Price,
-                            OrderQuantity = new SharedOrderQuantity(update.Data.Quantity == 0 ? null : update.Data.Quantity, update.Data.QuoteQuantity),
-                            QuantityFilled = new SharedOrderQuantity(update.Data.CumulativeQuantity, update.Data.CumulativeQuoteQuantity),
-                            AveragePrice = update.Data.AveragePrice == 0 ? null : update.Data.AveragePrice,
-                            UpdateTime = update.Data.Timestamp,
-                            TimeInForce = update.Data.OrderType == Enums.OrderType.ImmediateOrCancel ? SharedTimeInForce.ImmediateOrCancel : update.Data.OrderType == Enums.OrderType.FillOrKill ? SharedTimeInForce.FillOrKill : null
-                        }
+                    new SharedSpotOrder(
+                        ExchangeSymbolCache.ParseSymbol(_topicId, update.Symbol),
+                        update.Symbol!,
+                        update.Data.OrderId!,
+                        update.Data.OrderType == Enums.OrderType.Limit ? SharedOrderType.Limit : update.Data.OrderType == Enums.OrderType.Market ? SharedOrderType.Market : SharedOrderType.Other,
+                        update.Data.Side == Enums.OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                        (update.Data.Status == Enums.OrderStatus.Canceled || update.Data.Status == Enums.OrderStatus.PartiallyCanceled) ? SharedOrderStatus.Canceled : (update.Data.Status == Enums.OrderStatus.New || update.Data.Status == Enums.OrderStatus.PartiallyFilled) ? SharedOrderStatus.Open : SharedOrderStatus.Filled,
+                        update.Data.Timestamp)
+                    {
+                        ClientOrderId = update.Data.ClientOrderId,
+                        OrderPrice = update.Data.Price,
+                        OrderQuantity = new SharedOrderQuantity(update.Data.Quantity == 0 ? null : update.Data.Quantity, update.Data.QuoteQuantity),
+                        QuantityFilled = new SharedOrderQuantity(update.Data.CumulativeQuantity, update.Data.CumulativeQuoteQuantity),
+                        AveragePrice = update.Data.AveragePrice == 0 ? null : update.Data.AveragePrice,
+                        UpdateTime = update.Data.Timestamp,
+                        TimeInForce = update.Data.OrderType == Enums.OrderType.ImmediateOrCancel ? SharedTimeInForce.ImmediateOrCancel : update.Data.OrderType == Enums.OrderType.FillOrKill ? SharedTimeInForce.FillOrKill : null
+                    }
                 })),
                 ct: ct).ConfigureAwait(false);
 
@@ -182,9 +182,9 @@ namespace Mexc.Net.Clients.SpotApi
         EndpointOptions<SubscribeUserTradeRequest> IUserTradeSocketClient.SubscribeUserTradeOptions { get; } = new EndpointOptions<SubscribeUserTradeRequest>(false)
         {
             RequiredOptionalParameters = new List<ParameterDescription>
-                {
-                    new ParameterDescription(nameof(SubscribeUserTradeRequest.ListenKey), typeof(string), "The listenkey for user data", "123123123")
-                }
+            {
+                new ParameterDescription(nameof(SubscribeUserTradeRequest.ListenKey), typeof(string), "The listenkey for user data", "123123123")
+            }
         };
         async Task<ExchangeResult<UpdateSubscription>> IUserTradeSocketClient.SubscribeToUserTradeUpdatesAsync(SubscribeUserTradeRequest request, Action<ExchangeEvent<SharedUserTrade[]>> handler, CancellationToken ct)
         {
@@ -195,20 +195,20 @@ namespace Mexc.Net.Clients.SpotApi
             var result = await SubscribeToUserTradeUpdatesAsync(
                 request.ListenKey!,
                 update => handler(update.AsExchangeEvent<SharedUserTrade[]>(Exchange, new[] {
-                        new SharedUserTrade(
-                            ExchangeSymbolCache.ParseSymbol(_topicId, update.Symbol),
-                            update.Symbol!,
-                            update.Data.OrderId,
-                            update.Data.TradeId.ToString(),
-                            update.Data.TradeSide == Enums.OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                            update.Data.Quantity,
-                            update.Data.Price,
-                            update.Data.TradeTime)
-                        {
-                            Role = update.Data.IsMaker ? SharedRole.Maker : SharedRole.Taker,
-                            Fee = update.Data.Fee,
-                            FeeAsset = update.Data.FeeAsset
-                        }
+                    new SharedUserTrade(
+                        ExchangeSymbolCache.ParseSymbol(_topicId, update.Symbol),
+                        update.Symbol!,
+                        update.Data.OrderId,
+                        update.Data.TradeId.ToString(),
+                        update.Data.TradeSide == Enums.OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                        update.Data.Quantity,
+                        update.Data.Price,
+                        update.Data.TradeTime)
+                    {
+                        Role = update.Data.IsMaker ? SharedRole.Maker : SharedRole.Taker,
+                        Fee = update.Data.Fee,
+                        FeeAsset = update.Data.FeeAsset
+                    }
                 })),
                 ct: ct).ConfigureAwait(false);
 

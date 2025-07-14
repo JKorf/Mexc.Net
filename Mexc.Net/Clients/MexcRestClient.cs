@@ -1,7 +1,6 @@
 ﻿using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Objects.Options;
 using Mexc.Net.Clients.SpotApi;
-using Mexc.Net.Converters;
 using Mexc.Net.Interfaces.Clients;
 using Mexc.Net.Interfaces.Clients.SpotApi;
 using Mexc.Net.Objects.Options;
