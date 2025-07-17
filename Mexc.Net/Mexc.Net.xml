@@ -3668,7 +3668,12 @@
         </member>
         <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook.Sequence">
             <summary>
-            Sequence
+            Sequence. If start/end sequence numbers are available this is the start sequence number
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook.SequenceEnd">
+            <summary>
+            End sequence number
             </summary>
         </member>
         <member name="T:Mexc.Net.Objects.Models.Spot.MexcStreamOrderBookEntry">

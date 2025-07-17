@@ -19,6 +19,8 @@ namespace Mexc.Net.Objects.Models.Protobuf
 
         [ProtoMember(4)]
         public string Version { get; set; } = string.Empty;
+        [ProtoMember(5)]
+        public string? Version2 { get; set; } = string.Empty;
 
         public MexcStreamOrderBook ToModel()
         {
@@ -35,7 +37,8 @@ namespace Mexc.Net.Objects.Models.Protobuf
                     Quantity = ExchangeHelpers.ParseDecimal(x.Quantity) ?? 0
                 }).ToArray(),
                 Event = Event,
-                Sequence = Version
+                Sequence = Version,
+                SequenceEnd = Version2
             };
         }
     }

@@ -20,10 +20,14 @@ namespace Mexc.Net.Objects.Models.Spot
         [JsonPropertyName("bids")]
         public MexcStreamOrderBookEntry[] Bids { get; set; } = Array.Empty<MexcStreamOrderBookEntry>();
         /// <summary>
-        /// Sequence
+        /// Sequence. If start/end sequence numbers are available this is the start sequence number
         /// </summary>
         [JsonPropertyName("r")]
         public string Sequence { get; set; } = string.Empty;
+        /// <summary>
+        /// End sequence number
+        /// </summary>
+        public string? SequenceEnd { get; set; } = string.Empty;
     }
 
     /// <summary>
