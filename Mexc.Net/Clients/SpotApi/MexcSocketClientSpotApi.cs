@@ -62,7 +62,7 @@ namespace Mexc.Net.Clients.SpotApi
         public override string? GetListenerIdentifier(IMessageAccessor messageAccessor)
         {
             var msg = messageAccessor.GetValue<string?>(_msgPath);
-            if (msg?.Equals("PONG", StringComparison.OrdinalIgnoreCase) == true)
+            if (msg?.Equals("PONG", StringComparison.Ordinal) == true)
                 return "PONG";
 
             var id = messageAccessor.GetValue<int?>(_idPath);

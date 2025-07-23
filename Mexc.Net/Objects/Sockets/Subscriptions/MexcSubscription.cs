@@ -12,24 +12,20 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
         private string[] _topics;
         private readonly Action<DataEvent<U>> _handler;
 
-        public override HashSet<string> ListenerIdentifiers { get; set; }
-
         public MexcSubscription(ILogger logger, IEnumerable<string> topics, Action<DataEvent<U>> handler, bool authenticated) : base(logger, authenticated)
         {
             _topics = topics.ToArray();
             _handler = handler;
-            ListenerIdentifiers = new HashSet<string>(_topics);
+
+            MessageMatcher = MessageMatcher.Create<T>(_topics, DoHandleMessage);
         }
 
-        public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<T> message)
         {
-            var data = (T)message.Data;
-            var time = data.SendTime != 0 ? data.SendTime : data.CreateTime;
-            _handler.Invoke(message.As(data.Data, data.Channel, data.Symbol, SocketUpdateType.Update).WithDataTimestamp(time == 0 ? null : DateTimeConverter.ParseFromDouble(time)));
+            var time = message.Data.SendTime != 0 ? message.Data.SendTime : message.Data.CreateTime;
+            _handler.Invoke(message.As(message.Data.Data, message.Data.Channel, message.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(time == 0 ? null : DateTimeConverter.ParseFromDouble(time)));
             return CallResult.SuccessResult;
         }
-
-        public override Type? GetMessageType(IMessageAccessor message) => typeof(T);
 
         public override Query? GetSubQuery(SocketConnection connection)
             => new MexcQuery("SUBSCRIPTION", _topics, Authenticated);
