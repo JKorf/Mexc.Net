@@ -19,25 +19,27 @@ namespace Mexc.Net.Converters
                 if (_model != null)
                     return _model;
 
-                _model = RuntimeTypeModel.Create();
-                _model.Add(typeof(SocketEvent));
-                _model.Add(typeof(MexcUpdateBookTicker));
-                _model.Add(typeof(ProtoStreamBookTickerUpdate));
-                _model.Add(typeof(ProtoStreamBookTicker));
-                _model.Add(typeof(List<ProtoStreamBookTicker>));
+                var model = RuntimeTypeModel.Create();
+                model.Add(typeof(SocketEvent));
+                model.Add(typeof(MexcUpdateBookTicker));
+                model.Add(typeof(ProtoStreamBookTickerUpdate));
+                model.Add(typeof(ProtoStreamBookTicker));
+                model.Add(typeof(List<ProtoStreamBookTicker>));
 
-                _model.Add(typeof(MexcUpdatePartialOrderBook));
-                _model.Add(typeof(ProtoOrderBookUpdate));
-                _model.Add(typeof(ProtoStreamBookEntry));
+                model.Add(typeof(MexcUpdatePartialOrderBook));
+                model.Add(typeof(ProtoOrderBookUpdate));
+                model.Add(typeof(ProtoStreamBookEntry));
 
-                _model.Add(typeof(MexcUpdateTrades));
-                _model.Add(typeof(ProtoTradeUpdate));
-                _model.Add(typeof(ProtoStreamTrade));
+                model.Add(typeof(MexcUpdateTrades));
+                model.Add(typeof(ProtoTradeUpdate));
+                model.Add(typeof(ProtoStreamTrade));
 
-                _model.Add(typeof(MexcUpdateKlines));
-                _model.Add(typeof(ProtoStreamKline));
+                model.Add(typeof(MexcUpdateKlines));
+                model.Add(typeof(ProtoStreamKline));
 
-                _model.UseImplicitZeroDefaults = false;
+                model.UseImplicitZeroDefaults = false;
+
+                _model = model;
                 return _model;
             }
         }
