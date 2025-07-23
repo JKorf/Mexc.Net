@@ -99,6 +99,12 @@ CryptoExchange.Net also allows for [easy access to different exchange API's](htt
 [![Nuget version](https://img.shields.io/discord/847020490588422145?style=for-the-badge)](https://discord.gg/MSpeEtSY8t)  
 A Discord server is available [here](https://discord.gg/MSpeEtSY8t). Feel free to join for discussion and/or questions around the CryptoExchange.Net and implementation libraries.
 
+## AOT Support
+Mexc websocket uses Protobuf serialization. The library uses the `protobuf-net` library to handle this, but unfortunately this library is not AOT compatible by itself.  
+To support AOT compilation:
+1. Add the `rd.xml` file to your application start project. File can be found [here](https://github.com/JKorf/Mexc.Net/rd.xml).
+2. In your application start project add a reference to the file with the following property in your `.csproj` file: `<RdXmlFile Include="rd.xml" />`
+
 ## Supported functionality
 
 ### Spot V3
