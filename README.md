@@ -143,6 +143,12 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 3.3.0 - 23 Jul 2025
+    * Updated CryptoExchange.Net to version 9.3.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
+    * Updated websocket message matching
+    * Add SequenceEnd property to order book update events
+    * Fixed threading issue in protobuf initialization
+
 * Version 3.2.0 - 14 Jul 2025
     * Updated from CryptoExchange.Net version 9.1.0 to CryptoExchange.Net.Protobuf version 9.2.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
     * Added updateInterval parameter to socketClient.SpotApi.SubscribeToTradeUpdatesAsync and SubscribeToOrderBookUpdatesAsync subscriptions
