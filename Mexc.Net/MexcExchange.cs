@@ -55,9 +55,13 @@ namespace Mexc.Net
         /// <param name="tradingMode">Trading mode</param>
         /// <param name="deliverTime">Delivery time for delivery futures</param>
         /// <returns></returns>
-        public static string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null) 
-            => baseAsset.ToUpperInvariant() + quoteAsset.ToUpperInvariant();
+        public static string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
+        {
+            if (tradingMode == TradingMode.Spot)
+                return baseAsset.ToUpperInvariant() + quoteAsset.ToUpperInvariant();
 
+            return baseAsset.ToUpperInvariant() + "_" + quoteAsset.ToUpperInvariant();
+        }
 
         /// <summary>
         /// Rate limiter configuration for the Mexc API

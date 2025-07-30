@@ -87,6 +87,57 @@ namespace Mexc.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.Trading.GetUserTradesAsync("ETHUSDT"), "GetUserTrades", ignoreProperties: ["orderListId"]);
         }
 
+
+        [Test]
+        public async Task ValidateFuturesAccountCalls()
+        {
+            var client = new MexcRestClient(opts =>
+            {
+                opts.AutoTimestamp = false;
+                opts.ApiCredentials = new ApiCredentials("123", "456");
+                opts.OutputOriginalData = true;
+            });
+            var tester = new RestRequestValidator<MexcRestClient>(client, "Endpoints/FuturesApi/Account", "https://api.mexc.com", IsAuthenticated);
+            await tester.ValidateAsync(client => client.FuturesApi.Account.GetBalancesAsync(), "GetBalancesAsync");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.GetTransferHistoryAsync(), "GetTransferHistory", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.GetPositionHistoryAsync(), "GetPositionHistory", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.GetPositionsAsync(), "GetPositions", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.GetFundingHistoryAsync(), "GetFundingHistory", nestedJsonProperty: "data");
+        }
+
+        [Test]
+        public async Task ValidateFuturesExchangeDataCalls()
+        {
+            var client = new MexcRestClient(opts =>
+            {
+                opts.AutoTimestamp = false;
+                opts.ApiCredentials = new ApiCredentials("123", "456");
+                opts.OutputOriginalData = true;
+            });
+            var tester = new RestRequestValidator<MexcRestClient>(client, "Endpoints/FuturesApi/ExchangeData", "https://api.mexc.com", IsAuthenticated); 
+            await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetIndexPriceAsync("123"), "GetIndexPrice", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetMarkPriceAsync("123"), "GetMarkPrice", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetFundingRateAsync("123"), "GetFundingRate", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetRecentTradesAsync("123", 123), "GetRecentTrades", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetTickersAsync(), "GetTickers", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetRiskFundBalancesAsync(), "GetRiskFundBalances", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetRiskFundBalanceHistoryAsync("123"), "GetRiskFundBalanceHistory", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetFundingRateHistoryAsync("123"), "GetFundingRateHistory", nestedJsonProperty: "data");
+        }
+
+        [Test]
+        public async Task ValidateFuturesTradingCalls()
+        {
+            var client = new MexcRestClient(opts =>
+            {
+                opts.AutoTimestamp = false;
+                opts.ApiCredentials = new ApiCredentials("123", "456");
+                opts.OutputOriginalData = true;
+            });
+            var tester = new RestRequestValidator<MexcRestClient>(client, "Endpoints/FuturesApi/Trading", "https://api.mexc.com", IsAuthenticated);
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetOpenOrdersAsync("123"), "GetOpenOrders", nestedJsonProperty: "data");
+        }
+
         private bool IsAuthenticated(WebCallResult result)
         {
             return result.RequestBody?.Contains("signature") == true || result.RequestUrl.Contains("signature");

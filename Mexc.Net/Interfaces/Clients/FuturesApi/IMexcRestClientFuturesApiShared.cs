@@ -6,7 +6,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
     /// Shared interface for Futures rest API usage
     /// </summary>
     public interface IMexcRestClientFuturesApiShared :
-        ISharedClient
+        IKlineRestClient,
+        IOrderBookRestClient,
+        IRecentTradeRestClient,
+        IFundingRateRestClient,
+        IFuturesSymbolRestClient,
+        IFuturesTickerRestClient
     {
     }
 }

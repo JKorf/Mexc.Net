@@ -1,0 +1,12 @@
+GET
+/api/v1/contract/fair_price/ETH_USDT
+false
+{
+    "success": true,
+    "code": 0,
+    "data": {
+        "symbol": "BTC_USDT",
+        "fairPrice": 31103.4,
+        "timestamp": 1609829705178
+    }
+}

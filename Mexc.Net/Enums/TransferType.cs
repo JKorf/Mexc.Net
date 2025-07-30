@@ -7,8 +7,8 @@ namespace Mexc.Net.Enums
     /// <summary>
     /// Transfer type
     /// </summary>
-    [JsonConverter(typeof(EnumConverter<TranfserType>))]
-    public enum TranfserType
+    [JsonConverter(typeof(EnumConverter<TransferType>))]
+    public enum TransferType
     {
         /// <summary>
         /// Outside transfer

@@ -43,7 +43,7 @@ namespace Mexc.Net.Objects.Models.Spot
         /// Transfer type
         /// </summary>
         [JsonPropertyName("transferType")]
-        public TranfserType TransferType { get; set; }
+        public TransferType TransferType { get; set; }
         /// <summary>
         /// Withdrawal status
         /// </summary>

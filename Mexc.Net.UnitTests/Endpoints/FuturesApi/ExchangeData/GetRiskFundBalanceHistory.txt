@@ -1,0 +1,27 @@
+GET
+/api/v1/contract/risk_reverse/history
+false
+{
+    "success": true,
+    "code": 0,
+    "data": {
+        "pageSize": 2,
+        "totalCount": 42,
+        "totalPage": 21,
+        "currentPage": 1,
+        "resultList": [
+            {
+                "symbol": "BTC_USDT",
+                "currency": "USDT",
+                "available": 424288.053161046680168662,
+                "snapshotTime": 1609819200000
+            },
+            {
+                "symbol": "BTC_USDT",
+                "currency": "USDT",
+                "available": 423989.817244106347071489,
+                "snapshotTime": 1609804800000
+            }
+        ]
+    }
+}

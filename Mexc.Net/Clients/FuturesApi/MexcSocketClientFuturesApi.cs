@@ -7,19 +7,22 @@ using Mexc.Net.Enums;
 using Mexc.Net.Interfaces.Clients.FuturesApi;
 using Mexc.Net.Objects.Models;
 using Mexc.Net.Objects.Models.Futures;
+using Mexc.Net.Objects.Models.Protobuf;
 using Mexc.Net.Objects.Options;
 using Mexc.Net.Objects.Sockets.Models;
 using Mexc.Net.Objects.Sockets.Queries;
 using Mexc.Net.Objects.Sockets.Subscriptions;
+using System.Net.WebSockets;
 
 namespace Mexc.Net.Clients.FuturesApi
 {
     /// <inheritdoc />
     internal partial class MexcSocketClientFuturesApi : SocketApiClient, IMexcSocketClientFuturesApi
     {
-        private static readonly MessagePath _idPath = MessagePath.Get().Property("id");
-        private static readonly MessagePath _msgPath = MessagePath.Get().Property("msg");
-        private static readonly MessagePath _channelPath = MessagePath.Get().Property("c");
+        //private static readonly MessagePath _idPath = MessagePath.Get().Property("id");
+        //private static readonly MessagePath _msgPath = MessagePath.Get().Property("msg");
+        private static readonly MessagePath _channelPath = MessagePath.Get().Property("channel");
+        private static readonly MessagePath _symbolPath = MessagePath.Get().Property("symbol");
 
         public event Action<ListenKeyRenewedEvent>? ListenkeyRenewed;
 
@@ -33,8 +36,8 @@ namespace Mexc.Net.Clients.FuturesApi
 
             RegisterPeriodicQuery(
                 "Ping",
-                TimeSpan.FromSeconds(30),
-                x => new MexcPingQuery(),
+                TimeSpan.FromSeconds(10),
+                x => new MexcFuturesPingQuery(),
                 (connection, result) =>
                 {
                     if (result.Error?.Message.Equals("Query timeout") == true)
@@ -48,22 +51,22 @@ namespace Mexc.Net.Clients.FuturesApi
 
         #endregion
 
-        protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(MexcExchange.SerializerContext));
+        protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType msgType) => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(MexcExchange.SerializerContext));
 
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(MexcExchange.SerializerContext));
 
         /// <inheritdoc />
         public override string? GetListenerIdentifier(IMessageAccessor messageAccessor)
         {
-            var msg = messageAccessor.GetValue<string?>(_msgPath);
-            if (msg?.Equals("PONG", StringComparison.OrdinalIgnoreCase) == true)
-                return "PONG";
+            //var msg = messageAccessor.GetValue<string?>(_msgPath);
+            //if (msg?.Equals("PONG", StringComparison.OrdinalIgnoreCase) == true)
+            //    return "PONG";
 
-            var id = messageAccessor.GetValue<int?>(_idPath);
-            if (id != null)
-                return id.Value.ToString();
+            //var id = messageAccessor.GetValue<int?>(_idPath);
+            //if (id != null)
+            //    return id.Value.ToString();
 
-            return messageAccessor.GetValue<string>(_channelPath);
+            return messageAccessor.GetValue<string>(_channelPath) + messageAccessor.GetValue<string>(_symbolPath);
         }
 
         /// <inheritdoc />
@@ -76,5 +79,67 @@ namespace Mexc.Net.Clients.FuturesApi
 
         public IMexcSocketClientFuturesApiShared SharedClient => this;
 
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToTickersUpdatesAsync(Action<DataEvent<MexcFuturesTickerUpdate[]>> handler, CancellationToken ct = default)
+        {
+            var subscription = new MexcFuturesSubscription<MexcFuturesTickerUpdate[]>(_logger, "tickers", null, null, null, handler, false);
+            return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<MexcFuturesTicker>> handler, CancellationToken ct = default)
+        {
+            var subscription = new MexcFuturesSubscription<MexcFuturesTicker>(_logger, "ticker", symbol, null, null, handler, false);
+            return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<MexcFuturesTrade>> handler, CancellationToken ct = default)
+        {
+            var subscription = new MexcFuturesSubscription<MexcFuturesTrade>(_logger, "deal", symbol, null, null, handler, false);
+            return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, FuturesKlineInterval interval, Action<DataEvent<MexcFuturesStreamKline>> handler, CancellationToken ct = default)
+        {
+            var subscription = new MexcFuturesSubscription<MexcFuturesStreamKline>(_logger, "kline", symbol, interval, null, handler, false);
+            return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, Action<DataEvent<MexcFuturesOrderBook>> handler, CancellationToken ct = default)
+        {
+            var subscription = new MexcFuturesSubscription<MexcFuturesOrderBook>(_logger, "depth", symbol, null, null, handler, false);
+            return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdatesAsync(string symbol, int? limit, Action<DataEvent<MexcFuturesOrderBook>> handler, CancellationToken ct = default)
+        {
+            var subscription = new MexcFuturesSubscription<MexcFuturesOrderBook>(_logger, "depth.full", symbol, null, limit, handler, false);
+            return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(string symbol, Action<DataEvent<MexcFundingRateUpdate>> handler, CancellationToken ct = default)
+        {
+            var subscription = new MexcFuturesSubscription<MexcFundingRateUpdate>(_logger, "funding.rate", symbol, null, null, handler, false);
+            return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToIndexPriceUpdatesAsync(string symbol, Action<DataEvent<MexcPriceUpdate>> handler, CancellationToken ct = default)
+        {
+            var subscription = new MexcFuturesSubscription<MexcPriceUpdate>(_logger, "index.price", symbol, null, null, handler, false);
+            return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceUpdatesAsync(string symbol, Action<DataEvent<MexcPriceUpdate>> handler, CancellationToken ct = default)
+        {
+            var subscription = new MexcFuturesSubscription<MexcPriceUpdate>(_logger, "fair.price", symbol, null, null, handler, false);
+            return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
+        }
     }
 }

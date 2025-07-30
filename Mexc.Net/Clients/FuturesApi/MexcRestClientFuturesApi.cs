@@ -55,7 +55,7 @@ namespace Mexc.Net.Clients.FuturesApi
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
-            => new MexcAuthenticationProvider(credentials);
+            => new MexcFuturesAuthenticationProvider(credentials);
 
         protected override IStreamMessageAccessor CreateAccessor() => new SystemTextJsonStreamMessageAccessor(SerializerOptions.WithConverters(MexcExchange.SerializerContext));
 
@@ -77,9 +77,18 @@ namespace Mexc.Net.Clients.FuturesApi
             if (!result)
                 return result.As<T>(default);
 
-#warning check errors in TryParseErrorResponse
-
             return result.As(result.Data.Data);
+        }
+
+        /// <inheritdoc />
+        protected override Error? TryParseError(KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor)
+        {
+            var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));
+            if (code == 0 || code == 200)
+                return null;
+
+            var msg = accessor.GetValue<string>(MessagePath.Get().Property("message"));
+            return new ServerError(code, msg!);
         }
 
         /// <inheritdoc />
@@ -110,7 +119,7 @@ namespace Mexc.Net.Clients.FuturesApi
 
         private MexcRateLimitError GetRateLimitError(IMessageAccessor accessor)
         {
-            if (!accessor.IsJson)
+            if (!accessor.IsValid)
                 return new MexcRateLimitError(accessor.GetOriginalString());
 
             var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));
@@ -127,7 +136,7 @@ namespace Mexc.Net.Clients.FuturesApi
         /// <inheritdoc />
         protected override Error ParseErrorResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor, Exception? exception)
         {
-            if (!accessor.IsJson)
+            if (!accessor.IsValid)
                 return new ServerError(null, "Unknown request error", exception: exception);
 
             var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));

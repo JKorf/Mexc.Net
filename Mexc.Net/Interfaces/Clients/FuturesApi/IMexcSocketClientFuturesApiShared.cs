@@ -6,7 +6,11 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
     /// Shared interface for Futures socket API usage
     /// </summary>
     public interface IMexcSocketClientFuturesApiShared :
-        ISharedClient
+        IKlineSocketClient,
+        IOrderBookSocketClient,
+        ITickerSocketClient,
+        ITickersSocketClient,
+        ITradeSocketClient
     {
     }
 }
