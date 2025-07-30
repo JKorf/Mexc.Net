@@ -18,6 +18,11 @@ namespace Mexc.Net.Objects.Options
         public int? Limit { get; set; }
 
         /// <summary>
+        /// Update interval, either 10 or 100ms
+        /// </summary>
+        public int? UpdateInterval { get; set; }
+
+        /// <summary>
         /// After how much time we should consider the connection dropped if no data is received for this time after the initial subscriptions
         /// </summary>
         public TimeSpan? InitialDataTimeout { get; set; }

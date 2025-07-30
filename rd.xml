@@ -1,0 +1,55 @@
+<Directives xmlns="http://schemas.microsoft.com/netfx/2013/01/metadata">
+	<Application>
+		<Assembly Name="protobuf-net.Core" >
+			<Type Name="ProtoBuf.Internal.DynamicStub+ConcreteStub`1[[Mexc.Net.Objects.Models.Protobuf.SocketEvent,Mexc.Net]]" Dynamic="Required All" />
+			<Type Name="ProtoBuf.Internal.DynamicStub+ConcreteStub`1[[System.Int32,mscorlib]]" Dynamic="Required All" />
+			<Type Name="ProtoBuf.ProtoContractAttribute" Dynamic="Required All" />
+			<Type Name="ProtoBuf.ProtoMemberAttribute" Dynamic="Required All" />
+			<Type Name="ProtoBuf.Serializers.RepeatedSerializer" Dynamic="Required All" >
+				<Method Name="CreateVector">
+					<GenericArgument Name="Mexc.Net.Objects.Models.Protobuf.ProtoStreamBookTicker,Mexc.Net" />
+				</Method>
+			</Type>			
+		</Assembly>
+		<Assembly Name="Mexc.Net" >
+			<Type Name="Mexc.Net.Objects.Models.Protobuf.SocketEvent" Dynamic="Required All" />
+			
+			<Type Name="Mexc.Net.Objects.Models.Protobuf.MexcUpdateBookTicker" Dynamic="Required All" />
+			<Type Name="Mexc.Net.Objects.Models.Protobuf.ProtoStreamBookTickerUpdate" Dynamic="Required All" />
+			<Type Name="Mexc.Net.Objects.Models.Protobuf.ProtoStreamBookTicker" Dynamic="Required All" />
+			<Type Name="Mexc.Net.Objects.Models.Protobuf.ProtoStreamBookTicker[]" Dynamic="Required All" />
+
+			<Type Name="Mexc.Net.Objects.Models.Protobuf.MexcUpdateKlines" Dynamic="Required All" />
+			<Type Name="Mexc.Net.Objects.Models.Protobuf.ProtoStreamKline" Dynamic="Required All" />
+
+			<Type Name="Mexc.Net.Objects.Models.Protobuf.MexcUpdateOrderBook" Dynamic="Required All" />
+			<Type Name="Mexc.Net.Objects.Models.Protobuf.ProtoOrderBookUpdate" Dynamic="Required All" />
+			<Type Name="Mexc.Net.Objects.Models.Protobuf.ProtoStreamBookEntry" Dynamic="Required All" />
+
+			<Type Name="Mexc.Net.Objects.Models.Protobuf.ProtoOrderBookUpdate" Dynamic="Required All" />
+			<Type Name="Mexc.Net.Objects.Models.Protobuf.ProtoAggOrderBookUpdate" Dynamic="Required All" />
+			<Type Name="Mexc.Net.Objects.Models.Protobuf.MexcUpdateAggOrderBook" Dynamic="Required All" />
+
+			<Type Name="Mexc.Net.Objects.Models.Protobuf.MexcUpdatePartialOrderBook" Dynamic="Required All" />
+
+			<Type Name="Mexc.Net.Objects.Models.Protobuf.MexcUpdateAccount" Dynamic="Required All" />
+			<Type Name="Mexc.Net.Objects.Models.Protobuf.ProtoAccountUpdate" Dynamic="Required All" />
+
+			<Type Name="Mexc.Net.Objects.Models.Protobuf.MexcUpdateOrder" Dynamic="Required All" />
+			<Type Name="Mexc.Net.Objects.Models.Protobuf.ProtoOrderUpdate" Dynamic="Required All" />
+
+			<Type Name="Mexc.Net.Objects.Models.Protobuf.MexcUpdateUserTrade" Dynamic="Required All" />
+			<Type Name="Mexc.Net.Objects.Models.Protobuf.ProtoUserTradeUpdate" Dynamic="Required All" />
+
+			<Type Name="Mexc.Net.Objects.Models.Protobuf.MexcUpdateTrades" Dynamic="Required All" />
+			<Type Name="Mexc.Net.Objects.Models.Protobuf.ProtoTradeUpdate" Dynamic="Required All" />
+			<Type Name="Mexc.Net.Objects.Models.Protobuf.ProtoStreamTrade" Dynamic="Required All" />
+			<Type Name="Mexc.Net.Objects.Models.Protobuf.ProtoStreamTrade[]" Dynamic="Required All" />
+		</Assembly>
+		<Assembly Name="mscorlib">
+			<Type Name="System.Int32" Dynamic="Required All" />
+			<Type Name="System.Nullable`1[[System.Int32]]" Dynamic="Required All" />
+		</Assembly>
+
+	</Application>
+</Directives>

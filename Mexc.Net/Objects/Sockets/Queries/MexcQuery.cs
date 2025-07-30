@@ -8,8 +8,6 @@ namespace Mexc.Net.Objects.Sockets.Queries
     {
         private readonly IEnumerable<string> _expectedTopics;
 
-        public override HashSet<string> ListenerIdentifiers { get; set; }
-
         public MexcQuery(string method, string[] parameters, bool authenticated, int weight = 1) : base(new MexcRequest
         {
             Id = ExchangeHelpers.NextId(),
@@ -18,16 +16,17 @@ namespace Mexc.Net.Objects.Sockets.Queries
         }, authenticated, weight)
         {
             _expectedTopics = parameters;
-            ListenerIdentifiers = new HashSet<string> { ((MexcRequest)Request).Id.ToString() };
+
+            MessageMatcher = MessageMatcher.Create<MexcResponse>(((MexcRequest)Request).Id.ToString(), HandleMessage);
         }
 
-        public override CallResult<MexcResponse> HandleMessage(SocketConnection connection, DataEvent<MexcResponse> message)
+        public CallResult<MexcResponse> HandleMessage(SocketConnection connection, DataEvent<MexcResponse> message)
         {
             var topics = message.Data.Message.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
             if (!topics.All(t => _expectedTopics.Contains(t)))
                 return new CallResult<MexcResponse>(new ServerError(message.Data.Message));
 
-            return base.HandleMessage(connection, message);
+            return message.ToCallResult();
         }
     }
 }

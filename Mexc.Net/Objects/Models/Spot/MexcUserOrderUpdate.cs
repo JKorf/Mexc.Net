@@ -70,7 +70,7 @@ namespace Mexc.Net.Objects.Models.Spot
         [JsonPropertyName("v")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Average exceution price
+        /// Average execution price
         /// </summary>
         [JsonPropertyName("ap")]
         public decimal? AveragePrice { get; set; }
