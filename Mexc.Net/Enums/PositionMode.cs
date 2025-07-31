@@ -5,20 +5,20 @@ using CryptoExchange.Net.Attributes;
 namespace Mexc.Net.Enums
 {
     /// <summary>
-    /// Transfer type
+    /// Position mode
     /// </summary>
-    [JsonConverter(typeof(EnumConverter<TranfserType>))]
-    public enum TranfserType
+    [JsonConverter(typeof(EnumConverter<PositionMode>))]
+    public enum PositionMode
     {
         /// <summary>
-        /// Outside transfer
-        /// </summary>
-        [Map("0")]
-        TransferOut,
-        /// <summary>
-        /// Internal transfer
+        /// Hedge mode
         /// </summary>
         [Map("1")]
-        TransferInternal
+        Hedge,
+        /// <summary>
+        /// One way mode
+        /// </summary>
+        [Map("2")]
+        OneWay
     }
 }

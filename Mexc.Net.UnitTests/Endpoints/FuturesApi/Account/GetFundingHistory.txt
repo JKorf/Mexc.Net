@@ -1,0 +1,33 @@
+GET
+/api/v1/private/position/funding_records
+true
+{
+    "success": true,
+    "code": 0,
+    "data": {
+        "pageSize": 2,
+        "totalCount": 73,
+        "totalPage": 37,
+        "currentPage": 1,
+        "resultList": [
+            {
+                "id": 328033,
+                "symbol": "SUSHI_USDT",
+                "positionType": 1,
+                "positionValue": 41.8899,
+                "funding": 0.0837798,
+                "rate": -0.002,
+                "settleTime": 1606435200000
+            },
+            {
+                "id": 327194,
+                "symbol": "SUSHI_USDT",
+                "positionType": 1,
+                "positionValue": 34.2654,
+                "funding": 0.0685308,
+                "rate": -0.002,
+                "settleTime": 1606406400000
+            }
+        ]
+    }
+}

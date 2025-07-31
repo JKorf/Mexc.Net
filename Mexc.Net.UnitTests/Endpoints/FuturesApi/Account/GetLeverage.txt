@@ -1,0 +1,14 @@
+GET
+/api/v1/private/position/leverage
+true
+{
+    "success": true,
+    "code": 0,
+    "data":[{
+        "positionType": 1,
+        "level": 1,
+        "imr": 0.1,
+        "mmr": 0.1,
+        "leverage": 1
+    }]
+}

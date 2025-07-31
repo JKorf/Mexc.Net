@@ -24,9 +24,10 @@ namespace Mexc.Net.Interfaces
         /// <summary>
         /// Create a new spot SymbolOrderBook
         /// </summary>
-        /// <param name="symbol"></param>
-        /// <param name="options"></param>
-        /// <returns></returns>
         ISymbolOrderBook CreateSpot(string symbol, Action<MexcOrderBookOptions>? options = null);
+        /// <summary>
+        /// Create a new futures SymbolOrderBook
+        /// </summary>
+        ISymbolOrderBook CreateFutures(string symbol, Action<MexcOrderBookOptions>? options = null);
     }
 }

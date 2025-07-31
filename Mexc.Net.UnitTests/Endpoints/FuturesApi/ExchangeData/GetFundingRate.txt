@@ -1,0 +1,16 @@
+GET
+/api/v1/contract/funding_rate/ETH_USDT
+false
+{
+    "success": true,
+    "code": 0,
+    "data": {
+        "symbol": "BTC_USDT",
+        "fundingRate": -0.000489,
+        "maxFundingRate": 0.001,
+        "minFundingRate": -0.001,
+        "collectCycle": 8,
+        "nextSettleTime": 1609833600000,
+        "timestamp": 1609829807577
+    }
+}

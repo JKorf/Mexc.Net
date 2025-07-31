@@ -1,0 +1,17 @@
+GET
+/api/v1/private/account/assets
+true
+{
+    "success": true,
+    "code": 0,
+    "data": [{
+        "currency": "USDT",
+        "positionMargin": 0,
+        "availableBalance": 0.03176562,
+        "cashBalance": 0.03176562,
+        "frozenBalance": 0,
+        "equity": 0.03176562,
+        "unrealized": 0,
+        "bonus": 0
+    }]
+}

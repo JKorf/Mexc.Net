@@ -1,0 +1,21 @@
+GET
+/api/v1/contract/risk_reverse
+false
+{
+    "success": true,
+    "code": 0,
+    "data": [
+        {
+            "symbol": "BTC_USDT",
+            "currency": "USDT",
+            "available": 425018.32968325152473812,
+            "timestamp": 1609831395734
+        },
+        {
+            "symbol": "BTC_USD",
+            "currency": "BTC",
+            "available": 5.00211366264782435,
+            "timestamp": 1609831395734
+        }
+    ]
+}

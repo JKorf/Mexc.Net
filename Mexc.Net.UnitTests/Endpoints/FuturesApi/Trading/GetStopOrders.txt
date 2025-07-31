@@ -1,0 +1,27 @@
+GET
+/api/v1/private/stoporder/list/orders
+true
+{
+    "success": false,
+    "code": 0,
+    "message": "",
+    "data": [{
+        "id": 0,
+        "orderId": 0,
+        "symbol": "",
+        "positionId": 0,
+        "stopLossPrice": 0.0,
+        "takeProfitPrice": 0.0,
+        "state": 0,
+        "triggerSide": 0,
+        "positionType": 0,
+        "vol": 0.0,
+        "realityVol": 0.0,
+        "placeOrderId": 0,
+        "errorCode": 0,
+        "version": 0,
+        "isFinished": 0,
+        "createTime": "",
+        "updateTime": ""
+    }]
+}

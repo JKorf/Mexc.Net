@@ -1,0 +1,36 @@
+> { "method":"login","param":{"apiKey":"123", "reqTime":"123", "signature":"signature"}}
+< { "channel":"rs.login", "data":"success", "ts":"1587442022003" }
+> { "method":"personal.filter","param":{"filters":[]}}
+< { "channel":"rs.personal.filter", data":"success", "ts":"1587442022003" }
+= 
+{
+    "channel":"push.personal.order",
+    "data":{
+        "category":1,
+        "createTime":1610005069976,
+        "dealAvgPrice":0.731,
+        "dealVol":1,
+        "errorCode":0,
+        "externalOid":"_m_95bc2b72d3784bce8f9efecbdef9fe35",
+        "feeCurrency":"USDT",
+        "leverage":0,
+        "makerFee":0,
+        "openType":1,
+        "orderId":"102067003631907840",
+        "orderMargin":0,
+        "orderType":5,
+        "positionId":1397818,
+        "price":0.707,
+        "profit":-0.0005,
+        "remainVol":0,
+        "side":4,
+        "state":3,
+        "symbol":"CRV_USDT",
+        "takerFee":0.00004386,
+        "updateTime":1610005069983,
+        "usedMargin":0,
+        "version":2,
+        "vol":1
+    },
+    "ts":1610005069989
+}

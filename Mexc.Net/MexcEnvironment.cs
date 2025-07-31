@@ -15,11 +15,21 @@ namespace Mexc.Net
         /// Spot Socket API address
         /// </summary>
         public string SpotSocketAddress { get; }
+        /// <summary>
+        /// Futures Rest API address
+        /// </summary>
+        public string FuturesRestAddress { get; }
+        /// <summary>
+        /// Futures Socket API address
+        /// </summary>
+        public string FuturesSocketAddress { get; }
 
-        internal MexcEnvironment(string name, string spotRestAddress, string spotSocketAddress) : base(name)
+        internal MexcEnvironment(string name, string spotRestAddress, string spotSocketAddress, string futuresRestAddress, string futuresSocketAddress) : base(name)
         {
             SpotRestAddress = spotRestAddress;
             SpotSocketAddress = spotSocketAddress;
+            FuturesRestAddress = futuresRestAddress;
+            FuturesSocketAddress = futuresSocketAddress;
         }
 
         /// <summary>
@@ -54,19 +64,19 @@ namespace Mexc.Net
         public static MexcEnvironment Live { get; }
             = new MexcEnvironment(TradeEnvironmentNames.Live,
                                      MexcApiAddresses.Default.SpotRestAddress,
-                                     MexcApiAddresses.Default.SpotSocketAddress);
+                                     MexcApiAddresses.Default.SpotSocketAddress,
+                                     MexcApiAddresses.Default.FuturesRestAddress,
+                                     MexcApiAddresses.Default.FuturesSocketAddress);
 
         /// <summary>
         /// Create a custom environment
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="spotRestAddress"></param>
-        /// <param name="spotSocketAddress"></param>
-        /// <returns></returns>
         public static MexcEnvironment CreateCustom(
                         string name,
                         string spotRestAddress,
-                        string spotSocketAddress)
-            => new MexcEnvironment(name, spotRestAddress, spotSocketAddress);
+                        string spotSocketAddress,
+                        string futuresRestAddress,
+                        string futuresSocketAddress)
+            => new MexcEnvironment(name, spotRestAddress, spotSocketAddress, futuresRestAddress, futuresSocketAddress);
     }
 }

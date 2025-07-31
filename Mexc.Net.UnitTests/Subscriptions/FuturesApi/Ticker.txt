@@ -1,0 +1,27 @@
+> { "method": "sub.ticker", "param": {"symbol":"ETH_USDT"}} 
+< { "method": "rs.sub.ticker", "param": {"symbol":"ETH_USDT"}} 
+= 
+{
+    "channel":"push.ticker",
+    "data":{
+        "ask1":6866.5,
+        "bid1":6865,
+        "contractId":1,
+        "fairPrice":6867.4,
+        "fundingRate":0.0008,
+        "high24Price":7223.5,
+        "indexPrice":6861.6,
+        "lastPrice":6865.5,
+        "lower24Price":6756,
+        "maxBidPrice":7073.42,
+        "minAskPrice":6661.37,
+        "riseFallRate":-0.0424,
+        "riseFallValue":-304.5,
+        "symbol":"ETH_USDT",
+        "timestamp":1587442022003,
+        "holdVol":2284742,
+        "volume24":164586129
+    },
+    "symbol":"BTC_USDT",
+    "ts":1587442022003
+}

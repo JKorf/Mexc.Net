@@ -1,0 +1,32 @@
+GET
+/api/v1/private/order/external/ETH_USDT/123
+true
+{
+    "success": true,
+    "code": 0,
+    "data": {
+        "orderId": "102015012431820288",
+        "symbol": "ETH_USDT",
+        "positionId": 1394917,
+        "price": 1209.05,
+        "vol": 1,
+        "leverage": 0,
+        "side": 2,
+        "category": 1,
+        "orderType": 5,
+        "dealAvgPrice": 1208.35,
+        "dealVol": 1,
+        "orderMargin": 0,
+        "takerFee": 0.0072501,
+        "makerFee": 0,
+        "profit": 0,
+        "feeCurrency": "USDT",
+        "openType": 1,
+        "state": 3,
+        "externalOid": "_m_f95eb99b061d4eef8f64a04e9ac4dad3",
+        "errorCode": 0,
+        "usedMargin": 0,
+        "createTime": 1609992674000,
+        "updateTime": 1609992674000
+    }
+}

@@ -1,0 +1,31 @@
+GET
+/api/v1/private/position/list/history_positions
+true
+{
+    "success": false,
+    "code": 0,
+    "message": "",
+    "data": [{
+        "positionId": 0,
+        "symbol": "",
+        "positionType": 0,
+        "openType": 0,
+        "state": 0,
+        "holdVol": 0.0,
+        "frozenVol": 0.0,
+        "closeVol": 0.0,
+        "holdAvgPrice": 0.0,
+        "openAvgPrice": 0.0,
+        "closeAvgPrice": 0.0,
+        "liquidatePrice": 0.0,
+        "oim": 0.0,
+        "im": 0.0,
+        "holdFee": 0.0,
+        "realised": 0.0,
+        "adlLevel": 0,
+        "leverage": 0,
+        "createTime": "",
+        "updateTime": "",
+        "autoAddIm": false
+    }]
+}

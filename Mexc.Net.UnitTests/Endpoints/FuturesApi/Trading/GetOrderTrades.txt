@@ -1,0 +1,23 @@
+GET
+/api/v1/private/order/deal_details/123
+true
+{
+    "success": true,
+    "code": 0,
+    "data": [
+        {
+            "id": "159274416",
+            "symbol": "ETH_USDT",
+            "side": 2,
+            "vol": 1,
+            "price": 1208.35,
+            "feeCurrency": "USDT",
+            "fee": 0.0072501,
+            "timestamp": 1609992674000,
+            "profit": 0,
+            "category": 1,
+            "orderId": "102015012431820288",
+            "taker": true
+        }
+    ]
+}

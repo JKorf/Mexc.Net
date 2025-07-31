@@ -1,0 +1,26 @@
+GET
+/api/v1/contract/ticker
+false
+{
+    "success": true,
+    "code": 0,
+    "data": [{
+        "symbol": "BTC_USDT",
+        "lastPrice": 31199,
+        "bid1": 31198.5,
+        "ask1": 31199,
+        "volume24": 40146908,
+        "amount24": 124905007.4428,
+        "holdVol": 55102960,
+        "lower24Price": 27795,
+        "high24Price": 33152.5,
+        "riseFallRate": -0.0176,
+        "riseFallValue": -562,
+        "indexPrice": 31016.3,
+        "fairPrice": 31199.5,
+        "fundingRate": 0.001,
+        "maxBidPrice": 31946.5,
+        "minAskPrice": 30085.5,
+        "timestamp": 1609831334016
+    }]
+}

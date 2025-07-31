@@ -1,0 +1,29 @@
+GET
+/api/v1/private/account/risk_limit
+true
+{
+    "success": true,
+    "code": 0,
+    "data": {
+        "BTC_USDT": [
+            {
+                "level": 1,
+                "maxVol": 150000,
+                "maxLeverage": 125,
+                "mmr": 0.004,
+                "imr": 0.008,
+                "symbol": "BTC_USDT",
+                "positionType": 2
+            },
+            {
+                "level": 1,
+                "maxVol": 150000,
+                "maxLeverage": 125,
+                "mmr": 0.004,
+                "imr": 0.008,
+                "symbol": "BTC_USDT",
+                "positionType": 1
+            }
+        ]
+    }
+}

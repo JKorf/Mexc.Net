@@ -16,6 +16,8 @@ namespace Mexc.Net.SymbolOrderBooks
 
         /// <inheritdoc />
         public IOrderBookFactory<MexcOrderBookOptions> Spot { get; }
+        /// <inheritdoc />
+        public IOrderBookFactory<MexcOrderBookOptions> Futures { get; }
 
         /// <summary>
         /// ctor
@@ -26,6 +28,7 @@ namespace Mexc.Net.SymbolOrderBooks
             _serviceProvider = serviceProvider;
 
             Spot = new OrderBookFactory<MexcOrderBookOptions>(CreateSpot, Create);
+            Futures = new OrderBookFactory<MexcOrderBookOptions>(CreateFutures, Create);
         }
 
         /// <inheritdoc />
@@ -38,6 +41,14 @@ namespace Mexc.Net.SymbolOrderBooks
         /// <inheritdoc />
         public ISymbolOrderBook CreateSpot(string symbol, Action<MexcOrderBookOptions>? options = null)
             => new MexcSpotSymbolOrderBook(symbol,
+                                             options,
+                                             _serviceProvider.GetRequiredService<ILoggerFactory>(),
+                                             _serviceProvider.GetRequiredService<IMexcRestClient>(),
+                                             _serviceProvider.GetRequiredService<IMexcSocketClient>());
+
+        /// <inheritdoc />
+        public ISymbolOrderBook CreateFutures(string symbol, Action<MexcOrderBookOptions>? options = null)
+            => new MexcFuturesSymbolOrderBook(symbol,
                                              options,
                                              _serviceProvider.GetRequiredService<ILoggerFactory>(),
                                              _serviceProvider.GetRequiredService<IMexcRestClient>(),

@@ -55,9 +55,13 @@ namespace Mexc.Net
         /// <param name="tradingMode">Trading mode</param>
         /// <param name="deliverTime">Delivery time for delivery futures</param>
         /// <returns></returns>
-        public static string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null) 
-            => baseAsset.ToUpperInvariant() + quoteAsset.ToUpperInvariant();
+        public static string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
+        {
+            if (tradingMode == TradingMode.Spot)
+                return baseAsset.ToUpperInvariant() + quoteAsset.ToUpperInvariant();
 
+            return baseAsset.ToUpperInvariant() + "_" + quoteAsset.ToUpperInvariant();
+        }
 
         /// <summary>
         /// Rate limiter configuration for the Mexc API
@@ -95,13 +99,18 @@ namespace Mexc.Net
             SpotRest = new RateLimitGate("Spot Rest")
                                             .AddGuard(new RateLimitGuard(RateLimitGuard.PerEndpoint, [], 500, TimeSpan.FromSeconds(10), RateLimitWindowType.Sliding)); // 500 request per 10 seconds per IP for each endpoint
 
+            FuturesRest = new RateLimitGate("Futures Rest");
+
             SpotSocket.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
             SpotSocket.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
             SpotRest.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
             SpotRest.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
+            FuturesRest.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            FuturesRest.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
         }
 
         internal IRateLimitGate SpotSocket { get; private set; }
         internal IRateLimitGate SpotRest { get; private set; }
+        internal IRateLimitGate FuturesRest { get; private set; }
     }
 }
