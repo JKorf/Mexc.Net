@@ -5,11 +5,8 @@ using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Sockets;
 using Mexc.Net.Enums;
 using Mexc.Net.Interfaces.Clients.FuturesApi;
-using Mexc.Net.Objects.Models;
 using Mexc.Net.Objects.Models.Futures;
-using Mexc.Net.Objects.Models.Protobuf;
 using Mexc.Net.Objects.Options;
-using Mexc.Net.Objects.Sockets.Models;
 using Mexc.Net.Objects.Sockets.Queries;
 using Mexc.Net.Objects.Sockets.Subscriptions;
 using System.Net.WebSockets;
@@ -19,12 +16,8 @@ namespace Mexc.Net.Clients.FuturesApi
     /// <inheritdoc />
     internal partial class MexcSocketClientFuturesApi : SocketApiClient, IMexcSocketClientFuturesApi
     {
-        //private static readonly MessagePath _idPath = MessagePath.Get().Property("id");
-        //private static readonly MessagePath _msgPath = MessagePath.Get().Property("msg");
         private static readonly MessagePath _channelPath = MessagePath.Get().Property("channel");
         private static readonly MessagePath _symbolPath = MessagePath.Get().Property("symbol");
-
-        public event Action<ListenKeyRenewedEvent>? ListenkeyRenewed;
 
         #region constructor/destructor
 
@@ -32,7 +25,6 @@ namespace Mexc.Net.Clients.FuturesApi
             base(logger, options.Environment.FuturesSocketAddress, options, options.FuturesOptions)
         {
             AddSystemSubscription(new MexcErrorSubscription(_logger));
-            RateLimiter = MexcExchange.RateLimiter.SpotSocket;
 
             RegisterPeriodicQuery(
                 "Ping",
@@ -58,24 +50,22 @@ namespace Mexc.Net.Clients.FuturesApi
         /// <inheritdoc />
         public override string? GetListenerIdentifier(IMessageAccessor messageAccessor)
         {
-            //var msg = messageAccessor.GetValue<string?>(_msgPath);
-            //if (msg?.Equals("PONG", StringComparison.OrdinalIgnoreCase) == true)
-            //    return "PONG";
-
-            //var id = messageAccessor.GetValue<int?>(_idPath);
-            //if (id != null)
-            //    return id.Value.ToString();
-
             return messageAccessor.GetValue<string>(_channelPath) + messageAccessor.GetValue<string>(_symbolPath);
         }
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
-            => new MexcAuthenticationProvider(credentials);
+            => new MexcFuturesAuthenticationProvider(credentials);
 
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
             => MexcExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
+
+        protected override Task<Query?> GetAuthenticationRequestAsync(SocketConnection connection)
+        {
+            var authProvider = (MexcFuturesAuthenticationProvider)AuthenticationProvider!;
+            return Task.FromResult<Query?>(new MexcFuturesQuery("login", authProvider.GetSocketAuthParameters(), false));
+        }
 
         public IMexcSocketClientFuturesApiShared SharedClient => this;
 
@@ -139,6 +129,20 @@ namespace Mexc.Net.Clients.FuturesApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceUpdatesAsync(string symbol, Action<DataEvent<MexcPriceUpdate>> handler, CancellationToken ct = default)
         {
             var subscription = new MexcFuturesSubscription<MexcPriceUpdate>(_logger, "fair.price", symbol, null, null, handler, false);
+            return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToUserDataUpdatesAsync(
+            Action<DataEvent<MexcFuturesBalanceUpdate>>? balanceUpdateHandler = null,
+            Action<DataEvent<MexcFuturesOrder>>? orderUpdateHandler = null,
+            Action<DataEvent<MexcPosition>>? positionUpdateHandler = null,
+            Action<DataEvent<MexcRiskLimit>>? riskLimitUpdateHandler = null,
+            Action<DataEvent<MexcAdlUpdate>>? adlUpdateHandler = null,
+            Action<DataEvent<MexcPositionModeUpdate>>? positionModeUpdateHandler = null,
+            CancellationToken ct = default)
+        {
+            var subscription = new MexcFuturesUserSubscription(_logger, balanceUpdateHandler, orderUpdateHandler, positionUpdateHandler, riskLimitUpdateHandler, adlUpdateHandler, positionModeUpdateHandler);
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
     }

@@ -1,0 +1,23 @@
+> { "method": "sub.tickers", "param": {}} 
+< { "method": "rs.sub.tickers", "param": {}} 
+= 
+{
+  "channel": "push.tickers",
+  "data": [
+    {
+      "fairPrice": 183.01,
+      "lastPrice": 183,
+      "riseFallRate": -0.0708,
+      "symbol": "BSV_USDT",
+      "volume24": 200
+    },
+    {
+      "fairPrice": 220.22,
+      "lastPrice": 220.4,
+      "riseFallRate": -0.0686,
+      "symbol": "BCH_USDT",
+      "volume24": 200
+    }
+  ],
+  "ts": 1587442022003
+} 

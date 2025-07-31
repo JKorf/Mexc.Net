@@ -111,7 +111,6 @@ namespace Mexc.Net
 
         internal IRateLimitGate SpotSocket { get; private set; }
         internal IRateLimitGate SpotRest { get; private set; }
-#warning TODO
         internal IRateLimitGate FuturesRest { get; private set; }
     }
 }

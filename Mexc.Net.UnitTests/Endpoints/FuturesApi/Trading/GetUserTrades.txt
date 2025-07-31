@@ -1,0 +1,23 @@
+GET
+/api/v1/private/order/list/order_deals
+true
+{
+    "success": false,
+    "code": 0,
+    "message": "",
+    "data": [{
+        "id": 0,
+        "symbol": "",
+        "side": 0,
+        "vol": 0.0,
+        "price": 0.0,
+        "feeCurrency": "",
+        "fee": 0.0,
+        "timestamp": "",
+        "profit": 0.0,
+        "isTaker": false,
+        "category": 0,
+        "orderId": 0,
+        "opponentOrderId": 0,
+    }]
+}

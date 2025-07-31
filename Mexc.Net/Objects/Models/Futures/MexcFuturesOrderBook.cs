@@ -27,7 +27,17 @@ namespace Mexc.Net.Objects.Models.Futures
         /// Version
         /// </summary>
         [JsonPropertyName("version")]
-        public decimal Version { get; set; }
+        public long Version { get; set; }
+        /// <summary>
+        /// Last update id in the update
+        /// </summary>
+        [JsonPropertyName("end")]
+        public long? SequenceEnd { get; set; }
+        /// <summary>
+        /// First update id in the update
+        /// </summary>
+        [JsonPropertyName("begin")]
+        public long? SequenceStart { get; set; }
         /// <summary>
         /// Timestamp
         /// </summary>

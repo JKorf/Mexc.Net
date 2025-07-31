@@ -1,0 +1,16 @@
+> { "method":"login","param":{"apiKey":"123", "reqTime":"123", "signature":"signature"}}
+< { "channel":"rs.login", "data":"success", "ts":"1587442022003" }
+> { "method":"personal.filter","param":{"filters":[]}}
+< { "channel":"rs.personal.filter", data":"success", "ts":"1587442022003" }
+= 
+{
+    "channel":"push.personal.asset",
+    "data":{
+        "availableBalance":0.7514236,
+        "bonus":0,
+        "currency":"USDT",
+        "frozenBalance":0,
+        "positionMargin":0
+    },
+    "ts":1610005070083
+}

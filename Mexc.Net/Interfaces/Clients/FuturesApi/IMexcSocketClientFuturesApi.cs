@@ -81,6 +81,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to index price updates for a symbol
+        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /></para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="handler">Data handler</param>
@@ -89,10 +90,31 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to mark price updates for a symbol
+        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /></para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceUpdatesAsync(string symbol, Action<DataEvent<MexcPriceUpdate>> handler, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to user data updates
+        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#private-channels" /></para>
+        /// </summary>
+        /// <param name="balanceUpdateHandler">Balance update handler</param>
+        /// <param name="orderUpdateHandler">Order update handler</param>
+        /// <param name="positionUpdateHandler">Position update handler</param>
+        /// <param name="riskLimitUpdateHandler">Risk limit update handler</param>
+        /// <param name="adlUpdateHandler">Adl update handler</param>
+        /// <param name="positionModeUpdateHandler">Position update handler</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<CallResult<UpdateSubscription>> SubscribeToUserDataUpdatesAsync(
+            Action<DataEvent<MexcFuturesBalanceUpdate>>? balanceUpdateHandler = null,
+            Action<DataEvent<MexcFuturesOrder>>? orderUpdateHandler = null,
+            Action<DataEvent<MexcPosition>>? positionUpdateHandler = null,
+            Action<DataEvent<MexcRiskLimit>>? riskLimitUpdateHandler = null,
+            Action<DataEvent<MexcAdlUpdate>>? adlUpdateHandler = null,
+            Action<DataEvent<MexcPositionModeUpdate>>? positionModeUpdateHandler = null,
+            CancellationToken ct = default);
     }
 }

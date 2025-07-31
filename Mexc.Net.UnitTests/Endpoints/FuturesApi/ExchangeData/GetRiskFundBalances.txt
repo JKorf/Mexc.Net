@@ -16,6 +16,6 @@ false
             "currency": "BTC",
             "available": 5.00211366264782435,
             "timestamp": 1609831395734
-        },
+        }
     ]
 }

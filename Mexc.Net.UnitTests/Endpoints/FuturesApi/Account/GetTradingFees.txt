@@ -1,0 +1,16 @@
+GET
+/api/v1/private/account/tiered_fee_rate
+true
+{
+    "success": true,
+    "code": 0,
+    "data": {
+        "level": 0,
+        "dealAmount": 1786.2594,
+        "walletBalance": 0.03176562,
+        "makerFee": 0.0002,
+        "takerFee": 0.0006,
+        "makerFeeDiscount": 1,
+        "takerFeeDiscount": 1
+    }
+}

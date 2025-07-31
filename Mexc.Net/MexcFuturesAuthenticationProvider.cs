@@ -29,7 +29,6 @@ namespace Mexc.Net
                 return;
 
             headers ??= new Dictionary<string, string>();
-            headers.Add("X-MEXC-APIKEY", _credentials.Key);
 
             string paramStr;
             if (parameterPosition == HttpMethodParameterPosition.InUri)
@@ -47,10 +46,22 @@ namespace Mexc.Net
             var signStr = $"{ApiKey}{timestamp}{paramStr}";
             var sign = SignHMACSHA256(signStr);
 
-            headers ??= new Dictionary<string, string>();
             headers["ApiKey"] = ApiKey;
             headers["Request-Time"] = timestamp;
             headers["Signature"] = sign.ToLowerInvariant();            
+        }
+
+        public Dictionary<string, object> GetSocketAuthParameters()
+        {
+            var timestamp = DateTimeConverter.ConvertToMilliseconds(DateTime.UtcNow).Value.ToString(CultureInfo.InvariantCulture);
+            var sign = SignHMACSHA256(ApiKey + timestamp).ToLowerInvariant();
+            return new Dictionary<string, object>
+            {
+                { "apiKey", ApiKey },
+                { "reqTime", timestamp },
+                { "signature", sign },
+                { "subscribe", false }
+            };
         }
     }
 }

@@ -1,0 +1,19 @@
+> { "method": "sub.kline", "param": {"symbol":"ETH_USDT","interval":"Min60"}} 
+< { "method": "rs.sub.kline", "param": {"symbol":"ETH_USDT"}} 
+= 
+{
+    "channel":"push.kline",
+    "data":{
+        "a":233.740269343644737245,
+        "c":6885,
+        "h":6910.5,
+        "interval":"Min60",
+        "l":6885,
+        "o":6894.5,
+        "q":1611754,
+        "symbol":"BTC_USDT",
+        "t":1587448800
+    },
+    "symbol":"BTC_USDT",
+    "ts":1587442022003
+}

@@ -251,5 +251,178 @@ namespace Mexc.Net.Clients.FuturesApi
         }
 
         #endregion
+
+        #region Balance Client
+        EndpointOptions<GetBalancesRequest> IBalanceRestClient.GetBalancesOptions { get; } = new EndpointOptions<GetBalancesRequest>(true);
+
+        async Task<ExchangeWebResult<SharedBalance[]>> IBalanceRestClient.GetBalancesAsync(GetBalancesRequest request, CancellationToken ct)
+        {
+            var validationError = ((IBalanceRestClient)this).GetBalancesOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedBalance[]>(Exchange, validationError);
+
+            var result = await Account.GetBalancesAsync(ct: ct).ConfigureAwait(false);
+            if (!result)
+                return result.AsExchangeResult<SharedBalance[]>(Exchange, null, default);
+
+            return result.AsExchangeResult(Exchange, SupportedTradingModes, result.Data.Select(x => new SharedBalance(x.Asset, x.AvailableBalance, x.AvailableBalance + x.FrozenBalance)).ToArray());
+        }
+
+        #endregion
+
+        #region Position Mode client
+        SharedPositionModeSelection IPositionModeRestClient.PositionModeSettingType => SharedPositionModeSelection.PerAccount;
+
+        GetPositionModeOptions IPositionModeRestClient.GetPositionModeOptions { get; } = new GetPositionModeOptions();
+        async Task<ExchangeWebResult<SharedPositionModeResult>> IPositionModeRestClient.GetPositionModeAsync(GetPositionModeRequest request, CancellationToken ct)
+        {
+            var validationError = ((IPositionModeRestClient)this).GetPositionModeOptions.ValidateRequest(Exchange, request, request.Symbol?.TradingMode ?? request.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedPositionModeResult>(Exchange, validationError);
+
+            var result = await Account.GetPositionModeAsync(ct: ct).ConfigureAwait(false);
+            if (!result)
+                return result.AsExchangeResult<SharedPositionModeResult>(Exchange, null, default);
+
+            return result.AsExchangeResult(Exchange, SupportedTradingModes, new SharedPositionModeResult(result.Data == PositionMode.Hedge ? SharedPositionMode.HedgeMode : SharedPositionMode.OneWay));
+        }
+
+        SetPositionModeOptions IPositionModeRestClient.SetPositionModeOptions { get; } = new SetPositionModeOptions();
+        async Task<ExchangeWebResult<SharedPositionModeResult>> IPositionModeRestClient.SetPositionModeAsync(SetPositionModeRequest request, CancellationToken ct)
+        {
+            var validationError = ((IPositionModeRestClient)this).SetPositionModeOptions.ValidateRequest(Exchange, request, request.Symbol?.TradingMode ?? request.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedPositionModeResult>(Exchange, validationError);
+
+            var result = await Account.SetPositionModeAsync(request.PositionMode == SharedPositionMode.HedgeMode ? PositionMode.Hedge : PositionMode.OneWay, ct: ct).ConfigureAwait(false);
+            if (!result)
+                return result.AsExchangeResult<SharedPositionModeResult>(Exchange, null, default);
+
+            return result.AsExchangeResult(Exchange, SupportedTradingModes, new SharedPositionModeResult(request.PositionMode));
+        }
+        #endregion
+
+        #region Fee Client
+        EndpointOptions<GetFeeRequest> IFeeRestClient.GetFeeOptions { get; } = new EndpointOptions<GetFeeRequest>(true);
+
+        async Task<ExchangeWebResult<SharedFee>> IFeeRestClient.GetFeesAsync(GetFeeRequest request, CancellationToken ct)
+        {
+            var validationError = ((IFeeRestClient)this).GetFeeOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedFee>(Exchange, validationError);
+
+            // Get data
+            var result = await Account.GetTradingFeesAsync(
+                request.Symbol.GetSymbol(FormatSymbol),
+                ct: ct).ConfigureAwait(false);
+            if (!result)
+                return result.AsExchangeResult<SharedFee>(Exchange, null, default);
+
+            // Return
+            return result.AsExchangeResult(Exchange, SupportedTradingModes, new SharedFee(result.Data.MakerFee * 100, result.Data.TakerFee * 100));
+        }
+        #endregion
+
+        #region Leverage client
+        SharedLeverageSettingMode ILeverageRestClient.LeverageSettingType => SharedLeverageSettingMode.PerSymbol;
+
+        EndpointOptions<GetLeverageRequest> ILeverageRestClient.GetLeverageOptions { get; } = new EndpointOptions<GetLeverageRequest>(true);
+        async Task<ExchangeWebResult<SharedLeverage>> ILeverageRestClient.GetLeverageAsync(GetLeverageRequest request, CancellationToken ct)
+        {
+            var validationError = ((ILeverageRestClient)this).GetLeverageOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedLeverage>(Exchange, validationError);
+
+            var result = await Account.GetLeverageAsync(symbol: request.Symbol.GetSymbol(FormatSymbol), ct: ct).ConfigureAwait(false);
+            if (!result)
+                return result.AsExchangeResult<SharedLeverage>(Exchange, null, default);
+
+            if (!result.Data.Any())
+                return result.AsExchangeError<SharedLeverage>(Exchange, new ServerError("Not found"));
+
+            return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedLeverage(
+                result.Data.FirstOrDefault(x => request.PositionSide == null 
+            || (x.PositionSide == (request.PositionSide == SharedPositionSide.Long ? PositionSide.Long : PositionSide.Short)))?.Leverage
+            ?? result.Data.First().Leverage)
+            {
+                Side = request.PositionSide
+            });
+        }
+
+        SetLeverageOptions ILeverageRestClient.SetLeverageOptions { get; } = new SetLeverageOptions()
+        {
+            RequiredOptionalParameters = new List<ParameterDescription>
+            {
+                new ParameterDescription(nameof(SetLeverageRequest.Side), typeof(SharedPositionSide), "Position side", SharedPositionSide.Short),
+                new ParameterDescription(nameof(SetLeverageRequest.MarginMode), typeof(SharedMarginMode), "Margin mode", SharedMarginMode.Cross)
+            }
+        };
+        async Task<ExchangeWebResult<SharedLeverage>> ILeverageRestClient.SetLeverageAsync(SetLeverageRequest request, CancellationToken ct)
+        {
+            var validationError = ((ILeverageRestClient)this).SetLeverageOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedLeverage>(Exchange, validationError);
+
+            var result = await Account.SetLeverageAsync((int)request.Leverage,
+                marginType: request.MarginMode == SharedMarginMode.Isolated ? MarginType.Isolated : MarginType.Cross,
+                positionSide: request.Side == SharedPositionSide.Long ? PositionSide.Long : PositionSide.Short,
+                symbol: request.Symbol.GetSymbol(FormatSymbol), 
+                ct: ct).ConfigureAwait(false);
+            if (!result)
+                return result.AsExchangeResult<SharedLeverage>(Exchange, null, default);
+
+            return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedLeverage(request.Leverage));
+        }
+        #endregion
+
+        #region Position History client
+
+        GetPositionHistoryOptions IPositionHistoryRestClient.GetPositionHistoryOptions { get; } = new GetPositionHistoryOptions(SharedPaginationSupport.Descending, false, 100);
+        async Task<ExchangeWebResult<SharedPositionHistory[]>> IPositionHistoryRestClient.GetPositionHistoryAsync(GetPositionHistoryRequest request, INextPageToken? pageToken, CancellationToken ct)
+        {
+            var validationError = ((IPositionHistoryRestClient)this).GetPositionHistoryOptions.ValidateRequest(Exchange, request, request.Symbol?.TradingMode ?? request.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedPositionHistory[]>(Exchange, validationError);
+
+            // Determine page token
+            int page = 0;
+            int pageSize = request.Limit ?? 20;
+            if (pageToken is PageToken token)
+            {
+                page = token.Page;
+                pageSize = token.PageSize;
+            }
+
+            // Get data
+            var orders = await Trading.GetPositionHistoryAsync(
+                symbol: request.Symbol!.GetSymbol(FormatSymbol),
+                page: page,
+                pageSize: pageSize,
+                ct: ct
+                ).ConfigureAwait(false);
+            if (!orders)
+                return orders.AsExchangeResult<SharedPositionHistory[]>(Exchange, null, default);
+
+            // Get next token
+            PageToken? nextToken = null;
+            if (orders.Data.Count() == pageSize)
+                nextToken = new PageToken(page + 1, pageSize);
+
+            return orders.AsExchangeResult<SharedPositionHistory[]>(Exchange, request.Symbol.TradingMode, orders.Data.Select(x => new SharedPositionHistory(
+                ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol),
+                x.Symbol,
+                x.PositionSide == PositionSide.Long ? SharedPositionSide.Long : SharedPositionSide.Short,
+                x.OpenAveragePrice,
+                x.CloseAveragePrice,
+                x.CloseVolume,
+                x.RealisedPnl,
+                x.CreateTime)
+            {
+                Leverage = x.Leverage,
+                PositionId = x.PositionId.ToString(),
+                RealizedPnl = x.RealisedPnl                
+            }).ToArray(), nextToken);
+        }
+        #endregion
     }
 }

@@ -1,5 +1,5 @@
 GET
-/api/v1/private/order/list/open_orders/{symbol}
+/api/v1/private/order/list/open_orders/ETH_USDT
 true
 {
     "success": false,

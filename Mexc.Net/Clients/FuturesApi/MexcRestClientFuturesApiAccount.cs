@@ -61,37 +61,6 @@ namespace Mexc.Net.Clients.FuturesApi
 
         #endregion
 
-        #region Get Position History
-
-        /// <inheritdoc />
-        public async Task<WebCallResult<MexcPosition[]>> GetPositionHistoryAsync(string? symbol = null, PositionSide? positionSide = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
-        {
-            var parameters = new ParameterCollection();
-            parameters.AddOptional("symbol", symbol);
-            parameters.AddOptionalEnum("positionSide", positionSide);
-            parameters.Add("page_num", page ?? 1);
-            parameters.Add("page_size", pageSize ?? 20);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/private/position/list/history_positions", MexcExchange.RateLimiter.FuturesRest, 1, true, limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
-            var result = await _baseClient.SendAsync<MexcPosition[]>(request, parameters, ct).ConfigureAwait(false);
-            return result;
-        }
-
-        #endregion
-
-        #region Get Positions
-
-        /// <inheritdoc />
-        public async Task<WebCallResult<MexcPosition[]>> GetPositionsAsync(string? symbol = null, CancellationToken ct = default)
-        {
-            var parameters = new ParameterCollection();
-            parameters.AddOptional("symbol", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/private/position/open_positions", MexcExchange.RateLimiter.FuturesRest, 1, true, limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
-            var result = await _baseClient.SendAsync<MexcPosition[]>(request, parameters, ct).ConfigureAwait(false);
-            return result;
-        }
-
-        #endregion
-
         #region Get Funding History
 
         /// <inheritdoc />
@@ -104,6 +73,95 @@ namespace Mexc.Net.Clients.FuturesApi
             parameters.Add("page_size", pageSize ?? 20);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/private/position/funding_records", MexcExchange.RateLimiter.FuturesRest, 1, true, limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<MexcFundingRecordPage>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Get Trading Fees
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<MexcFuturesFee>> GetTradingFeesAsync(string symbol, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("symbol", symbol);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/private/account/tiered_fee_rate", MexcExchange.RateLimiter.FuturesRest, 1, true, limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var result = await _baseClient.SendAsync<MexcFuturesFee>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Change Margin
+
+        /// <inheritdoc />
+        public async Task<WebCallResult> ChangeMarginAsync(long positionId, decimal quantity, ChangeType changeType, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("positionId", positionId);
+            parameters.Add("amount", quantity);
+            parameters.AddEnum("type", changeType);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "api/v1/private/position/change_margin", MexcExchange.RateLimiter.FuturesRest, 1, true, limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Get Leverage
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<MexcLeverage[]>> GetLeverageAsync(string symbol, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("symbol", symbol);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/private/position/leverage", MexcExchange.RateLimiter.FuturesRest, 1, true, limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var result = await _baseClient.SendAsync<MexcLeverage[]>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Set Leverage
+
+        /// <inheritdoc />
+        public async Task<WebCallResult> SetLeverageAsync(int leverage, long? positionId = null, MarginType? marginType = null, string? symbol = null, PositionSide? positionSide = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("leverage", leverage);
+            parameters.AddOptional("positionId", positionId);
+            parameters.AddOptionalEnum("openType", marginType);
+            parameters.AddOptional("symbol", symbol);
+            parameters.AddOptionalEnum("positionType", positionSide);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "api/v1/private/position/change_leverage", MexcExchange.RateLimiter.FuturesRest, 1, true, limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Get Position Mode
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<PositionMode>> GetPositionModeAsync(CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/private/position/position_mode", MexcExchange.RateLimiter.FuturesRest, 1, true, limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var result = await _baseClient.SendAsync<PositionMode>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Set Position Mode
+
+        /// <inheritdoc />
+        public async Task<WebCallResult> SetPositionModeAsync(PositionMode positionMode, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddEnum("positionMode", positionMode);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "api/v1/private/position/change_position_mode", MexcExchange.RateLimiter.FuturesRest, 1, true, limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 

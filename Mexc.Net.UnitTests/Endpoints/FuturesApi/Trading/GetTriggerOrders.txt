@@ -1,0 +1,29 @@
+GET
+/api/v1/private/planorder/list/orders
+true
+{
+    "success": false,
+    "code": 0,
+    "message": "",
+    "data": [{
+            "id": 0,
+            "symbol": "",
+            "leverage": 0,
+            "side": 0,
+            "triggerPrice": 0.0,
+            "price": 0.0,
+            "vol": 0.0,
+            "openType": 0,
+            "triggerType": 0,
+            "state": 0,
+            "executeCycle": 0,
+            "trend": 0,
+            "orderType": 0,
+            "orderId": 0,
+            "errorCode": 0,
+            "createTime": "",
+            "updateTime": ""
+        }
+
+    ]
+}

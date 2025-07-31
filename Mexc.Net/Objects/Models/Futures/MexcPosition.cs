@@ -42,7 +42,7 @@ namespace Mexc.Net.Objects.Models.Futures
         /// Holding volume
         /// </summary>
         [JsonPropertyName("holdVol")]
-        public decimal HoldVolume { get; set; }
+        public decimal PositionSize { get; set; }
         /// <summary>
         /// Frozen volume
         /// </summary>

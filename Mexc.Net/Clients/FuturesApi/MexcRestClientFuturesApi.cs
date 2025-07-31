@@ -38,12 +38,9 @@ namespace Mexc.Net.Clients.FuturesApi
             Trading = new MexcRestClientFuturesApiTrading(this);
 
             RequestBodyEmptyContent = "";
-            RequestBodyFormat = RequestBodyFormat.FormData;
             ArraySerialization = ArrayParametersSerialization.MultipleValues;
 
-            ParameterPositions[HttpMethod.Post] = HttpMethodParameterPosition.InUri;
             ParameterPositions[HttpMethod.Delete] = HttpMethodParameterPosition.InUri;
-            ParameterPositions[HttpMethod.Put] = HttpMethodParameterPosition.InUri;
 
             _brokerId = !string.IsNullOrEmpty(options.BrokerId) ? options.BrokerId! : "EASYT";
             StandardRequestHeaders = new Dictionary<string, string>()
@@ -78,6 +75,21 @@ namespace Mexc.Net.Clients.FuturesApi
                 return result.As<T>(default);
 
             return result.As(result.Data.Data);
+        }
+
+        internal Task<WebCallResult> SendAsync(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null, Dictionary<string, string>? requestHeaders = null)
+            => SendToAddressAsync(BaseAddress, definition, parameters, cancellationToken, weight, requestHeaders);
+
+        internal async Task<WebCallResult> SendToAddressAsync(string baseAddress, RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null, Dictionary<string, string>? requestHeaders = null)
+        {
+            var result = await base.SendAsync<MexcFuturesResponse>(baseAddress, definition, parameters, cancellationToken, requestHeaders, weight).ConfigureAwait(false);
+            if (!result && result.Error!.Code == 700003 && (ApiOptions.AutoTimestamp ?? ClientOptions.AutoTimestamp))
+            {
+                _logger.Log(LogLevel.Debug, "Received Invalid Timestamp error, triggering new time sync");
+                _timeSyncState.LastSyncTime = DateTime.MinValue;
+            }
+
+            return result.AsDataless();
         }
 
         /// <inheritdoc />

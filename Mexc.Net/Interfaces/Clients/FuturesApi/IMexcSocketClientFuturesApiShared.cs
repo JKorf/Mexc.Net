@@ -10,7 +10,10 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         IOrderBookSocketClient,
         ITickerSocketClient,
         ITickersSocketClient,
-        ITradeSocketClient
+        ITradeSocketClient,
+        IBalanceSocketClient,
+        IFuturesOrderSocketClient,
+        IPositionSocketClient
     {
     }
 }

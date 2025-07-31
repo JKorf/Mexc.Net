@@ -1,0 +1,4 @@
+GET
+/api/v1/private/position/position_mode
+true
+{"success":true,"code":0,"data": 1}

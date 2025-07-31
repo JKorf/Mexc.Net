@@ -11,7 +11,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         IRecentTradeRestClient,
         IFundingRateRestClient,
         IFuturesSymbolRestClient,
-        IFuturesTickerRestClient
+        IFuturesTickerRestClient,
+        IBalanceRestClient,
+        ILeverageRestClient,
+        IPositionModeRestClient,
+        IPositionHistoryRestClient,
+        IFeeRestClient
     {
     }
 }

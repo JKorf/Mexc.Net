@@ -1,0 +1,12 @@
+> { "method": "sub.index.price", "param": {"symbol":"ETH_USDT"}} 
+< { "method": "rs.sub.index.price", "param": {"symbol":"ETH_USDT"}} 
+= 
+{
+    "channel":"push.index.price",
+    "data":{
+        "price":0.001,
+        "symbol":"BTC_USDT"
+    },
+    "symbol":"BTC_USDT",
+    "ts":1587442022003
+}

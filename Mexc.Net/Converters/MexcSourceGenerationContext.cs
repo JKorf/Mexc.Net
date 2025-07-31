@@ -1,8 +1,10 @@
+using Mexc.Net.Enums;
 using Mexc.Net.Objects.Models;
 using Mexc.Net.Objects.Models.Futures;
 using Mexc.Net.Objects.Models.Protobuf;
 using Mexc.Net.Objects.Models.Spot;
 using Mexc.Net.Objects.Sockets.Models;
+using static Mexc.Net.Objects.Sockets.Subscriptions.MexcFuturesUserSubscription;
 
 namespace Mexc.Net.Converters
 {
@@ -27,8 +29,18 @@ namespace Mexc.Net.Converters
     [JsonSerializable(typeof(MexcFuturesResponse<MexcPosition[]>))]
     [JsonSerializable(typeof(MexcFuturesResponse<MexcFundingRecordPage>))]
     [JsonSerializable(typeof(MexcFuturesResponse<MexcFuturesOrder[]>))]
+    [JsonSerializable(typeof(MexcFuturesResponse<MexcFuturesOrder>))]
+    [JsonSerializable(typeof(MexcFuturesResponse<MexcFuturesTriggerOrder[]>))]
+    [JsonSerializable(typeof(MexcFuturesResponse<MexcStopOrder[]>))]
+    [JsonSerializable(typeof(MexcFuturesResponse<MexcFuturesUserTrade[]>))]
+    [JsonSerializable(typeof(MexcFuturesResponse<MexcFuturesFee>))]
+    [JsonSerializable(typeof(MexcFuturesResponse))]
+    [JsonSerializable(typeof(MexcFuturesResponse<MexcLeverage[]>))]
+    [JsonSerializable(typeof(MexcFuturesResponse<PositionMode>))]
+    [JsonSerializable(typeof(MexcFuturesResponse<Dictionary<string, MexcRiskLimit[]>>))]
 
     [JsonSerializable(typeof(MexcFuturesRequest))]
+    [JsonSerializable(typeof(SubFilter[]))]
     [JsonSerializable(typeof(MexcFuturesResponse<MexcFuturesTicker[]>))]
 
     [JsonSerializable(typeof(MexcFuturesUpdate<MexcPriceUpdate>))]
@@ -39,6 +51,12 @@ namespace Mexc.Net.Converters
     [JsonSerializable(typeof(MexcFuturesUpdate<MexcFuturesStreamKline>))]
     [JsonSerializable(typeof(MexcFuturesUpdate<MexcFuturesTickerUpdate[]>))]
     [JsonSerializable(typeof(MexcFuturesUpdate<string>))]
+    [JsonSerializable(typeof(MexcFuturesUpdate<MexcFuturesBalanceUpdate>))]
+    [JsonSerializable(typeof(MexcFuturesUpdate<MexcFuturesOrder>))]
+    [JsonSerializable(typeof(MexcFuturesUpdate<MexcPosition>))]
+    [JsonSerializable(typeof(MexcFuturesUpdate<MexcRiskLimit>))]
+    [JsonSerializable(typeof(MexcFuturesUpdate<MexcAdlUpdate>))]
+    [JsonSerializable(typeof(MexcFuturesUpdate<MexcPositionModeUpdate>))]
 
     // End manual defined attributes
 

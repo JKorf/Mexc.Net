@@ -1,0 +1,20 @@
+> { "method": "sub.depth.full", "param": {"symbol":"ETH_USDT"}} 
+< { "method": "rs.sub.depth.full", "param": {"symbol":"ETH_USDT"}} 
+= 
+{
+    "channel":"push.depth.full",
+    "data":{
+        "asks":[
+            [
+                6859.5,
+                3251,
+                1
+            ]
+        ],
+        "bids":[
+        ],
+        "version":96801927
+    },
+    "symbol":"BTC_USDT",
+    "ts":1587442022003
+}

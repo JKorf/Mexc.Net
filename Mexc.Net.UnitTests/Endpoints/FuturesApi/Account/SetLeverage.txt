@@ -1,0 +1,7 @@
+POST
+/api/v1/private/position/change_leverage
+true
+{
+    "success": true,
+    "code": 0
+}

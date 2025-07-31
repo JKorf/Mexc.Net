@@ -1,0 +1,12 @@
+> { "method": "sub.funding.rate", "param": {"symbol":"ETH_USDT"}} 
+< { "method": "rs.sub.funding.rate", "param": {"symbol":"ETH_USDT"}} 
+= 
+{
+    "channel":"push.funding.rate",
+    "data":{
+        "rate":0.001,
+        "symbol":"BTC_USDT"
+    },
+    "symbol":"BTC_USDT",
+    "ts":1587442022003
+}

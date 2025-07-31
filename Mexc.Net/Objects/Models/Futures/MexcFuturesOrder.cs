@@ -39,6 +39,11 @@ namespace Mexc.Net.Objects.Models.Futures
         [JsonPropertyName("vol")]
         public decimal Quantity { get; set; }
         /// <summary>
+        /// Quantity open
+        /// </summary>
+        [JsonPropertyName("remainVol")]
+        public decimal? QuantityRemaining { get; set; }
+        /// <summary>
         /// Leverage
         /// </summary>
         [JsonPropertyName("leverage")]
@@ -138,6 +143,11 @@ namespace Mexc.Net.Objects.Models.Futures
         /// </summary>
         [JsonPropertyName("takeProfitPrice")]
         public decimal? TakeProfitPrice { get; set; }
+        /// <summary>
+        /// Version
+        /// </summary>
+        [JsonPropertyName("version")]
+        public int? Version { get; set; }
     }
 
 
