@@ -32,7 +32,7 @@ namespace Mexc.Net.Clients.SpotApi
             if (!Enum.IsDefined(typeof(Enums.KlineInterval), interval))
                 return new ExchangeWebResult<SharedKline[]>(Exchange, new ArgumentError("Interval not supported"));
 
-            var validationError = ((IKlineRestClient)this).GetKlinesOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            var validationError = ((IKlineRestClient)this).GetKlinesOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedKline[]>(Exchange, validationError);
 
@@ -55,7 +55,7 @@ namespace Mexc.Net.Clients.SpotApi
 
             // Get data
             var result = await ExchangeData.GetKlinesAsync(
-                request.Symbol.GetSymbol(FormatSymbol),
+                request.Symbol!.GetSymbol(FormatSymbol),
                 interval,
                 startTime,
                 endTime,
@@ -112,11 +112,11 @@ namespace Mexc.Net.Clients.SpotApi
         EndpointOptions<GetTickerRequest> ISpotTickerRestClient.GetSpotTickerOptions { get; } = new EndpointOptions<GetTickerRequest>(false);
         async Task<ExchangeWebResult<SharedSpotTicker>> ISpotTickerRestClient.GetSpotTickerAsync(GetTickerRequest request, CancellationToken ct)
         {
-            var validationError = ((ISpotTickerRestClient)this).GetSpotTickerOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            var validationError = ((ISpotTickerRestClient)this).GetSpotTickerOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedSpotTicker>(Exchange, validationError);
 
-            var symbol = request.Symbol.GetSymbol(FormatSymbol);
+            var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             var result = await ExchangeData.GetTickerAsync(symbol, ct).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<SharedSpotTicker>(Exchange, null, default);
@@ -151,11 +151,11 @@ namespace Mexc.Net.Clients.SpotApi
         EndpointOptions<GetBookTickerRequest> IBookTickerRestClient.GetBookTickerOptions { get; } = new EndpointOptions<GetBookTickerRequest>(false);
         async Task<ExchangeWebResult<SharedBookTicker>> IBookTickerRestClient.GetBookTickerAsync(GetBookTickerRequest request, CancellationToken ct)
         {
-            var validationError = ((IBookTickerRestClient)this).GetBookTickerOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            var validationError = ((IBookTickerRestClient)this).GetBookTickerOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedBookTicker>(Exchange, validationError);
 
-            var resultTicker = await ExchangeData.GetBookPricesAsync(request.Symbol.GetSymbol(FormatSymbol), ct: ct).ConfigureAwait(false);
+            var resultTicker = await ExchangeData.GetBookPricesAsync(request.Symbol!.GetSymbol(FormatSymbol), ct: ct).ConfigureAwait(false);
             if (!resultTicker)
                 return resultTicker.AsExchangeResult<SharedBookTicker>(Exchange, null, default);
 
@@ -176,12 +176,12 @@ namespace Mexc.Net.Clients.SpotApi
 
         async Task<ExchangeWebResult<SharedTrade[]>> IRecentTradeRestClient.GetRecentTradesAsync(GetRecentTradesRequest request, CancellationToken ct)
         {
-            var validationError = ((IRecentTradeRestClient)this).GetRecentTradesOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            var validationError = ((IRecentTradeRestClient)this).GetRecentTradesOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedTrade[]>(Exchange, validationError);
 
             var result = await ExchangeData.GetRecentTradesAsync(
-                request.Symbol.GetSymbol(FormatSymbol),
+                request.Symbol!.GetSymbol(FormatSymbol),
                 limit: request.Limit,
                 ct: ct).ConfigureAwait(false);
             if (!result)
@@ -234,7 +234,7 @@ namespace Mexc.Net.Clients.SpotApi
             var validationError = ((ISpotOrderRestClient)this).PlaceSpotOrderOptions.ValidateRequest(
                 Exchange,
                 request,
-                request.Symbol.TradingMode,
+                request.TradingMode,
                 SupportedTradingModes,
                 ((ISpotOrderRestClient)this).SpotSupportedOrderTypes,
                 ((ISpotOrderRestClient)this).SpotSupportedTimeInForce,
@@ -243,7 +243,7 @@ namespace Mexc.Net.Clients.SpotApi
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
             var result = await Trading.PlaceOrderAsync(
-                request.Symbol.GetSymbol(FormatSymbol),
+                request.Symbol!.GetSymbol(FormatSymbol),
                 request.Side == SharedOrderSide.Buy ? Enums.OrderSide.Buy : Enums.OrderSide.Sell,
                 GetPlaceOrderType(request.OrderType, request.TimeInForce),
                 request.Quantity?.QuantityInBaseAsset,
@@ -261,11 +261,11 @@ namespace Mexc.Net.Clients.SpotApi
         EndpointOptions<GetOrderRequest> ISpotOrderRestClient.GetSpotOrderOptions { get; } = new EndpointOptions<GetOrderRequest>(true);
         async Task<ExchangeWebResult<SharedSpotOrder>> ISpotOrderRestClient.GetSpotOrderAsync(GetOrderRequest request, CancellationToken ct)
         {
-            var validationError = ((ISpotOrderRestClient)this).GetSpotOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            var validationError = ((ISpotOrderRestClient)this).GetSpotOrderOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedSpotOrder>(Exchange, validationError);
 
-            var order = await Trading.GetOrderAsync(request.Symbol.GetSymbol(FormatSymbol), request.OrderId, ct: ct).ConfigureAwait(false);
+            var order = await Trading.GetOrderAsync(request.Symbol!.GetSymbol(FormatSymbol), request.OrderId, ct: ct).ConfigureAwait(false);
             if (!order)
                 return order.AsExchangeResult<SharedSpotOrder>(Exchange, null, default);
 
@@ -332,7 +332,7 @@ namespace Mexc.Net.Clients.SpotApi
         PaginatedEndpointOptions<GetClosedOrdersRequest> ISpotOrderRestClient.GetClosedSpotOrdersOptions { get; } = new PaginatedEndpointOptions<GetClosedOrdersRequest>(SharedPaginationSupport.Descending, true, 1000, true);
         async Task<ExchangeWebResult<SharedSpotOrder[]>> ISpotOrderRestClient.GetClosedSpotOrdersAsync(GetClosedOrdersRequest request, INextPageToken? pageToken, CancellationToken ct)
         {
-            var validationError = ((ISpotOrderRestClient)this).GetClosedSpotOrdersOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            var validationError = ((ISpotOrderRestClient)this).GetClosedSpotOrdersOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedSpotOrder[]>(Exchange, validationError);
 
@@ -342,7 +342,7 @@ namespace Mexc.Net.Clients.SpotApi
                 fromTimestamp = dateTimeToken.LastTime;
 
             var limit = request.Limit ?? 100;
-            var symbol = request.Symbol.GetSymbol(FormatSymbol);
+            var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             var order = await Trading.GetOrdersAsync(
                 symbol: symbol,
                 startTime: request.StartTime,
@@ -379,11 +379,11 @@ namespace Mexc.Net.Clients.SpotApi
         EndpointOptions<GetOrderTradesRequest> ISpotOrderRestClient.GetSpotOrderTradesOptions { get; } = new EndpointOptions<GetOrderTradesRequest>(true);
         async Task<ExchangeWebResult<SharedUserTrade[]>> ISpotOrderRestClient.GetSpotOrderTradesAsync(GetOrderTradesRequest request, CancellationToken ct)
         {
-            var validationError = ((ISpotOrderRestClient)this).GetSpotOrderTradesOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            var validationError = ((ISpotOrderRestClient)this).GetSpotOrderTradesOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedUserTrade[]>(Exchange, validationError);
 
-            var symbol = request.Symbol.GetSymbol(FormatSymbol);
+            var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             var order = await Trading.GetUserTradesAsync(symbol: symbol, request.OrderId, ct: ct).ConfigureAwait(false);
             if (!order)
                 return order.AsExchangeResult<SharedUserTrade[]>(Exchange, null, default);
@@ -407,7 +407,7 @@ namespace Mexc.Net.Clients.SpotApi
         PaginatedEndpointOptions<GetUserTradesRequest> ISpotOrderRestClient.GetSpotUserTradesOptions { get; } = new PaginatedEndpointOptions<GetUserTradesRequest>(SharedPaginationSupport.Descending, true, 100, true);
         async Task<ExchangeWebResult<SharedUserTrade[]>> ISpotOrderRestClient.GetSpotUserTradesAsync(GetUserTradesRequest request, INextPageToken? nextPageToken, CancellationToken ct)
         {
-            var validationError = ((ISpotOrderRestClient)this).GetSpotUserTradesOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            var validationError = ((ISpotOrderRestClient)this).GetSpotUserTradesOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedUserTrade[]>(Exchange, validationError);
 
@@ -418,7 +418,7 @@ namespace Mexc.Net.Clients.SpotApi
 
             // Get data
             var limit = request.Limit ?? 100;
-            var symbol = request.Symbol.GetSymbol(FormatSymbol);
+            var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             var order = await Trading.GetUserTradesAsync(
                 symbol: symbol,
                 startTime: request.StartTime,
@@ -452,11 +452,11 @@ namespace Mexc.Net.Clients.SpotApi
         EndpointOptions<CancelOrderRequest> ISpotOrderRestClient.CancelSpotOrderOptions { get; } = new EndpointOptions<CancelOrderRequest>(true);
         async Task<ExchangeWebResult<SharedId>> ISpotOrderRestClient.CancelSpotOrderAsync(CancelOrderRequest request, CancellationToken ct)
         {
-            var validationError = ((ISpotOrderRestClient)this).CancelSpotOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            var validationError = ((ISpotOrderRestClient)this).CancelSpotOrderOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
-            var order = await Trading.CancelOrderAsync(request.Symbol.GetSymbol(FormatSymbol), request.OrderId, ct: ct).ConfigureAwait(false);
+            var order = await Trading.CancelOrderAsync(request.Symbol!.GetSymbol(FormatSymbol), request.OrderId, ct: ct).ConfigureAwait(false);
             if (!order)
                 return order.AsExchangeResult<SharedId>(Exchange, null, default);
 
@@ -621,12 +621,12 @@ namespace Mexc.Net.Clients.SpotApi
         GetOrderBookOptions IOrderBookRestClient.GetOrderBookOptions { get; } = new GetOrderBookOptions(1, 5000, false);
         async Task<ExchangeWebResult<SharedOrderBook>> IOrderBookRestClient.GetOrderBookAsync(GetOrderBookRequest request, CancellationToken ct)
         {
-            var validationError = ((IOrderBookRestClient)this).GetOrderBookOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            var validationError = ((IOrderBookRestClient)this).GetOrderBookOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedOrderBook>(Exchange, validationError);
 
             var result = await ExchangeData.GetOrderBookAsync(
-                request.Symbol.GetSymbol(FormatSymbol),
+                request.Symbol!.GetSymbol(FormatSymbol),
                 limit: request.Limit,
                 ct: ct).ConfigureAwait(false);
             if (!result)
@@ -637,7 +637,7 @@ namespace Mexc.Net.Clients.SpotApi
 
         #endregion
 
-        // Doesnt return data if timestamp is specified?
+        // Doesn't return data if timestamp is specified?
         //        #region Trade History client
 
         //        async Task<ExchangeWebResult<SharedTrade[]>> ITradeHistoryRestClient.GetTradeHistoryAsync(GetTradeHistoryRequest request, INextPageToken? pageToken, CancellationToken ct)
@@ -787,13 +787,13 @@ namespace Mexc.Net.Clients.SpotApi
 
         async Task<ExchangeWebResult<SharedFee>> IFeeRestClient.GetFeesAsync(GetFeeRequest request, CancellationToken ct)
         {
-            var validationError = ((IFeeRestClient)this).GetFeeOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            var validationError = ((IFeeRestClient)this).GetFeeOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedFee>(Exchange, validationError);
 
             // Get data
             var result = await Account.GetTradeFeeAsync(
-                request.Symbol.GetSymbol(FormatSymbol),
+                request.Symbol!.GetSymbol(FormatSymbol),
                 ct: ct).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<SharedFee>(Exchange, null, default);

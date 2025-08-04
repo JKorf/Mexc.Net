@@ -35,7 +35,7 @@ namespace Mexc.Net.Clients.FuturesApi
             if (!Enum.IsDefined(typeof(Enums.FuturesKlineInterval), interval))
                 return new ExchangeWebResult<SharedKline[]>(Exchange, new ArgumentError("Interval not supported"));
 
-            var validationError = ((IKlineRestClient)this).GetKlinesOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            var validationError = ((IKlineRestClient)this).GetKlinesOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedKline[]>(Exchange, validationError);
 
@@ -57,7 +57,7 @@ namespace Mexc.Net.Clients.FuturesApi
                 startTime = request.StartTime;
 
             var result = await ExchangeData.GetKlinesAsync(
-                request.Symbol.GetSymbol(FormatSymbol),
+                request.Symbol!.GetSymbol(FormatSymbol),
                 interval,
                 startTime,
                 endTime,
@@ -84,12 +84,12 @@ namespace Mexc.Net.Clients.FuturesApi
         GetOrderBookOptions IOrderBookRestClient.GetOrderBookOptions { get; } = new GetOrderBookOptions(0, 1500, false);
         async Task<ExchangeWebResult<SharedOrderBook>> IOrderBookRestClient.GetOrderBookAsync(GetOrderBookRequest request, CancellationToken ct)
         {
-            var validationError = ((IOrderBookRestClient)this).GetOrderBookOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            var validationError = ((IOrderBookRestClient)this).GetOrderBookOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedOrderBook>(Exchange, validationError);
 
             var result = await ExchangeData.GetOrderBookAsync(
-                request.Symbol.GetSymbol(FormatSymbol),
+                request.Symbol!.GetSymbol(FormatSymbol),
                 limit: request.Limit ?? 20,
                 ct: ct).ConfigureAwait(false);
             if (!result)
@@ -105,12 +105,12 @@ namespace Mexc.Net.Clients.FuturesApi
         GetRecentTradesOptions IRecentTradeRestClient.GetRecentTradesOptions { get; } = new GetRecentTradesOptions(100, false);
         async Task<ExchangeWebResult<SharedTrade[]>> IRecentTradeRestClient.GetRecentTradesAsync(GetRecentTradesRequest request, CancellationToken ct)
         {
-            var validationError = ((IRecentTradeRestClient)this).GetRecentTradesOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            var validationError = ((IRecentTradeRestClient)this).GetRecentTradesOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedTrade[]>(Exchange, validationError);
 
             var result = await ExchangeData.GetRecentTradesAsync(
-                request.Symbol.GetSymbol(FormatSymbol),
+                request.Symbol!.GetSymbol(FormatSymbol),
                 ct: ct).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<SharedTrade[]>(Exchange, null, default);
@@ -128,13 +128,13 @@ namespace Mexc.Net.Clients.FuturesApi
 
         async Task<ExchangeWebResult<SharedFundingRate[]>> IFundingRateRestClient.GetFundingRateHistoryAsync(GetFundingRateHistoryRequest request, INextPageToken? pageToken, CancellationToken ct)
         {
-            var validationError = ((IFundingRateRestClient)this).GetFundingRateHistoryOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            var validationError = ((IFundingRateRestClient)this).GetFundingRateHistoryOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedFundingRate[]>(Exchange, validationError);
 
             // Get data
             var result = await ExchangeData.GetFundingRateHistoryAsync(
-                request.Symbol.GetSymbol(FormatSymbol),
+                request.Symbol!.GetSymbol(FormatSymbol),
                 pageSize: request.Limit,
                 ct: ct).ConfigureAwait(false);
             if (!result)
@@ -195,11 +195,11 @@ namespace Mexc.Net.Clients.FuturesApi
         EndpointOptions<GetTickerRequest> IFuturesTickerRestClient.GetFuturesTickerOptions { get; } = new EndpointOptions<GetTickerRequest>(false);
         async Task<ExchangeWebResult<SharedFuturesTicker>> IFuturesTickerRestClient.GetFuturesTickerAsync(GetTickerRequest request, CancellationToken ct)
         {
-            var validationError = ((IFuturesTickerRestClient)this).GetFuturesTickerOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            var validationError = ((IFuturesTickerRestClient)this).GetFuturesTickerOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedFuturesTicker>(Exchange, validationError);
 
-            var result = await ExchangeData.GetTickerAsync(request.Symbol.GetSymbol(FormatSymbol), ct).ConfigureAwait(false);
+            var result = await ExchangeData.GetTickerAsync(request.Symbol!.GetSymbol(FormatSymbol), ct).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<SharedFuturesTicker>(Exchange, null, default);
 
@@ -307,13 +307,13 @@ namespace Mexc.Net.Clients.FuturesApi
 
         async Task<ExchangeWebResult<SharedFee>> IFeeRestClient.GetFeesAsync(GetFeeRequest request, CancellationToken ct)
         {
-            var validationError = ((IFeeRestClient)this).GetFeeOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            var validationError = ((IFeeRestClient)this).GetFeeOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedFee>(Exchange, validationError);
 
             // Get data
             var result = await Account.GetTradingFeesAsync(
-                request.Symbol.GetSymbol(FormatSymbol),
+                request.Symbol!.GetSymbol(FormatSymbol),
                 ct: ct).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<SharedFee>(Exchange, null, default);
@@ -329,11 +329,11 @@ namespace Mexc.Net.Clients.FuturesApi
         EndpointOptions<GetLeverageRequest> ILeverageRestClient.GetLeverageOptions { get; } = new EndpointOptions<GetLeverageRequest>(true);
         async Task<ExchangeWebResult<SharedLeverage>> ILeverageRestClient.GetLeverageAsync(GetLeverageRequest request, CancellationToken ct)
         {
-            var validationError = ((ILeverageRestClient)this).GetLeverageOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            var validationError = ((ILeverageRestClient)this).GetLeverageOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedLeverage>(Exchange, validationError);
 
-            var result = await Account.GetLeverageAsync(symbol: request.Symbol.GetSymbol(FormatSymbol), ct: ct).ConfigureAwait(false);
+            var result = await Account.GetLeverageAsync(symbol: request.Symbol!.GetSymbol(FormatSymbol), ct: ct).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<SharedLeverage>(Exchange, null, default);
 
@@ -359,14 +359,14 @@ namespace Mexc.Net.Clients.FuturesApi
         };
         async Task<ExchangeWebResult<SharedLeverage>> ILeverageRestClient.SetLeverageAsync(SetLeverageRequest request, CancellationToken ct)
         {
-            var validationError = ((ILeverageRestClient)this).SetLeverageOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            var validationError = ((ILeverageRestClient)this).SetLeverageOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedLeverage>(Exchange, validationError);
 
             var result = await Account.SetLeverageAsync((int)request.Leverage,
                 marginType: request.MarginMode == SharedMarginMode.Isolated ? MarginType.Isolated : MarginType.Cross,
                 positionSide: request.Side == SharedPositionSide.Long ? PositionSide.Long : PositionSide.Short,
-                symbol: request.Symbol.GetSymbol(FormatSymbol), 
+                symbol: request.Symbol!.GetSymbol(FormatSymbol), 
                 ct: ct).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<SharedLeverage>(Exchange, null, default);
