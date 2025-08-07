@@ -6,7 +6,6 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
     /// Shared interface for Spot socket API usage
     /// </summary>
     public interface IMexcSocketClientSpotApiShared :
-        ITickerSocketClient,
         ITradeSocketClient,
         IBookTickerSocketClient,
         IKlineSocketClient,

@@ -549,15 +549,6 @@
         <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToBookTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamBookTick}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToMiniTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick}},System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToMiniTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick}},System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToMiniTickerUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick[]}},System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToAccountUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcAccountUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -3964,38 +3955,6 @@
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#individual-symbol-book-ticker-streams" /></para>
             </summary>
             <param name="symbols">The symbols, for example `BTCUSDT`</param>
-            <param name="handler">Data handler</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToMiniTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick}},System.String,System.Threading.CancellationToken)">
-            <summary>
-            Subscribe to mini ticker updates
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#miniticker" /></para>
-            </summary>
-            <param name="symbol">The symbol, for example `BTCUSDT`</param>
-            <param name="timezone">The timezone to base the statistics on, in the form of `UTC+1`. Defaults to `UTC+0`</param>
-            <param name="handler">Data handler</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToMiniTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick}},System.String,System.Threading.CancellationToken)">
-            <summary>
-            Subscribe to mini ticker updates
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#miniticker" /></para>
-            </summary>
-            <param name="symbols">The symbols, for example `BTCUSDT`</param>
-            <param name="timezone">The timezone to base the statistics on, in the form of `UTC+1`. Defaults to `UTC+0`</param>
-            <param name="handler">Data handler</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToMiniTickerUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamMiniTick[]}},System.String,System.Threading.CancellationToken)">
-            <summary>
-            Subscribe to mini ticker updates for all symbols
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#minitickers" /></para>
-            </summary>
-            <param name="timezone">The timezone to base the statistics on, in the form of `UTC+1`. Defaults to `UTC+0`</param>
             <param name="handler">Data handler</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>

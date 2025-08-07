@@ -169,38 +169,6 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<MexcStreamBookTick>> handler, CancellationToken ct = default);
 
         /// <summary>
-        /// Subscribe to mini ticker updates
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#miniticker" /></para>
-        /// </summary>
-        /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
-        /// <param name="timezone">The timezone to base the statistics on, in the form of `UTC+1`. Defaults to `UTC+0`</param>
-        /// <param name="handler">Data handler</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToMiniTickerUpdatesAsync(string symbol, Action<DataEvent<MexcStreamMiniTick>> handler, string? timezone = null, CancellationToken ct = default);
-
-        /// <summary>
-        /// Subscribe to mini ticker updates
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#miniticker" /></para>
-        /// </summary>
-        /// <param name="symbols">The symbols, for example `BTCUSDT`</param>
-        /// <param name="timezone">The timezone to base the statistics on, in the form of `UTC+1`. Defaults to `UTC+0`</param>
-        /// <param name="handler">Data handler</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToMiniTickerUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<MexcStreamMiniTick>> handler, string? timezone = null, CancellationToken ct = default);
-
-        /// <summary>
-        /// Subscribe to mini ticker updates for all symbols
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#minitickers" /></para>
-        /// </summary>
-        /// <param name="timezone">The timezone to base the statistics on, in the form of `UTC+1`. Defaults to `UTC+0`</param>
-        /// <param name="handler">Data handler</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToMiniTickerUpdatesAsync(Action<DataEvent<MexcStreamMiniTick[]>> handler, string? timezone = null, CancellationToken ct = default);
-
-        /// <summary>
         /// Subscribe to account balance updates. Prior to using this, the <see cref="IMexcRestClientSpotApiAccount.StartUserStreamAsync(CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method should be called to start the stream and obtaining a listen key.
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#spot-account-upadte" /></para>
         /// </summary>
