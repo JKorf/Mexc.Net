@@ -1,4 +1,5 @@
 ﻿using CryptoExchange.Net.Clients;
+using Mexc.Net.Clients.SpotApi;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -42,6 +43,7 @@ namespace Mexc.Net
             }
             var timestamp = GetMillisecondTimestamp(apiClient);
             parameters.Add("timestamp", timestamp);
+            parameters.Add("recvWindow", ((MexcRestClientSpotApi)apiClient).ClientOptions.ReceiveWindow.TotalMilliseconds.ToString());
 
             if (_credentials.CredentialType == ApiCredentialsType.Hmac)
             {

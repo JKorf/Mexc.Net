@@ -39,7 +39,7 @@ namespace Mexc.Net.UnitTests
             var resultObj = new MexcResult()
             {
                 Code = 400001,
-                Message = "Error occured"
+                Message = "Error occurred"
             };
 
             TestHelpers.SetResponse((MexcRestClient)client, JsonSerializer.Serialize(resultObj), System.Net.HttpStatusCode.BadRequest);
@@ -50,8 +50,8 @@ namespace Mexc.Net.UnitTests
             // assert
             ClassicAssert.IsFalse(result.Success);
             ClassicAssert.IsNotNull(result.Error);
-            Assert.That(result.Error!.Code == 400001);
-            Assert.That(result.Error.Message == "Error occured");
+            Assert.That(result.Error!.ErrorCode == "400001");
+            Assert.That(result.Error.Message == "Error occurred");
         }
 
         [Test]

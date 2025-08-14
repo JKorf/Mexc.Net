@@ -54,7 +54,7 @@ namespace Mexc.Net.Clients.SpotApi
                 return result.As<string[]>(default);
 
             if (result.Data.Code != 0)
-                return result.AsError<string[]>(new ServerError(result.Data.Code, result.Data.Message!));
+                return result.AsError<string[]>(new ServerError(result.Data.Code, _baseClient.GetErrorInfo(result.Data.Code, result.Data.Message!)));
 
             return result.As(result.Data.Data!);
         }

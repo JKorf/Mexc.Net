@@ -6,6 +6,7 @@ using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.SharedApis;
 using Mexc.Net.Objects.Models;
 using Mexc.Net.Objects.Models.Futures;
+using CryptoExchange.Net.Objects.Errors;
 
 namespace Mexc.Net.Clients.FuturesApi
 {
@@ -14,6 +15,62 @@ namespace Mexc.Net.Clients.FuturesApi
     {
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Futures Api");
 
+        protected override ErrorCollection ErrorMapping { get; } = new ErrorCollection([
+            new ErrorInfo(ErrorType.Unauthorized, true, "Unauthorized", "401"),
+            new ErrorInfo(ErrorType.Unauthorized, true, "API key expired", "402"),
+            new ErrorInfo(ErrorType.Unauthorized, true, "IP address not allowed", "406"),
+            new ErrorInfo(ErrorType.Unauthorized, true, "Insufficient permissions", "701", "702", "703", "704"),
+            new ErrorInfo(ErrorType.Unauthorized, true, "Trading forbidden", "6001"),
+
+            new ErrorInfo(ErrorType.SystemError, true, "System error", "500"),
+            new ErrorInfo(ErrorType.SystemError, true, "System busy", "501"),
+
+            new ErrorInfo(ErrorType.RequestRateLimited, true, "Too many requests", "510", "2037"),
+
+            new ErrorInfo(ErrorType.InvalidParameter, true, "Parameter error", "600"),
+            new ErrorInfo(ErrorType.InvalidParameter, true, "Invalid order direction", "2001"),
+            new ErrorInfo(ErrorType.InvalidParameter, true, "Invalid open type", "2002"),
+            new ErrorInfo(ErrorType.InvalidParameter, true, "Leverage ratio error", "2006"),
+            new ErrorInfo(ErrorType.InvalidParameter, true, "Too many orders in batch operation", "2013", "2014", "2034"),
+            new ErrorInfo(ErrorType.InvalidParameter, true, "Price or quantity decimal precision invalid", "2015"),
+            new ErrorInfo(ErrorType.InvalidParameter, true, "Incorrect position type", "2022"),
+            new ErrorInfo(ErrorType.InvalidParameter, true, "Order type invalid", "2029"),
+            new ErrorInfo(ErrorType.InvalidParameter, true, "Invalid clientOrderId", "2030"),
+            new ErrorInfo(ErrorType.InvalidParameter, true, "Trigger price type error", "3001"),
+            new ErrorInfo(ErrorType.InvalidParameter, true, "Trigger type error", "3002"),
+            new ErrorInfo(ErrorType.InvalidParameter, true, "Time range invalid", "6003"),
+
+            new ErrorInfo(ErrorType.StopParametersInvalid, true, "Trigger price error", "3004"),
+            new ErrorInfo(ErrorType.StopParametersInvalid, true, "Take profit and stop loss price can't both be empty", "5001"),
+            new ErrorInfo(ErrorType.StopParametersInvalid, true, "Take profit and stop loss price invalid", "5003"),
+            new ErrorInfo(ErrorType.StopParametersInvalid, true, "Take profit and stop loss quantity invalid", "5004"),
+
+            new ErrorInfo(ErrorType.UnknownOrder, true, "Stop limit order not found", "5002"),
+
+            new ErrorInfo(ErrorType.UnknownSymbol, true, "Symbol does not exist", "1001"),
+
+            new ErrorInfo(ErrorType.UnknownAsset, true, "Unsupported asset", "4001"),
+
+            new ErrorInfo(ErrorType.SymbolNotTrading, true, "Symbol not currently trading", "1002"),
+            new ErrorInfo(ErrorType.SymbolNotTrading, true, "Symbol not available", "6005"),
+
+            new ErrorInfo(ErrorType.QuantityInvalid, true, "Quantity invalid", "1004", "2011"),
+            new ErrorInfo(ErrorType.QuantityInvalid, true, "Order quantity too low", "2008"),
+            new ErrorInfo(ErrorType.QuantityInvalid, true, "Order quantity too high", "2028"),
+
+            new ErrorInfo(ErrorType.PriceInvalid, true, "Price too low", "2004"),
+            new ErrorInfo(ErrorType.PriceInvalid, true, "Price error", "2007"),
+            new ErrorInfo(ErrorType.PriceInvalid, true, "Price lower than liquidation price", "2032"),
+            new ErrorInfo(ErrorType.PriceInvalid, true, "Price higher than liquidation price", "2033"),
+
+            new ErrorInfo(ErrorType.NoPosition, true, "No open position", "2009"),
+
+            new ErrorInfo(ErrorType.BalanceInsufficient, true, "Insufficient balance", "2005"),
+            new ErrorInfo(ErrorType.BalanceInsufficient, true, "Maximum available margin exceeded", "2018"),
+
+            new ErrorInfo(ErrorType.OrderRateLimited, true, "Too many open orders", "2036"),
+
+            ]);
         /// <inheritdoc />
         public IMexcRestClientFuturesApiAccount Account { get; }
         /// <inheritdoc />
@@ -28,6 +85,8 @@ namespace Mexc.Net.Clients.FuturesApi
         public string ExchangeName => "Mexc";
 
         internal readonly string _brokerId;
+
+        public new MexcRestOptions ClientOptions => (MexcRestOptions)base.ClientOptions;
 
         #region constructor/destructor
         internal MexcRestClientFuturesApi(ILogger logger, HttpClient? httpClient, MexcRestOptions options)
@@ -65,7 +124,7 @@ namespace Mexc.Net.Clients.FuturesApi
         internal async Task<WebCallResult<T>> SendToAddressAsync<T>(string baseAddress, RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null, Dictionary<string, string>? requestHeaders = null)
         {
             var result = await base.SendAsync<MexcFuturesResponse<T>>(baseAddress, definition, parameters, cancellationToken, requestHeaders, weight).ConfigureAwait(false);
-            if (!result && result.Error!.Code == 700003 && (ApiOptions.AutoTimestamp ?? ClientOptions.AutoTimestamp))
+            if (!result && result.Error!.ErrorType == ErrorType.TimestampInvalid && (ApiOptions.AutoTimestamp ?? ClientOptions.AutoTimestamp))
             {
                 _logger.Log(LogLevel.Debug, "Received Invalid Timestamp error, triggering new time sync");
                 _timeSyncState.LastSyncTime = DateTime.MinValue;
@@ -83,7 +142,7 @@ namespace Mexc.Net.Clients.FuturesApi
         internal async Task<WebCallResult> SendToAddressAsync(string baseAddress, RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null, Dictionary<string, string>? requestHeaders = null)
         {
             var result = await base.SendAsync<MexcFuturesResponse>(baseAddress, definition, parameters, cancellationToken, requestHeaders, weight).ConfigureAwait(false);
-            if (!result && result.Error!.Code == 700003 && (ApiOptions.AutoTimestamp ?? ClientOptions.AutoTimestamp))
+            if (!result && result.Error!.ErrorType == ErrorType.TimestampInvalid && (ApiOptions.AutoTimestamp ?? ClientOptions.AutoTimestamp))
             {
                 _logger.Log(LogLevel.Debug, "Received Invalid Timestamp error, triggering new time sync");
                 _timeSyncState.LastSyncTime = DateTime.MinValue;
@@ -96,11 +155,11 @@ namespace Mexc.Net.Clients.FuturesApi
         protected override Error? TryParseError(KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor)
         {
             var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));
-            if (code == 0 || code == 200)
+            if (code == 0 || code == 200 || code == null)
                 return null;
 
             var msg = accessor.GetValue<string>(MessagePath.Get().Property("message"));
-            return new ServerError(code, msg!);
+            return new ServerError(code.Value, GetErrorInfo(code.Value, msg!));
         }
 
         /// <inheritdoc />
@@ -142,24 +201,24 @@ namespace Mexc.Net.Clients.FuturesApi
             if (code == null)
                 return new MexcRateLimitError(msg);
 
-            return new MexcRateLimitError(code.Value, msg, null);
+            return new MexcRateLimitError(code.Value, msg);
         }
 
         /// <inheritdoc />
         protected override Error ParseErrorResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor, Exception? exception)
         {
             if (!accessor.IsValid)
-                return new ServerError(null, "Unknown request error", exception: exception);
+                return new ServerError(ErrorInfo.Unknown, exception: exception);
 
             var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));
             var msg = accessor.GetValue<string>(MessagePath.Get().Property("msg"));
             if (msg == null)
-                return new ServerError(null, "Unknown request error", exception: exception);
+                return new ServerError(ErrorInfo.Unknown, exception: exception);
 
             if (code == null)
-                return new ServerError(null, msg, exception);
+                return new ServerError(ErrorInfo.Unknown with { Message = msg }, exception);
 
-            return new ServerError(code.Value, msg, exception);
+            return new ServerError(code.Value, GetErrorInfo(code.Value, msg), exception);
         }
 
         /// <inheritdoc />

@@ -1,6 +1,7 @@
 using Mexc.Net.Enums;
 using Mexc.Net.Interfaces.Clients.SpotApi;
 using CryptoExchange.Net.SharedApis;
+using CryptoExchange.Net.Objects.Errors;
 
 namespace Mexc.Net.Clients.SpotApi
 {
@@ -30,7 +31,7 @@ namespace Mexc.Net.Clients.SpotApi
         {
             var interval = (Enums.KlineInterval)request.Interval;
             if (!Enum.IsDefined(typeof(Enums.KlineInterval), interval))
-                return new ExchangeWebResult<SharedKline[]>(Exchange, new ArgumentError("Interval not supported"));
+                return new ExchangeWebResult<SharedKline[]>(Exchange, ArgumentError.Invalid(nameof(GetKlinesRequest.Interval), "Interval not supported"));
 
             var validationError = ((IKlineRestClient)this).GetKlinesOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
@@ -302,10 +303,7 @@ namespace Mexc.Net.Clients.SpotApi
             if (validationError != null)
                 return new ExchangeWebResult<SharedSpotOrder[]>(Exchange, validationError);
 
-            var symbol = request.Symbol?.GetSymbol(FormatSymbol);
-            if (symbol == null)
-                return new ExchangeWebResult<SharedSpotOrder[]>(Exchange, new ArgumentError("Symbol is required for Mexc GetOpenOrdersAsync"));
-
+            var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             var order = await Trading.GetOpenOrdersAsync(symbol: symbol, ct: ct).ConfigureAwait(false);
             if (!order)
                 return order.AsExchangeResult<SharedSpotOrder[]>(Exchange, null, default);
@@ -514,7 +512,7 @@ namespace Mexc.Net.Clients.SpotApi
 
             var asset = assets.Data.SingleOrDefault(x => x.Asset.Equals(request.Asset, StringComparison.InvariantCultureIgnoreCase));
             if (asset == null)
-                return assets.AsExchangeError<SharedAsset>(Exchange, new ServerError("Asset not found"));
+                return assets.AsExchangeError<SharedAsset>(Exchange, new ServerError(new ErrorInfo(ErrorType.UnknownAsset, "Asset not found")));
 
             return assets.AsExchangeResult<SharedAsset>(Exchange, TradingMode.Spot, new SharedAsset(asset.Asset)
             {

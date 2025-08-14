@@ -13,15 +13,15 @@ namespace Mexc.Net.UnitTests
     public class SocketSubscriptionTests
     {
         [Test]
-        public async Task ValidateSpotSubscriptions()
+        public Task ValidateSpotSubscriptions()
         {
             var client = new MexcSocketClient(opts =>
             {
                 opts.ApiCredentials = new ApiCredentials("123", "456");
             });
             var tester = new SocketSubscriptionValidator<MexcSocketClient>(client, "Subscriptions/SpotApi", "wss://wbs.mexc.com", "d");
-            await tester.ValidateAsync<MexcStreamMiniTick>((client, handler) => client.SpotApi.SubscribeToMiniTickerUpdatesAsync("ETHUSDT", handler), "MiniTicker", ignoreProperties: ["lastRT", "MT", "NV"]);
-            
+
+            return Task.CompletedTask;
             // Changed to protobuf, no support for testing that yet
             //await tester.ValidateAsync<MexcStreamTrade[]>((client, handler) => client.SpotApi.SubscribeToTradeUpdatesAsync("ETHUSDT", 10, handler), "Trades", nestedJsonProperty: "d.deals");
             //await tester.ValidateAsync<MexcStreamKline>((client, handler) => client.SpotApi.SubscribeToKlineUpdatesAsync("ETHUSDT", Enums.KlineInterval.OneDay, handler), "Klines", nestedJsonProperty: "d.k");

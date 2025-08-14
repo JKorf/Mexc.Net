@@ -1,4 +1,5 @@
-﻿using CryptoExchange.Net.Objects.Sockets;
+﻿using CryptoExchange.Net.Objects.Errors;
+using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
 using Mexc.Net.Objects.Sockets.Models;
 
@@ -18,7 +19,7 @@ namespace Mexc.Net.Objects.Sockets.Queries
         public CallResult<MexcFuturesUpdate<string>> HandleMessage(SocketConnection connection, DataEvent<MexcFuturesUpdate<string>> message)
         {
             if (message.Data.Channel.Equals("rs.error", StringComparison.Ordinal))
-                return message.ToCallResult<MexcFuturesUpdate<string>>(new ServerError(message.Data.Data));
+                return message.ToCallResult<MexcFuturesUpdate<string>>(new ServerError(ErrorInfo.Unknown with { Message = message.Data.Data }));
 
             return message.ToCallResult();
         }

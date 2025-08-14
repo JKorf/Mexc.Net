@@ -1,4 +1,6 @@
 ﻿using CryptoExchange.Net.Clients;
+using Mexc.Net.Clients.FuturesApi;
+using Mexc.Net.Clients.SpotApi;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -48,7 +50,8 @@ namespace Mexc.Net
 
             headers["ApiKey"] = ApiKey;
             headers["Request-Time"] = timestamp;
-            headers["Signature"] = sign.ToLowerInvariant();            
+            headers["Signature"] = sign.ToLowerInvariant();
+            headers["Recv-Window"] = ((MexcRestClientFuturesApi)apiClient).ClientOptions.ReceiveWindow.TotalMilliseconds.ToString();
         }
 
         public Dictionary<string, object> GetSocketAuthParameters()

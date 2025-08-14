@@ -1,4 +1,6 @@
-﻿namespace Mexc.Net.Objects.Models
+﻿using CryptoExchange.Net.Objects.Errors;
+
+namespace Mexc.Net.Objects.Models
 {
     /// <summary>
     /// Mexc rate limit error
@@ -16,8 +18,13 @@
         /// <summary>
         /// ctor
         /// </summary>
-        public MexcRateLimitError(int? code, string message, Exception? exception) : base(code, message, exception)
+        public MexcRateLimitError(int code, string message) : base(_errorInfo with { ErrorCodes = [code.ToString()], Message = _errorInfo.Message + ": " + message }, null)
         {
         }
+
+        /// <summary>
+        /// ctor
+        /// </summary>
+        protected MexcRateLimitError(ErrorInfo info, Exception? exception) : base(info, exception) { }
     }
 }

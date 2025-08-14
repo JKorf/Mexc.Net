@@ -5959,7 +5959,12 @@
             </summary>
             <param name="message"></param>
         </member>
-        <member name="M:Mexc.Net.Objects.Models.MexcRateLimitError.#ctor(System.Nullable{System.Int32},System.String,System.Exception)">
+        <member name="M:Mexc.Net.Objects.Models.MexcRateLimitError.#ctor(System.Int32,System.String)">
+            <summary>
+            ctor
+            </summary>
+        </member>
+        <member name="M:Mexc.Net.Objects.Models.MexcRateLimitError.#ctor(CryptoExchange.Net.Objects.Errors.ErrorInfo,System.Exception)">
             <summary>
             ctor
             </summary>
