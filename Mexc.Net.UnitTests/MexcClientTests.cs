@@ -79,7 +79,6 @@ namespace Mexc.Net.UnitTests
                     { "type", "LIMIT" },
                     { "quantity", "1" },
                     { "price", "11" },
-                    { "recvWindow", "5000" },
                 },
                 time: DateTimeConverter.ConvertFromMilliseconds(1644489390087),
                 disableOrdering: true,

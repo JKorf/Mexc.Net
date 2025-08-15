@@ -42,8 +42,8 @@ namespace Mexc.Net
                 parameters = bodyParameters;
             }
             var timestamp = GetMillisecondTimestamp(apiClient);
-            parameters.Add("timestamp", timestamp);
             parameters.Add("recvWindow", ((MexcRestClientSpotApi)apiClient).ClientOptions.ReceiveWindow.TotalMilliseconds.ToString());
+            parameters.Add("timestamp", timestamp);
 
             if (_credentials.CredentialType == ApiCredentialsType.Hmac)
             {
