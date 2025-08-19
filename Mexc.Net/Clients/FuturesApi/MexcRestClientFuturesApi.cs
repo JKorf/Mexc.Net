@@ -15,7 +15,7 @@ namespace Mexc.Net.Clients.FuturesApi
     {
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Futures Api");
 
-        protected override ErrorCollection ErrorMapping => MexcErrors.FuturesErrors;
+        protected override ErrorMapping ErrorMapping => MexcErrors.FuturesErrors;
         /// <inheritdoc />
         public IMexcRestClientFuturesApiAccount Account { get; }
         /// <inheritdoc />

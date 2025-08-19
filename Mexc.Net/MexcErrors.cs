@@ -9,7 +9,7 @@ namespace Mexc.Net
 {
     internal static class MexcErrors
     {
-        public static ErrorCollection SpotErrors { get; } = new ErrorCollection([
+        public static ErrorMapping SpotErrors { get; } = new ErrorMapping([
             new ErrorInfo(ErrorType.Unauthorized, false, "Unauthorized", "401"),
             new ErrorInfo(ErrorType.Unauthorized, false, "Access denied", "403"),
             new ErrorInfo(ErrorType.Unauthorized, false, "API key invalid", "10072", "700001"),
@@ -31,6 +31,7 @@ namespace Mexc.Net
             new ErrorInfo(ErrorType.InvalidParameter, false, "Receive window must be less than 60 seconds", "700005"),
 
             new ErrorInfo(ErrorType.MissingParameter, false, "Asset can't be null", "10222"),
+            new ErrorInfo(ErrorType.MissingParameter, false, "Parameter value not set", "44444"),
 
             new ErrorInfo(ErrorType.InvalidQuantity, false, "Quantity can't be null", "10095"),
             new ErrorInfo(ErrorType.InvalidQuantity, false, "Quantity decimal precision invalid", "10096"),
@@ -57,7 +58,7 @@ namespace Mexc.Net
 
             ]);
 
-        public static ErrorCollection FuturesErrors { get; } = new ErrorCollection([
+        public static ErrorMapping FuturesErrors { get; } = new ErrorMapping([
             new ErrorInfo(ErrorType.Unauthorized, true, "Unauthorized", "401"),
             new ErrorInfo(ErrorType.Unauthorized, true, "API key expired", "402"),
             new ErrorInfo(ErrorType.Unauthorized, true, "IP address not allowed", "406"),
@@ -106,6 +107,8 @@ namespace Mexc.Net
             new ErrorInfo(ErrorType.InvalidPrice, true, "Price higher than liquidation price", "2033"),
 
             new ErrorInfo(ErrorType.NoPosition, true, "No open position", "2009"),
+
+            new ErrorInfo(ErrorType.MaxPosition, true, "Position limit reached", "2025", "2031", "2038"),
 
             new ErrorInfo(ErrorType.InsufficientBalance, true, "Insufficient balance", "2005"),
             new ErrorInfo(ErrorType.InsufficientBalance, true, "Maximum available margin exceeded", "2018"),

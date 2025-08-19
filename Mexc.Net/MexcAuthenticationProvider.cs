@@ -12,55 +12,53 @@ namespace Mexc.Net
         {
         }
 
-        public override void AuthenticateRequest(
-            RestApiClient apiClient,
-            Uri uri,
-            HttpMethod method,
-            ref IDictionary<string, object>? uriParameters,
-            ref IDictionary<string, object>? bodyParameters,
-            ref Dictionary<string, string>? headers,
-            bool auth,
-            ArrayParametersSerialization arraySerialization,
-            HttpMethodParameterPosition parameterPosition,
-            RequestBodyFormat requestBodyFormat)
+        public override void ProcessRequest(RestApiClient apiClient, RestRequestConfiguration request)
         {
-            if (!auth)
+            if (!request.Authenticated)
                 return;
 
-            headers ??= new Dictionary<string, string>();
-            headers.Add("X-MEXC-APIKEY", _credentials.Key);
+            request.Headers.Add("X-MEXC-APIKEY", _credentials.Key);
 
-            IDictionary<string, object> parameters;
-            if (parameterPosition == HttpMethodParameterPosition.InUri)
-            {
-                uriParameters ??= new Dictionary<string, object>();
-                parameters = uriParameters;
-            }
-            else
-            {
-                bodyParameters ??= new Dictionary<string, object>();
-                parameters = bodyParameters;
-            }
+            var parameters = request.GetPositionParameters();
             var timestamp = GetMillisecondTimestamp(apiClient);
             parameters.Add("recvWindow", ((MexcRestClientSpotApi)apiClient).ClientOptions.ReceiveWindow.TotalMilliseconds.ToString());
             parameters.Add("timestamp", timestamp);
 
             if (_credentials.CredentialType == ApiCredentialsType.Hmac)
             {
-                if (uriParameters != null)
-                    uri = uri.SetParameters(uriParameters, arraySerialization);
+                if (request.ParameterPosition == HttpMethodParameterPosition.InUri)
+                {
+                    var queryString = request.GetQueryString(true);
+                    queryString = queryString
+                        .Replace("%5b", "%5B")
+                        .Replace("%7b", "%7B")
+                        .Replace("%3a", "%3A")
+                        .Replace("%2c", "%2C")
+                        .Replace("%7d", "%7D")
+                        .Replace("%5d", "%5D");
 
-                // Url encoded values to upper
-                var query = uri.Query.Replace("?", "")
-                    .Replace("%5b", "%5B").Replace("%7b", "%7B").Replace("%3a", "%3A").Replace("%2c", "%2C").Replace("%7d", "%7D").Replace("%5d", "%5D");
-
-                parameters.Add("signature", SignHMACSHA256(parameterPosition == HttpMethodParameterPosition.InUri ? query : parameters.ToFormData()));
+                    var signature = SignHMACSHA256(queryString);
+                    request.QueryParameters.Add("signature", signature);
+                    request.SetQueryString($"{queryString}&signature={signature}");
+                }
+                else
+                {
+                    var body = parameters.ToFormData();
+                    var signature = SignHMACSHA256(body);
+                    request.BodyParameters.Add("signature", signature);
+                    request.SetBodyContent($"{body}&signature={SignHMACSHA256(body)}");
+                }
             }
             else
             {
                 var parameterString = parameters.ToFormData();
                 var sign = SignRSASHA256(Encoding.ASCII.GetBytes(parameterString), SignOutputType.Base64);
-                parameters.Add("signature", sign);
+                var signed = $"{parameterString}&signature={sign}";
+
+                if (request.ParameterPosition == HttpMethodParameterPosition.InUri)
+                    request.SetQueryString(signed);
+                else
+                    request.SetBodyContent(signed);
             }
         }
     }

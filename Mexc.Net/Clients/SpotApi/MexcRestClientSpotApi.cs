@@ -14,7 +14,7 @@ namespace Mexc.Net.Clients.SpotApi
     {
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Spot Api");
 
-        protected override ErrorCollection ErrorMapping => MexcErrors.SpotErrors;
+        protected override ErrorMapping ErrorMapping => MexcErrors.SpotErrors;
 
         /// <inheritdoc />
         public IMexcRestClientSpotApiAccount Account { get; }
