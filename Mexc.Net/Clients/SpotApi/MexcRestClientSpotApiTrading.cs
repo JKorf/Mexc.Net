@@ -2,6 +2,7 @@ using Mexc.Net.Enums;
 using Mexc.Net.Objects.Models.Spot;
 using Mexc.Net.Interfaces.Clients.SpotApi;
 using System.Text.Json;
+using CryptoExchange.Net.Objects.Errors;
 
 namespace Mexc.Net.Clients.SpotApi
 {
@@ -85,13 +86,13 @@ namespace Mexc.Net.Clients.SpotApi
             foreach (var item in resultData.Data)
             {
                 if (item.ErrorCode != null)
-                    result.Add(new CallResult<MexcOrderResult>(new ServerError(item.ErrorCode.Value, item.ErrorMessage!)));
+                    result.Add(new CallResult<MexcOrderResult>(item, null, new ServerError(item.ErrorCode.Value, _baseClient.GetErrorInfo(item.ErrorCode.Value, item.ErrorMessage!))));
                 else
                     result.Add(new CallResult<MexcOrderResult>(item));
             }
 
             if (result.All(x => !x.Success))
-                return resultData.AsErrorWithData(new ServerError("All orders failed"), result.ToArray());
+                return resultData.AsErrorWithData(new ServerError(new ErrorInfo(ErrorType.AllOrdersFailed, "All orders failed")), result.ToArray());
 
             return resultData.As(result.ToArray());
         }

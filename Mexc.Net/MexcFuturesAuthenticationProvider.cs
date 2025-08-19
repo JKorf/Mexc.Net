@@ -1,7 +1,5 @@
 ﻿using CryptoExchange.Net.Clients;
-using System.Net;
-using System.Text;
-using System.Text.RegularExpressions;
+using Mexc.Net.Clients.FuturesApi;
 
 namespace Mexc.Net
 {
@@ -13,42 +11,25 @@ namespace Mexc.Net
         {
         }
 
-        public override void AuthenticateRequest(
-            RestApiClient apiClient,
-            Uri uri,
-            HttpMethod method,
-            ref IDictionary<string, object>? uriParameters,
-            ref IDictionary<string, object>? bodyParameters,
-            ref Dictionary<string, string>? headers,
-            bool auth,
-            ArrayParametersSerialization arraySerialization,
-            HttpMethodParameterPosition parameterPosition,
-            RequestBodyFormat requestBodyFormat)
+        public override void ProcessRequest(RestApiClient apiClient, RestRequestConfiguration request)
         {
-            if (!auth)
+            if (!request.Authenticated)
                 return;
 
-            headers ??= new Dictionary<string, string>();
-
-            string paramStr;
-            if (parameterPosition == HttpMethodParameterPosition.InUri)
-            {
-                uriParameters ??= new Dictionary<string, object>();
-                paramStr = uriParameters.CreateParamString(true, arraySerialization);
-            }
-            else
-            {
-                bodyParameters ??= new Dictionary<string, object>();
-                paramStr = GetSerializedBody(_serializer, bodyParameters);
-            }
-
             var timestamp = GetMillisecondTimestamp(apiClient);
-            var signStr = $"{ApiKey}{timestamp}{paramStr}";
-            var sign = SignHMACSHA256(signStr);
+            var queryString = request.GetQueryString(true);
+            var body = request.ParameterPosition == HttpMethodParameterPosition.InBody ? GetSerializedBody(_serializer, request.BodyParameters) : string.Empty;
 
-            headers["ApiKey"] = ApiKey;
-            headers["Request-Time"] = timestamp;
-            headers["Signature"] = sign.ToLowerInvariant();            
+            var signStr = $"{ApiKey}{timestamp}{queryString}{body}";
+            var signature = SignHMACSHA256(signStr);
+
+            request.Headers["ApiKey"] = ApiKey;
+            request.Headers["Request-Time"] = timestamp;
+            request.Headers["Signature"] = signature.ToLowerInvariant();
+            request.Headers["Recv-Window"] = ((MexcRestClientFuturesApi)apiClient).ClientOptions.ReceiveWindow.TotalMilliseconds.ToString();
+
+            request.SetBodyContent(body);
+            request.SetQueryString(queryString);
         }
 
         public Dictionary<string, object> GetSocketAuthParameters()

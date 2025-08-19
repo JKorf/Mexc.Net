@@ -2,6 +2,7 @@ using Mexc.Net.Enums;
 using Mexc.Net.Interfaces.Clients.FuturesApi;
 using CryptoExchange.Net.SharedApis;
 using Mexc.Net.Objects.Models.Futures;
+using CryptoExchange.Net.Objects.Errors;
 
 namespace Mexc.Net.Clients.FuturesApi
 {
@@ -33,7 +34,7 @@ namespace Mexc.Net.Clients.FuturesApi
         {
             var interval = (Enums.FuturesKlineInterval)request.Interval;
             if (!Enum.IsDefined(typeof(Enums.FuturesKlineInterval), interval))
-                return new ExchangeWebResult<SharedKline[]>(Exchange, new ArgumentError("Interval not supported"));
+                return new ExchangeWebResult<SharedKline[]>(Exchange, ArgumentError.Invalid(nameof(GetKlinesRequest.Interval), "Interval not supported"));
 
             var validationError = ((IKlineRestClient)this).GetKlinesOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
@@ -338,7 +339,7 @@ namespace Mexc.Net.Clients.FuturesApi
                 return result.AsExchangeResult<SharedLeverage>(Exchange, null, default);
 
             if (!result.Data.Any())
-                return result.AsExchangeError<SharedLeverage>(Exchange, new ServerError("Not found"));
+                return result.AsExchangeError<SharedLeverage>(Exchange, new ServerError(new ErrorInfo(ErrorType.Unknown, "Not found")));
 
             return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedLeverage(
                 result.Data.FirstOrDefault(x => request.PositionSide == null 

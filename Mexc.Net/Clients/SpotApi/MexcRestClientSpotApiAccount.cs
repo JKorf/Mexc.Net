@@ -384,7 +384,7 @@ namespace Mexc.Net.Clients.SpotApi
                 return result.AsDataless();
 
             if (result.Data.Code != 0)
-                return result.AsDatalessError(new ServerError(result.Data.Code, result.Data.Message!));
+                return result.AsDatalessError(new ServerError(result.Data.Code, _baseClient.GetErrorInfo(result.Data.Code, result.Data.Message!)));
 
             return result.AsDataless();
         }
@@ -408,7 +408,7 @@ namespace Mexc.Net.Clients.SpotApi
                 return result.AsDataless();
 
             if (result.Data.Code != 0)
-                return result.AsDatalessError(new ServerError(result.Data.Code, result.Data.Message!));
+                return result.AsDatalessError(new ServerError(result.Data.Code, _baseClient.GetErrorInfo(result.Data.Code, result.Data.Message!)));
 
             return result.AsDataless();
         }

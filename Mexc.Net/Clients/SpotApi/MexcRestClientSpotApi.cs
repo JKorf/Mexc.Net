@@ -5,6 +5,7 @@ using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.SharedApis;
 using Mexc.Net.Objects.Models;
+using CryptoExchange.Net.Objects.Errors;
 
 namespace Mexc.Net.Clients.SpotApi
 {
@@ -12,6 +13,8 @@ namespace Mexc.Net.Clients.SpotApi
     internal partial class MexcRestClientSpotApi : RestApiClient, IMexcRestClientSpotApi
     {
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Spot Api");
+
+        protected override ErrorMapping ErrorMapping => MexcErrors.SpotErrors;
 
         /// <inheritdoc />
         public IMexcRestClientSpotApiAccount Account { get; }
@@ -27,6 +30,8 @@ namespace Mexc.Net.Clients.SpotApi
         public string ExchangeName => "Mexc";
 
         internal readonly string _brokerId;
+
+        public new MexcRestOptions ClientOptions => (MexcRestOptions)base.ClientOptions;
 
         #region constructor/destructor
         internal MexcRestClientSpotApi(ILogger logger, HttpClient? httpClient, MexcRestOptions options)
@@ -67,7 +72,7 @@ namespace Mexc.Net.Clients.SpotApi
         internal async Task<WebCallResult<T>> SendToAddressAsync<T>(string baseAddress, RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null, Dictionary<string, string>? requestHeaders = null) where T : class
         {
             var result = await base.SendAsync<T>(baseAddress, definition, parameters, cancellationToken, requestHeaders, weight).ConfigureAwait(false);
-            if (!result && result.Error!.Code == 700003 && (ApiOptions.AutoTimestamp ?? ClientOptions.AutoTimestamp))
+            if (!result && result.Error!.ErrorType == ErrorType.InvalidTimestamp && (ApiOptions.AutoTimestamp ?? ClientOptions.AutoTimestamp))
             {
                 _logger.Log(LogLevel.Debug, "Received Invalid Timestamp error, triggering new time sync");
                 _timeSyncState.LastSyncTime = DateTime.MinValue;
@@ -115,24 +120,24 @@ namespace Mexc.Net.Clients.SpotApi
             if (code == null)
                 return new MexcRateLimitError(msg);
 
-            return new MexcRateLimitError(code.Value, msg, null);
+            return new MexcRateLimitError(code.Value, msg);
         }
 
         /// <inheritdoc />
         protected override Error ParseErrorResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor, Exception? exception)
         {
             if (!accessor.IsValid)
-                return new ServerError(null, "Unknown request error", exception: exception);
+                return new ServerError(ErrorInfo.Unknown, exception: exception);
 
             var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));
             var msg = accessor.GetValue<string>(MessagePath.Get().Property("msg"));
             if (msg == null)
-                return new ServerError(null, "Unknown request error", exception: exception);
+                return new ServerError(ErrorInfo.Unknown, exception: exception);
 
             if (code == null)
-                return new ServerError(null, msg, exception);
+                return new ServerError(ErrorInfo.Unknown with { Message = msg }, exception);
 
-            return new ServerError(code.Value, msg, exception);
+            return new ServerError(code.Value, GetErrorInfo(code.Value, msg), exception);
         }
 
         /// <inheritdoc />

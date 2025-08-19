@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Mexc.Net.SymbolOrderBooks;
+using CryptoExchange.Net.Objects.Errors;
 
 namespace Mexc.Net.UnitTests
 {
@@ -45,7 +46,8 @@ namespace Mexc.Net.UnitTests
             var result = await CreateClient().SpotApi.ExchangeData.GetKlinesAsync("TSTTST", Enums.KlineInterval.OneDay, default);
 
             Assert.That(result.Success, Is.False);
-            Assert.That(result.Error.Code, Is.EqualTo(-1121));
+            Assert.That(result.Error.ErrorCode, Is.EqualTo("-1121"));
+            Assert.That(result.Error.ErrorType, Is.EqualTo(ErrorType.UnknownSymbol));
         }
 
         [Test]
