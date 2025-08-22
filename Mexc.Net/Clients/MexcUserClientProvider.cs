@@ -54,6 +54,13 @@ namespace Mexc.Net.Clients
         }
 
         /// <inheritdoc />
+        public void ClearUserClients(string userIdentifier)
+        {
+            _restClients.TryRemove(userIdentifier, out _);
+            _socketClients.TryRemove(userIdentifier, out _);
+        }
+
+        /// <inheritdoc />
         public IMexcRestClient GetRestClient(string userIdentifier, ApiCredentials? credentials = null, MexcEnvironment? environment = null)
         {
             if (!_restClients.TryGetValue(userIdentifier, out var client))
