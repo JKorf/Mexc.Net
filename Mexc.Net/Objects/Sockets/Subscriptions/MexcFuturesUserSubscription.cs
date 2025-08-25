@@ -80,12 +80,12 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
             return CallResult.SuccessResult;
         }
 
-        public override Query? GetSubQuery(SocketConnection connection)
+        protected override Query? GetSubQuery(SocketConnection connection)
         {
             return new MexcFuturesQuery("personal.filter", new Dictionary<string, object>() { { "filters", new SubFilter[0] } }, Authenticated);
         }
 
-        public override Query? GetUnsubQuery()
+        protected override Query? GetUnsubQuery(SocketConnection connection)
         {
             // There doesn't seem to be a way to unsubscribe from all user updates
             // Work around is to filter all message except a single one which shouldn't trigger too often

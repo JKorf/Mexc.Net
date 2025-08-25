@@ -32,7 +32,7 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
             return CallResult.SuccessResult;
         }
 
-        public override Query? GetSubQuery(SocketConnection connection)
+        protected override Query? GetSubQuery(SocketConnection connection)
         {
             var parameters = new Dictionary<string, object>();
             if (_symbol != null)
@@ -44,7 +44,7 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
             return new MexcFuturesQuery("sub." + _topic, parameters, Authenticated);
         }
 
-        public override Query? GetUnsubQuery()
+        protected override Query? GetUnsubQuery(SocketConnection connection)
         {
             var parameters = new Dictionary<string, object>();
             if (_symbol != null)

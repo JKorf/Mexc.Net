@@ -97,7 +97,7 @@ namespace Mexc.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        protected override Error? TryParseError(KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor)
+        protected override Error? TryParseError(RequestDefinition request, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor)
         {
             var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));
             if (code == 0 || code == 200 || code == null)

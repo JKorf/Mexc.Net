@@ -27,10 +27,10 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
             return CallResult.SuccessResult;
         }
 
-        public override Query? GetSubQuery(SocketConnection connection)
+        protected override Query? GetSubQuery(SocketConnection connection)
             => new MexcQuery("SUBSCRIPTION", _topics, Authenticated);
 
-        public override Query? GetUnsubQuery()
+        protected override Query? GetUnsubQuery(SocketConnection connection)
             => new MexcQuery("UNSUBSCRIPTION", _topics, Authenticated);
     }
 }

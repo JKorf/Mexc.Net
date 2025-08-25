@@ -25,7 +25,7 @@
         <member name="M:Mexc.Net.Clients.FuturesApi.MexcRestClientFuturesApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
-        <member name="M:Mexc.Net.Clients.FuturesApi.MexcRestClientFuturesApi.TryParseError(System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor)">
+        <member name="M:Mexc.Net.Clients.FuturesApi.MexcRestClientFuturesApi.TryParseError(CryptoExchange.Net.Objects.RequestDefinition,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
         <member name="M:Mexc.Net.Clients.FuturesApi.MexcRestClientFuturesApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
@@ -295,6 +295,9 @@
             </summary>
         </member>
         <member name="M:Mexc.Net.Clients.MexcUserClientProvider.InitializeUserClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,Mexc.Net.MexcEnvironment)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.MexcUserClientProvider.ClearUserClients(System.String)">
             <inheritdoc />
         </member>
         <member name="M:Mexc.Net.Clients.MexcUserClientProvider.GetRestClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,Mexc.Net.MexcEnvironment)">
@@ -3240,6 +3243,11 @@
             <param name="userIdentifier">The identifier for the user</param>
             <param name="credentials">The credentials for the user</param>
             <param name="environment">The environment to use</param>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.IMexcUserClientProvider.ClearUserClients(System.String)">
+            <summary>
+            Reset the cached clients for a user. This can be useful when a user changes API credentials.
+            </summary>
         </member>
         <member name="M:Mexc.Net.Interfaces.Clients.IMexcUserClientProvider.GetRestClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,Mexc.Net.MexcEnvironment)">
             <summary>
