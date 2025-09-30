@@ -524,7 +524,8 @@ namespace Mexc.Net.Clients.SpotApi
                     DepositEnabled = x.DepositEnabled,
                     MinWithdrawQuantity = x.WithdrawMin,
                     WithdrawEnabled = x.WithdrawEnabled,
-                    WithdrawFee = x.WithdrawFee
+                    WithdrawFee = x.WithdrawFee,
+                    ContractAddress = x.Contract
                 }).ToArray()
             });
         }
@@ -550,7 +551,8 @@ namespace Mexc.Net.Clients.SpotApi
                     DepositEnabled = x.DepositEnabled,
                     MinWithdrawQuantity = x.WithdrawMin,
                     WithdrawEnabled = x.WithdrawEnabled,
-                    WithdrawFee = x.WithdrawFee
+                    WithdrawFee = x.WithdrawFee,
+                    ContractAddress = x.Contract
                 }).ToArray()
             }).ToArray());
         }

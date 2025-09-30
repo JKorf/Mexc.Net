@@ -98,6 +98,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddTransient<ICryptoSocketClient, CryptoSocketClient>();
             services.AddTransient<IMexcOrderBookFactory, MexcOrderBookFactory>();
             services.AddTransient<IMexcTrackerFactory, MexcTrackerFactory>();
+            services.AddTransient<ITrackerFactory, MexcTrackerFactory>();
             services.AddSingleton<IMexcUserClientProvider, MexcUserClientProvider>(x =>
             new MexcUserClientProvider(
                 x.GetRequiredService<HttpClient>(),
