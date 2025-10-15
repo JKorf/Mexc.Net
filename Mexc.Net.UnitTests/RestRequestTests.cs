@@ -29,7 +29,7 @@ namespace Mexc.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.Account.GenerateDepositAddressAsync("123", "123"), "GenerateDepositAddress");
             await tester.ValidateAsync(client => client.SpotApi.Account.GetDepositAddressesAsync("123", "123"), "GetDepositAddresses");
             await tester.ValidateAsync(client => client.SpotApi.Account.GetWithdrawAddressesAsync("123"), "GetWithdrawAddresses");
-            await tester.ValidateAsync(client => client.SpotApi.Account.TransferAsync("123", Enums.AccountType.Futures, Enums.AccountType.Spot, 1), "Transfer", useSingleArrayItem: true);
+            await tester.ValidateAsync(client => client.SpotApi.Account.TransferAsync("123", Enums.AccountType.Futures, Enums.AccountType.Spot, 1), "Transfer");
             await tester.ValidateAsync(client => client.SpotApi.Account.GetTransferHistoryAsync(Enums.AccountType.Futures, Enums.AccountType.Spot), "GetTransferHistory");
             await tester.ValidateAsync(client => client.SpotApi.Account.GetTransferAsync("123"), "GetTransfer", ignoreProperties: ["symbol"]);
             await tester.ValidateAsync(client => client.SpotApi.Account.GetAssetsForDustTransferAsync(), "GetAssetsForDustTransfer");

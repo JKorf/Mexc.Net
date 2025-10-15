@@ -20,7 +20,8 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         IWithdrawRestClient,
         IListenKeyRestClient,
         IFeeRestClient,
-        IBookTickerRestClient
+        IBookTickerRestClient,
+        ITransferRestClient
     {
     }
 }

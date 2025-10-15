@@ -203,6 +203,7 @@ namespace Mexc.Net.Clients.SpotApi
                         update.Data.Price,
                         update.Data.TradeTime)
                     {
+                        ClientOrderId = update.Data.ClientOrderId,
                         Role = update.Data.IsMaker ? SharedRole.Maker : SharedRole.Taker,
                         Fee = update.Data.Fee,
                         FeeAsset = update.Data.FeeAsset

@@ -109,6 +109,7 @@ namespace Mexc.Net.Converters
     [JsonSerializable(typeof(MexcTicker[]))]
     [JsonSerializable(typeof(MexcTrade[]))]
     [JsonSerializable(typeof(MexcTradeFee[]))]
+    [JsonSerializable(typeof(MexcTransferId))]
     [JsonSerializable(typeof(MexcTransferId[]))]
     [JsonSerializable(typeof(MexcUserAsset[]))]
     [JsonSerializable(typeof(MexcNetwork[]))]

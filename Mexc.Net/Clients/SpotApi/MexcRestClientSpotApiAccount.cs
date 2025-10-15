@@ -183,8 +183,7 @@ namespace Mexc.Net.Clients.SpotApi
             parameters.AddString("amount", quantity);
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v3/capital/transfer", MexcExchange.RateLimiter.SpotRest, 1, true);
-            var result = await _baseClient.SendAsync<MexcTransferId[]>(request, parameters, ct).ConfigureAwait(false);
-            return result.As<MexcTransferId>(result.Data?.Single());
+            return await _baseClient.SendAsync<MexcTransferId>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
