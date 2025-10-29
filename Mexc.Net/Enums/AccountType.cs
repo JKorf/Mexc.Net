@@ -18,7 +18,7 @@ namespace Mexc.Net.Enums
         /// <summary>
         /// Futures account
         /// </summary>
-        [Map("FUTURES")]
+        [Map("FUTURES", "FUTURE")]
         Futures
     }
 }

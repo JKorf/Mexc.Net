@@ -1,0 +1,6 @@
+DELETE
+/api/v3/sub-account/apiKey
+true
+{
+           "subAccount":"mexc1"
+}

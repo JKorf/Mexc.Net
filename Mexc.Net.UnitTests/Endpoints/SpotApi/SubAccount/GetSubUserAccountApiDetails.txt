@@ -1,0 +1,21 @@
+GET
+/api/v3/sub-account/apiKey
+true
+   {
+       "subAccount":[
+        {
+            "note":"v5",
+            "apiKey":"arg13sdfgs",
+            "permissions":"SPOT_ACCOUNT_READ,SPOT_ACCOUNT_WRITE",
+            "ip":"1.1.1.1,2.2.2.2",
+            "createTime":1597026383085
+        },
+        {
+            "note":"v5.1",
+            "apiKey":"arg13sdfgs12",
+            "permissions":"SPOT_ACCOUNT_READ,SPOT_ACCOUNT_WRITE",
+            "ip":"1.1.1.1,2.2.2.2",
+            "createTime":1597026383085
+        }
+        ]
+   }

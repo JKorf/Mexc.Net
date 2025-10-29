@@ -1,0 +1,17 @@
+GET
+/api/v3/sub-account/asset
+true
+{
+    "balances": [
+        {
+            "asset": "MX",
+            "free": "3",
+            "locked": "0"
+        },
+        {
+            "asset": "BTC",
+            "free": "0.0003",
+            "locked": "0"
+        }
+    ]
+}

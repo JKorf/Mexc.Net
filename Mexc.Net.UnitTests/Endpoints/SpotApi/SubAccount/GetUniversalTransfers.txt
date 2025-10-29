@@ -1,0 +1,17 @@
+GET
+/api/v3/capital/sub-account/universalTransfer
+true
+{"result":[
+{
+"tranId":"11945860693",
+"fromAccount":"master@test.com",
+"toAccount":"subaccount1@test.com",
+"clientTranId":"test",
+"asset":"BTC",
+"amount":"0.1",
+"fromAccountType":"SPOT",
+"toAccountType":"FUTURE",
+"status":"SUCCESS",
+"timestamp":1544433325000
+}
+],"totalCount":1}

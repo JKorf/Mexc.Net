@@ -28,5 +28,11 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <see cref="IMexcRestClientSpotApiTrading"/>
         IMexcRestClientSpotApiTrading Trading { get; }
+
+        /// <summary>
+        /// Endpoints related to sub account management
+        /// </summary>
+        /// <see cref="IMexcRestClientSpotApiSubAccount"/>
+        IMexcRestClientSpotApiSubAccount SubAccount { get; }
     }
 }

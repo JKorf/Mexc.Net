@@ -115,18 +115,21 @@ To support AOT compilation:
 |API|Supported|Location|
 |--|--:|--|
 |Market Data Endpoints|✓|`restClient.SpotApi.ExchangeData`|
-|SubAccount Endpoints|X||
+|SubAccount Endpoints|✓|`restClient.SpotApi.SubAccount`|
 |Acount/Trade|✓|`restClient.SpotApi.Account` / `restClient.SpotApi.Trading`|
 |Wallet endpoints|✓|`restClient.SpotApi.Account`|
 |Websocket Market Streams|✓|`socketClient.SpotApi`|
 |Websocket User Data Streams|✓|`socketClient.SpotApi`|
 
 ### Futures
-*Futures is not currently available in the MEXC API*
+*Futures trading is not currently available in the MEXC API*
 
 |API|Supported|Location|
 |--|--:|--|
-|*|X||
+|Market Endpoints|✓|`restClient.FuturesApi.ExchangeData`|
+|Account and trading Endpoints|✓|`restClient.FuturesApi.Account`/`restClient.FuturesApi.Trading`|
+|WebSocket Public|✓|`socketClient.FuturesApi`|
+|WebSocket Private|✓|`socketClient.FuturesApi`|
 
 ### Broker
 |API|Supported|Location|
