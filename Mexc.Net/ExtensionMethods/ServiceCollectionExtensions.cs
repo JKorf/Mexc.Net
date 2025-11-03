@@ -108,6 +108,8 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IMexcRestClient>().SpotApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IMexcSocketClient>().SpotApi.SharedClient);
+            services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IMexcRestClient>().FuturesApi.SharedClient);
+            services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IMexcSocketClient>().FuturesApi.SharedClient);
             return services;
         }
     }
