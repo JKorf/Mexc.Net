@@ -283,6 +283,9 @@
         <member name="T:Mexc.Net.Clients.MexcUserClientProvider">
             <inheritdoc />
         </member>
+        <member name="P:Mexc.Net.Clients.MexcUserClientProvider.ExchangeName">
+            <inheritdoc />
+        </member>
         <member name="M:Mexc.Net.Clients.MexcUserClientProvider.#ctor(System.Action{Mexc.Net.Objects.Options.MexcOptions})">
             <summary>
             ctor
@@ -8389,6 +8392,9 @@
             <summary>
             Mexc order book factory
             </summary>
+        </member>
+        <member name="P:Mexc.Net.SymbolOrderBooks.MexcOrderBookFactory.ExchangeName">
+            <inheritdoc />
         </member>
         <member name="P:Mexc.Net.SymbolOrderBooks.MexcOrderBookFactory.Spot">
             <inheritdoc />

@@ -15,6 +15,9 @@ namespace Mexc.Net.SymbolOrderBooks
         private readonly IServiceProvider _serviceProvider;
 
         /// <inheritdoc />
+        public string ExchangeName => MexcExchange.ExchangeName;
+
+        /// <inheritdoc />
         public IOrderBookFactory<MexcOrderBookOptions> Spot { get; }
         /// <inheritdoc />
         public IOrderBookFactory<MexcOrderBookOptions> Futures { get; }
