@@ -1,24 +1,70 @@
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.MessageParsing;
+using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
 using CryptoExchange.Net.Converters.Protobuf;
 using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.Objects.Sockets;
+using CryptoExchange.Net.Protobuf.Converters.Protobuf;
 using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Sockets.HighPerf;
 using Mexc.Net.Converters;
 using Mexc.Net.Enums;
 using Mexc.Net.Interfaces.Clients.SpotApi;
+using Mexc.Net.Objects;
 using Mexc.Net.Objects.Models;
 using Mexc.Net.Objects.Models.Protobuf;
 using Mexc.Net.Objects.Models.Spot;
 using Mexc.Net.Objects.Options;
+using Mexc.Net.Objects.Sockets.Models;
 using Mexc.Net.Objects.Sockets.Queries;
 using Mexc.Net.Objects.Sockets.Subscriptions;
+using ProtoBuf;
+using ProtoBuf.Meta;
 using ProtoBuf.Serializers;
 using System.Net.WebSockets;
+using System.Text;
+using System.Text.Json;
 
 namespace Mexc.Net.Clients.SpotApi
 {
+    public class MexcProtobufMessageConverter : DynamicProtobufConverter
+    {
+        public MexcProtobufMessageConverter() : base(ProtobufInclude.Model)
+        {
+        }
+
+        public override MessageInfo GetMessageInfo(ReadOnlySpan<byte> data, WebSocketMessageType? webSocketMessageType)
+        {
+            var result = _model.Deserialize<SocketEvent>(data);
+            return new MessageInfo { Identifier = result.c };
+        }
+    }
+
+    public class MexcJsonMessageConverter : DynamicJsonConverter
+    {
+        public override JsonSerializerOptions Options { get; } = SerializerOptions.WithConverters(MexcExchange.SerializerContext);
+
+        public override MessageInfo GetMessageInfo(ReadOnlySpan<byte> data, WebSocketMessageType? webSocketMessageType)
+        {
+            var reader = new Utf8JsonReader(data);
+            while (reader.Read())
+            {
+                if (reader.TokenType == JsonTokenType.PropertyName)
+                {
+                    if (reader.CurrentDepth == 1 && reader.ValueTextEquals("id"))
+                    {
+                        // Query response
+                        reader.Read();
+                        return new MessageInfo { Type = typeof(MexcResponse), Identifier = reader.GetInt32().ToString()! };
+                    }
+                }
+            }
+
+            return new MessageInfo();
+        }
+    }
+
     /// <inheritdoc />
     internal partial class MexcSocketClientSpotApi : SocketApiClient, IMexcSocketClientSpotApi
     {
@@ -26,9 +72,16 @@ namespace Mexc.Net.Clients.SpotApi
         private static readonly MessagePath _msgPath = MessagePath.Get().Property("msg");
         private static readonly MessagePath _channelPath = MessagePath.Get().Property("c");
 
+        private IHighPerfConnectionFactory _highPerfConnectionFactory;
+
         public event Action<ListenKeyRenewedEvent>? ListenkeyRenewed;
 
         #region constructor/destructor
+
+        // Note, this client doens't have HighPerf variant subscriptions for 2 reasons:
+        // 1. The socket sends mixed Text and Binary message
+        // 2. The protobuf messages send in Binary format are not (lenght) delimited, making it impossible to continuously deserialize as is.
+        // Implementing a work around for this would not be as performant and defeats the idea of the HighPerf subscription
 
         internal MexcSocketClientSpotApi(ILogger logger, MexcSocketOptions options) :
             base(logger, options.Environment.SpotSocketAddress, options, options.SpotOptions)
@@ -54,6 +107,13 @@ namespace Mexc.Net.Clients.SpotApi
         }
 
         #endregion
+        public override IMessageConverter CreateMessageConverter(WebSocketMessageType messageType)
+        {
+            if (messageType == WebSocketMessageType.Text)
+                return new MexcJsonMessageConverter();
+
+            return new MexcProtobufMessageConverter();
+        }
 
         protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType type) =>
             type == WebSocketMessageType.Binary ? new ProtobufByteMessageAccessor<SocketEvent>(ProtobufInclude.Model) :
@@ -189,9 +249,9 @@ namespace Mexc.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        protected override async Task<Uri?> GetReconnectUriAsync(SocketConnection connection)
+        protected override async Task<Uri?> GetReconnectUriAsync(ISocketConnection connection)
         {
-            if (connection.Subscriptions.Any(s => s.Authenticated))
+            if (connection.HasAuthenticatedSubscription)
             {
                 // If any of the subs on the connection is authenticated we request a new listenkey
                 // to prevent endlessly looping if the listenkey happens to be expired

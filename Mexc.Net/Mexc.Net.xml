@@ -594,7 +594,7 @@
         <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToUserTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcUserTradeUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.GetReconnectUriAsync(CryptoExchange.Net.Sockets.SocketConnection)">
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.GetReconnectUriAsync(CryptoExchange.Net.Sockets.ISocketConnection)">
             <inheritdoc />
         </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.GetAuthenticationRequestAsync(CryptoExchange.Net.Sockets.SocketConnection)">
@@ -4378,6 +4378,14 @@
             <inheritdoc />
         </member>
         <member name="M:Mexc.Net.MexcTrackerFactory.CreateTradeTracker(CryptoExchange.Net.SharedApis.SharedSymbol,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Objects.HighPerfProtobufSocketConnection`1.#ctor(Microsoft.Extensions.Logging.ILogger,CryptoExchange.Net.Interfaces.IWebsocketFactory,CryptoExchange.Net.Objects.Sockets.WebSocketParameters,CryptoExchange.Net.Clients.SocketApiClient,ProtoBuf.Meta.RuntimeTypeModel,System.String)">
+            <summary>
+            ctor
+            </summary>
+        </member>
+        <member name="M:Mexc.Net.Objects.HighPerfProtobufSocketConnection`1.ProcessAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="T:Mexc.Net.Objects.MexcApiAddresses">
@@ -8494,6 +8502,9 @@
         </member>
         <member name="M:Microsoft.Extensions.Configuration.Binder.SourceGeneration.BindingExtensions.Bind_MexcOptions(Microsoft.Extensions.Configuration.IConfiguration,System.Object)">
             <summary>Attempts to bind the given object instance to configuration values by matching property names against configuration keys recursively.</summary>
+        </member>
+        <member name="M:Microsoft.Extensions.Configuration.Binder.SourceGeneration.BindingExtensions.TryGetConfigurationValue(Microsoft.Extensions.Configuration.IConfiguration,System.String,System.String@)">
+            <summary>Tries to get the configuration value for the specified key.</summary>
         </member>
         <member name="M:Microsoft.Extensions.Configuration.Binder.SourceGeneration.BindingExtensions.ValidateConfigurationKeys(System.Type,System.Lazy{System.Collections.Generic.HashSet{System.String}},Microsoft.Extensions.Configuration.IConfiguration,Microsoft.Extensions.Configuration.BinderOptions)">
             <summary>If required by the binder options, validates that there are no unknown keys in the input configuration object.</summary>
