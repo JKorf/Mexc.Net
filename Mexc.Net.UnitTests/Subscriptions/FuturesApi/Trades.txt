@@ -2,15 +2,17 @@
 < { "method": "rs.sub.deal", "param": {"symbol":"ETH_USDT"}} 
 = 
 {
-    "channel":"push.deal",
-    "data":{
-        "M":1,
-        "O":1,
-        "T":1,
-        "p":6866.5,
-        "t":1587442049632,
-        "v":2096
-    },
     "symbol":"BTC_USDT",
-    "ts":1587442022003
+    "data": [
+        {
+            "p":91847.4,
+            "v":49,
+            "T":2,
+            "O":3,
+            "M":2,
+            "t":1763645012047
+        }
+    ],
+    "channel":"push.deal",
+    "ts":1763645012047
 }
