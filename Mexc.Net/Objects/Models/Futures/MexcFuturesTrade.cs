@@ -30,6 +30,11 @@ namespace Mexc.Net.Objects.Models.Futures
         [JsonPropertyName("T")]
         public OrderSide Side { get; set; }
         /// <summary>
+        /// Open/close flag: 1 new position, 2 reduce position, 3 position unchanged. If O=1, v is the added position size
+        /// </summary>
+        [JsonPropertyName("O")]
+        public int OpenCloseFlag { get; set; }
+        /// <summary>
         /// Self transaction
         /// </summary>
         [JsonPropertyName("M")]

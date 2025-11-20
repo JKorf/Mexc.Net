@@ -187,7 +187,7 @@
         <member name="M:Mexc.Net.Clients.FuturesApi.MexcSocketClientFuturesApi.SubscribeToTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Futures.MexcFuturesTicker}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Mexc.Net.Clients.FuturesApi.MexcSocketClientFuturesApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Futures.MexcFuturesTrade}},System.Threading.CancellationToken)">
+        <member name="M:Mexc.Net.Clients.FuturesApi.MexcSocketClientFuturesApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Futures.MexcFuturesTrade[]}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Mexc.Net.Clients.FuturesApi.MexcSocketClientFuturesApi.SubscribeToKlineUpdatesAsync(System.String,Mexc.Net.Enums.FuturesKlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Futures.MexcFuturesStreamKline}},System.Threading.CancellationToken)">
@@ -1752,6 +1752,11 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcFuturesUpdateMexcFuturesTradeArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcFuturesUpdateMexcFuturesTrade">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
@@ -3090,7 +3095,7 @@
             <param name="handler">Data handler</param>
             <param name="ct">Cancellation token</param>
         </member>
-        <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcSocketClientFuturesApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Futures.MexcFuturesTrade}},System.Threading.CancellationToken)">
+        <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcSocketClientFuturesApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Futures.MexcFuturesTrade[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to trade updates for a symbol
             <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /></para>
@@ -5240,6 +5245,11 @@
         <member name="P:Mexc.Net.Objects.Models.Futures.MexcFuturesTrade.Side">
             <summary>
             Order side
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Futures.MexcFuturesTrade.OpenCloseFlag">
+            <summary>
+            Open/close flag: 1 new position, 2 reduce position, 3 position unchanged. If O=1, v is the added position size
             </summary>
         </member>
         <member name="P:Mexc.Net.Objects.Models.Futures.MexcFuturesTrade.SelfTransaction">

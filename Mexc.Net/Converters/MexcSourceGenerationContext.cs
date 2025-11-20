@@ -48,6 +48,7 @@ namespace Mexc.Net.Converters
     [JsonSerializable(typeof(MexcFuturesUpdate<MexcFuturesOrderBook>))]
     [JsonSerializable(typeof(MexcFuturesUpdate<MexcFuturesTicker>))]
     [JsonSerializable(typeof(MexcFuturesUpdate<MexcFuturesTrade>))]
+    [JsonSerializable(typeof(MexcFuturesUpdate<MexcFuturesTrade[]>))]
     [JsonSerializable(typeof(MexcFuturesUpdate<MexcFuturesStreamKline>))]
     [JsonSerializable(typeof(MexcFuturesUpdate<MexcFuturesTickerUpdate[]>))]
     [JsonSerializable(typeof(MexcFuturesUpdate<string>))]
