@@ -8,6 +8,7 @@ using CryptoExchange.Net.Protobuf.Converters.Protobuf;
 using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Sockets;
 using CryptoExchange.Net.Sockets.HighPerf;
+using Mexc.Net.Clients.FuturesApi;
 using Mexc.Net.Converters;
 using Mexc.Net.Enums;
 using Mexc.Net.Interfaces.Clients.SpotApi;
@@ -28,43 +29,6 @@ using System.Text.Json;
 
 namespace Mexc.Net.Clients.SpotApi
 {
-    public class MexcProtobufMessageConverter : DynamicProtobufConverter
-    {
-        public MexcProtobufMessageConverter() : base(ProtobufInclude.Model)
-        {
-        }
-
-        public override MessageInfo GetMessageInfo(ReadOnlySpan<byte> data, WebSocketMessageType? webSocketMessageType)
-        {
-            var result = _model.Deserialize<SocketEvent>(data);
-            return new MessageInfo { Identifier = result.c };
-        }
-    }
-
-    public class MexcJsonMessageConverter : DynamicJsonConverter
-    {
-        public override JsonSerializerOptions Options { get; } = SerializerOptions.WithConverters(MexcExchange.SerializerContext);
-
-        public override MessageInfo GetMessageInfo(ReadOnlySpan<byte> data, WebSocketMessageType? webSocketMessageType)
-        {
-            var reader = new Utf8JsonReader(data);
-            while (reader.Read())
-            {
-                if (reader.TokenType == JsonTokenType.PropertyName)
-                {
-                    if (reader.CurrentDepth == 1 && reader.ValueTextEquals("id"))
-                    {
-                        // Query response
-                        reader.Read();
-                        return new MessageInfo { Type = typeof(MexcResponse), Identifier = reader.GetInt32().ToString()! };
-                    }
-                }
-            }
-
-            return new MessageInfo();
-        }
-    }
-
     /// <inheritdoc />
     internal partial class MexcSocketClientSpotApi : SocketApiClient, IMexcSocketClientSpotApi
     {
@@ -110,7 +74,7 @@ namespace Mexc.Net.Clients.SpotApi
         public override IMessageConverter CreateMessageConverter(WebSocketMessageType messageType)
         {
             if (messageType == WebSocketMessageType.Text)
-                return new MexcJsonMessageConverter();
+                return new MexcSocketClientSpotApiMessageConverter();
 
             return new MexcProtobufMessageConverter();
         }

@@ -1,19 +1,24 @@
-﻿using Mexc.Net.Objects.Models.Spot;
-using ProtoBuf;
+﻿using LightProto;
+using Mexc.Net.Objects.Models.Spot;
+using System;
 
 namespace Mexc.Net.Objects.Models.Protobuf
 {
     [ProtoContract]
-    internal abstract class MexcUpdate<T>
+    [ProtoInclude(301，typeof(MessageBody1))]
+    [ProtoInclude(302，typeof(MessageBody2))]
+    internal class MexcUpdate<T>
     {
-        [JsonPropertyName("c")]
-        public abstract string Channel { get; set; }
-        [JsonPropertyName("s")]
-        public abstract string Symbol { get; set; }
-        public abstract long CreateTime { get; set; }
-        [JsonPropertyName("t")]
-        public abstract long SendTime { get; set; }
-        public abstract T Data { get; set; }
+        [ProtoMember(1)]
+        public string Channel { get; set; }
+        [ProtoMember(3)]
+        public string Symbol { get; set; }
+        [ProtoMember(4)]
+        public string SymbolId { get; set; }
+        [ProtoMember(5)]
+        public long CreateTime { get; set; }
+        [ProtoMember(6)]
+        public long SendTime { get; set; }
     }
 
     [ProtoContract]

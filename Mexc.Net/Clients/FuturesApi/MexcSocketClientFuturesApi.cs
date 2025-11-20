@@ -17,45 +17,6 @@ using System.Text.Json;
 
 namespace Mexc.Net.Clients.FuturesApi
 {
-    public class MexcJsonMessageConverter : DynamicJsonConverter
-    {
-        public override JsonSerializerOptions Options { get; } = SerializerOptions.WithConverters(MexcExchange.SerializerContext);
-
-        public override MessageInfo GetMessageInfo(ReadOnlySpan<byte> data, WebSocketMessageType? webSocketMessageType)
-        {
-            var reader = new Utf8JsonReader(data);
-            string? channel = null;
-            string? symbol = null;
-            while (reader.Read())
-            {
-                if (reader.TokenType == JsonTokenType.PropertyName)
-                {
-                    if (reader.CurrentDepth == 1 && reader.ValueTextEquals("channel"))
-                    {
-                        reader.Read();
-
-                        if (symbol != null)
-                            return new MessageInfo { Identifier = reader.GetString() + symbol };
-                        else
-                            channel = reader.GetString();
-                    }
-
-                    if (reader.CurrentDepth == 1 && reader.ValueTextEquals("symbol"))
-                    {
-                        reader.Read();
-
-                        if (channel != null)
-                            return new MessageInfo { Identifier = channel + reader.GetString() };
-                        else
-                            symbol = reader.GetString();
-                    }
-                }
-            }
-
-            return new MessageInfo() { Identifier = channel };
-        }
-    }
-
     /// <inheritdoc />
     internal partial class MexcSocketClientFuturesApi : SocketApiClient, IMexcSocketClientFuturesApi
     {
@@ -92,7 +53,7 @@ namespace Mexc.Net.Clients.FuturesApi
 
         public override IMessageConverter CreateMessageConverter(WebSocketMessageType messageType)
         {
-            return new MexcJsonMessageConverter();
+            return new MexcSocketClientFuturesApiMessageConverter();
         }
 
         /// <inheritdoc />
