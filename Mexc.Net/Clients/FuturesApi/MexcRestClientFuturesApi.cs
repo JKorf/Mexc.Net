@@ -29,8 +29,6 @@ namespace Mexc.Net.Clients.FuturesApi
         /// <inheritdoc />
         public string ExchangeName => "Mexc";
 
-        internal readonly string _brokerId;
-
         public new MexcRestOptions ClientOptions => (MexcRestOptions)base.ClientOptions;
 
         #region constructor/destructor
@@ -46,10 +44,9 @@ namespace Mexc.Net.Clients.FuturesApi
 
             ParameterPositions[HttpMethod.Delete] = HttpMethodParameterPosition.InUri;
 
-            _brokerId = !string.IsNullOrEmpty(options.BrokerId) ? options.BrokerId! : "EASYT";
             StandardRequestHeaders = new Dictionary<string, string>()
             {
-                { "source", _brokerId }
+                { "source", LibraryHelpers.GetClientReference(() => ClientOptions.BrokerId, Exchange) }
             };
         }
         #endregion

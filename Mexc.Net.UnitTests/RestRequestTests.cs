@@ -88,6 +88,24 @@ namespace Mexc.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.Trading.GetUserTradesAsync("ETHUSDT"), "GetUserTrades", ignoreProperties: ["orderListId"]);
         }
 
+        [Test]
+        public async Task ValidateSubAccountCalls()
+        {
+            var client = new MexcRestClient(opts =>
+            {
+                opts.AutoTimestamp = false;
+                opts.ApiCredentials = new ApiCredentials("123", "456");
+                opts.OutputOriginalData = true;
+            });
+            var tester = new RestRequestValidator<MexcRestClient>(client, "Endpoints/SpotApi/SubAccount", "https://api.mexc.com", IsAuthenticated);
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.GetSubUserAccountsAsync(), "GetSubUserAccounts", nestedJsonProperty: "subAccounts");
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.UniversalTransferAsync("123", 1, AccountType.Spot, AccountType.Futures), "UniversalTransfer");
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.GetUniversalTransfersAsync(AccountType.Spot, AccountType.Futures), "GetUniversalTransfers");
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.GetSubUserAccountApiDetailsAsync("123"), "GetSubUserAccountApiDetails");
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.CreateSubAccountApiKeyAsync("123", "123", [""]), "CreateSubAccountApiKey");
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.DeleteSubAccountApiKeyAsync("123", "123"), "DeleteSubAccountApiKey");
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.GetSubAccountBalancesAsync("123", AccountType.Spot), "GetSubAccountBalances", "balances");
+        }
 
         [Test]
         public async Task ValidateFuturesAccountCalls()

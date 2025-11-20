@@ -13,7 +13,7 @@ namespace Mexc.Net.Enums
         /// <summary>
         /// Processing
         /// </summary>
-        [Map("WAI")]
+        [Map("WAIT")]
         Processing,
         /// <summary>
         /// Success

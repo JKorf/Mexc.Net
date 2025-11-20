@@ -283,6 +283,9 @@
         <member name="T:Mexc.Net.Clients.MexcUserClientProvider">
             <inheritdoc />
         </member>
+        <member name="P:Mexc.Net.Clients.MexcUserClientProvider.ExchangeName">
+            <inheritdoc />
+        </member>
         <member name="M:Mexc.Net.Clients.MexcUserClientProvider.#ctor(System.Action{Mexc.Net.Objects.Options.MexcOptions})">
             <summary>
             ctor
@@ -316,6 +319,9 @@
             <inheritdoc />
         </member>
         <member name="P:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.Trading">
+            <inheritdoc />
+        </member>
+        <member name="P:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.SubAccount">
             <inheritdoc />
         </member>
         <member name="P:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.SharedClient">
@@ -463,6 +469,33 @@
             <inheritdoc />
         </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiExchangeData.GetBookPricesAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiSubAccount">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiSubAccount.GetSubUserAccountsAsync(System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiSubAccount.UniversalTransferAsync(System.String,System.Decimal,Mexc.Net.Enums.AccountType,Mexc.Net.Enums.AccountType,System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiSubAccount.GetUniversalTransfersAsync(Mexc.Net.Enums.AccountType,Mexc.Net.Enums.AccountType,System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiSubAccount.GetSubUserAccountApiDetailsAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiSubAccount.CreateSubAccountAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiSubAccount.CreateSubAccountApiKeyAsync(System.String,System.String,System.String[],System.String[],System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiSubAccount.DeleteSubAccountApiKeyAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiSubAccount.GetSubAccountBalancesAsync(System.String,Mexc.Net.Enums.AccountType,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="T:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApiTrading">
@@ -1247,6 +1280,11 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcAccountBalances">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcAccountInfo">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
@@ -1587,6 +1625,46 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcSubAccountApiKey">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcSubaccountResult">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcSubUserAccount">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcSubUserAccountArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcSubUserAccountApiDetail">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcSubUserAccountApiDetailArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcSubUserAccountApiDetails">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcSubUserAccounts">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcSymbol">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
@@ -1643,6 +1721,26 @@
             </summary>
         </member>
         <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcTransferIdArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUniversalTransfer">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUniversalTransferArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUniversalTransferPaged">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.MexcUniversalTransferResult">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -3298,6 +3396,12 @@
             </summary>
             <see cref="T:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiTrading"/>
         </member>
+        <member name="P:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApi.SubAccount">
+            <summary>
+            Endpoints related to sub account management
+            </summary>
+            <see cref="T:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiSubAccount"/>
+        </member>
         <member name="T:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount">
             <summary>
             Mexc Spot account endpoints. Account endpoints include balance info, withdraw/deposit info and requesting and account settings
@@ -3691,6 +3795,100 @@
             Shared interface for Spot rest API usage
             </summary>
         </member>
+        <member name="T:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiSubAccount">
+            <summary>
+            Mexc sub account endpoints
+            </summary>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiSubAccount.GetSubUserAccountsAsync(System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get details of the available sub-accounts
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-sub-account-list-for-master-account"/></para>
+            </summary>
+            <param name="name">The name of the sub-account</param>
+            <param name="isFreeze">Filter by 'Is Freeze'</param>
+            <param name="page">The page number</param>
+            <param name="limit">The number of rows</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiSubAccount.GetSubUserAccountApiDetailsAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get API details of a sub-account
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-the-apikey-of-a-sub-account-for-master-account"/></para>
+            </summary>
+            <param name="subAccount">The name of the sub-account</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiSubAccount.UniversalTransferAsync(System.String,System.Decimal,Mexc.Net.Enums.AccountType,Mexc.Net.Enums.AccountType,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Perform a universal transfer between accounts
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#universal-transfer-for-master-account"/></para>
+            </summary>
+            <param name="asset">The name of the asset, for example `USDT`</param>
+            <param name="amount">The amount that should be transferred</param>
+            <param name="fromAccountType">The origin account type</param>
+            <param name="toAccountType">The destination account type</param>
+            <param name="fromAccount">The name of the origin account. Null = Master Account</param>
+            <param name="toAccount">The name of the destination account. Null = Master Account</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiSubAccount.GetUniversalTransfersAsync(Mexc.Net.Enums.AccountType,Mexc.Net.Enums.AccountType,System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Query the universal transfer history
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-universal-transfer-history-for-master-account"/></para>
+            </summary>
+            <param name="fromAccountType">The origin account type</param>
+            <param name="toAccountType">The destination account type</param>
+            <param name="fromAccount">The name of the origin account. Null = Master Account</param>
+            <param name="toAccount">The name of the destination account. Null = Master Account</param>
+            <param name="startTime">The start time for the query</param>
+            <param name="endTime">The end time for the query</param>
+            <param name="page">The page number</param>
+            <param name="limit">The number of rows</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiSubAccount.CreateSubAccountAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Create a new virtual sub account
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#create-a-sub-account-for-master-account"/></para>
+            </summary>
+            <param name="name">Name</param>
+            <param name="note">Notes</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiSubAccount.CreateSubAccountApiKeyAsync(System.String,System.String,System.String[],System.String[],System.Threading.CancellationToken)">
+            <summary>
+            Create API key for sub account
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#create-an-apikey-for-a-sub-account-for-master-account"/></para>
+            </summary>
+            <param name="subAccount">Sub account</param>
+            <param name="note">Key note</param>
+            <param name="permissions">Permissions</param>
+            <param name="ipAddresses">IP address whitelist</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiSubAccount.DeleteSubAccountApiKeyAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Delete a sub account API key
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#delete-the-apikey-of-a-sub-account-for-master-account"/></para>
+            </summary>
+            <param name="subAccount">Sub account</param>
+            <param name="apiKey">The API key</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiSubAccount.GetSubAccountBalancesAsync(System.String,Mexc.Net.Enums.AccountType,System.Threading.CancellationToken)">
+            <summary>
+            Get sub account balances
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-sub-account-asset"/></para>
+            </summary>
+            <param name="subAccount">Sub account</param>
+            <param name="accountType">Account type</param>
+            <param name="ct">Cancellation token</param>
+        </member>
         <member name="T:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiTrading">
             <summary>
             Mexc Spot trading endpoints, placing and mananging orders.
@@ -3975,7 +4173,7 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToAccountUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcAccountUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to account balance updates. Prior to using this, the <see cref="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.StartUserStreamAsync(System.Threading.CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method should be called to start the stream and obtaining a listen key.
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#spot-account-upadte" /></para>
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#spot-account-update" /></para>
             </summary>
             <param name="listenKey">Listen key retrieved by the <see cref="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.StartUserStreamAsync(System.Threading.CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method</param>
             <param name="handler">Data handler</param>
@@ -4124,6 +4322,11 @@
         <member name="P:Mexc.Net.MexcExchange.Type">
             <summary>
             Type of exchange
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.MexcExchange.AssetAliases">
+            <summary>
+            Aliases for Mexc assets
             </summary>
         </member>
         <member name="M:Mexc.Net.MexcExchange.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
@@ -7105,6 +7308,126 @@
             Trade time
             </summary>
         </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcSubAccountApiKey">
+            <summary>
+            Sub account API key info
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSubAccountApiKey.SubAccount">
+            <summary>
+            Sub account
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSubAccountApiKey.Note">
+            <summary>
+            Note
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSubAccountApiKey.ApiKey">
+            <summary>
+            API key
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSubAccountApiKey.SecretKey">
+            <summary>
+            Secret key
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSubAccountApiKey.Permissions">
+            <summary>
+            Key permissions
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSubAccountApiKey.Ip">
+            <summary>
+            IP whitelist
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSubAccountApiKey.CreateTime">
+            <summary>
+            Create time
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcSubaccountResult">
+            <summary>
+            Sub account creation result
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcSubUserAccounts">
+            <summary>
+            Sub accounts info
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSubUserAccounts.SubAccounts">
+            <summary>
+            Sub accounts
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcSubUserAccount">
+            <summary>
+            Sub user account info
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSubUserAccount.Name">
+            <summary>
+            Sub account name
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSubUserAccount.IsFreeze">
+            <summary>
+            Is frozen
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSubUserAccount.CreateTime">
+            <summary>
+            Creation time
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSubUserAccount.AccountId">
+            <summary>
+            Account id
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcSubUserAccountApiDetails">
+            <summary>
+            Sub user account api details
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSubUserAccountApiDetails.Keys">
+            <summary>
+            API keys details
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcSubUserAccountApiDetail">
+            <summary>
+            Sub user account api detail
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSubUserAccountApiDetail.Note">
+            <summary>
+            Note
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSubUserAccountApiDetail.ApiKey">
+            <summary>
+            Api key
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSubUserAccountApiDetail.IpAddresses">
+            <summary>
+            IP whitelist
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSubUserAccountApiDetail.Permissions">
+            <summary>
+            Permissions
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcSubUserAccountApiDetail.CreateTime">
+            <summary>
+            Creation time
+            </summary>
+        </member>
         <member name="T:Mexc.Net.Objects.Models.Spot.MexcSymbol">
             <summary>
             Symbol info
@@ -7418,6 +7741,86 @@
         <member name="P:Mexc.Net.Objects.Models.Spot.MexcTransferId.TransferId">
             <summary>
             Transfer id
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcUniversalTransferPaged">
+            <summary>
+            Paged universal transfer results
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUniversalTransferPaged.TotalPages">
+            <summary>
+            Total pages
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUniversalTransferPaged.Data">
+            <summary>
+            Transfers data
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcUniversalTransfer">
+            <summary>
+            Universal transfer info
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUniversalTransfer.TransferId">
+            <summary>
+            Transfer id
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUniversalTransfer.FromAccount">
+            <summary>
+            Name of the origin account
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUniversalTransfer.ToAccount">
+            <summary>
+            Name of the destination account
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUniversalTransfer.ClientTransferId">
+            <summary>
+            Client transfer id
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUniversalTransfer.Asset">
+            <summary>
+            Asset that was transferred
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUniversalTransfer.Amount">
+            <summary>
+            Amount transferred
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUniversalTransfer.FromAccountType">
+            <summary>
+            Type of the origin account
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUniversalTransfer.ToAccountType">
+            <summary>
+            Type of the destination account
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUniversalTransfer.Status">
+            <summary>
+            Status of the transfer
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUniversalTransfer.Timestamp">
+            <summary>
+            Timestamp of the transfer
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcUniversalTransferResult">
+            <summary>
+            Universal transfer result
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcUniversalTransferResult.TransactionId">
+            <summary>
+            Transaction id
             </summary>
         </member>
         <member name="T:Mexc.Net.Objects.Models.Spot.MexcUserAsset">
@@ -7999,6 +8402,9 @@
             <summary>
             Mexc order book factory
             </summary>
+        </member>
+        <member name="P:Mexc.Net.SymbolOrderBooks.MexcOrderBookFactory.ExchangeName">
+            <inheritdoc />
         </member>
         <member name="P:Mexc.Net.SymbolOrderBooks.MexcOrderBookFactory.Spot">
             <inheritdoc />

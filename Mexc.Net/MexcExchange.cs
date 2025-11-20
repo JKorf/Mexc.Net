@@ -46,6 +46,17 @@ namespace Mexc.Net
         public static ExchangeType Type { get; } = ExchangeType.CEX;
 
         internal static JsonSerializerContext SerializerContext = JsonSerializerContextCache.GetOrCreate<MexcSourceGenerationContext>();
+        
+        /// <summary>
+        /// Aliases for Mexc assets
+        /// </summary>
+        public static AssetAliasConfiguration AssetAliases { get; } = new AssetAliasConfiguration
+        {
+            Aliases =
+            [
+                new AssetAlias("USDC", SharedSymbol.UsdOrStable.ToUpperInvariant(), AliasType.OnlyToExchange)
+            ]
+        };
 
         /// <summary>
         /// Format a base and quote asset to a Mexc recognized symbol 
@@ -57,10 +68,13 @@ namespace Mexc.Net
         /// <returns></returns>
         public static string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
         {
-            if (tradingMode == TradingMode.Spot)
-                return baseAsset.ToUpperInvariant() + quoteAsset.ToUpperInvariant();
+            baseAsset = AssetAliases.CommonToExchangeName(baseAsset.ToUpperInvariant());
+            quoteAsset = AssetAliases.CommonToExchangeName(quoteAsset.ToUpperInvariant());
 
-            return baseAsset.ToUpperInvariant() + "_" + quoteAsset.ToUpperInvariant();
+            if (tradingMode == TradingMode.Spot)
+                return baseAsset + quoteAsset;
+
+            return baseAsset + "_" + quoteAsset;
         }
 
         /// <summary>

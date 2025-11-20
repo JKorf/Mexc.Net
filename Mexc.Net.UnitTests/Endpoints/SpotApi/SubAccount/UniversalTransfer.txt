@@ -1,0 +1,6 @@
+POST
+/api/v3/capital/sub-account/universalTransfer
+true
+{
+    "tranId": "11945860693"
+ }

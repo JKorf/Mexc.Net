@@ -95,6 +95,7 @@ CryptoExchange.Net also allows for [easy access to different exchange API's](htt
 |Kucoin|[JKorf/Kucoin.Net](https://github.com/JKorf/Kucoin.Net)|[![Nuget version](https://img.shields.io/nuget/v/Kucoin.net.svg?style=flat-square)](https://www.nuget.org/packages/Kucoin.Net)|
 |OKX|[JKorf/OKX.Net](https://github.com/JKorf/OKX.Net)|[![Nuget version](https://img.shields.io/nuget/v/JK.OKX.net.svg?style=flat-square)](https://www.nuget.org/packages/JK.OKX.Net)|
 |Toobit|[JKorf/Toobit.Net](https://github.com/JKorf/Toobit.Net)|[![Nuget version](https://img.shields.io/nuget/v/Toobit.net.svg?style=flat-square)](https://www.nuget.org/packages/Toobit.Net)|
+|Upbit|[JKorf/Upbit.Net](https://github.com/JKorf/Upbit.Net)|[![Nuget version](https://img.shields.io/nuget/v/JKorf.Upbit.net.svg?style=flat-square)](https://www.nuget.org/packages/JKorf.Upbit.Net)|
 |WhiteBit|[JKorf/WhiteBit.Net](https://github.com/JKorf/WhiteBit.Net)|[![Nuget version](https://img.shields.io/nuget/v/WhiteBit.net.svg?style=flat-square)](https://www.nuget.org/packages/WhiteBit.Net)|
 |XT|[JKorf/XT.Net](https://github.com/JKorf/XT.Net)|[![Nuget version](https://img.shields.io/nuget/v/XT.net.svg?style=flat-square)](https://www.nuget.org/packages/XT.Net)|
 
@@ -114,18 +115,21 @@ To support AOT compilation:
 |API|Supported|Location|
 |--|--:|--|
 |Market Data Endpoints|✓|`restClient.SpotApi.ExchangeData`|
-|SubAccount Endpoints|X||
+|SubAccount Endpoints|✓|`restClient.SpotApi.SubAccount`|
 |Acount/Trade|✓|`restClient.SpotApi.Account` / `restClient.SpotApi.Trading`|
 |Wallet endpoints|✓|`restClient.SpotApi.Account`|
 |Websocket Market Streams|✓|`socketClient.SpotApi`|
 |Websocket User Data Streams|✓|`socketClient.SpotApi`|
 
 ### Futures
-*Futures is not currently available in the MEXC API*
+*Futures trading is not currently available in the MEXC API*
 
 |API|Supported|Location|
 |--|--:|--|
-|*|X||
+|Market Endpoints|✓|`restClient.FuturesApi.ExchangeData`|
+|Account and trading Endpoints|✓|`restClient.FuturesApi.Account`/`restClient.FuturesApi.Trading`|
+|WebSocket Public|✓|`socketClient.FuturesApi`|
+|WebSocket Private|✓|`socketClient.FuturesApi`|
 
 ### Broker
 |API|Supported|Location|
@@ -146,6 +150,17 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 3.12.0 - 11 Nov 2025
+    * Updated CryptoExchange.Net version to 9.13.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
+
+* Version 3.11.0 - 03 Nov 2025
+    * Updated CryptoExchange.Net to version 9.12.0
+    * Added SubAccount API implementation
+    * Added missing Shared futures interfaces DI registration
+    * Added support for using SharedSymbol.UsdOrStable in Shared APIs
+    * Fixed exception when initial trade snapshot has no items in TradeTracker
+    * Removed some unhelpful verbose logs
+
 * Version 3.10.0 - 16 Oct 2025
     * Updated CryptoExchange.Net version to 9.10.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
     * Added ClientOrderId mapping on SharedUserTrade models

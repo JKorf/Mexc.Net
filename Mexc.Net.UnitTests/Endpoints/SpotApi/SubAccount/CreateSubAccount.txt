@@ -1,0 +1,7 @@
+POST
+/api/v3/sub-account/virtualSubAccount
+true
+{
+    "subAccount":"mexc1",
+    "note":"1"
+}

@@ -6,7 +6,7 @@ namespace Mexc.Net.Interfaces
     /// <summary>
     /// Mexc order book factory
     /// </summary>
-    public interface IMexcOrderBookFactory
+    public interface IMexcOrderBookFactory : IExchangeService
     {
         /// <summary>
         /// Spot order book factory methods

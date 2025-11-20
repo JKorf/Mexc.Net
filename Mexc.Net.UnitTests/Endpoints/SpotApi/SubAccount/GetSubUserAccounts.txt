@@ -1,0 +1,19 @@
+GET
+/api/v3/sub-account/list
+true
+{
+    "subAccounts":[
+        {
+            "subAccount":"mexc666",
+            "isFreeze":false,
+            "createTime":1544433328000,
+            "uid": "49910511"
+        },
+        {
+            "subAccount":"mexc888",
+            "isFreeze":false,
+            "createTime":1544433328000,
+            "uid": "91921059"
+        }
+    ]
+}
