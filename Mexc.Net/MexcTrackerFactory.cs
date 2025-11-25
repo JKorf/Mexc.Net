@@ -32,10 +32,9 @@ namespace Mexc.Net
         /// <inheritdoc />
         public bool CanCreateKlineTracker(SharedSymbol symbol, SharedKlineInterval interval)
         {
-            return false;
-            //var client = (_serviceProvider?.GetRequiredService<IMexcSocketClient>() ?? new MexcSocketClient());
-            //SubscribeKlineOptions klineOptions = symbol.TradingMode == TradingMode.Spot ? client.SpotApi.SharedClient.SubscribeKlineOptions : client.FuturesApi.SharedClient.SubscribeKlineOptions;
-            //return klineOptions.IsSupported(interval);
+            var client = (_serviceProvider?.GetRequiredService<IMexcSocketClient>() ?? new MexcSocketClient());
+            SubscribeKlineOptions klineOptions = symbol.TradingMode == TradingMode.Spot ? client.SpotApi.SharedClient.SubscribeKlineOptions : client.FuturesApi.SharedClient.SubscribeKlineOptions;
+            return klineOptions.IsSupported(interval);
         }
 
         /// <inheritdoc />
@@ -45,29 +44,28 @@ namespace Mexc.Net
         /// <inheritdoc />
         public IKlineTracker CreateKlineTracker(SharedSymbol symbol, SharedKlineInterval interval, int? limit = null, TimeSpan? period = null)
         {
-            throw new NotImplementedException();
-            //IKlineRestClient restClient;
-            //IKlineSocketClient socketClient;
-            //if (symbol.TradingMode == TradingMode.Spot)
-            //{
-            //    restClient = (_serviceProvider?.GetRequiredService<IMexcRestClient>() ?? new MexcRestClient()).SpotApi.SharedClient;
-            //    socketClient = (_serviceProvider?.GetRequiredService<IMexcSocketClient>() ?? new MexcSocketClient()).SpotApi.SharedClient;
-            //}
-            //else
-            //{
-            //    restClient = (_serviceProvider?.GetRequiredService<IMexcRestClient>() ?? new MexcRestClient()).FuturesApi.SharedClient;
-            //    socketClient = (_serviceProvider?.GetRequiredService<IMexcSocketClient>() ?? new MexcSocketClient()).FuturesApi.SharedClient;
-            //}
+            IKlineRestClient restClient;
+            IKlineSocketClient socketClient;
+            if (symbol.TradingMode == TradingMode.Spot)
+            {
+                restClient = (_serviceProvider?.GetRequiredService<IMexcRestClient>() ?? new MexcRestClient()).SpotApi.SharedClient;
+                socketClient = (_serviceProvider?.GetRequiredService<IMexcSocketClient>() ?? new MexcSocketClient()).SpotApi.SharedClient;
+            }
+            else
+            {
+                restClient = (_serviceProvider?.GetRequiredService<IMexcRestClient>() ?? new MexcRestClient()).FuturesApi.SharedClient;
+                socketClient = (_serviceProvider?.GetRequiredService<IMexcSocketClient>() ?? new MexcSocketClient()).FuturesApi.SharedClient;
+            }
 
-            //return new KlineTracker(
-            //    _serviceProvider?.GetRequiredService<ILoggerFactory>().CreateLogger(restClient.Exchange),
-            //    restClient,
-            //    socketClient,
-            //    symbol,
-            //    interval,
-            //    limit,
-            //    period
-            //    );
+            return new KlineTracker(
+                _serviceProvider?.GetRequiredService<ILoggerFactory>().CreateLogger(restClient.Exchange),
+                restClient,
+                socketClient,
+                symbol,
+                interval,
+                limit,
+                period
+                );
         }
         /// <inheritdoc />
         public ITradeTracker CreateTradeTracker(SharedSymbol symbol, int? limit = null, TimeSpan? period = null)

@@ -4,7 +4,7 @@ namespace Mexc.Net.Objects.Models.Protobuf
 {
     [ProtoBuf.ProtoContract]
     [LightProto.ProtoContract]
-    internal partial record ProtoStreamBookTicker
+    internal partial record MexcUpdateBookTicker
     {
         [ProtoBuf.ProtoMember(1)]
         [LightProto.ProtoMember(1)]

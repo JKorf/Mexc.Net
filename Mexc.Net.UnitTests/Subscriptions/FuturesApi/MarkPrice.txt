@@ -1,5 +1,5 @@
 > { "method": "sub.fair.price", "param": {"symbol":"ETH_USDT"}} 
-< { "method": "rs.sub.fair.price", "param": {"symbol":"ETH_USDT"}} 
+< { "channel": "rs.sub.fair.price", "param": {"symbol":"ETH_USDT"}} 
 = 
 {
     "channel":"push.fair.price",

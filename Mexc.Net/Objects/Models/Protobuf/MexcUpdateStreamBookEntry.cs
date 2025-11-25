@@ -2,7 +2,7 @@
 {
     [ProtoBuf.ProtoContract]
     [LightProto.ProtoContract]
-    internal partial class ProtoStreamBookEntry
+    internal partial class MexcUpdateStreamBookEntry
     {
         [ProtoBuf.ProtoMember(1)]
         [LightProto.ProtoMember(1)]

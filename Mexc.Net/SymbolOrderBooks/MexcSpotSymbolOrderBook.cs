@@ -63,44 +63,43 @@ namespace Mexc.Net.SymbolOrderBooks
         /// <inheritdoc />
         protected override async Task<CallResult<UpdateSubscription>> DoStartAsync(CancellationToken ct)
         {
-            throw new NotImplementedException();
-            //CallResult<UpdateSubscription> subResult;
-            //if (Levels == null)
-            //    subResult = await _socketClient.SpotApi.SubscribeToOrderBookUpdatesAsync(Symbol, _updateInterval ?? 10, HandleUpdate).ConfigureAwait(false);
-            //else
-            //    subResult = await _socketClient.SpotApi.SubscribeToPartialOrderBookUpdatesAsync(Symbol, Levels.Value, HandleUpdate).ConfigureAwait(false);
+            CallResult<UpdateSubscription> subResult;
+            if (Levels == null)
+                subResult = await _socketClient.SpotApi.SubscribeToOrderBookUpdatesAsync(Symbol, _updateInterval ?? 10, HandleUpdate).ConfigureAwait(false);
+            else
+                subResult = await _socketClient.SpotApi.SubscribeToPartialOrderBookUpdatesAsync(Symbol, Levels.Value, HandleUpdate).ConfigureAwait(false);
 
-            //if (!subResult)
-            //    return new CallResult<UpdateSubscription>(subResult.Error!);
+            if (!subResult)
+                return new CallResult<UpdateSubscription>(subResult.Error!);
 
-            //if (ct.IsCancellationRequested)
-            //{
-            //    await subResult.Data.CloseAsync().ConfigureAwait(false);
-            //    return subResult.AsError<UpdateSubscription>(new CancellationRequestedError());
-            //}
+            if (ct.IsCancellationRequested)
+            {
+                await subResult.Data.CloseAsync().ConfigureAwait(false);
+                return subResult.AsError<UpdateSubscription>(new CancellationRequestedError());
+            }
 
-            //Status = OrderBookStatus.Syncing;
-            //if (Levels == null)
-            //{
-            //    // Small delay to make sure the snapshot is from after our first stream update
-            //    await Task.Delay(200).ConfigureAwait(false);
-            //    var bookResult = await _restClient.SpotApi.ExchangeData.GetOrderBookAsync(Symbol, Levels ?? 5000).ConfigureAwait(false);
-            //    if (!bookResult)
-            //    {
-            //        _logger.Log(LogLevel.Debug, $"{Api} order book {Symbol} failed to retrieve initial order book");
-            //        await _socketClient.UnsubscribeAsync(subResult.Data).ConfigureAwait(false);
-            //        return new CallResult<UpdateSubscription>(bookResult.Error!);
-            //    }
+            Status = OrderBookStatus.Syncing;
+            if (Levels == null)
+            {
+                // Small delay to make sure the snapshot is from after our first stream update
+                await Task.Delay(200).ConfigureAwait(false);
+                var bookResult = await _restClient.SpotApi.ExchangeData.GetOrderBookAsync(Symbol, Levels ?? 5000).ConfigureAwait(false);
+                if (!bookResult)
+                {
+                    _logger.Log(LogLevel.Debug, $"{Api} order book {Symbol} failed to retrieve initial order book");
+                    await _socketClient.UnsubscribeAsync(subResult.Data).ConfigureAwait(false);
+                    return new CallResult<UpdateSubscription>(bookResult.Error!);
+                }
 
-            //    SetInitialOrderBook(bookResult.Data.LastUpdateId, bookResult.Data.Bids, bookResult.Data.Asks);
-            //}
-            //else
-            //{
-            //    var setResult = await WaitForSetOrderBookAsync(TimeSpan.FromSeconds(5), ct).ConfigureAwait(false);
-            //    return setResult ? subResult : new CallResult<UpdateSubscription>(setResult.Error!);
-            //}
+                SetInitialOrderBook(bookResult.Data.LastUpdateId, bookResult.Data.Bids, bookResult.Data.Asks);
+            }
+            else
+            {
+                var setResult = await WaitForSetOrderBookAsync(TimeSpan.FromSeconds(5), ct).ConfigureAwait(false);
+                return setResult ? subResult : new CallResult<UpdateSubscription>(setResult.Error!);
+            }
 
-            //return new CallResult<UpdateSubscription>(subResult.Data);
+            return new CallResult<UpdateSubscription>(subResult.Data);
         }
 
         private void HandleUpdate(DataEvent<MexcStreamOrderBook> data)

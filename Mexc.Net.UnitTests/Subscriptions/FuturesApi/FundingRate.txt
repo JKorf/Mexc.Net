@@ -1,5 +1,5 @@
 > { "method": "sub.funding.rate", "param": {"symbol":"ETH_USDT"}} 
-< { "method": "rs.sub.funding.rate", "param": {"symbol":"ETH_USDT"}} 
+< { "channel": "rs.sub.funding.rate", "param": {"symbol":"ETH_USDT"}} 
 = 
 {
     "channel":"push.funding.rate",

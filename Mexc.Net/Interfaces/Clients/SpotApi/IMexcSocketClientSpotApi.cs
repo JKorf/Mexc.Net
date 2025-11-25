@@ -126,27 +126,27 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         ///// <returns></returns>
         //Task<CallResult<UpdateSubscription>> SubscribeToAggregatedOrderBookUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<MexcStreamOrderBook[]>> handler, CancellationToken ct = default);
 
-        ///// <summary>
-        ///// Subscribe to full orderbook updates
-        ///// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#partial-book-depth-streams" /></para>
-        ///// </summary>
-        ///// <param name="symbol">The symbol, for example `BTCUSDT`</param>
-        ///// <param name="depth">The depth of the book, 5, 10 or 20</param>
-        ///// <param name="handler">Data handler</param>
-        ///// <param name="ct">Cancellation token</param>
-        ///// <returns></returns>
-        //Task<CallResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdatesAsync(string symbol, int depth, Action<DataEvent<MexcStreamOrderBook>> handler, CancellationToken ct = default);
+        /// <summary>
+        /// Subscribe to full orderbook updates
+        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#partial-book-depth-streams" /></para>
+        /// </summary>
+        /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
+        /// <param name="depth">The depth of the book, 5, 10 or 20</param>
+        /// <param name="handler">Data handler</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdatesAsync(string symbol, int depth, Action<DataEvent<MexcStreamOrderBook>> handler, CancellationToken ct = default);
 
-        ///// <summary>
-        ///// Subscribe to full orderbook updates
-        ///// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#partial-book-depth-streams" /></para>
-        ///// </summary>
-        ///// <param name="symbols">The symbols, for example `BTCUSDT`</param>
-        ///// <param name="depth">The depth of the book, 5, 10 or 20</param>
-        ///// <param name="handler">Data handler</param>
-        ///// <param name="ct">Cancellation token</param>
-        ///// <returns></returns>
-        //Task<CallResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdatesAsync(IEnumerable<string> symbols, int depth, Action<DataEvent<MexcStreamOrderBook>> handler, CancellationToken ct = default);
+        /// <summary>
+        /// Subscribe to full orderbook updates
+        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#partial-book-depth-streams" /></para>
+        /// </summary>
+        /// <param name="symbols">The symbols, for example `BTCUSDT`</param>
+        /// <param name="depth">The depth of the book, 5, 10 or 20</param>
+        /// <param name="handler">Data handler</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdatesAsync(IEnumerable<string> symbols, int depth, Action<DataEvent<MexcStreamOrderBook>> handler, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to book ticker (best bid/ask) updates
@@ -167,6 +167,29 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<MexcStreamBookTick>> handler, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to mini ticker updates for all symbols
+        /// </summary>
+        /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
+        /// <param name="handler">Data handler</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<CallResult<UpdateSubscription>> SubscribeToMiniTickerUpdatesAsync(string symbol, Action<DataEvent<MexcMiniTickUpdate>> handler, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to mini ticker updates for all symbols
+        /// </summary>
+        /// <param name="symbols">The symbols, for example `BTCUSDT`</param>
+        /// <param name="handler">Data handler</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<CallResult<UpdateSubscription>> SubscribeToMiniTickerUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<MexcMiniTickUpdate>> handler, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to mini ticker updates for all symbols
+        /// </summary>
+        /// <param name="handler">Data handler</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<CallResult<UpdateSubscription>> SubscribeToAllMiniTickerUpdatesAsync(Action<DataEvent<MexcMiniTickUpdate[]>> handler, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to account balance updates. Prior to using this, the <see cref="IMexcRestClientSpotApiAccount.StartUserStreamAsync(CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method should be called to start the stream and obtaining a listen key.

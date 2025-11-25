@@ -200,22 +200,44 @@ namespace Mexc.Net.Clients.SpotApi
         ///// <inheritdoc />
         //public async Task<CallResult<UpdateSubscription>> SubscribeToAggregatedOrderBookUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<MexcStreamOrderBook[]>> handler, CancellationToken ct = default)
         //{
-        //    var subscription = new MexcSubscription<MexcUpdateAggOrderBook>(_logger, symbols.Select(s => "spot@public.increase.depth.batch.v3.api.pb@" + s), x => handler(x.As(x.Data.Data.Select(x => x.ToModel()).ToArray())), false);
+        //    var internalHandler = new Action<DateTime, string?, MexcUpdateOrderBookIncrease>((receiveTime, originalData, data) =>
+        //    {
+        //        handler(
+        //            new DataEvent<MexcStreamOrderBook[]>(data.Select(x => x.ToModel()).ToArray(), receiveTime, originalData)
+        //                .WithUpdateType(SocketUpdateType.Update)
+        //                .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime))
+        //                .WithSymbol(data.Symbol)
+        //                .WithStreamId(data.Channel)
+        //            );
+        //    });
+
+        //    var subscription = new MexcSubscription<MexcUpdateOrderBookIncrease>(_logger, symbols.Select(s => "spot@public.increase.depth.batch.v3.api.pb@" + s), x => handler(x.As(x.Data.Data.Select(x => x.ToModel()).ToArray())), false);
         //    return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         //}
 
-        ///// <inheritdoc />
-        //public async Task<CallResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdatesAsync(string symbol, int depth, Action<DataEvent<MexcStreamOrderBook>> handler, CancellationToken ct = default)
-        //    => await SubscribeToPartialOrderBookUpdatesAsync(new[] { symbol }, depth, handler, ct).ConfigureAwait(false);
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdatesAsync(string symbol, int depth, Action<DataEvent<MexcStreamOrderBook>> handler, CancellationToken ct = default)
+            => await SubscribeToPartialOrderBookUpdatesAsync(new[] { symbol }, depth, handler, ct).ConfigureAwait(false);
 
-        ///// <inheritdoc />
-        //public async Task<CallResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdatesAsync(IEnumerable<string> symbols, int depth, Action<DataEvent<MexcStreamOrderBook>> handler, CancellationToken ct = default)
-        //{
-        //    depth.ValidateIntValues(nameof(depth), 5, 10, 20);
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdatesAsync(IEnumerable<string> symbols, int depth, Action<DataEvent<MexcStreamOrderBook>> handler, CancellationToken ct = default)
+        {
+            depth.ValidateIntValues(nameof(depth), 5, 10, 20);
 
-        //    var subscription = new MexcSubscription<MexcUpdatePartialOrderBook>(_logger, symbols.Select(s => "spot@public.limit.depth.v3.api.pb@" + s + "@" + depth), x => handler(x.As(x.Data.ToModel())), false);
-        //    return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
-        //}
+            var internalHandler = new Action<DateTime, string?, MexcUpdateOrderBookLimit>((receiveTime, originalData, data) =>
+            {
+                handler(
+                    new DataEvent<MexcStreamOrderBook>(data.ToModel(), receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime))
+                        .WithSymbol(data.Symbol)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
+            var subscription = new MexcSubscription<MexcUpdateOrderBookLimit>(_logger, symbols.Select(s => "spot@public.limit.depth.v3.api.pb@" + s + "@" + depth), internalHandler, false);
+            return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
+        }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(string symbol, Action<DataEvent<MexcStreamBookTick>> handler, CancellationToken ct = default)
@@ -224,7 +246,7 @@ namespace Mexc.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<MexcStreamBookTick>> handler, CancellationToken ct = default)
         {
-            var internalHandler = new Action<DateTime, string?, MexcUpdateBookTicker>((receiveTime, originalData, data) =>
+            var internalHandler = new Action<DateTime, string?, MexcUpdateBookTickers>((receiveTime, originalData, data) =>
             {
                 handler(
                     new DataEvent<MexcStreamBookTick>(data.Data.First().ToModel(), receiveTime, originalData)
@@ -235,7 +257,47 @@ namespace Mexc.Net.Clients.SpotApi
                     );
             });
 
-            var subscription = new MexcSubscription<MexcUpdateBookTicker>(_logger, symbols.Select(s => "spot@public.bookTicker.batch.v3.api.pb@" + s), internalHandler, false);
+            var subscription = new MexcSubscription<MexcUpdateBookTickers>(_logger, symbols.Select(s => "spot@public.bookTicker.batch.v3.api.pb@" + s), internalHandler, false);
+            return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToMiniTickerUpdatesAsync(string symbol, Action<DataEvent<MexcMiniTickUpdate>> handler, CancellationToken ct = default)
+            => await SubscribeToMiniTickerUpdatesAsync(new[] { symbol }, handler, ct).ConfigureAwait(false);
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToMiniTickerUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<MexcMiniTickUpdate>> handler, CancellationToken ct = default)
+        {
+            var internalHandler = new Action<DateTime, string?, MexcUpdateMiniTicker>((receiveTime, originalData, data) =>
+            {
+                handler(
+                    new DataEvent<MexcMiniTickUpdate>(data.ToModel(), receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime))
+                        .WithSymbol(data.Symbol)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
+            var subscription = new MexcSubscription<MexcUpdateMiniTicker>(_logger, symbols.Select(s => "spot@public.miniTicker.v3.api.pb@" + s + "@UTC+0"), internalHandler, false);
+            return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToAllMiniTickerUpdatesAsync(Action<DataEvent<MexcMiniTickUpdate[]>> handler, CancellationToken ct = default)
+        {
+            var internalHandler = new Action<DateTime, string?, MexcUpdateMiniTickers>((receiveTime, originalData, data) =>
+            {
+                handler(
+                    new DataEvent<MexcMiniTickUpdate[]>(data.Tickers.Select(x => x.ToModel()).ToArray(), receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime))
+                        .WithSymbol(data.Symbol)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
+            var subscription = new MexcSubscription<MexcUpdateMiniTickers>(_logger, ["spot@public.miniTickers.v3.api.pb@UTC+0"], internalHandler, false);
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
 

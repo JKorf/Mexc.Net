@@ -567,10 +567,25 @@
         <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToPartialOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToPartialOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToBookTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamBookTick}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToBookTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamBookTick}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToMiniTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcMiniTickUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToMiniTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcMiniTickUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToAllMiniTickerUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcMiniTickUpdate[]}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToAccountUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcAccountUpdate}},System.Threading.CancellationToken)">
@@ -4036,6 +4051,28 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToPartialOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to full orderbook updates
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#partial-book-depth-streams" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `BTCUSDT`</param>
+            <param name="depth">The depth of the book, 5, 10 or 20</param>
+            <param name="handler">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToPartialOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to full orderbook updates
+            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#partial-book-depth-streams" /></para>
+            </summary>
+            <param name="symbols">The symbols, for example `BTCUSDT`</param>
+            <param name="depth">The depth of the book, 5, 10 or 20</param>
+            <param name="handler">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToBookTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamBookTick}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to book ticker (best bid/ask) updates
@@ -4055,6 +4092,29 @@
             <param name="handler">Data handler</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToMiniTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcMiniTickUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to mini ticker updates for all symbols
+            </summary>
+            <param name="symbol">The symbol, for example `BTCUSDT`</param>
+            <param name="handler">Data handler</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToMiniTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcMiniTickUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to mini ticker updates for all symbols
+            </summary>
+            <param name="symbols">The symbols, for example `BTCUSDT`</param>
+            <param name="handler">Data handler</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToAllMiniTickerUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcMiniTickUpdate[]}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to mini ticker updates for all symbols
+            </summary>
+            <param name="handler">Data handler</param>
+            <param name="ct">Cancellation token</param>
         </member>
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToAccountUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcAccountUpdate}},System.Threading.CancellationToken)">
             <summary>
@@ -6083,7 +6143,44 @@
             </summary>
         </member>
         <!-- Badly formed XML comment ignored for member "T:Mexc.Net.Objects.Models.Protobuf.MexcUpdate" -->
-        <!-- Badly formed XML comment ignored for member "T:Mexc.Net.Objects.Models.Protobuf.MexcUpdateTrades" -->
+        <!-- Badly formed XML comment ignored for member "T:Mexc.Net.Objects.Models.Protobuf.MexcUpdateAccount" -->
+        <member name="P:Mexc.Net.Objects.Models.Protobuf.MexcUpdateAccount.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Protobuf.MexcUpdateAccount.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Protobuf.MexcUpdateAccount.Free">
+            <summary>
+            New free quantity
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Protobuf.MexcUpdateAccount.FreeChange">
+            <summary>
+            Changed free quantity
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Protobuf.MexcUpdateAccount.Frozen">
+            <summary>
+            New frozen quantity
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Protobuf.MexcUpdateAccount.FrozenChange">
+            <summary>
+            Changed frozen quantity
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Protobuf.MexcUpdateAccount.UpdateType">
+            <summary>
+            Trigger update type
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:Mexc.Net.Objects.Models.Protobuf.MexcUpdateBookTicker" -->
+        <!-- Badly formed XML comment ignored for member "T:Mexc.Net.Objects.Models.Protobuf.MexcUpdateBookTickers" -->
         <!-- Badly formed XML comment ignored for member "T:Mexc.Net.Objects.Models.Protobuf.MexcUpdateKlines" -->
         <member name="P:Mexc.Net.Objects.Models.Protobuf.MexcUpdateKlines.StartTime">
             <summary>
@@ -6130,49 +6227,17 @@
             Volume
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "T:Mexc.Net.Objects.Models.Protobuf.MexcUpdateBookTicker" -->
-        <!-- Badly formed XML comment ignored for member "T:Mexc.Net.Objects.Models.Protobuf.MexcUpdateOrderBook" -->
-        <!-- Badly formed XML comment ignored for member "T:Mexc.Net.Objects.Models.Protobuf.MexcUpdateAccount" -->
-        <member name="P:Mexc.Net.Objects.Models.Protobuf.MexcUpdateAccount.Asset">
-            <summary>
-            Asset
-            </summary>
-        </member>
-        <member name="P:Mexc.Net.Objects.Models.Protobuf.MexcUpdateAccount.Timestamp">
-            <summary>
-            Timestamp
-            </summary>
-        </member>
-        <member name="P:Mexc.Net.Objects.Models.Protobuf.MexcUpdateAccount.Free">
-            <summary>
-            New free quantity
-            </summary>
-        </member>
-        <member name="P:Mexc.Net.Objects.Models.Protobuf.MexcUpdateAccount.FreeChange">
-            <summary>
-            Changed free quantity
-            </summary>
-        </member>
-        <member name="P:Mexc.Net.Objects.Models.Protobuf.MexcUpdateAccount.Frozen">
-            <summary>
-            New frozen quantity
-            </summary>
-        </member>
-        <member name="P:Mexc.Net.Objects.Models.Protobuf.MexcUpdateAccount.FrozenChange">
-            <summary>
-            Changed frozen quantity
-            </summary>
-        </member>
-        <member name="P:Mexc.Net.Objects.Models.Protobuf.MexcUpdateAccount.UpdateType">
-            <summary>
-            Trigger update type
-            </summary>
-        </member>
+        <!-- Badly formed XML comment ignored for member "T:Mexc.Net.Objects.Models.Protobuf.MexcUpdateMiniTicker" -->
+        <!-- Badly formed XML comment ignored for member "T:Mexc.Net.Objects.Models.Protobuf.MexcUpdateMiniTickers" -->
+        <!-- Badly formed XML comment ignored for member "T:Mexc.Net.Objects.Models.Protobuf.MexcUpdateMiniTickersModel" -->
         <!-- Badly formed XML comment ignored for member "T:Mexc.Net.Objects.Models.Protobuf.MexcUpdateOrder" -->
+        <!-- Badly formed XML comment ignored for member "T:Mexc.Net.Objects.Models.Protobuf.MexcUpdateOrderBook" -->
+        <!-- Badly formed XML comment ignored for member "T:Mexc.Net.Objects.Models.Protobuf.MexcUpdateOrderBookIncrease" -->
+        <!-- Badly formed XML comment ignored for member "T:Mexc.Net.Objects.Models.Protobuf.MexcUpdateOrderBookLimit" -->
+        <!-- Badly formed XML comment ignored for member "T:Mexc.Net.Objects.Models.Protobuf.MexcUpdateStreamBookEntry" -->
+        <!-- Badly formed XML comment ignored for member "T:Mexc.Net.Objects.Models.Protobuf.MexcUpdateStreamTrade" -->
+        <!-- Badly formed XML comment ignored for member "T:Mexc.Net.Objects.Models.Protobuf.MexcUpdateTrades" -->
         <!-- Badly formed XML comment ignored for member "T:Mexc.Net.Objects.Models.Protobuf.MexcUpdateUserTrade" -->
-        <!-- Badly formed XML comment ignored for member "T:Mexc.Net.Objects.Models.Protobuf.ProtoStreamBookEntry" -->
-        <!-- Badly formed XML comment ignored for member "T:Mexc.Net.Objects.Models.Protobuf.ProtoStreamBookTicker" -->
-        <!-- Badly formed XML comment ignored for member "T:Mexc.Net.Objects.Models.Protobuf.ProtoStreamTrade" -->
         <member name="T:Mexc.Net.Objects.Models.Spot.MexcAccountInfo">
             <summary>
             Account info
@@ -6786,6 +6851,51 @@
         <member name="P:Mexc.Net.Objects.Models.Spot.MexcKycStatus.Status">
             <summary>
             Status
+            </summary>
+        </member>
+        <member name="T:Mexc.Net.Objects.Models.Spot.MexcMiniTickUpdate">
+            <summary>
+            Mini ticker
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcMiniTickUpdate.Symbol">
+            <summary>
+            Symbol name
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcMiniTickUpdate.LastPrice">
+            <summary>
+            Last price
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcMiniTickUpdate.PriceChangePercentage">
+            <summary>
+            24h Change percentage in specified timezone 
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcMiniTickUpdate.PriceChangePercentageUtc8">
+            <summary>
+            24h Change percentage in Utc 8 timezone
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcMiniTickUpdate.HighPrice">
+            <summary>
+            24h high price
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcMiniTickUpdate.LowPrice">
+            <summary>
+            24h low price
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcMiniTickUpdate.Volume">
+            <summary>
+            24h volume
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.Objects.Models.Spot.MexcMiniTickUpdate.QuoteVolume">
+            <summary>
+            24h quote volume
             </summary>
         </member>
         <member name="T:Mexc.Net.Objects.Models.Spot.MexcOrder">

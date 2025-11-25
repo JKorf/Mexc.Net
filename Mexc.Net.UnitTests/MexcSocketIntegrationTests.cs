@@ -11,13 +11,13 @@ namespace Mexc.Net.UnitTests
     [NonParallelizable]
     internal class MexcSocketIntegrationTests : SocketIntegrationTest<MexcSocketClient>
     {
-        public override bool Run { get; set; } = false;
+        public override bool Run { get; set; } = true;
 
         public MexcSocketIntegrationTests()
         {
         }
 
-        public override MexcSocketClient GetClient(ILoggerFactory loggerFactory)
+        public override MexcSocketClient GetClient(ILoggerFactory loggerFactory, bool useUpdatedDeserialization)
         {
             var key = Environment.GetEnvironmentVariable("APIKEY");
             var sec = Environment.GetEnvironmentVariable("APISECRET");
@@ -26,11 +26,12 @@ namespace Mexc.Net.UnitTests
             return new MexcSocketClient(Options.Create(new MexcSocketOptions
             {
                 OutputOriginalData = true,
+                UseUpdatedDeserialization = useUpdatedDeserialization,
                 ApiCredentials = Authenticated ? new CryptoExchange.Net.Authentication.ApiCredentials(key, sec) : null
             }), loggerFactory);
         }
 
-        private MexcRestClient GetRestClient()
+        private MexcRestClient GetRestClient(bool useUpdatedDeserialization)
         {
             var key = Environment.GetEnvironmentVariable("APIKEY");
             var sec = Environment.GetEnvironmentVariable("APISECRET");
@@ -38,16 +39,18 @@ namespace Mexc.Net.UnitTests
             Authenticated = key != null && sec != null;
             return new MexcRestClient(x =>
             {
+                x.UseUpdatedDeserialization = useUpdatedDeserialization;
                 x.ApiCredentials = Authenticated ? new CryptoExchange.Net.Authentication.ApiCredentials(key, sec) : null;
             });
         }
 
-        [Test]
-        public async Task TestSubscriptions()
+        [TestCase(true)]
+        [TestCase(false)]
+        public async Task TestSubscriptions(bool useUpdatedDeserialization)
         {
-            var listenKey = await GetRestClient().SpotApi.Account.StartUserStreamAsync();
-            await RunAndCheckUpdate<MexcStreamBookTick>((client, updateHandler) => client.SpotApi.SubscribeToAccountUpdatesAsync(listenKey.Data, default, default), false, true);
-            await RunAndCheckUpdate<MexcStreamBookTick>((client, updateHandler) => client.SpotApi.SubscribeToBookTickerUpdatesAsync("ETHUSDT", updateHandler, default), true, false);
+            var listenKey = await GetRestClient(useUpdatedDeserialization).SpotApi.Account.StartUserStreamAsync();
+            await RunAndCheckUpdate<MexcStreamBookTick>(useUpdatedDeserialization, (client, updateHandler) => client.SpotApi.SubscribeToAccountUpdatesAsync(listenKey.Data, default, default), false, true);
+            await RunAndCheckUpdate<MexcStreamBookTick>(useUpdatedDeserialization, (client, updateHandler) => client.SpotApi.SubscribeToBookTickerUpdatesAsync("ETHUSDT", updateHandler, default), true, false);
         } 
     }
 }

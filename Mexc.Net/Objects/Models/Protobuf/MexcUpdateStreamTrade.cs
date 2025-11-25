@@ -7,7 +7,7 @@ namespace Mexc.Net.Objects.Models.Protobuf
 {
     [ProtoBuf.ProtoContract]
     [LightProto.ProtoContract]
-    internal partial record ProtoStreamTrade
+    internal partial record MexcUpdateStreamTrade
     {
         [ProtoBuf.ProtoMember(3)]
         [LightProto.ProtoMember(3)]

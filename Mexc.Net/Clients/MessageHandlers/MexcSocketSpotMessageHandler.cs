@@ -18,10 +18,18 @@ namespace Mexc.Net.Clients.MessageHandlers
                 Priority = 1,
                 ForceIfFound = true,
                 Fields = [
+                    new PropertyFieldReference("msg") { Constraint = x => x!.Equals("PONG", StringComparison.Ordinal) },
+                ],
+                StaticIdentifier = "PONG"
+            },
+
+              new MessageEvaluator {
+                Priority = 2,
+                Fields = [
                     new PropertyFieldReference("id"),
                 ],
                 IdentifyMessageCallback = x => x.FieldValue("id")!
-            }
+              },
         ];
     }
 
