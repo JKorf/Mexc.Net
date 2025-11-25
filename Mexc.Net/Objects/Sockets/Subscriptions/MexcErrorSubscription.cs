@@ -11,9 +11,9 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
             MessageMatcher = MessageMatcher.Create<MexcResponse>("0", HandleMessage);
         }
 
-        public CallResult HandleMessage(SocketConnection connection, DataEvent<MexcResponse> message)
+        public CallResult HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcResponse message)
         {
-            _logger.LogError("Server Error: {Error}", message.Data.Message);
+            _logger.LogError("Server Error: {Error}", message.Message);
             return CallResult.SuccessResult;
         }
     }

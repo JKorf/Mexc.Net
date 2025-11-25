@@ -20,22 +20,22 @@ namespace Mexc.Net.Converters
                     return _model;
 
                 var model = RuntimeTypeModel.Create();
-                model.Add(typeof(SocketEvent));
-                model.Add(typeof(MexcUpdateBookTicker));
-                model.Add(typeof(ProtoStreamBookTickerUpdate));
-                model.Add(typeof(ProtoStreamBookTicker));
-                model.Add(typeof(List<ProtoStreamBookTicker>));
+                //model.Add(typeof(SocketEvent));
+                ////model.Add(typeof(MexcUpdateBookTicker));
+                //model.Add(typeof(ProtoStreamBookTickerUpdate));
+                //model.Add(typeof(ProtoStreamBookTicker));
+                //model.Add(typeof(List<ProtoStreamBookTicker>));
 
-                model.Add(typeof(MexcUpdatePartialOrderBook));
-                model.Add(typeof(ProtoOrderBookUpdate));
-                model.Add(typeof(ProtoStreamBookEntry));
+                ////model.Add(typeof(MexcUpdatePartialOrderBook));
+                //model.Add(typeof(ProtoOrderBookUpdate));
+                //model.Add(typeof(ProtoStreamBookEntry));
 
-                model.Add(typeof(MexcUpdateTrades));
-                model.Add(typeof(ProtoTradeUpdate));
-                model.Add(typeof(ProtoStreamTrade));
+                //model.Add(typeof(MexcUpdateTrades));
+                //model.Add(typeof(ProtoTradeUpdate));
+                //model.Add(typeof(ProtoStreamTrade));
 
-                model.Add(typeof(MexcUpdateKlines));
-                model.Add(typeof(ProtoStreamKline));
+                ////model.Add(typeof(MexcUpdateKlines));
+                //model.Add(typeof(ProtoStreamKline));
 
                 model.UseImplicitZeroDefaults = false;
 

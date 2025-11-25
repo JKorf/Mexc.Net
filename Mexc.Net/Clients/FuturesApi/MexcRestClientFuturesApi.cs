@@ -7,6 +7,9 @@ using CryptoExchange.Net.SharedApis;
 using Mexc.Net.Objects.Models;
 using Mexc.Net.Objects.Models.Futures;
 using CryptoExchange.Net.Objects.Errors;
+using System.Net.Http.Headers;
+using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
+using Mexc.Net.Clients.MessageHandlers;
 
 namespace Mexc.Net.Clients.FuturesApi
 {
@@ -30,6 +33,8 @@ namespace Mexc.Net.Clients.FuturesApi
         public string ExchangeName => "Mexc";
 
         public new MexcRestOptions ClientOptions => (MexcRestOptions)base.ClientOptions;
+
+        protected override IRestMessageHandler MessageHandler { get; } = new MexcRestMessageHandler(MexcErrors.FuturesErrors);
 
         #region constructor/destructor
         internal MexcRestClientFuturesApi(ILogger logger, HttpClient? httpClient, MexcRestOptions options)
@@ -94,7 +99,7 @@ namespace Mexc.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        protected override Error? TryParseError(RequestDefinition request, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor)
+        protected override Error? TryParseError(RequestDefinition request, HttpResponseHeaders responseHeaders, IMessageAccessor accessor)
         {
             var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));
             if (code == 0 || code == 200 || code == null)
@@ -109,7 +114,7 @@ namespace Mexc.Net.Clients.FuturesApi
             => MexcExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
 
         /// <inheritdoc />
-        protected override ServerRateLimitError ParseRateLimitResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor)
+        protected override ServerRateLimitError ParseRateLimitResponse(int httpStatusCode, HttpResponseHeaders responseHeaders, IMessageAccessor accessor)
         {
             var error = GetRateLimitError(accessor);
             var retryAfterHeader = responseHeaders.SingleOrDefault(r => r.Key.Equals("Retry-After", StringComparison.InvariantCultureIgnoreCase));
@@ -147,7 +152,7 @@ namespace Mexc.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        protected override Error ParseErrorResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor, Exception? exception)
+        protected override Error ParseErrorResponse(int httpStatusCode, HttpResponseHeaders responseHeaders, IMessageAccessor accessor, Exception? exception)
         {
             if (!accessor.IsValid)
                 return new ServerError(ErrorInfo.Unknown, exception: exception);

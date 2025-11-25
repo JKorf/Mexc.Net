@@ -1,11 +1,14 @@
-﻿using Mexc.Net.Objects.Options;
-using Mexc.Net.Interfaces.Clients.SpotApi;
-using Mexc.Net.Enums;
-using CryptoExchange.Net.Clients;
+﻿using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.MessageParsing;
-using CryptoExchange.Net.SharedApis;
-using Mexc.Net.Objects.Models;
+using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
 using CryptoExchange.Net.Objects.Errors;
+using CryptoExchange.Net.SharedApis;
+using Mexc.Net.Clients.MessageHandlers;
+using Mexc.Net.Enums;
+using Mexc.Net.Interfaces.Clients.SpotApi;
+using Mexc.Net.Objects.Models;
+using Mexc.Net.Objects.Options;
+using System.Net.Http.Headers;
 
 namespace Mexc.Net.Clients.SpotApi
 {
@@ -14,6 +17,7 @@ namespace Mexc.Net.Clients.SpotApi
     {
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Spot Api");
 
+        protected override IRestMessageHandler MessageHandler { get; } = new MexcRestMessageHandler(MexcErrors.SpotErrors);
         protected override ErrorMapping ErrorMapping => MexcErrors.SpotErrors;
 
         /// <inheritdoc />
@@ -86,7 +90,7 @@ namespace Mexc.Net.Clients.SpotApi
             => MexcExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
 
         /// <inheritdoc />
-        protected override ServerRateLimitError ParseRateLimitResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor)
+        protected override ServerRateLimitError ParseRateLimitResponse(int httpStatusCode, HttpResponseHeaders responseHeaders, IMessageAccessor accessor)
         {
             var error = GetRateLimitError(accessor);
             var retryAfterHeader = responseHeaders.SingleOrDefault(r => r.Key.Equals("Retry-After", StringComparison.InvariantCultureIgnoreCase));
@@ -124,7 +128,7 @@ namespace Mexc.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        protected override Error ParseErrorResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor, Exception? exception)
+        protected override Error ParseErrorResponse(int httpStatusCode, HttpResponseHeaders responseHeaders, IMessageAccessor accessor, Exception? exception)
         {
             if (!accessor.IsValid)
                 return new ServerError(ErrorInfo.Unknown, exception: exception);

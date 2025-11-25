@@ -16,12 +16,12 @@ namespace Mexc.Net.Objects.Sockets.Queries
             MessageMatcher = MessageMatcher.Create<MexcFuturesUpdate<string>>(["rs." + method, "rs.error"], HandleMessage);
         }
 
-        public CallResult<MexcFuturesUpdate<string>> HandleMessage(SocketConnection connection, DataEvent<MexcFuturesUpdate<string>> message)
+        public CallResult<MexcFuturesUpdate<string>> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<string> message)
         {
-            if (message.Data.Channel.Equals("rs.error", StringComparison.Ordinal))
-                return message.ToCallResult<MexcFuturesUpdate<string>>(new ServerError(ErrorInfo.Unknown with { Message = message.Data.Data }));
+            if (message.Channel.Equals("rs.error", StringComparison.Ordinal))
+                return new CallResult<MexcFuturesUpdate<string>>(new ServerError(ErrorInfo.Unknown with { Message = message.Data }), originalData);
 
-            return message.ToCallResult();
+            return new CallResult<MexcFuturesUpdate<string>>(message, originalData, null);
         }
     }
 }

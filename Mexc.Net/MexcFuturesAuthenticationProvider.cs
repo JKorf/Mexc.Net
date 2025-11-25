@@ -18,11 +18,12 @@ namespace Mexc.Net
 
             var timestamp = GetMillisecondTimestamp(apiClient);
             var queryString = request.GetQueryString(true);
-            var body = request.ParameterPosition == HttpMethodParameterPosition.InBody ? GetSerializedBody(_serializer, request.BodyParameters) : string.Empty;
+            var body = request.ParameterPosition == HttpMethodParameterPosition.InBody ? GetSerializedBody(_serializer, request.BodyParameters ?? new Dictionary<string, object>()) : string.Empty;
 
             var signStr = $"{ApiKey}{timestamp}{queryString}{body}";
             var signature = SignHMACSHA256(signStr);
 
+            request.Headers ??= new Dictionary<string, string>();
             request.Headers["ApiKey"] = ApiKey;
             request.Headers["Request-Time"] = timestamp;
             request.Headers["Signature"] = signature.ToLowerInvariant();

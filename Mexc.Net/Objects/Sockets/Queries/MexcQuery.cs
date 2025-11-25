@@ -21,13 +21,13 @@ namespace Mexc.Net.Objects.Sockets.Queries
             MessageMatcher = MessageMatcher.Create<MexcResponse>(((MexcRequest)Request).Id.ToString(), HandleMessage);
         }
 
-        public CallResult<MexcResponse> HandleMessage(SocketConnection connection, DataEvent<MexcResponse> message)
+        public CallResult<MexcResponse> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcResponse message)
         {
-            var topics = message.Data.Message.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+            var topics = message.Message.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
             if (!topics.All(t => _expectedTopics.Contains(t)))
-                return new CallResult<MexcResponse>(new ServerError(ErrorInfo.Unknown with { Message = message.Data.Message }));
+                return new CallResult<MexcResponse>(new ServerError(ErrorInfo.Unknown with { Message = message.Message }));
 
-            return message.ToCallResult();
+            return new CallResult<MexcResponse>(message, originalData, null);
         }
     }
 }
