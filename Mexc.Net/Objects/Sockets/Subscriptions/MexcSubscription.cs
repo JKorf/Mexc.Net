@@ -20,6 +20,7 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
             var topicList = topics.ToList();
             topicList.Add("pb");
             MessageMatcher = MessageMatcher.Create<T>(topicList, DoHandleMessage);
+            MessageRouter = MessageRouter.CreateWithTopicFilters<T>("pb", topics, DoHandleMessage);
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, T message)

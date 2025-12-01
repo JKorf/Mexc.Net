@@ -40,6 +40,11 @@ namespace Mexc.Net.Clients.MessageHandlers
             return Serializer.Deserialize<MexcUpdate>(data, MexcUpdate.ProtoReader);
         }
 
-        public string? GetMessageIdentifier(ReadOnlySpan<byte> data, WebSocketMessageType? webSocketMessageType) => "pb";
+        public string? GetTopicFilter(object deserializedObject)
+        {
+            return ((MexcUpdate)deserializedObject).Channel;
+        }
+
+        public string? GetTypeIdentifier(ReadOnlySpan<byte> data, WebSocketMessageType? webSocketMessageType) => "pb";
     }
 }

@@ -3,7 +3,7 @@ using Mexc.Net.Objects.Models.Spot;
 
 namespace Mexc.Net.Objects.Sockets.Models
 {
-    internal record MexcFuturesUpdate<T>
+    internal record MexcFuturesUpdate
     {
         [JsonPropertyName("channel")]
         public string Channel { get; set; } = string.Empty;
@@ -11,6 +11,10 @@ namespace Mexc.Net.Objects.Sockets.Models
         public string? Symbol { get; set; }
         [JsonPropertyName("ts")]
         public DateTime Timestamp { get; set; }
+    }
+
+    internal record MexcFuturesUpdate<T> : MexcFuturesUpdate
+    {
         [JsonPropertyName("data")]
         public T Data { get; set; } = default!;
     }

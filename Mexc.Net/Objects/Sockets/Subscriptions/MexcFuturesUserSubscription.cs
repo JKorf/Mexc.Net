@@ -42,6 +42,15 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
                 new MessageHandlerLink<MexcFuturesUpdate<MexcAdlUpdate>>("push.personal.adl.level", DoHandleMessage),
                 new MessageHandlerLink<MexcFuturesUpdate<MexcPositionModeUpdate>>("push.personal.position.mode", DoHandleMessage),
                 ]);
+
+            MessageRouter = MessageRouter.Create([
+                MessageRoute<MexcFuturesUpdate<MexcFuturesOrder>>.CreateWithoutTopicFilter("push.personal.order", DoHandleMessage),
+                MessageRoute<MexcFuturesUpdate<MexcFuturesBalanceUpdate>>.CreateWithoutTopicFilter("push.personal.asset", DoHandleMessage),
+                MessageRoute<MexcFuturesUpdate<MexcPosition>>.CreateWithoutTopicFilter("push.personal.position", DoHandleMessage),
+                MessageRoute<MexcFuturesUpdate<MexcRiskLimit>>.CreateWithoutTopicFilter("push.personal.risk.limit", DoHandleMessage),
+                MessageRoute<MexcFuturesUpdate<MexcAdlUpdate>>.CreateWithoutTopicFilter("push.personal.adl.level", DoHandleMessage),
+                MessageRoute<MexcFuturesUpdate<MexcPositionModeUpdate>>.CreateWithoutTopicFilter("push.personal.position.mode", DoHandleMessage),
+                ]);
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcFuturesBalanceUpdate> message)

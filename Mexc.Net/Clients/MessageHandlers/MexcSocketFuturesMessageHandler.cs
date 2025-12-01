@@ -1,5 +1,6 @@
 ﻿using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
 using Mexc.Net;
+using Mexc.Net.Objects.Sockets.Models;
 using System.Linq;
 using System.Text.Json;
 
@@ -9,19 +10,16 @@ namespace Mexc.Net.Clients.MessageHandlers
     {
         public override JsonSerializerOptions Options { get; } = SerializerOptions.WithConverters(MexcExchange.SerializerContext);
 
+        public MexcSocketFuturesMessageHandler()
+        {
+            AddTopicMapping<MexcFuturesUpdate>(x => x.Symbol);
+        }
+
         protected override MessageEvaluator[] TypeEvaluators { get; } = [
 
-             new MessageEvaluator {
-                Priority = 1,
-                Fields = [
-                    new PropertyFieldReference("channel"),
-                    new PropertyFieldReference("symbol"),
-                ],
-                IdentifyMessageCallback = x => x.FieldValue("channel") + x.FieldValue("symbol")
-            },
-
             new MessageEvaluator {
-                Priority = 2,
+                Priority = 1,
+                ForceIfFound = true,
                 Fields = [
                     new PropertyFieldReference("channel"),
                 ],

@@ -24,6 +24,7 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
             _handler = handler;
 
             MessageMatcher = MessageMatcher.Create<MexcFuturesUpdate<T>>("push." + _topic + symbol, DoHandleMessage);
+            MessageRouter = MessageRouter.CreateWithOptionalTopicFilter<MexcFuturesUpdate<T>>("push." + _topic, symbol, DoHandleMessage);
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<T> message)

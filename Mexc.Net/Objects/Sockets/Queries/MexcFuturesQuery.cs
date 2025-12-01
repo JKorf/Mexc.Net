@@ -14,6 +14,7 @@ namespace Mexc.Net.Objects.Sockets.Queries
         }, authenticated, weight)
         {
             MessageMatcher = MessageMatcher.Create<MexcFuturesUpdate<string>>(["rs." + method, "rs.error"], HandleMessage);
+            MessageRouter = MessageRouter.CreateWithoutTopicFilter<MexcFuturesUpdate<string>>(["rs." + method, "rs.error"], HandleMessage);
         }
 
         public CallResult<MexcFuturesUpdate<string>> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<string> message)
