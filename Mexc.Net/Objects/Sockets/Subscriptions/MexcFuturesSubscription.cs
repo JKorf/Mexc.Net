@@ -7,7 +7,7 @@ using Mexc.Net.Objects.Sockets.Queries;
 
 namespace Mexc.Net.Objects.Sockets.Subscriptions
 {
-    internal class MexcFuturesSubscription<T> : Subscription<MexcFuturesUpdate<string>, MexcFuturesUpdate<string>>
+    internal class MexcFuturesSubscription<T> : Subscription
     {
         private string _topic;
         private string? _symbol;

@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Mexc.Net.Objects.Sockets.Subscriptions
 {
-    internal class MexcFuturesUserSubscription : Subscription<MexcFuturesUpdate<string>, MexcFuturesUpdate<string>>
+    internal class MexcFuturesUserSubscription : Subscription
     {
         private readonly Action<DataEvent<MexcFuturesBalanceUpdate>>? _balanceHandler;
         private readonly Action<DataEvent<MexcFuturesOrder>>? _orderHandler;

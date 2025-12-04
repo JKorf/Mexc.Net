@@ -6,7 +6,7 @@ using Mexc.Net.Objects.Sockets.Queries;
 
 namespace Mexc.Net.Objects.Sockets.Subscriptions
 {
-    internal class MexcSubscription<T> : Subscription<MexcResponse, MexcResponse>
+    internal class MexcSubscription<T> : Subscription
         where T: MexcUpdate
     {
         private HashSet<string> _topics;
