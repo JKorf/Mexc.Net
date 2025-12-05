@@ -3,7 +3,7 @@
 namespace Mexc.Net.Objects.Options
 {
     /// <summary>
-    /// Options for the Kucoin SymbolOrderBook
+    /// Options for the Mexc SymbolOrderBook
     /// </summary>
     public class MexcOrderBookOptions : OrderBookOptions
     {
