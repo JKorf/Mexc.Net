@@ -8275,7 +8275,7 @@
         </member>
         <member name="T:Mexc.Net.Objects.Options.MexcOrderBookOptions">
             <summary>
-            Options for the Kucoin SymbolOrderBook
+            Options for the Mexc SymbolOrderBook
             </summary>
         </member>
         <member name="P:Mexc.Net.Objects.Options.MexcOrderBookOptions.Default">

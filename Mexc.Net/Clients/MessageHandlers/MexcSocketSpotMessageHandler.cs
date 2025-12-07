@@ -12,23 +12,21 @@ namespace Mexc.Net.Clients.MessageHandlers
     {
         public override JsonSerializerOptions Options { get; } = SerializerOptions.WithConverters(MexcExchange.SerializerContext);
 
-        protected override MessageEvaluator[] TypeEvaluators { get; } = [
+        protected override MessageTypeDefinition[] TypeEvaluators { get; } = [
 
-              new MessageEvaluator {
-                Priority = 1,
+              new MessageTypeDefinition {
                 ForceIfFound = true,
                 Fields = [
-                    new PropertyFieldReference("msg") { Constraint = x => x!.Equals("PONG", StringComparison.Ordinal) },
+                    new PropertyFieldReference("msg").WithEqualContstraint("PONG"),
                 ],
                 StaticIdentifier = "PONG"
             },
 
-              new MessageEvaluator {
-                Priority = 2,
+              new MessageTypeDefinition {
                 Fields = [
                     new PropertyFieldReference("id"),
                 ],
-                IdentifyMessageCallback = x => x.FieldValue("id")!
+                TypeIdentifierCallback = x => x.FieldValue("id")!
               },
         ];
     }

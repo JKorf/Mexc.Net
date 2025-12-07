@@ -15,15 +15,14 @@ namespace Mexc.Net.Clients.MessageHandlers
             AddTopicMapping<MexcFuturesUpdate>(x => x.Symbol);
         }
 
-        protected override MessageEvaluator[] TypeEvaluators { get; } = [
+        protected override MessageTypeDefinition[] TypeEvaluators { get; } = [
 
-            new MessageEvaluator {
-                Priority = 1,
+            new MessageTypeDefinition {
                 ForceIfFound = true,
                 Fields = [
                     new PropertyFieldReference("channel"),
                 ],
-                IdentifyMessageCallback = x => x.FieldValue("channel")!
+                TypeIdentifierCallback = x => x.FieldValue("channel")!
             }
         ];
     }
