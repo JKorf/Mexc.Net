@@ -4,7 +4,6 @@ using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
 using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.SharedApis;
 using Mexc.Net.Clients.MessageHandlers;
-using Mexc.Net.Enums;
 using Mexc.Net.Interfaces.Clients.SpotApi;
 using Mexc.Net.Objects.Models;
 using Mexc.Net.Objects.Options;

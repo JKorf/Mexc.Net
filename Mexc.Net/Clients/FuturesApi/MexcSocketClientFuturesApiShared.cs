@@ -2,7 +2,6 @@ using Mexc.Net.Interfaces.Clients.FuturesApi;
 using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Objects.Sockets;
 using Mexc.Net.Enums;
-using System.Security.Principal;
 
 namespace Mexc.Net.Clients.FuturesApi
 {

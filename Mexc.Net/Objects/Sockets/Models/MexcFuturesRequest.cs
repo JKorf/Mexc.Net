@@ -1,5 +1,3 @@
-using ProtoBuf;
-
 namespace Mexc.Net.Objects.Sockets.Models
 {
     internal class MexcFuturesRequest

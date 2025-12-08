@@ -597,10 +597,10 @@
         <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToUserTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcUserTradeUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.GetReconnectUriAsync(CryptoExchange.Net.Sockets.ISocketConnection)">
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.GetReconnectUriAsync(CryptoExchange.Net.Sockets.Interfaces.ISocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.GetAuthenticationRequestAsync(CryptoExchange.Net.Sockets.SocketConnection)">
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.GetAuthenticationRequestAsync(CryptoExchange.Net.Sockets.Default.SocketConnection)">
             <inheritdoc />
         </member>
         <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.Boolean">
@@ -4331,7 +4331,7 @@
         <member name="M:Mexc.Net.MexcTrackerFactory.CreateTradeTracker(CryptoExchange.Net.SharedApis.SharedSymbol,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
             <inheritdoc />
         </member>
-        <member name="M:Mexc.Net.Objects.HighPerfProtobufSocketConnection`1.#ctor(Microsoft.Extensions.Logging.ILogger,CryptoExchange.Net.Interfaces.IWebsocketFactory,CryptoExchange.Net.Objects.Sockets.WebSocketParameters,CryptoExchange.Net.Clients.SocketApiClient,ProtoBuf.Meta.RuntimeTypeModel,System.String)">
+        <member name="M:Mexc.Net.Objects.HighPerfProtobufSocketConnection`1.#ctor(Microsoft.Extensions.Logging.ILogger,CryptoExchange.Net.Sockets.Default.Interfaces.IWebsocketFactory,CryptoExchange.Net.Objects.Sockets.WebSocketParameters,CryptoExchange.Net.Clients.SocketApiClient,ProtoBuf.Meta.RuntimeTypeModel,System.String)">
             <summary>
             ctor
             </summary>
@@ -8472,14 +8472,14 @@
             Extensions for the ICryptoRestClient and ICryptoSocketClient interfaces
             </summary>
         </member>
-        <member name="M:CryptoExchange.Net.Interfaces.CryptoClientExtensions.Mexc(CryptoExchange.Net.Interfaces.ICryptoRestClient)">
+        <member name="M:CryptoExchange.Net.Interfaces.CryptoClientExtensions.Mexc(CryptoExchange.Net.Interfaces.Clients.ICryptoRestClient)">
             <summary>
             Get the Mexc REST Api client
             </summary>
             <param name="baseClient"></param>
             <returns></returns>
         </member>
-        <member name="M:CryptoExchange.Net.Interfaces.CryptoClientExtensions.Mexc(CryptoExchange.Net.Interfaces.ICryptoSocketClient)">
+        <member name="M:CryptoExchange.Net.Interfaces.CryptoClientExtensions.Mexc(CryptoExchange.Net.Interfaces.Clients.ICryptoSocketClient)">
             <summary>
             Get the Mexc Websocket Api client
             </summary>

@@ -1,6 +1,4 @@
-using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Converters;
-using Mexc.Net.Converters;
 
 namespace Mexc.Net.Objects.Models.Spot
 {

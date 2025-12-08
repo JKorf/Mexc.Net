@@ -1,6 +1,5 @@
 ﻿using Mexc.Net.Objects.Options;
 using Mexc.Net.Interfaces.Clients.FuturesApi;
-using Mexc.Net.Enums;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.SharedApis;

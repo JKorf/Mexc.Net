@@ -1,6 +1,4 @@
-﻿using CryptoExchange.Net.Authentication;
-
-namespace Mexc.Net.Interfaces.Clients
+﻿namespace Mexc.Net.Interfaces.Clients
 {
     /// <summary>
     /// Provider for clients with credentials for specific users

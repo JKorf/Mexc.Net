@@ -1,7 +1,5 @@
 using Mexc.Net.Enums;
-using Mexc.Net.Objects.Models;
 using Mexc.Net.Objects.Models.Futures;
-using Mexc.Net.Objects.Models.Spot;
 
 namespace Mexc.Net.Interfaces.Clients.FuturesApi
 {

@@ -1,8 +1,6 @@
 ﻿using CryptoExchange.Net.Clients;
 using Mexc.Net.Clients.SpotApi;
-using System.Net;
 using System.Text;
-using System.Text.RegularExpressions;
 
 namespace Mexc.Net
 {

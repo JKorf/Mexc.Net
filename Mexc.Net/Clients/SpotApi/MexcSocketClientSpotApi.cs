@@ -6,26 +6,20 @@ using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Sockets;
-using CryptoExchange.Net.Sockets.HighPerf;
-using Mexc.Net.Clients.FuturesApi;
+using CryptoExchange.Net.Sockets.Default;
+using CryptoExchange.Net.Sockets.HighPerf.Interfaces;
+using CryptoExchange.Net.Sockets.Interfaces;
 using Mexc.Net.Clients.MessageHandlers;
 using Mexc.Net.Converters;
 using Mexc.Net.Enums;
 using Mexc.Net.Interfaces.Clients.SpotApi;
-using Mexc.Net.Objects;
 using Mexc.Net.Objects.Models;
 using Mexc.Net.Objects.Models.Protobuf;
 using Mexc.Net.Objects.Models.Spot;
 using Mexc.Net.Objects.Options;
-using Mexc.Net.Objects.Sockets.Models;
 using Mexc.Net.Objects.Sockets.Queries;
 using Mexc.Net.Objects.Sockets.Subscriptions;
-using ProtoBuf;
-using ProtoBuf.Meta;
-using ProtoBuf.Serializers;
 using System.Net.WebSockets;
-using System.Text;
-using System.Text.Json;
 
 namespace Mexc.Net.Clients.SpotApi
 {

@@ -1,7 +1,6 @@
 using Mexc.Net.Enums;
 using Mexc.Net.Objects.Models;
 using Mexc.Net.Objects.Models.Futures;
-using Mexc.Net.Objects.Models.Protobuf;
 using Mexc.Net.Objects.Models.Spot;
 using Mexc.Net.Objects.Sockets.Models;
 using static Mexc.Net.Objects.Sockets.Subscriptions.MexcFuturesUserSubscription;

@@ -1,5 +1,5 @@
-﻿using CryptoExchange.Net.Objects.Sockets;
-using CryptoExchange.Net.Sockets;
+﻿using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Sockets.Default;
 using Mexc.Net.Objects.Sockets.Models;
 
 namespace Mexc.Net.Objects.Sockets.Subscriptions

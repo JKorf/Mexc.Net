@@ -1,7 +1,6 @@
-﻿using CryptoExchange.Net.Objects.Sockets;
-using CryptoExchange.Net.Sockets;
+﻿using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Sockets.Default;
 using Mexc.Net.Enums;
-using Mexc.Net.Objects.Models.Protobuf;
 using Mexc.Net.Objects.Sockets.Models;
 using Mexc.Net.Objects.Sockets.Queries;
 

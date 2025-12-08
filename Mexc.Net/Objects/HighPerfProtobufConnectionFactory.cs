@@ -1,15 +1,9 @@
 ﻿using CryptoExchange.Net.Clients;
-using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects.Sockets;
-using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Sockets.Default.Interfaces;
 using CryptoExchange.Net.Sockets.HighPerf;
-using Microsoft.Extensions.Logging;
+using CryptoExchange.Net.Sockets.HighPerf.Interfaces;
 using ProtoBuf.Meta;
-using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Text;
-using System.Text.Json;
 
 namespace Mexc.Net.Objects
 {

@@ -1,4 +1,5 @@
-﻿using Mexc.Net.Clients;
+﻿using CryptoExchange.Net.Interfaces.Clients;
+using Mexc.Net.Clients;
 using Mexc.Net.Interfaces.Clients;
 
 namespace CryptoExchange.Net.Interfaces

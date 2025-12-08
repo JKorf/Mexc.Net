@@ -1,11 +1,9 @@
 ﻿using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
-using Mexc.Net.Enums;
+using CryptoExchange.Net.Sockets.Default;
 using Mexc.Net.Objects.Models.Futures;
-using Mexc.Net.Objects.Models.Protobuf;
 using Mexc.Net.Objects.Sockets.Models;
 using Mexc.Net.Objects.Sockets.Queries;
-using System.Linq;
 
 namespace Mexc.Net.Objects.Sockets.Subscriptions
 {
