@@ -7,6 +7,8 @@ namespace Mexc.Net
     {
         private static readonly IStringMessageSerializer _serializer = new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(MexcExchange.SerializerContext));
 
+        public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.Hmac];
+
         public MexcFuturesAuthenticationProvider(ApiCredentials credentials) : base(credentials)
         {
         }

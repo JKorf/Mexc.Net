@@ -6,6 +6,8 @@ namespace Mexc.Net
 {
     internal class MexcAuthenticationProvider : AuthenticationProvider
     {
+        public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.Hmac, ApiCredentialsType.RsaXml, ApiCredentialsType.RsaPem];
+
         public MexcAuthenticationProvider(ApiCredentials credentials) : base(credentials)
         {
         }
