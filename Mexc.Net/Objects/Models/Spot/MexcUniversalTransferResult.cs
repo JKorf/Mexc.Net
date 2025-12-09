@@ -3,7 +3,7 @@
     /// <summary>
     /// Universal transfer result
     /// </summary>
-    public class MexcUniversalTransferResult
+    public record MexcUniversalTransferResult
     {
         /// <summary>
         /// Transaction id

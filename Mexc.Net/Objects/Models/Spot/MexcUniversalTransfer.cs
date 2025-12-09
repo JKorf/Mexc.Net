@@ -5,7 +5,7 @@ namespace Mexc.Net.Objects.Models.Spot
     /// <summary>
     /// Paged universal transfer results
     /// </summary>
-    public class MexcUniversalTransferPaged
+    public record MexcUniversalTransferPaged
     {
         /// <summary>
         /// Total pages

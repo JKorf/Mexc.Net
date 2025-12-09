@@ -3,7 +3,7 @@
     /// <summary>
     /// Listen key has been renewed by the client
     /// </summary>
-    public class ListenKeyRenewedEvent
+    public record ListenKeyRenewedEvent
     {
         /// <summary>
         /// The previous listen key

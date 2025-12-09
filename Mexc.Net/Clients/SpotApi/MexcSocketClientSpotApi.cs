@@ -30,8 +30,6 @@ namespace Mexc.Net.Clients.SpotApi
         private static readonly MessagePath _msgPath = MessagePath.Get().Property("msg");
         private static readonly MessagePath _channelPath = MessagePath.Get().Property("c");
 
-        private IHighPerfConnectionFactory _highPerfConnectionFactory;
-
         public event Action<ListenKeyRenewedEvent>? ListenkeyRenewed;
 
         #region constructor/destructor
