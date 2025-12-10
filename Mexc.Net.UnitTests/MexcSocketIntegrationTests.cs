@@ -31,7 +31,7 @@ namespace Mexc.Net.UnitTests
             }), loggerFactory);
         }
 
-        private MexcRestClient GetRestClient(bool useUpdatedDeserialization)
+        private MexcRestClient GetRestClient()
         {
             var key = Environment.GetEnvironmentVariable("APIKEY");
             var sec = Environment.GetEnvironmentVariable("APISECRET");
@@ -39,7 +39,6 @@ namespace Mexc.Net.UnitTests
             Authenticated = key != null && sec != null;
             return new MexcRestClient(x =>
             {
-                x.UseUpdatedDeserialization = useUpdatedDeserialization;
                 x.ApiCredentials = Authenticated ? new CryptoExchange.Net.Authentication.ApiCredentials(key, sec) : null;
             });
         }
@@ -48,7 +47,7 @@ namespace Mexc.Net.UnitTests
         [TestCase(false)]
         public async Task TestSubscriptions(bool useUpdatedDeserialization)
         {
-            var listenKey = await GetRestClient(useUpdatedDeserialization).SpotApi.Account.StartUserStreamAsync();
+            var listenKey = await GetRestClient().SpotApi.Account.StartUserStreamAsync();
             await RunAndCheckUpdate<MexcStreamBookTick>(useUpdatedDeserialization, (client, updateHandler) => client.SpotApi.SubscribeToAccountUpdatesAsync(listenKey.Data, default, default), false, true);
             await RunAndCheckUpdate<MexcStreamBookTick>(useUpdatedDeserialization, (client, updateHandler) => client.SpotApi.SubscribeToBookTickerUpdatesAsync("ETHUSDT", updateHandler, default), true, false);
         } 

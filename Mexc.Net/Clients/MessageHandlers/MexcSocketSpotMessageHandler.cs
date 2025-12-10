@@ -30,7 +30,7 @@ namespace Mexc.Net.Clients.MessageHandlers
         ];
     }
 
-    public class MexcProtobufMessageHandler : ISocketMessageHandler
+    internal class MexcProtobufMessageHandler : ISocketMessageHandler
     {
         public object Deserialize(ReadOnlySpan<byte> data, Type type)
         {

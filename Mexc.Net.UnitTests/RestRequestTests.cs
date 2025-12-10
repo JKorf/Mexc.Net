@@ -9,14 +9,12 @@ namespace Mexc.Net.UnitTests
     [TestFixture]
     public class RestRequestTests
     {
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateAccountCalls(bool useUpdatedDeserialization)
+        [Test]
+        public async Task ValidateAccountCalls()
         {
             var client = new MexcRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.ApiCredentials = new ApiCredentials("123", "456");
                 opts.OutputOriginalData = true;
             });
@@ -46,15 +44,13 @@ namespace Mexc.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.Account.StopUserStreamAsync("123"), "StopUserStream");
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateExchangeDataCalls(bool useUpdatedDeserialization)
+        [Test]
+        public async Task ValidateExchangeDataCalls()
         {
             var client = new MexcRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new ApiCredentials("123", "456");
-                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.OutputOriginalData = true;
             });
             var tester = new RestRequestValidator<MexcRestClient>(client, "Endpoints/SpotApi/ExchangeData", "https://api.mexc.com", IsAuthenticated);
@@ -72,15 +68,13 @@ namespace Mexc.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetBookPricesAsync(), "GetBookPrices");
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateTradingCalls(bool useUpdatedDeserialization)
+        [Test]
+        public async Task ValidateTradingCalls()
         {
             var client = new MexcRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new ApiCredentials("123", "456");
-                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.OutputOriginalData = true;
             });
             var tester = new RestRequestValidator<MexcRestClient>(client, "Endpoints/SpotApi/Trading", "https://api.mexc.com", IsAuthenticated);
@@ -94,15 +88,13 @@ namespace Mexc.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.Trading.GetUserTradesAsync("ETHUSDT"), "GetUserTrades", ignoreProperties: ["orderListId"]);
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateSubAccountCalls(bool useUpdatedDeserialization)
+        [Test]
+        public async Task ValidateSubAccountCalls()
         {
             var client = new MexcRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new ApiCredentials("123", "456");
-                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.OutputOriginalData = true;
             });
             var tester = new RestRequestValidator<MexcRestClient>(client, "Endpoints/SpotApi/SubAccount", "https://api.mexc.com", IsAuthenticated);
@@ -115,15 +107,13 @@ namespace Mexc.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.SubAccount.GetSubAccountBalancesAsync("123", AccountType.Spot), "GetSubAccountBalances", "balances");
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateFuturesAccountCalls(bool useUpdatedDeserialization)
+        [Test]
+        public async Task ValidateFuturesAccountCalls()
         {
             var client = new MexcRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new ApiCredentials("123", "456");
-                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.OutputOriginalData = true;
             });
             var tester = new RestRequestValidator<MexcRestClient>(client, "Endpoints/FuturesApi/Account", "https://contract.mexc.com", IsAuthenticatedFutures);
@@ -138,15 +128,13 @@ namespace Mexc.Net.UnitTests
             await tester.ValidateAsync(client => client.FuturesApi.Account.SetPositionModeAsync(PositionMode.OneWay), "SetPositionMode");
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateFuturesExchangeDataCalls(bool useUpdatedDeserialization)
+        [Test]
+        public async Task ValidateFuturesExchangeDataCalls()
         {
             var client = new MexcRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new ApiCredentials("123", "456");
-                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.OutputOriginalData = true;
             });
             var tester = new RestRequestValidator<MexcRestClient>(client, "Endpoints/FuturesApi/ExchangeData", "https://contract.mexc.com", IsAuthenticatedFutures); 
@@ -160,15 +148,13 @@ namespace Mexc.Net.UnitTests
             await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetFundingRateHistoryAsync("ETH_USDT"), "GetFundingRateHistory", nestedJsonProperty: "data");
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateFuturesTradingCalls(bool useUpdatedDeserialization)
+        [Test]
+        public async Task ValidateFuturesTradingCalls()
         {
             var client = new MexcRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new ApiCredentials("123", "456");
-                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.OutputOriginalData = true;
             });
             var tester = new RestRequestValidator<MexcRestClient>(client, "Endpoints/FuturesApi/Trading", "https://contract.mexc.com", IsAuthenticatedFutures);

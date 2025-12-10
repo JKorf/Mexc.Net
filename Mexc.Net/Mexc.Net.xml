@@ -25,16 +25,7 @@
         <member name="M:Mexc.Net.Clients.FuturesApi.MexcRestClientFuturesApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
-        <member name="M:Mexc.Net.Clients.FuturesApi.MexcRestClientFuturesApi.TryParseError(CryptoExchange.Net.Objects.RequestDefinition,System.Net.Http.Headers.HttpResponseHeaders,CryptoExchange.Net.Interfaces.IMessageAccessor)">
-            <inheritdoc />
-        </member>
         <member name="M:Mexc.Net.Clients.FuturesApi.MexcRestClientFuturesApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
-            <inheritdoc />
-        </member>
-        <member name="M:Mexc.Net.Clients.FuturesApi.MexcRestClientFuturesApi.ParseRateLimitResponse(System.Int32,System.Net.Http.Headers.HttpResponseHeaders,CryptoExchange.Net.Interfaces.IMessageAccessor)">
-            <inheritdoc />
-        </member>
-        <member name="M:Mexc.Net.Clients.FuturesApi.MexcRestClientFuturesApi.ParseErrorResponse(System.Int32,System.Net.Http.Headers.HttpResponseHeaders,CryptoExchange.Net.Interfaces.IMessageAccessor,System.Exception)">
             <inheritdoc />
         </member>
         <member name="M:Mexc.Net.Clients.FuturesApi.MexcRestClientFuturesApi.GetServerTimestampAsync">
@@ -334,12 +325,6 @@
             <inheritdoc />
         </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
-            <inheritdoc />
-        </member>
-        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.ParseRateLimitResponse(System.Int32,System.Net.Http.Headers.HttpResponseHeaders,CryptoExchange.Net.Interfaces.IMessageAccessor)">
-            <inheritdoc />
-        </member>
-        <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.ParseErrorResponse(System.Int32,System.Net.Http.Headers.HttpResponseHeaders,CryptoExchange.Net.Interfaces.IMessageAccessor,System.Exception)">
             <inheritdoc />
         </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcRestClientSpotApi.GetServerTimestampAsync">
@@ -4329,14 +4314,6 @@
             <inheritdoc />
         </member>
         <member name="M:Mexc.Net.MexcTrackerFactory.CreateTradeTracker(CryptoExchange.Net.SharedApis.SharedSymbol,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
-            <inheritdoc />
-        </member>
-        <member name="M:Mexc.Net.Objects.HighPerfProtobufSocketConnection`1.#ctor(Microsoft.Extensions.Logging.ILogger,CryptoExchange.Net.Sockets.Default.Interfaces.IWebsocketFactory,CryptoExchange.Net.Objects.Sockets.WebSocketParameters,CryptoExchange.Net.Clients.SocketApiClient,ProtoBuf.Meta.RuntimeTypeModel,System.String)">
-            <summary>
-            ctor
-            </summary>
-        </member>
-        <member name="M:Mexc.Net.Objects.HighPerfProtobufSocketConnection`1.ProcessAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="T:Mexc.Net.Objects.MexcApiAddresses">

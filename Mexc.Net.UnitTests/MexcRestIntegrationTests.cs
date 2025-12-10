@@ -24,7 +24,7 @@ namespace Mexc.Net.UnitTests
         {
         }
 
-        public override MexcRestClient GetClient(ILoggerFactory loggerFactory, bool useUpdatedDeserialization)
+        public override MexcRestClient GetClient(ILoggerFactory loggerFactory)
         {
             var key = Environment.GetEnvironmentVariable("APIKEY");
             var sec = Environment.GetEnvironmentVariable("APISECRET");
@@ -37,61 +37,57 @@ namespace Mexc.Net.UnitTests
             }));
         }
 
-        [TestCase(true)]
-        [TestCase(false)]
-        public async Task TestErrorResponseParsing(bool useUpdatedDeserialization)
+        [Test]
+        public async Task TestErrorResponseParsing()
         {
             if (!ShouldRun())
                 return;
 
-            var result = await CreateClient(useUpdatedDeserialization).SpotApi.ExchangeData.GetKlinesAsync("TSTTST", Enums.KlineInterval.OneDay, default);
+            var result = await CreateClient().SpotApi.ExchangeData.GetKlinesAsync("TSTTST", Enums.KlineInterval.OneDay, default);
 
             Assert.That(result.Success, Is.False);
             Assert.That(result.Error.ErrorCode, Is.EqualTo("-1121"));
             Assert.That(result.Error.ErrorType, Is.EqualTo(ErrorType.UnknownSymbol));
         }
 
-        [TestCase(true)]
-        [TestCase(false)]
-        public async Task TestSpotAccount(bool useUpdatedDeserialization)
+        [Test]
+        public async Task TestSpotAccount()
         {
-            await RunAndCheckResult(useUpdatedDeserialization, client => client.SpotApi.Account.GetAccountInfoAsync(default), true);
-            await RunAndCheckResult(useUpdatedDeserialization, client => client.SpotApi.Account.GetUserAssetsAsync(default), true);
-            await RunAndCheckResult(useUpdatedDeserialization, client => client.SpotApi.Account.GetDepositHistoryAsync(default, default, default, default, default, default), true);
-            await RunAndCheckResult(useUpdatedDeserialization, client => client.SpotApi.Account.GetWithdrawHistoryAsync(default, default, default, default, default, default), true);
-            await RunAndCheckResult(useUpdatedDeserialization, client => client.SpotApi.Account.GetWithdrawAddressesAsync(default, default, default, default), true);
-            await RunAndCheckResult(useUpdatedDeserialization, client => client.SpotApi.Account.GetTransferHistoryAsync(Enums.AccountType.Spot, Enums.AccountType.Futures, default, default, default, default, default), true);
-            await RunAndCheckResult(useUpdatedDeserialization, client => client.SpotApi.Account.GetAssetsForDustTransferAsync(default), true);
-            await RunAndCheckResult(useUpdatedDeserialization, client => client.SpotApi.Account.GetDustLogAsync(default, default, default, default, default), true);
-            await RunAndCheckResult(useUpdatedDeserialization, client => client.SpotApi.Account.GetMxDeductionStatusAsync(default), true);
-            await RunAndCheckResult(useUpdatedDeserialization, client => client.SpotApi.Account.GetTradeFeeAsync("ETHUSDT", default), true);
+            await RunAndCheckResult(client => client.SpotApi.Account.GetAccountInfoAsync(default), true);
+            await RunAndCheckResult(client => client.SpotApi.Account.GetUserAssetsAsync(default), true);
+            await RunAndCheckResult(client => client.SpotApi.Account.GetDepositHistoryAsync(default, default, default, default, default, default), true);
+            await RunAndCheckResult(client => client.SpotApi.Account.GetWithdrawHistoryAsync(default, default, default, default, default, default), true);
+            await RunAndCheckResult(client => client.SpotApi.Account.GetWithdrawAddressesAsync(default, default, default, default), true);
+            await RunAndCheckResult(client => client.SpotApi.Account.GetTransferHistoryAsync(Enums.AccountType.Spot, Enums.AccountType.Futures, default, default, default, default, default), true);
+            await RunAndCheckResult(client => client.SpotApi.Account.GetAssetsForDustTransferAsync(default), true);
+            await RunAndCheckResult(client => client.SpotApi.Account.GetDustLogAsync(default, default, default, default, default), true);
+            await RunAndCheckResult(client => client.SpotApi.Account.GetMxDeductionStatusAsync(default), true);
+            await RunAndCheckResult(client => client.SpotApi.Account.GetTradeFeeAsync("ETHUSDT", default), true);
         }
 
-        [TestCase(true)]
-        [TestCase(false)]
-        public async Task TestSpotExchangeData(bool useUpdatedDeserialization)
+        [Test]
+        public async Task TestSpotExchangeData()
         {
-            await RunAndCheckResult(useUpdatedDeserialization, client => client.SpotApi.ExchangeData.GetServerTimeAsync(default), false);
-            await RunAndCheckResult(useUpdatedDeserialization, client => client.SpotApi.ExchangeData.GetApiSymbolsAsync(default), false);
-            await RunAndCheckResult(useUpdatedDeserialization, client => client.SpotApi.ExchangeData.GetExchangeInfoAsync(default, default), false);
-            await RunAndCheckResult(useUpdatedDeserialization, client => client.SpotApi.ExchangeData.GetOrderBookAsync("ETHUSDT", default, default), false);
-            await RunAndCheckResult(useUpdatedDeserialization, client => client.SpotApi.ExchangeData.GetRecentTradesAsync("ETHUSDT", default, default), false);
-            await RunAndCheckResult(useUpdatedDeserialization, client => client.SpotApi.ExchangeData.GetAggregatedTradeHistoryAsync("ETHUSDT", default, default, default, default), false);
-            await RunAndCheckResult(useUpdatedDeserialization, client => client.SpotApi.ExchangeData.GetKlinesAsync("ETHUSDT",Enums.KlineInterval.OneDay, default, default, default, default), false);
-            await RunAndCheckResult(useUpdatedDeserialization, client => client.SpotApi.ExchangeData.GetAveragePriceAsync("ETHUSDT", default), false);
-            await RunAndCheckResult(useUpdatedDeserialization, client => client.SpotApi.ExchangeData.GetTickerAsync("ETHUSDT", default), false);
-            await RunAndCheckResult(useUpdatedDeserialization, client => client.SpotApi.ExchangeData.GetPricesAsync(default, default), false);
-            await RunAndCheckResult(useUpdatedDeserialization, client => client.SpotApi.ExchangeData.GetBookPricesAsync("ETHUSDT", default), false);
-            await RunAndCheckResult(useUpdatedDeserialization, client => client.SpotApi.ExchangeData.GetBookPricesAsync(default), false);
+            await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetServerTimeAsync(default), false);
+            await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetApiSymbolsAsync(default), false);
+            await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetExchangeInfoAsync(default, default), false);
+            await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetOrderBookAsync("ETHUSDT", default, default), false);
+            await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetRecentTradesAsync("ETHUSDT", default, default), false);
+            await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetAggregatedTradeHistoryAsync("ETHUSDT", default, default, default, default), false);
+            await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetKlinesAsync("ETHUSDT",Enums.KlineInterval.OneDay, default, default, default, default), false);
+            await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetAveragePriceAsync("ETHUSDT", default), false);
+            await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetTickerAsync("ETHUSDT", default), false);
+            await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetPricesAsync(default, default), false);
+            await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetBookPricesAsync("ETHUSDT", default), false);
+            await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetBookPricesAsync(default), false);
         }
 
-        [TestCase(true)]
-        [TestCase(false)]
-        public async Task TestSpotTrading(bool useUpdatedDeserialization)
+        [Test]
+        public async Task TestSpotTrading()
         {
-            await RunAndCheckResult(useUpdatedDeserialization, client => client.SpotApi.Trading.GetOpenOrdersAsync("ETHUSDT", default), true);
-            await RunAndCheckResult(useUpdatedDeserialization, client => client.SpotApi.Trading.GetOrdersAsync("ETHUSDT", default, default, default, default), true);
-            await RunAndCheckResult(useUpdatedDeserialization, client => client.SpotApi.Trading.GetUserTradesAsync("ETHUSDT", default, default, default, default, default), true);
+            await RunAndCheckResult(client => client.SpotApi.Trading.GetOpenOrdersAsync("ETHUSDT", default), true);
+            await RunAndCheckResult(client => client.SpotApi.Trading.GetOrdersAsync("ETHUSDT", default, default, default, default), true);
+            await RunAndCheckResult(client => client.SpotApi.Trading.GetUserTradesAsync("ETHUSDT", default, default, default, default, default), true);
         }
 
         [Test]
