@@ -46,6 +46,7 @@ namespace Mexc.Net.Clients.SpotApi
             RateLimiter = MexcExchange.RateLimiter.SpotSocket;
 
             MessageSendSizeLimit = 1024;
+            MaxSubscriptionsPerConnection = 30;
 
             RegisterPeriodicQuery(
                 "Ping",

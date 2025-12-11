@@ -16,6 +16,8 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
             _topics = new HashSet<string>(topics);
             _handler = handler;
 
+            IndividualSubscriptionCount = topics.Count();
+
             var topicList = topics.ToList();
             topicList.Add("pb");
             MessageMatcher = MessageMatcher.Create<T>(topicList, DoHandleMessage);

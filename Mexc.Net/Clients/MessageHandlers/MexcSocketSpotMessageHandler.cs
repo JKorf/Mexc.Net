@@ -16,7 +16,7 @@ namespace Mexc.Net.Clients.MessageHandlers
               new MessageTypeDefinition {
                 ForceIfFound = true,
                 Fields = [
-                    new PropertyFieldReference("msg").WithEqualContstraint("PONG"),
+                    new PropertyFieldReference("msg").WithEqualConstraint("PONG"),
                 ],
                 StaticIdentifier = "PONG"
             },
