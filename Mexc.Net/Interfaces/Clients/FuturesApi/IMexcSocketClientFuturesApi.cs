@@ -39,7 +39,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
-        Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<MexcFuturesTrade>> handler, CancellationToken ct = default);
+        Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<MexcFuturesTrade[]>> handler, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to kline updates

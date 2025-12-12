@@ -49,7 +49,7 @@ namespace Mexc.Net.UnitTests
             var tester = new SocketSubscriptionValidator<MexcSocketClient>(client, "Subscriptions/FuturesApi", "wss://contract.mexc.com/edge", "data");
             await tester.ValidateAsync<MexcFuturesTickerUpdate[]>((client, handler) => client.FuturesApi.SubscribeToTickersUpdatesAsync(handler), "Tickers", ignoreProperties: []);
             await tester.ValidateAsync<MexcFuturesTicker>((client, handler) => client.FuturesApi.SubscribeToTickerUpdatesAsync("BTC_USDT", handler), "Ticker", ignoreProperties: ["contractId"]);
-            await tester.ValidateAsync<MexcFuturesTrade>((client, handler) => client.FuturesApi.SubscribeToTradeUpdatesAsync("BTC_USDT", handler), "Trades", ignoreProperties: ["O"]);
+            await tester.ValidateAsync<MexcFuturesTrade[]>((client, handler) => client.FuturesApi.SubscribeToTradeUpdatesAsync("BTC_USDT", handler), "Trades", ignoreProperties: ["O"]);
             await tester.ValidateAsync<MexcFuturesStreamKline>((client, handler) => client.FuturesApi.SubscribeToKlineUpdatesAsync("BTC_USDT", Enums.FuturesKlineInterval.OneMonth, handler), "Klines", ignoreProperties: []);
             await tester.ValidateAsync<MexcFuturesOrderBook>((client, handler) => client.FuturesApi.SubscribeToOrderBookUpdatesAsync("BTC_USDT", handler), "Book", ignoreProperties: []);
             await tester.ValidateAsync<MexcFuturesOrderBook>((client, handler) => client.FuturesApi.SubscribeToPartialOrderBookUpdatesAsync("BTC_USDT", 5, handler), "PartialBook", ignoreProperties: []);

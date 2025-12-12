@@ -113,9 +113,9 @@ namespace Mexc.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<MexcFuturesTrade>> handler, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<MexcFuturesTrade[]>> handler, CancellationToken ct = default)
         {
-            var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcFuturesTrade>>((receiveTime, originalData, data) =>
+            var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcFuturesTrade[]>>((receiveTime, originalData, data) =>
             {
                 handler(
                     new DataEvent<MexcFuturesTrade>(data.Data, receiveTime, originalData)
@@ -126,7 +126,7 @@ namespace Mexc.Net.Clients.FuturesApi
                     );
             });
 
-            var subscription = new MexcFuturesSubscription<MexcFuturesTrade>(_logger, "deal", symbol, null, null, internalHandler, false);
+            var subscription = new MexcFuturesSubscription<MexcFuturesTrade[]>(_logger, "deal", symbol, null, null, handler, false);
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
 
