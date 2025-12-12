@@ -31,6 +31,8 @@ namespace Mexc.Net.Clients.FuturesApi
         {
             AddSystemSubscription(new MexcErrorSubscription(_logger));
 
+            MaxIndividualSubscriptionsPerConnection = 30;
+
             RegisterPeriodicQuery(
                 "Ping",
                 TimeSpan.FromSeconds(10),
@@ -118,7 +120,7 @@ namespace Mexc.Net.Clients.FuturesApi
             var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcFuturesTrade[]>>((receiveTime, originalData, data) =>
             {
                 handler(
-                    new DataEvent<MexcFuturesTrade>(data.Data, receiveTime, originalData)
+                    new DataEvent<MexcFuturesTrade[]>(data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(data.Timestamp)
                         .WithSymbol(data.Symbol)
@@ -126,7 +128,7 @@ namespace Mexc.Net.Clients.FuturesApi
                     );
             });
 
-            var subscription = new MexcFuturesSubscription<MexcFuturesTrade[]>(_logger, "deal", symbol, null, null, handler, false);
+            var subscription = new MexcFuturesSubscription<MexcFuturesTrade[]>(_logger, "deal", symbol, null, null, internalHandler, false);
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
 

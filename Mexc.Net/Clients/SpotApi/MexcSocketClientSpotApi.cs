@@ -46,7 +46,7 @@ namespace Mexc.Net.Clients.SpotApi
             RateLimiter = MexcExchange.RateLimiter.SpotSocket;
 
             MessageSendSizeLimit = 1024;
-            MaxSubscriptionsPerConnection = 30;
+            MaxIndividualSubscriptionsPerConnection = 30;
 
             RegisterPeriodicQuery(
                 "Ping",
@@ -133,7 +133,7 @@ namespace Mexc.Net.Clients.SpotApi
                     );
             });
 
-            var subscription = new MexcSubscription<MexcUpdateTrades>(_logger, symbols.Select(s => "spot@public.aggre.deals.v3.api.pb@"+interval+"ms@" + s),
+            var subscription = new MexcSubscription<MexcUpdateTrades>(_logger, symbols.Select(s => "spot@public.aggre.deals.v3.api.pb@"+interval+"ms@" + s).ToArray(),
                 internalHandler, false);
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
@@ -156,7 +156,7 @@ namespace Mexc.Net.Clients.SpotApi
                     );
             });
 
-            var subscription = new MexcSubscription<MexcUpdateKlines>(_logger, symbols.Select(s => "spot@public.kline.v3.api.pb@" + s + "@" + GetIntervalString(interval)), internalHandler, false);
+            var subscription = new MexcSubscription<MexcUpdateKlines>(_logger, symbols.Select(s => "spot@public.kline.v3.api.pb@" + s + "@" + GetIntervalString(interval)).ToArray(), internalHandler, false);
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
 
@@ -182,7 +182,7 @@ namespace Mexc.Net.Clients.SpotApi
                     );
             });
 
-            var subscription = new MexcSubscription<MexcUpdateOrderBook>(_logger, symbols.Select(s => "spot@public.aggre.depth.v3.api.pb@" + updateInterval + "ms@" + s), internalHandler, false);
+            var subscription = new MexcSubscription<MexcUpdateOrderBook>(_logger, symbols.Select(s => "spot@public.aggre.depth.v3.api.pb@" + updateInterval + "ms@" + s).ToArray(), internalHandler, false);
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
 
@@ -228,7 +228,7 @@ namespace Mexc.Net.Clients.SpotApi
                     );
             });
 
-            var subscription = new MexcSubscription<MexcUpdateOrderBookLimit>(_logger, symbols.Select(s => "spot@public.limit.depth.v3.api.pb@" + s + "@" + depth), internalHandler, false);
+            var subscription = new MexcSubscription<MexcUpdateOrderBookLimit>(_logger, symbols.Select(s => "spot@public.limit.depth.v3.api.pb@" + s + "@" + depth).ToArray(), internalHandler, false);
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
 
@@ -250,7 +250,7 @@ namespace Mexc.Net.Clients.SpotApi
                     );
             });
 
-            var subscription = new MexcSubscription<MexcUpdateBookTickers>(_logger, symbols.Select(s => "spot@public.bookTicker.batch.v3.api.pb@" + s), internalHandler, false);
+            var subscription = new MexcSubscription<MexcUpdateBookTickers>(_logger, symbols.Select(s => "spot@public.bookTicker.batch.v3.api.pb@" + s).ToArray(), internalHandler, false);
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
 
@@ -272,7 +272,7 @@ namespace Mexc.Net.Clients.SpotApi
                     );
             });
 
-            var subscription = new MexcSubscription<MexcUpdateMiniTicker>(_logger, symbols.Select(s => "spot@public.miniTicker.v3.api.pb@" + s + "@UTC+0"), internalHandler, false);
+            var subscription = new MexcSubscription<MexcUpdateMiniTicker>(_logger, symbols.Select(s => "spot@public.miniTicker.v3.api.pb@" + s + "@UTC+0").ToArray(), internalHandler, false);
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
 

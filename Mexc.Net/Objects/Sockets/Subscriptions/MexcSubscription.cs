@@ -11,7 +11,7 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
         private HashSet<string> _topics;
         private readonly Action<DateTime, string?, T> _handler;
 
-        public MexcSubscription(ILogger logger, IEnumerable<string> topics, Action<DateTime, string?, T> handler, bool authenticated) : base(logger, authenticated)
+        public MexcSubscription(ILogger logger, string[] topics, Action<DateTime, string?, T> handler, bool authenticated) : base(logger, authenticated)
         {
             _topics = new HashSet<string>(topics);
             _handler = handler;
