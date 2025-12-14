@@ -109,7 +109,6 @@ namespace Mexc.Net.Benchmark.Client
             }), logger);
             RestClient = new MexcRestClient(null, logger, Options.Create(new MexcRestOptions
             {
-                UseUpdatedDeserialization = enableNewDeserialization,
                 RateLimiterEnabled = false,
                 Environment = env
             }));

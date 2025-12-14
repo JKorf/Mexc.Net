@@ -54,7 +54,7 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcFuturesBalanceUpdate> message)
         {
             _balanceHandler?.Invoke(
-                new DataEvent<MexcFuturesBalanceUpdate>(message.Data, receiveTime, originalData)
+                new DataEvent<MexcFuturesBalanceUpdate>(MexcExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
@@ -65,7 +65,7 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcFuturesOrder> message)
         {
             _orderHandler?.Invoke(
-                new DataEvent<MexcFuturesOrder>(message.Data, receiveTime, originalData)
+                new DataEvent<MexcFuturesOrder>(MexcExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
@@ -76,7 +76,7 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcPosition> message)
         {
             _positionHandler?.Invoke(
-                new DataEvent<MexcPosition>(message.Data, receiveTime, originalData)
+                new DataEvent<MexcPosition>(MexcExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
@@ -87,7 +87,7 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcRiskLimit> message)
         {
             _riskLimitHandler?.Invoke(
-                new DataEvent<MexcRiskLimit>(message.Data, receiveTime, originalData)
+                new DataEvent<MexcRiskLimit>(MexcExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
@@ -98,7 +98,7 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcPositionModeUpdate> message)
         {
             _positionModeHandler?.Invoke(
-                new DataEvent<MexcPositionModeUpdate>(message.Data, receiveTime, originalData)
+                new DataEvent<MexcPositionModeUpdate>(MexcExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
@@ -109,7 +109,7 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcAdlUpdate> message)
         {
             _adlHandler?.Invoke(
-                new DataEvent<MexcAdlUpdate>(message.Data, receiveTime, originalData)
+                new DataEvent<MexcAdlUpdate>(MexcExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)

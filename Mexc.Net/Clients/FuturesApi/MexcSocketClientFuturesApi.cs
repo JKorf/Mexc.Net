@@ -30,6 +30,7 @@ namespace Mexc.Net.Clients.FuturesApi
             base(logger, options.Environment.FuturesSocketAddress, options, options.FuturesOptions)
         {
             AddSystemSubscription(new MexcErrorSubscription(_logger));
+            AddSystemSubscription(new MexcPongSubscription(_logger)); // Mexc reacts with 2 pongs on a ping, handler for the second message
 
             MaxIndividualSubscriptionsPerConnection = 30;
 
@@ -84,7 +85,7 @@ namespace Mexc.Net.Clients.FuturesApi
             var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcFuturesTickerUpdate[]>>((receiveTime, originalData, data) =>
             {
                 handler(
-                    new DataEvent<MexcFuturesTickerUpdate[]>(data.Data, receiveTime, originalData)
+                    new DataEvent<MexcFuturesTickerUpdate[]>(MexcExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(data.Timestamp)
                         .WithSymbol(data.Symbol)
@@ -102,7 +103,7 @@ namespace Mexc.Net.Clients.FuturesApi
             var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcFuturesTicker>>((receiveTime, originalData, data) =>
             {
                 handler(
-                    new DataEvent<MexcFuturesTicker>(data.Data, receiveTime, originalData)
+                    new DataEvent<MexcFuturesTicker>(MexcExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(data.Timestamp)
                         .WithSymbol(data.Symbol)
@@ -120,7 +121,7 @@ namespace Mexc.Net.Clients.FuturesApi
             var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcFuturesTrade[]>>((receiveTime, originalData, data) =>
             {
                 handler(
-                    new DataEvent<MexcFuturesTrade[]>(data.Data, receiveTime, originalData)
+                    new DataEvent<MexcFuturesTrade[]>(MexcExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(data.Timestamp)
                         .WithSymbol(data.Symbol)
@@ -138,7 +139,7 @@ namespace Mexc.Net.Clients.FuturesApi
             var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcFuturesStreamKline>>((receiveTime, originalData, data) =>
             {
                 handler(
-                    new DataEvent<MexcFuturesStreamKline>(data.Data, receiveTime, originalData)
+                    new DataEvent<MexcFuturesStreamKline>(MexcExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(data.Timestamp)
                         .WithSymbol(data.Symbol)
@@ -156,7 +157,7 @@ namespace Mexc.Net.Clients.FuturesApi
             var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcFuturesOrderBook>>((receiveTime, originalData, data) =>
             {
                 handler(
-                    new DataEvent<MexcFuturesOrderBook>(data.Data, receiveTime, originalData)
+                    new DataEvent<MexcFuturesOrderBook>(MexcExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(data.Timestamp)
                         .WithSymbol(data.Symbol)
@@ -174,7 +175,7 @@ namespace Mexc.Net.Clients.FuturesApi
             var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcFuturesOrderBook>>((receiveTime, originalData, data) =>
             {
                 handler(
-                    new DataEvent<MexcFuturesOrderBook>(data.Data, receiveTime, originalData)
+                    new DataEvent<MexcFuturesOrderBook>(MexcExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(data.Timestamp)
                         .WithSymbol(data.Symbol)
@@ -192,7 +193,7 @@ namespace Mexc.Net.Clients.FuturesApi
             var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcFundingRateUpdate>>((receiveTime, originalData, data) =>
             {
                 handler(
-                    new DataEvent<MexcFundingRateUpdate>(data.Data, receiveTime, originalData)
+                    new DataEvent<MexcFundingRateUpdate>(MexcExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(data.Timestamp)
                         .WithSymbol(data.Symbol)
@@ -210,7 +211,7 @@ namespace Mexc.Net.Clients.FuturesApi
             var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcPriceUpdate>>((receiveTime, originalData, data) =>
             {
                 handler(
-                    new DataEvent<MexcPriceUpdate>(data.Data, receiveTime, originalData)
+                    new DataEvent<MexcPriceUpdate>(MexcExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(data.Timestamp)
                         .WithSymbol(data.Symbol)
@@ -228,7 +229,7 @@ namespace Mexc.Net.Clients.FuturesApi
             var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcPriceUpdate>>((receiveTime, originalData, data) =>
             {
                 handler(
-                    new DataEvent<MexcPriceUpdate>(data.Data, receiveTime, originalData)
+                    new DataEvent<MexcPriceUpdate>(MexcExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(data.Timestamp)
                         .WithSymbol(data.Symbol)

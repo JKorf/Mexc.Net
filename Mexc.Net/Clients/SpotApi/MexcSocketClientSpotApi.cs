@@ -125,7 +125,7 @@ namespace Mexc.Net.Clients.SpotApi
             var internalHandler = new Action<DateTime, string?, MexcUpdateTrades>((receiveTime, originalData, data) =>
             {
                 handler(
-                    new DataEvent<MexcStreamTrade[]>(data.Data.Select(x => x.ToModel()).ToArray(), receiveTime, originalData)
+                    new DataEvent<MexcStreamTrade[]>(MexcExchange.ExchangeName, data.Data.Select(x => x.ToModel()).ToArray(), receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime))
                         .WithSymbol(data.Symbol)
@@ -148,7 +148,7 @@ namespace Mexc.Net.Clients.SpotApi
             var internalHandler = new Action<DateTime, string?, MexcUpdateKlines>((receiveTime, originalData, data) =>
             {
                 handler(
-                    new DataEvent<MexcStreamKline>(data.ToModel(), receiveTime, originalData)
+                    new DataEvent<MexcStreamKline>(MexcExchange.ExchangeName, data.ToModel(), receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime))
                         .WithSymbol(data.Symbol)
@@ -174,7 +174,7 @@ namespace Mexc.Net.Clients.SpotApi
             var internalHandler = new Action<DateTime, string?, MexcUpdateOrderBook>((receiveTime, originalData, data) =>
             {
                 handler(
-                    new DataEvent<MexcStreamOrderBook>(data.ToModel(), receiveTime, originalData)
+                    new DataEvent<MexcStreamOrderBook>(MexcExchange.ExchangeName, data.ToModel(), receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime))
                         .WithSymbol(data.Symbol)
@@ -220,7 +220,7 @@ namespace Mexc.Net.Clients.SpotApi
             var internalHandler = new Action<DateTime, string?, MexcUpdateOrderBookLimit>((receiveTime, originalData, data) =>
             {
                 handler(
-                    new DataEvent<MexcStreamOrderBook>(data.ToModel(), receiveTime, originalData)
+                    new DataEvent<MexcStreamOrderBook>(MexcExchange.ExchangeName, data.ToModel(), receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime))
                         .WithSymbol(data.Symbol)
@@ -242,7 +242,7 @@ namespace Mexc.Net.Clients.SpotApi
             var internalHandler = new Action<DateTime, string?, MexcUpdateBookTickers>((receiveTime, originalData, data) =>
             {
                 handler(
-                    new DataEvent<MexcStreamBookTick>(data.Data.First().ToModel(), receiveTime, originalData)
+                    new DataEvent<MexcStreamBookTick>(MexcExchange.ExchangeName, data.Data.First().ToModel(), receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime))
                         .WithSymbol(data.Symbol)
@@ -264,7 +264,7 @@ namespace Mexc.Net.Clients.SpotApi
             var internalHandler = new Action<DateTime, string?, MexcUpdateMiniTicker>((receiveTime, originalData, data) =>
             {
                 handler(
-                    new DataEvent<MexcMiniTickUpdate>(data.ToModel(), receiveTime, originalData)
+                    new DataEvent<MexcMiniTickUpdate>(MexcExchange.ExchangeName, data.ToModel(), receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime))
                         .WithSymbol(data.Symbol)
@@ -282,7 +282,7 @@ namespace Mexc.Net.Clients.SpotApi
             var internalHandler = new Action<DateTime, string?, MexcUpdateMiniTickers>((receiveTime, originalData, data) =>
             {
                 handler(
-                    new DataEvent<MexcMiniTickUpdate[]>(data.Tickers.Select(x => x.ToModel()).ToArray(), receiveTime, originalData)
+                    new DataEvent<MexcMiniTickUpdate[]>(MexcExchange.ExchangeName, data.Tickers.Select(x => x.ToModel()).ToArray(), receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime))
                         .WithSymbol(data.Symbol)
@@ -302,7 +302,7 @@ namespace Mexc.Net.Clients.SpotApi
             var internalHandler = new Action<DateTime, string?, MexcUpdateAccount>((receiveTime, originalData, data) =>
             {
                 handler(
-                    new DataEvent<MexcAccountUpdate>(data.ToModel(), receiveTime, originalData)
+                    new DataEvent<MexcAccountUpdate>(MexcExchange.ExchangeName, data.ToModel(), receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime))
                         .WithSymbol(data.Symbol)
@@ -322,7 +322,7 @@ namespace Mexc.Net.Clients.SpotApi
             var internalHandler = new Action<DateTime, string?, MexcUpdateOrder>((receiveTime, originalData, data) =>
             {
                 handler(
-                    new DataEvent<MexcUserOrderUpdate>(data.ToModel(), receiveTime, originalData)
+                    new DataEvent<MexcUserOrderUpdate>(MexcExchange.ExchangeName, data.ToModel(), receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime))
                         .WithSymbol(data.Symbol)
@@ -342,7 +342,7 @@ namespace Mexc.Net.Clients.SpotApi
             var internalHandler = new Action<DateTime, string?, MexcUpdateUserTrade>((receiveTime, originalData, data) =>
             {
                 handler(
-                    new DataEvent<MexcUserTradeUpdate>(data.ToModel(), receiveTime, originalData)
+                    new DataEvent<MexcUserTradeUpdate>(MexcExchange.ExchangeName, data.ToModel(), receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime))
                         .WithSymbol(data.Symbol)
