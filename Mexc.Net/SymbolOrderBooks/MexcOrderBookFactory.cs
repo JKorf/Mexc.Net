@@ -38,7 +38,10 @@ namespace Mexc.Net.SymbolOrderBooks
         public ISymbolOrderBook Create(SharedSymbol symbol, Action<MexcOrderBookOptions>? options = null)
         {
             var symbolName = symbol.GetSymbol(MexcExchange.FormatSymbol);
-            return CreateSpot(symbolName, options);
+            if (symbol.TradingMode == TradingMode.Spot)
+                return CreateSpot(symbolName, options);
+
+            return CreateFutures(symbolName, options);
         }
 
         /// <inheritdoc />
