@@ -107,26 +107,6 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <returns></returns>
         Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(IEnumerable<string> symbols, int updateInterval, Action<DataEvent<MexcStreamOrderBook>> handler, CancellationToken ct = default);
 
-        ///// <summary>
-        ///// Subscribe to orderbook change updates
-        ///// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#diff-depth-stream" /></para>
-        ///// </summary>
-        ///// <param name="symbol">The symbol, for example `BTCUSDT`</param>
-        ///// <param name="handler">Data handler</param>
-        ///// <param name="ct">Cancellation token</param>
-        ///// <returns></returns>
-        //Task<CallResult<UpdateSubscription>> SubscribeToAggregatedOrderBookUpdatesAsync(string symbol, Action<DataEvent<MexcStreamOrderBook[]>> handler, CancellationToken ct = default);
-
-        ///// <summary>
-        ///// Subscribe to orderbook change updates
-        ///// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#diff-depth-stream" /></para>
-        ///// </summary>
-        ///// <param name="symbols">The symbols, for example `BTCUSDT`</param>
-        ///// <param name="handler">Data handler</param>
-        ///// <param name="ct">Cancellation token</param>
-        ///// <returns></returns>
-        //Task<CallResult<UpdateSubscription>> SubscribeToAggregatedOrderBookUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<MexcStreamOrderBook[]>> handler, CancellationToken ct = default);
-
         /// <summary>
         /// Subscribe to full orderbook updates
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#partial-book-depth-streams" /></para>

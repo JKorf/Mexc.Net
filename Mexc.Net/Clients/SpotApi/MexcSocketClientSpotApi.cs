@@ -186,28 +186,6 @@ namespace Mexc.Net.Clients.SpotApi
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
 
-        ///// <inheritdoc />
-        //public async Task<CallResult<UpdateSubscription>> SubscribeToAggregatedOrderBookUpdatesAsync(string symbol, Action<DataEvent<MexcStreamOrderBook[]>> handler, CancellationToken ct = default)
-        //    => await SubscribeToAggregatedOrderBookUpdatesAsync(new[] { symbol }, handler, ct).ConfigureAwait(false);
-
-        ///// <inheritdoc />
-        //public async Task<CallResult<UpdateSubscription>> SubscribeToAggregatedOrderBookUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<MexcStreamOrderBook[]>> handler, CancellationToken ct = default)
-        //{
-        //    var internalHandler = new Action<DateTime, string?, MexcUpdateOrderBookIncrease>((receiveTime, originalData, data) =>
-        //    {
-        //        handler(
-        //            new DataEvent<MexcStreamOrderBook[]>(data.Select(x => x.ToModel()).ToArray(), receiveTime, originalData)
-        //                .WithUpdateType(SocketUpdateType.Update)
-        //                .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime))
-        //                .WithSymbol(data.Symbol)
-        //                .WithStreamId(data.Channel)
-        //            );
-        //    });
-
-        //    var subscription = new MexcSubscription<MexcUpdateOrderBookIncrease>(_logger, symbols.Select(s => "spot@public.increase.depth.batch.v3.api.pb@" + s), x => handler(x.As(x.Data.Data.Select(x => x.ToModel()).ToArray())), false);
-        //    return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
-        //}
-
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdatesAsync(string symbol, int depth, Action<DataEvent<MexcStreamOrderBook>> handler, CancellationToken ct = default)
             => await SubscribeToPartialOrderBookUpdatesAsync(new[] { symbol }, depth, handler, ct).ConfigureAwait(false);

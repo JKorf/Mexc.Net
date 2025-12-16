@@ -29,7 +29,6 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<T> message)
         {
             _handler.Invoke(receiveTime, originalData, message);
-            //_handler.Invoke(message.As(message.Data.Data, message.Data.Channel, message.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(message.Data.Timestamp));
             return CallResult.SuccessResult;
         }
 
