@@ -52,8 +52,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="LightProto" Version="0.8.5" />
-    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="9.0.0">
+    <PackageReference Include="LightProto" Version="0.9.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="10.0.101">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
