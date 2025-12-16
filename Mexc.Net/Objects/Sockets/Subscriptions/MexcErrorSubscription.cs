@@ -1,5 +1,5 @@
-﻿using CryptoExchange.Net.Objects.Sockets;
-using CryptoExchange.Net.Sockets;
+﻿using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Sockets.Default;
 using Mexc.Net.Objects.Sockets.Models;
 
 namespace Mexc.Net.Objects.Sockets.Subscriptions
@@ -9,11 +9,12 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
         public MexcErrorSubscription(ILogger logger) : base(logger, false)
         {
             MessageMatcher = MessageMatcher.Create<MexcResponse>("0", HandleMessage);
+            MessageRouter = MessageRouter.CreateWithoutTopicFilter<MexcResponse>("0", HandleMessage);
         }
 
-        public CallResult HandleMessage(SocketConnection connection, DataEvent<MexcResponse> message)
+        public CallResult HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcResponse message)
         {
-            _logger.LogError("Server Error: {Error}", message.Data.Message);
+            _logger.LogError("Server Error: {Error}", message.Message);
             return CallResult.SuccessResult;
         }
     }

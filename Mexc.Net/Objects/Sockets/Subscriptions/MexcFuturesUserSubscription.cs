@@ -1,15 +1,13 @@
 ﻿using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
-using Mexc.Net.Enums;
+using CryptoExchange.Net.Sockets.Default;
 using Mexc.Net.Objects.Models.Futures;
-using Mexc.Net.Objects.Models.Protobuf;
 using Mexc.Net.Objects.Sockets.Models;
 using Mexc.Net.Objects.Sockets.Queries;
-using System.Linq;
 
 namespace Mexc.Net.Objects.Sockets.Subscriptions
 {
-    internal class MexcFuturesUserSubscription : Subscription<MexcFuturesUpdate<string>, MexcFuturesUpdate<string>>
+    internal class MexcFuturesUserSubscription : Subscription
     {
         private readonly Action<DataEvent<MexcFuturesBalanceUpdate>>? _balanceHandler;
         private readonly Action<DataEvent<MexcFuturesOrder>>? _orderHandler;
@@ -42,41 +40,80 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
                 new MessageHandlerLink<MexcFuturesUpdate<MexcAdlUpdate>>("push.personal.adl.level", DoHandleMessage),
                 new MessageHandlerLink<MexcFuturesUpdate<MexcPositionModeUpdate>>("push.personal.position.mode", DoHandleMessage),
                 ]);
+
+            MessageRouter = MessageRouter.Create([
+                MessageRoute<MexcFuturesUpdate<MexcFuturesOrder>>.CreateWithoutTopicFilter("push.personal.order", DoHandleMessage),
+                MessageRoute<MexcFuturesUpdate<MexcFuturesBalanceUpdate>>.CreateWithoutTopicFilter("push.personal.asset", DoHandleMessage),
+                MessageRoute<MexcFuturesUpdate<MexcPosition>>.CreateWithoutTopicFilter("push.personal.position", DoHandleMessage),
+                MessageRoute<MexcFuturesUpdate<MexcRiskLimit>>.CreateWithoutTopicFilter("push.personal.risk.limit", DoHandleMessage),
+                MessageRoute<MexcFuturesUpdate<MexcAdlUpdate>>.CreateWithoutTopicFilter("push.personal.adl.level", DoHandleMessage),
+                MessageRoute<MexcFuturesUpdate<MexcPositionModeUpdate>>.CreateWithoutTopicFilter("push.personal.position.mode", DoHandleMessage),
+                ]);
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<MexcFuturesUpdate<MexcFuturesBalanceUpdate>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcFuturesBalanceUpdate> message)
         {
-            _balanceHandler?.Invoke(message.As(message.Data.Data, message.Data.Channel, message.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(message.Data.Timestamp));
+            _balanceHandler?.Invoke(
+                new DataEvent<MexcFuturesBalanceUpdate>(MexcExchange.ExchangeName, message.Data, receiveTime, originalData)
+                    .WithStreamId(message.Channel)
+                    .WithSymbol(message.Symbol)
+                    .WithUpdateType(SocketUpdateType.Update)
+                    .WithDataTimestamp(message.Timestamp));
             return CallResult.SuccessResult;
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<MexcFuturesUpdate<MexcFuturesOrder>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcFuturesOrder> message)
         {
-            _orderHandler?.Invoke(message.As(message.Data.Data, message.Data.Channel, message.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(message.Data.Timestamp));
+            _orderHandler?.Invoke(
+                new DataEvent<MexcFuturesOrder>(MexcExchange.ExchangeName, message.Data, receiveTime, originalData)
+                    .WithStreamId(message.Channel)
+                    .WithSymbol(message.Symbol)
+                    .WithUpdateType(SocketUpdateType.Update)
+                    .WithDataTimestamp(message.Timestamp));
             return CallResult.SuccessResult;
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<MexcFuturesUpdate<MexcPosition>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcPosition> message)
         {
-            _positionHandler?.Invoke(message.As(message.Data.Data, message.Data.Channel, message.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(message.Data.Timestamp));
+            _positionHandler?.Invoke(
+                new DataEvent<MexcPosition>(MexcExchange.ExchangeName, message.Data, receiveTime, originalData)
+                    .WithStreamId(message.Channel)
+                    .WithSymbol(message.Symbol)
+                    .WithUpdateType(SocketUpdateType.Update)
+                    .WithDataTimestamp(message.Timestamp));
             return CallResult.SuccessResult;
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<MexcFuturesUpdate<MexcRiskLimit>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcRiskLimit> message)
         {
-            _riskLimitHandler?.Invoke(message.As(message.Data.Data, message.Data.Channel, message.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(message.Data.Timestamp));
+            _riskLimitHandler?.Invoke(
+                new DataEvent<MexcRiskLimit>(MexcExchange.ExchangeName, message.Data, receiveTime, originalData)
+                    .WithStreamId(message.Channel)
+                    .WithSymbol(message.Symbol)
+                    .WithUpdateType(SocketUpdateType.Update)
+                    .WithDataTimestamp(message.Timestamp));
             return CallResult.SuccessResult;
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<MexcFuturesUpdate<MexcPositionModeUpdate>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcPositionModeUpdate> message)
         {
-            _positionModeHandler?.Invoke(message.As(message.Data.Data, message.Data.Channel, message.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(message.Data.Timestamp));
+            _positionModeHandler?.Invoke(
+                new DataEvent<MexcPositionModeUpdate>(MexcExchange.ExchangeName, message.Data, receiveTime, originalData)
+                    .WithStreamId(message.Channel)
+                    .WithSymbol(message.Symbol)
+                    .WithUpdateType(SocketUpdateType.Update)
+                    .WithDataTimestamp(message.Timestamp));
             return CallResult.SuccessResult;
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<MexcFuturesUpdate<MexcAdlUpdate>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcAdlUpdate> message)
         {
-            _adlHandler?.Invoke(message.As(message.Data.Data, message.Data.Channel, message.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(message.Data.Timestamp));
+            _adlHandler?.Invoke(
+                new DataEvent<MexcAdlUpdate>(MexcExchange.ExchangeName, message.Data, receiveTime, originalData)
+                    .WithStreamId(message.Channel)
+                    .WithSymbol(message.Symbol)
+                    .WithUpdateType(SocketUpdateType.Update)
+                    .WithDataTimestamp(message.Timestamp));
             return CallResult.SuccessResult;
         }
 

@@ -1,13 +1,13 @@
 ﻿using CryptoExchange.Net.Clients;
 using Mexc.Net.Clients.SpotApi;
-using System.Net;
 using System.Text;
-using System.Text.RegularExpressions;
 
 namespace Mexc.Net
 {
     internal class MexcAuthenticationProvider : AuthenticationProvider
     {
+        public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.Hmac, ApiCredentialsType.RsaXml, ApiCredentialsType.RsaPem];
+
         public MexcAuthenticationProvider(ApiCredentials credentials) : base(credentials)
         {
         }
@@ -17,6 +17,7 @@ namespace Mexc.Net
             if (!request.Authenticated)
                 return;
 
+            request.Headers ??= new Dictionary<string, string>();
             request.Headers.Add("X-MEXC-APIKEY", _credentials.Key);
 
             var parameters = request.GetPositionParameters();
@@ -38,6 +39,7 @@ namespace Mexc.Net
                         .Replace("%5d", "%5D");
 
                     var signature = SignHMACSHA256(queryString);
+                    request.QueryParameters ??= new Dictionary<string, object>();
                     request.QueryParameters.Add("signature", signature);
                     request.SetQueryString($"{queryString}&signature={signature}");
                 }
@@ -45,6 +47,7 @@ namespace Mexc.Net
                 {
                     var body = parameters.ToFormData();
                     var signature = SignHMACSHA256(body);
+                    request.BodyParameters ??= new Dictionary<string, object>();
                     request.BodyParameters.Add("signature", signature);
                     request.SetBodyContent($"{body}&signature={SignHMACSHA256(body)}");
                 }

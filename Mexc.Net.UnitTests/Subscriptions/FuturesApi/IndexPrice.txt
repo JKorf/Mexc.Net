@@ -1,5 +1,5 @@
 > { "method": "sub.index.price", "param": {"symbol":"ETH_USDT"}} 
-< { "method": "rs.sub.index.price", "param": {"symbol":"ETH_USDT"}} 
+< { "channel": "rs.sub.index.price", "param": {"symbol":"ETH_USDT"}} 
 = 
 {
     "channel":"push.index.price",

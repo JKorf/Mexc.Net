@@ -1,6 +1,6 @@
+using CryptoExchange.Net.Interfaces.Clients;
 using CryptoExchange.Net.Objects.Sockets;
 using Mexc.Net.Enums;
-using Mexc.Net.Objects.Models;
 using Mexc.Net.Objects.Models.Futures;
 
 namespace Mexc.Net.Interfaces.Clients.FuturesApi

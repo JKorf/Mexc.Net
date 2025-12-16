@@ -1,7 +1,6 @@
 using Mexc.Net.Enums;
 using Mexc.Net.Objects.Models;
 using Mexc.Net.Objects.Models.Futures;
-using Mexc.Net.Objects.Models.Protobuf;
 using Mexc.Net.Objects.Models.Spot;
 using Mexc.Net.Objects.Sockets.Models;
 using static Mexc.Net.Objects.Sockets.Subscriptions.MexcFuturesUserSubscription;
@@ -60,18 +59,20 @@ namespace Mexc.Net.Converters
 
     // End manual defined attributes
 
-    [JsonSerializable(typeof(MexcUpdate<MexcStreamMiniTick[]>))]
     [JsonSerializable(typeof(MexcPaginated<MexcWithdrawAddress[]>))]
     [JsonSerializable(typeof(MexcPaginated<MexcDustLog[]>))]
     [JsonSerializable(typeof(MexcPaginated<MexcInternalTransfer[]>))]
     [JsonSerializable(typeof(MexcResult<string[]>))]
     [JsonSerializable(typeof(MexcRows<MexcTransfer[]>))]
-    [JsonSerializable(typeof(MexcUpdate<MexcStreamOrderBook>))]
-    [JsonSerializable(typeof(MexcUpdate<MexcStreamBookTick>))]
-    [JsonSerializable(typeof(MexcUpdate<MexcStreamMiniTick>))]
-    [JsonSerializable(typeof(MexcUpdate<MexcAccountUpdate>))]
-    [JsonSerializable(typeof(MexcUpdate<MexcUserOrderUpdate>))]
-    [JsonSerializable(typeof(MexcUpdate<MexcUserTradeUpdate>))]
+    //[JsonSerializable(typeof(MexcUpdate<MexcStreamMiniTick[]>))]
+    //[JsonSerializable(typeof(MexcUpdate<MexcStreamOrderBook>))]
+    //[JsonSerializable(typeof(MexcUpdate<MexcStreamBookTick>))]
+    //[JsonSerializable(typeof(MexcUpdate<MexcStreamMiniTick>))]
+    //[JsonSerializable(typeof(MexcUpdate<MexcAccountUpdate>))]
+    //[JsonSerializable(typeof(MexcUpdate<MexcUserOrderUpdate>))]
+    //[JsonSerializable(typeof(MexcUpdate<MexcUserTradeUpdate>))]
+    //[JsonSerializable(typeof(MexcUpdateMiniTicker))]
+    //[JsonSerializable(typeof(MexcUpdateMiniTickers))]
     [JsonSerializable(typeof(IDictionary<string, object>))]
     [JsonSerializable(typeof(MexcResult<MexcDeductStatus>))]
     [JsonSerializable(typeof(MexcResult<MexcTradeFee>))]
@@ -120,8 +121,6 @@ namespace Mexc.Net.Converters
     [JsonSerializable(typeof(MexcStreamEvent[]))]
     [JsonSerializable(typeof(MexcResponse))]
     [JsonSerializable(typeof(MexcRequest))]
-    [JsonSerializable(typeof(MexcUpdateMiniTicker))]
-    [JsonSerializable(typeof(MexcUpdateMiniTickers))]
     [JsonSerializable(typeof(MexcSubUserAccounts))]
     [JsonSerializable(typeof(MexcSubUserAccountApiDetails))]
     [JsonSerializable(typeof(MexcUniversalTransferResult))]

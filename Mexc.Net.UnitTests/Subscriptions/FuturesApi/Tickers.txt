@@ -1,5 +1,5 @@
 > { "method": "sub.tickers", "param": {}} 
-< { "method": "rs.sub.tickers", "param": {}} 
+< { "channel": "rs.sub.tickers", "param": {}} 
 = 
 {
   "channel": "push.tickers",

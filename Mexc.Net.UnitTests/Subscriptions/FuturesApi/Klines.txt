@@ -1,5 +1,5 @@
 > { "method": "sub.kline", "param": {"symbol":"ETH_USDT","interval":"Min60"}} 
-< { "method": "rs.sub.kline", "param": {"symbol":"ETH_USDT"}} 
+< { "channel": "rs.sub.kline", "param": {"symbol":"ETH_USDT"}} 
 = 
 {
     "channel":"push.kline",

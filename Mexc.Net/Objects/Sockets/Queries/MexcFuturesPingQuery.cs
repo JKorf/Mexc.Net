@@ -12,6 +12,7 @@ namespace Mexc.Net.Objects.Sockets.Queries
         {
             RequestTimeout = TimeSpan.FromSeconds(5);
             MessageMatcher = MessageMatcher.Create<MexcResponse>("pong");
+            MessageRouter = MessageRouter.CreateWithoutHandler<MexcResponse>("pong");
         }
     }
 }

@@ -1,68 +1,89 @@
 ﻿using Mexc.Net.Enums;
 using Mexc.Net.Objects.Models.Spot;
-using ProtoBuf;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Mexc.Net.Objects.Models.Protobuf
 {
-    [ProtoContract]
-    internal record ProtoOrderUpdate
+    [LightProto.ProtoContract]
+    [ProtoBuf.ProtoContract]
+    internal partial class MexcUpdateOrder : MexcUpdate
     {
-        [ProtoMember(1)]
+        [ProtoBuf.ProtoMember(1)]
+        [LightProto.ProtoMember(1)]
         public string Id { get; set; } = string.Empty;
-        [ProtoMember(2)]
+        [ProtoBuf.ProtoMember(2)]
+        [LightProto.ProtoMember(2)]
         public string ClientId { get; set; } = string.Empty;
-        [ProtoMember(3)]
+        [ProtoBuf.ProtoMember(3)]
+        [LightProto.ProtoMember(3)]
         public string Price { get; set; } = string.Empty;
-        [ProtoMember(4)]
+        [ProtoBuf.ProtoMember(4)]
+        [LightProto.ProtoMember(4)]
         public string Quantity { get; set; } = string.Empty;
-        [ProtoMember(5)]
+        [ProtoBuf.ProtoMember(5)]
+        [LightProto.ProtoMember(5)]
         public string QuoteQuantity { get; set; } = string.Empty;
-        [ProtoMember(6)]
+        [ProtoBuf.ProtoMember(6)]
+        [LightProto.ProtoMember(6)]
         public string AveragePrice { get; set; } = string.Empty;
-        [ProtoMember(7)]
+        [ProtoBuf.ProtoMember(7)]
+        [LightProto.ProtoMember(7)]
         public int OrderType { get; set; }
-        [ProtoMember(8)]
+        [ProtoBuf.ProtoMember(8)]
+        [LightProto.ProtoMember(8)]
         public int TradeType { get; set; }
-        [ProtoMember(9)]
+        [ProtoBuf.ProtoMember(9)]
+        [LightProto.ProtoMember(9)]
         public bool IsMaker { get; set; }
-        [ProtoMember(10)]
+        [ProtoBuf.ProtoMember(10)]
+        [LightProto.ProtoMember(10)]
         public string RemainingQuoteQuantity { get; set; } = string.Empty;
-        [ProtoMember(11)]
+        [ProtoBuf.ProtoMember(11)]
+        [LightProto.ProtoMember(11)]
         public string RemainingQuantity { get; set; } = string.Empty;
-        [ProtoMember(12)]
+        [ProtoBuf.ProtoMember(12)]
+        [LightProto.ProtoMember(12)]
         public string? LastTradeQuantity { get; set; }
-        [ProtoMember(13)]
+        [ProtoBuf.ProtoMember(13)]
+        [LightProto.ProtoMember(13)]
         public string CumulativeQuantity { get; set; } = string.Empty;
-        [ProtoMember(14)]
+        [ProtoBuf.ProtoMember(14)]
+        [LightProto.ProtoMember(14)]
         public string CumulativeQuoteQuantity { get; set; } = string.Empty;
-        [ProtoMember(15)]
+        [ProtoBuf.ProtoMember(15)]
+        [LightProto.ProtoMember(15)]
         public int Status { get; set; }
-        [ProtoMember(16)]
-        public long CreateTime { get; set; }
-        [ProtoMember(17)]
-        public string? Symbol { get; set; }
-        [ProtoMember(18)]
+        [ProtoBuf.ProtoMember(16)]
+        [LightProto.ProtoMember(16)]
+        public long CreateTimeInt { get; set; }
+        [ProtoBuf.ProtoMember(17)]
+        [LightProto.ProtoMember(17)]
+        public string? SymbolInt { get; set; }
+        [ProtoBuf.ProtoMember(18)]
+        [LightProto.ProtoMember(18)]
         public int? TriggerType { get; set; }
-        [ProtoMember(19)]
+        [ProtoBuf.ProtoMember(19)]
+        [LightProto.ProtoMember(19)]
         public int? TriggerPrice { get; set; }
-        [ProtoMember(20)]
+        [ProtoBuf.ProtoMember(20)]
+        [LightProto.ProtoMember(20)]
         public int? State { get; set; }
-        [ProtoMember(21)]
+        [ProtoBuf.ProtoMember(21)]
+        [LightProto.ProtoMember(21)]
         public string? OcoId { get; set; }
-        [ProtoMember(22)]
+        [ProtoBuf.ProtoMember(22)]
+        [LightProto.ProtoMember(22)]
         public string? RouteFactor { get; set; }
-        [ProtoMember(23)]
-        public string? SymbolId { get; set; }
-        [ProtoMember(24)]
+        [ProtoBuf.ProtoMember(23)]
+        [LightProto.ProtoMember(23)]
+        public string? SymbolIdInt { get; set; }
+        [ProtoBuf.ProtoMember(24)]
+        [LightProto.ProtoMember(24)]
         public string? MarketId { get; set; }
-        [ProtoMember(25)]
+        [ProtoBuf.ProtoMember(25)]
+        [LightProto.ProtoMember(25)]
         public string? MarketCurrencyId { get; set; }
-        [ProtoMember(26)]
+        [ProtoBuf.ProtoMember(26)]
+        [LightProto.ProtoMember(26)]
         public string? CurrencyId { get; set; }
 
         public MexcUserOrderUpdate ToModel()

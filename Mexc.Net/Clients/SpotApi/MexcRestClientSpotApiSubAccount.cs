@@ -1,7 +1,6 @@
 using Mexc.Net.Enums;
 using Mexc.Net.Objects.Models.Spot;
 using Mexc.Net.Interfaces.Clients.SpotApi;
-using Mexc.Net.Objects.Models;
 
 namespace Mexc.Net.Clients.SpotApi
 {

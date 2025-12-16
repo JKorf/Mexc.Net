@@ -1,179 +1,56 @@
-﻿using Mexc.Net.Objects.Models.Spot;
-using ProtoBuf;
-
-namespace Mexc.Net.Objects.Models.Protobuf
+﻿namespace Mexc.Net.Objects.Models.Protobuf
 {
-    [ProtoContract]
-    internal abstract class MexcUpdate<T>
-    {
-        [JsonPropertyName("c")]
-        public abstract string Channel { get; set; }
-        [JsonPropertyName("s")]
-        public abstract string Symbol { get; set; }
-        public abstract long CreateTime { get; set; }
-        [JsonPropertyName("t")]
-        public abstract long SendTime { get; set; }
-        public abstract T Data { get; set; }
-    }
+    [LightProto.ProtoContract]
+    [ProtoBuf.ProtoContract]
 
-    [ProtoContract]
-    internal class MexcUpdateTrades : MexcUpdate<ProtoTradeUpdate>
-    {
-        [ProtoMember(1)]
-        public override string Channel { get; set; } = string.Empty;
-        [ProtoMember(3)]
-        public override string Symbol { get; set; } = string.Empty;
-        [ProtoMember(5)]
-        public override long CreateTime { get; set; }
-        [ProtoMember(6)]
-        public override long SendTime { get; set; }
-        [ProtoMember(314)]
-        public override ProtoTradeUpdate Data { get; set; } = default!;
-    }
+    [LightProto.ProtoInclude(314, typeof(MexcUpdateTrades))]
+    [ProtoBuf.ProtoInclude(314, typeof(MexcUpdateTrades))]
 
-    [ProtoContract]
-    internal class MexcUpdateKlines : MexcUpdate<ProtoStreamKline>
-    {
-        [ProtoMember(1)]
-        public override string Channel { get; set; } = string.Empty;
-        [ProtoMember(3)]
-        public override string Symbol { get; set; } = string.Empty;
-        [ProtoMember(5)]
-        public override long CreateTime { get; set; }
-        [ProtoMember(6)]
-        public override long SendTime { get; set; }
-        [ProtoMember(308)]
-        public override ProtoStreamKline Data { get; set; } = default!;
-    }
+    [LightProto.ProtoInclude(302, typeof(MexcUpdateOrderBookIncrease))]
+    [ProtoBuf.ProtoInclude(302, typeof(MexcUpdateOrderBookIncrease))]
 
-    [ProtoContract]
-    internal class MexcUpdateBookTicker : MexcUpdate<ProtoStreamBookTickerUpdate>
-    {
-        [ProtoMember(1)]
-        public override string Channel { get; set; } = string.Empty;
-        [ProtoMember(3)]
-        public override string Symbol { get; set; } = string.Empty;
-        [ProtoMember(5)]
-        public override long CreateTime { get; set; }
-        [ProtoMember(6)]
-        public override long SendTime { get; set; }
-        [ProtoMember(311)]
-        public override ProtoStreamBookTickerUpdate Data { get; set; } = default!;
-    }
+    [LightProto.ProtoInclude(303, typeof(MexcUpdateOrderBookLimit))]
+    [ProtoBuf.ProtoInclude(303, typeof(MexcUpdateOrderBookLimit))]
 
-    [ProtoContract]
-    internal class MexcUpdateOrderBook : MexcUpdate<ProtoOrderBookUpdate>
-    {
-        [ProtoMember(1)]
-        public override string Channel { get; set; } = string.Empty;
-        [ProtoMember(3)]
-        public override string Symbol { get; set; } = string.Empty;
-        [ProtoMember(5)]
-        public override long CreateTime { get; set; }
-        [ProtoMember(6)]
-        public override long SendTime { get; set; }
-        [ProtoMember(313)]
-        public override ProtoOrderBookUpdate Data { get; set; } = default!;
-    }
+    [LightProto.ProtoInclude(304, typeof(MexcUpdateOrder))]
+    [ProtoBuf.ProtoInclude(304, typeof(MexcUpdateOrder))]
 
-    [ProtoContract]
-    internal class MexcUpdateAggOrderBook : MexcUpdate<ProtoAggOrderBookUpdate>
-    {
-        [ProtoMember(1)]
-        public override string Channel { get; set; } = string.Empty;
-        [ProtoMember(3)]
-        public override string Symbol { get; set; } = string.Empty;
-        [ProtoMember(5)]
-        public override long CreateTime { get; set; }
-        [ProtoMember(6)]
-        public override long SendTime { get; set; }
-        [ProtoMember(312)]
-        public override ProtoAggOrderBookUpdate Data { get; set; } = default!;
-    }
+    [LightProto.ProtoInclude(306, typeof(MexcUpdateUserTrade))]
+    [ProtoBuf.ProtoInclude(306, typeof(MexcUpdateUserTrade))]
+    
+    [LightProto.ProtoInclude(313, typeof(MexcUpdateOrderBook))]
+    [ProtoBuf.ProtoInclude(313, typeof(MexcUpdateOrderBook))]
 
-    [ProtoContract]
-    internal class MexcUpdatePartialOrderBook : MexcUpdate<ProtoOrderBookUpdate>
-    {
-        [ProtoMember(1)]
-        public override string Channel { get; set; } = string.Empty;
-        [ProtoMember(3)]
-        public override string Symbol { get; set; } = string.Empty;
-        [ProtoMember(5)]
-        public override long CreateTime { get; set; }
-        [ProtoMember(6)]
-        public override long SendTime { get; set; }
-        [ProtoMember(303)]
-        public override ProtoOrderBookUpdate Data { get; set; } = default!;
-    }
+    [LightProto.ProtoInclude(307, typeof(MexcUpdateAccount))]
+    [ProtoBuf.ProtoInclude(307, typeof(MexcUpdateAccount))]
 
-    [ProtoContract]
-    internal class MexcUpdateAccount : MexcUpdate<ProtoAccountUpdate>
-    {
-        [ProtoMember(1)]
-        public override string Channel { get; set; } = string.Empty;
-        [ProtoMember(3)]
-        public override string Symbol { get; set; } = string.Empty;
-        [ProtoMember(5)]
-        public override long CreateTime { get; set; }
-        [ProtoMember(6)]
-        public override long SendTime { get; set; }
-        [ProtoMember(307)]
-        public override ProtoAccountUpdate Data { get; set; } = default!;
-    }
+    [LightProto.ProtoInclude(308, typeof(MexcUpdateKlines))]
+    [ProtoBuf.ProtoInclude(308, typeof(MexcUpdateKlines))]
 
-    [ProtoContract]
-    internal class MexcUpdateOrder : MexcUpdate<ProtoOrderUpdate>
-    {
-        [ProtoMember(1)]
-        public override string Channel { get; set; } = string.Empty;
-        [ProtoMember(3)]
-        public override string Symbol { get; set; } = string.Empty;
-        [ProtoMember(5)]
-        public override long CreateTime { get; set; }
-        [ProtoMember(6)]
-        public override long SendTime { get; set; }
-        [ProtoMember(304)]
-        public override ProtoOrderUpdate Data { get; set; } = default!;
-    }
+    [LightProto.ProtoInclude(309, typeof(MexcUpdateMiniTicker))]
+    [ProtoBuf.ProtoInclude(309, typeof(MexcUpdateMiniTicker))]
 
-    [ProtoContract]
-    internal class MexcUpdateUserTrade : MexcUpdate<ProtoUserTradeUpdate>
-    {
-        [ProtoMember(1)]
-        public override string Channel { get; set; } = string.Empty;
-        [ProtoMember(3)]
-        public override string Symbol { get; set; } = string.Empty;
-        [ProtoMember(5)]
-        public override long CreateTime { get; set; }
-        [ProtoMember(6)]
-        public override long SendTime { get; set; }
-        [ProtoMember(306)]
-        public override ProtoUserTradeUpdate Data { get; set; } = default!;
-    }
+    [LightProto.ProtoInclude(310, typeof(MexcUpdateMiniTickers))]
+    [ProtoBuf.ProtoInclude(310, typeof(MexcUpdateMiniTickers))]
 
-    internal class MexcUpdateMiniTicker: MexcUpdate<MexcStreamMiniTick>
+    [LightProto.ProtoInclude(311, typeof(MexcUpdateBookTickers))]
+    [ProtoBuf.ProtoInclude(311, typeof(MexcUpdateBookTickers))]
+    internal partial class MexcUpdate
     {
-        [JsonPropertyName("c")]
-        public override string Channel { get; set; } = string.Empty;
-        [JsonPropertyName("s")]
-        public override string Symbol { get; set; } = string.Empty;
-        public override long CreateTime { get; set; }
-        [JsonPropertyName("t")]
-        public override long SendTime { get; set; }
-        [JsonPropertyName("d")]
-        public override MexcStreamMiniTick Data { get; set; } = default!;
-    }
-
-    internal class MexcUpdateMiniTickers : MexcUpdate<MexcStreamMiniTick[]>
-    {
-        [JsonPropertyName("c")]
-        public override string Channel { get; set; } = string.Empty;
-        [JsonPropertyName("s")]
-        public override string Symbol { get; set; } = string.Empty;
-        public override long CreateTime { get; set; }
-        [JsonPropertyName("t")]
-        public override long SendTime { get; set; }
-        [JsonPropertyName("d")]
-        public override MexcStreamMiniTick[] Data { get; set; } = default!;
+        [LightProto.ProtoMember(1)]
+        [ProtoBuf.ProtoMember(1)]
+        public string Channel { get; set; } = string.Empty;
+        [LightProto.ProtoMember(3)]
+        [ProtoBuf.ProtoMember(3)]
+        public string Symbol { get; set; } = string.Empty;
+        [LightProto.ProtoMember(4)]
+        [ProtoBuf.ProtoMember(4)]
+        public string SymbolId { get; set; } = string.Empty;
+        [LightProto.ProtoMember(5)]
+        [ProtoBuf.ProtoMember(5)]
+        public long CreateTime { get; set; }
+        [LightProto.ProtoMember(6)]
+        [ProtoBuf.ProtoMember(6)]
+        public long SendTime { get; set; }
     }
 }

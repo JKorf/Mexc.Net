@@ -1,5 +1,5 @@
 > { "method": "sub.ticker", "param": {"symbol":"ETH_USDT"}} 
-< { "method": "rs.sub.ticker", "param": {"symbol":"ETH_USDT"}} 
+< { "channel": "rs.sub.ticker", "param": {"symbol":"ETH_USDT"}} 
 = 
 {
     "channel":"push.ticker",

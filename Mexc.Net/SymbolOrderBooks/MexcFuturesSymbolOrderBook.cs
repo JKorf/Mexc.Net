@@ -3,7 +3,6 @@ using CryptoExchange.Net.OrderBook;
 using Mexc.Net.Clients;
 using Mexc.Net.Interfaces.Clients;
 using Mexc.Net.Objects.Models.Futures;
-using Mexc.Net.Objects.Models.Spot;
 using Mexc.Net.Objects.Options;
 
 namespace Mexc.Net.SymbolOrderBooks

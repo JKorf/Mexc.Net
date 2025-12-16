@@ -8,11 +8,11 @@ namespace Mexc.Net.Objects.Sockets.Models
         [JsonPropertyName("method")]
         [ProtoMember(1)]
         public string Method { get; set; } = string.Empty;
-        [JsonPropertyName("params")]
+        [JsonPropertyName("params"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         [ProtoMember(2)]
-        public string[] Parameters { get; set; } = Array.Empty<string>();
+        public string[]? Parameters { get; set; }
         [JsonPropertyName("id")]
-        [ProtoMember(3)]
+        [ProtoMember(3), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public int Id { get; set; }
     }
 }

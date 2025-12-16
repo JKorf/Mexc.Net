@@ -1,21 +1,20 @@
-﻿using CryptoExchange.Net.Objects.Sockets;
-using CryptoExchange.Net.Sockets;
+﻿using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Sockets.Default;
 using Mexc.Net.Enums;
-using Mexc.Net.Objects.Models.Protobuf;
 using Mexc.Net.Objects.Sockets.Models;
 using Mexc.Net.Objects.Sockets.Queries;
 
 namespace Mexc.Net.Objects.Sockets.Subscriptions
 {
-    internal class MexcFuturesSubscription<T> : Subscription<MexcFuturesUpdate<string>, MexcFuturesUpdate<string>>
+    internal class MexcFuturesSubscription<T> : Subscription
     {
         private string _topic;
         private string? _symbol;
         private FuturesKlineInterval? _interval;
         private int? _limit;
-        private readonly Action<DataEvent<T>> _handler;
+        private readonly Action<DateTime, string?, MexcFuturesUpdate<T>> _handler;
 
-        public MexcFuturesSubscription(ILogger logger, string topic, string? symbol, FuturesKlineInterval? interval, int? limit, Action<DataEvent<T>> handler, bool authenticated) : base(logger, authenticated)
+        public MexcFuturesSubscription(ILogger logger, string topic, string? symbol, FuturesKlineInterval? interval, int? limit, Action<DateTime, string?, MexcFuturesUpdate<T>> handler, bool authenticated) : base(logger, authenticated)
         {
             _topic = topic;
             _symbol = symbol;
@@ -24,11 +23,12 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
             _handler = handler;
 
             MessageMatcher = MessageMatcher.Create<MexcFuturesUpdate<T>>("push." + _topic + symbol, DoHandleMessage);
+            MessageRouter = MessageRouter.CreateWithOptionalTopicFilter<MexcFuturesUpdate<T>>("push." + _topic, symbol, DoHandleMessage);
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<MexcFuturesUpdate<T>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<T> message)
         {
-            _handler.Invoke(message.As(message.Data.Data, message.Data.Channel, message.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(message.Data.Timestamp));
+            _handler.Invoke(receiveTime, originalData, message);
             return CallResult.SuccessResult;
         }
 

@@ -1,4 +1,5 @@
-﻿using CryptoExchange.Net.Objects.Options;
+﻿using CryptoExchange.Net.Interfaces.Clients;
+using CryptoExchange.Net.Objects.Options;
 using Mexc.Net.Interfaces.Clients.FuturesApi;
 using Mexc.Net.Interfaces.Clients.SpotApi;
 

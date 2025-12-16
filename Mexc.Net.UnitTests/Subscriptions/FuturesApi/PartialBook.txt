@@ -1,5 +1,5 @@
 > { "method": "sub.depth.full", "param": {"symbol":"ETH_USDT"}} 
-< { "method": "rs.sub.depth.full", "param": {"symbol":"ETH_USDT"}} 
+< { "channel": "rs.sub.depth.full", "param": {"symbol":"ETH_USDT"}} 
 = 
 {
     "channel":"push.depth.full",

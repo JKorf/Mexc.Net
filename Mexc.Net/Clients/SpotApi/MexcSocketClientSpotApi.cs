@@ -1,10 +1,15 @@
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.MessageParsing;
+using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
 using CryptoExchange.Net.Converters.Protobuf;
 using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Sockets.Default;
+using CryptoExchange.Net.Sockets.HighPerf.Interfaces;
+using CryptoExchange.Net.Sockets.Interfaces;
+using Mexc.Net.Clients.MessageHandlers;
 using Mexc.Net.Converters;
 using Mexc.Net.Enums;
 using Mexc.Net.Interfaces.Clients.SpotApi;
@@ -14,7 +19,6 @@ using Mexc.Net.Objects.Models.Spot;
 using Mexc.Net.Objects.Options;
 using Mexc.Net.Objects.Sockets.Queries;
 using Mexc.Net.Objects.Sockets.Subscriptions;
-using ProtoBuf.Serializers;
 using System.Net.WebSockets;
 
 namespace Mexc.Net.Clients.SpotApi
@@ -30,6 +34,11 @@ namespace Mexc.Net.Clients.SpotApi
 
         #region constructor/destructor
 
+        // Note, this client doens't have HighPerf variant subscriptions for 2 reasons:
+        // 1. The socket sends mixed Text and Binary message
+        // 2. The protobuf messages send in Binary format are not (lenght) delimited, making it impossible to continuously deserialize as is.
+        // Implementing a work around for this would not be as performant and defeats the idea of the HighPerf subscription
+
         internal MexcSocketClientSpotApi(ILogger logger, MexcSocketOptions options) :
             base(logger, options.Environment.SpotSocketAddress, options, options.SpotOptions)
         {
@@ -37,6 +46,7 @@ namespace Mexc.Net.Clients.SpotApi
             RateLimiter = MexcExchange.RateLimiter.SpotSocket;
 
             MessageSendSizeLimit = 1024;
+            MaxIndividualSubscriptionsPerConnection = 30;
 
             RegisterPeriodicQuery(
                 "Ping",
@@ -54,6 +64,13 @@ namespace Mexc.Net.Clients.SpotApi
         }
 
         #endregion
+        public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType)
+        {
+            if (messageType == WebSocketMessageType.Text)
+                return new MexcSocketSpotMessageHandler();
+
+            return new MexcProtobufMessageHandler();
+        }
 
         protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType type) =>
             type == WebSocketMessageType.Binary ? new ProtobufByteMessageAccessor<SocketEvent>(ProtobufInclude.Model) :
@@ -93,10 +110,31 @@ namespace Mexc.Net.Clients.SpotApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, int interval, Action<DataEvent<MexcStreamTrade[]>> handler, CancellationToken ct = default)
             => await SubscribeToTradeUpdatesAsync(new[] { symbol }, interval, handler, ct).ConfigureAwait(false);
 
+        private DateTime? GetDataTimestamp(long sendTime, long createTime)
+        {
+            var time = sendTime != 0 ? sendTime : createTime;
+            if (time == 0)
+                return null;
+
+            return DateTimeConverter.ParseFromDecimal(time);
+        }
+
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(IEnumerable<string> symbols, int interval, Action<DataEvent<MexcStreamTrade[]>> handler, CancellationToken ct = default)
         {
-            var subscription = new MexcSubscription<MexcUpdateTrades, ProtoTradeUpdate>(_logger, symbols.Select(s => "spot@public.aggre.deals.v3.api.pb@"+interval+"ms@" + s), x => handler(x.As(x.Data.Data.Select(x => x.ToModel()).ToArray())), false);
+            var internalHandler = new Action<DateTime, string?, MexcUpdateTrades>((receiveTime, originalData, data) =>
+            {
+                handler(
+                    new DataEvent<MexcStreamTrade[]>(MexcExchange.ExchangeName, data.Data.Select(x => x.ToModel()).ToArray(), receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime))
+                        .WithSymbol(data.Symbol)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
+            var subscription = new MexcSubscription<MexcUpdateTrades>(_logger, symbols.Select(s => "spot@public.aggre.deals.v3.api.pb@"+interval+"ms@" + s).ToArray(),
+                internalHandler, false);
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
 
@@ -107,7 +145,18 @@ namespace Mexc.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(IEnumerable<string> symbols, KlineInterval interval, Action<DataEvent<MexcStreamKline>> handler, CancellationToken ct = default)
         {
-            var subscription = new MexcSubscription<MexcUpdateKlines, ProtoStreamKline>(_logger, symbols.Select(s => "spot@public.kline.v3.api.pb@" + s + "@" + GetIntervalString(interval)), x => handler(x.As(x.Data.ToModel())), false);
+            var internalHandler = new Action<DateTime, string?, MexcUpdateKlines>((receiveTime, originalData, data) =>
+            {
+                handler(
+                    new DataEvent<MexcStreamKline>(MexcExchange.ExchangeName, data.ToModel(), receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime))
+                        .WithSymbol(data.Symbol)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
+            var subscription = new MexcSubscription<MexcUpdateKlines>(_logger, symbols.Select(s => "spot@public.kline.v3.api.pb@" + s + "@" + GetIntervalString(interval)).ToArray(), internalHandler, false);
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
 
@@ -122,18 +171,18 @@ namespace Mexc.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(IEnumerable<string> symbols, int updateInterval, Action<DataEvent<MexcStreamOrderBook>> handler, CancellationToken ct = default)
         {
-            var subscription = new MexcSubscription<MexcUpdateOrderBook, ProtoOrderBookUpdate>(_logger, symbols.Select(s => "spot@public.aggre.depth.v3.api.pb@" + updateInterval + "ms@" + s), x => handler(x.As(x.Data.ToModel())), false);
-            return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
-        }
+            var internalHandler = new Action<DateTime, string?, MexcUpdateOrderBook>((receiveTime, originalData, data) =>
+            {
+                handler(
+                    new DataEvent<MexcStreamOrderBook>(MexcExchange.ExchangeName, data.ToModel(), receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime))
+                        .WithSymbol(data.Symbol)
+                        .WithStreamId(data.Channel)
+                    );
+            });
 
-        /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToAggregatedOrderBookUpdatesAsync(string symbol, Action<DataEvent<MexcStreamOrderBook[]>> handler, CancellationToken ct = default)
-            => await SubscribeToAggregatedOrderBookUpdatesAsync(new[] { symbol }, handler, ct).ConfigureAwait(false);
-
-        /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToAggregatedOrderBookUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<MexcStreamOrderBook[]>> handler, CancellationToken ct = default)
-        {
-            var subscription = new MexcSubscription<MexcUpdateAggOrderBook, ProtoAggOrderBookUpdate>(_logger, symbols.Select(s => "spot@public.increase.depth.batch.v3.api.pb@" + s), x => handler(x.As(x.Data.Data.Select(x => x.ToModel()).ToArray())), false);
+            var subscription = new MexcSubscription<MexcUpdateOrderBook>(_logger, symbols.Select(s => "spot@public.aggre.depth.v3.api.pb@" + updateInterval + "ms@" + s).ToArray(), internalHandler, false);
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
 
@@ -146,7 +195,18 @@ namespace Mexc.Net.Clients.SpotApi
         {
             depth.ValidateIntValues(nameof(depth), 5, 10, 20);
 
-            var subscription = new MexcSubscription<MexcUpdatePartialOrderBook, ProtoOrderBookUpdate>(_logger, symbols.Select(s => "spot@public.limit.depth.v3.api.pb@" + s + "@" + depth), x => handler(x.As(x.Data.ToModel())), false);
+            var internalHandler = new Action<DateTime, string?, MexcUpdateOrderBookLimit>((receiveTime, originalData, data) =>
+            {
+                handler(
+                    new DataEvent<MexcStreamOrderBook>(MexcExchange.ExchangeName, data.ToModel(), receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime))
+                        .WithSymbol(data.Symbol)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
+            var subscription = new MexcSubscription<MexcUpdateOrderBookLimit>(_logger, symbols.Select(s => "spot@public.limit.depth.v3.api.pb@" + s + "@" + depth).ToArray(), internalHandler, false);
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
 
@@ -157,7 +217,58 @@ namespace Mexc.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<MexcStreamBookTick>> handler, CancellationToken ct = default)
         {
-            var subscription = new MexcSubscription<MexcUpdateBookTicker, ProtoStreamBookTickerUpdate>(_logger, symbols.Select(s => "spot@public.bookTicker.batch.v3.api.pb@" + s), x => handler(x.As(x.Data.Data.First().ToModel())), false);
+            var internalHandler = new Action<DateTime, string?, MexcUpdateBookTickers>((receiveTime, originalData, data) =>
+            {
+                handler(
+                    new DataEvent<MexcStreamBookTick>(MexcExchange.ExchangeName, data.Data.First().ToModel(), receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime))
+                        .WithSymbol(data.Symbol)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
+            var subscription = new MexcSubscription<MexcUpdateBookTickers>(_logger, symbols.Select(s => "spot@public.bookTicker.batch.v3.api.pb@" + s).ToArray(), internalHandler, false);
+            return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToMiniTickerUpdatesAsync(string symbol, Action<DataEvent<MexcMiniTickUpdate>> handler, CancellationToken ct = default)
+            => await SubscribeToMiniTickerUpdatesAsync(new[] { symbol }, handler, ct).ConfigureAwait(false);
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToMiniTickerUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<MexcMiniTickUpdate>> handler, CancellationToken ct = default)
+        {
+            var internalHandler = new Action<DateTime, string?, MexcUpdateMiniTicker>((receiveTime, originalData, data) =>
+            {
+                handler(
+                    new DataEvent<MexcMiniTickUpdate>(MexcExchange.ExchangeName, data.ToModel(), receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime))
+                        .WithSymbol(data.Symbol)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
+            var subscription = new MexcSubscription<MexcUpdateMiniTicker>(_logger, symbols.Select(s => "spot@public.miniTicker.v3.api.pb@" + s + "@UTC+0").ToArray(), internalHandler, false);
+            return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToAllMiniTickerUpdatesAsync(Action<DataEvent<MexcMiniTickUpdate[]>> handler, CancellationToken ct = default)
+        {
+            var internalHandler = new Action<DateTime, string?, MexcUpdateMiniTickers>((receiveTime, originalData, data) =>
+            {
+                handler(
+                    new DataEvent<MexcMiniTickUpdate[]>(MexcExchange.ExchangeName, data.Tickers.Select(x => x.ToModel()).ToArray(), receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime))
+                        .WithSymbol(data.Symbol)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
+            var subscription = new MexcSubscription<MexcUpdateMiniTickers>(_logger, ["spot@public.miniTickers.v3.api.pb@UTC+0"], internalHandler, false);
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
 
@@ -166,7 +277,18 @@ namespace Mexc.Net.Clients.SpotApi
         {
             listenKey.ValidateNotNull(nameof(listenKey));
 
-            var subscription = new MexcSubscription<MexcUpdateAccount, ProtoAccountUpdate>(_logger, new[] { "spot@private.account.v3.api.pb" }, x => handler(x.As(x.Data.ToModel())), true);
+            var internalHandler = new Action<DateTime, string?, MexcUpdateAccount>((receiveTime, originalData, data) =>
+            {
+                handler(
+                    new DataEvent<MexcAccountUpdate>(MexcExchange.ExchangeName, data.ToModel(), receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime))
+                        .WithSymbol(data.Symbol)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
+            var subscription = new MexcSubscription<MexcUpdateAccount>(_logger, new[] { "spot@private.account.v3.api.pb" }, internalHandler, true);
             return await SubscribeAsync(BaseAddress + "?listenKey=" + listenKey, subscription, ct).ConfigureAwait(false);
         }
 
@@ -175,7 +297,18 @@ namespace Mexc.Net.Clients.SpotApi
         {
             listenKey.ValidateNotNull(nameof(listenKey));
 
-            var subscription = new MexcSubscription<MexcUpdateOrder, ProtoOrderUpdate>(_logger, new[] { "spot@private.orders.v3.api.pb" }, x => handler(x.As(x.Data.ToModel())), true);
+            var internalHandler = new Action<DateTime, string?, MexcUpdateOrder>((receiveTime, originalData, data) =>
+            {
+                handler(
+                    new DataEvent<MexcUserOrderUpdate>(MexcExchange.ExchangeName, data.ToModel(), receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime))
+                        .WithSymbol(data.Symbol)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
+            var subscription = new MexcSubscription<MexcUpdateOrder>(_logger, new[] { "spot@private.orders.v3.api.pb" }, internalHandler, true);
             return await SubscribeAsync(BaseAddress + "?listenKey=" + listenKey, subscription, ct).ConfigureAwait(false);
         }
 
@@ -184,14 +317,24 @@ namespace Mexc.Net.Clients.SpotApi
         {
             listenKey.ValidateNotNull(nameof(listenKey));
 
-            var subscription = new MexcSubscription<MexcUpdateUserTrade, ProtoUserTradeUpdate>(_logger, new[] { "spot@private.deals.v3.api.pb" }, x => handler(x.As(x.Data.ToModel())), true);
+            var internalHandler = new Action<DateTime, string?, MexcUpdateUserTrade>((receiveTime, originalData, data) =>
+            {
+                handler(
+                    new DataEvent<MexcUserTradeUpdate>(MexcExchange.ExchangeName, data.ToModel(), receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime))
+                        .WithSymbol(data.Symbol)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+            var subscription = new MexcSubscription<MexcUpdateUserTrade>(_logger, new[] { "spot@private.deals.v3.api.pb" }, internalHandler, true);
             return await SubscribeAsync(BaseAddress + "?listenKey=" + listenKey, subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        protected override async Task<Uri?> GetReconnectUriAsync(SocketConnection connection)
+        protected override async Task<Uri?> GetReconnectUriAsync(ISocketConnection connection)
         {
-            if (connection.Subscriptions.Any(s => s.Authenticated))
+            if (connection.HasAuthenticatedSubscription)
             {
                 // If any of the subs on the connection is authenticated we request a new listenkey
                 // to prevent endlessly looping if the listenkey happens to be expired

@@ -1,8 +1,6 @@
-using System.Diagnostics;
 using Mexc.Net.Enums;
 using Mexc.Net.Objects.Models.Futures;
 using Mexc.Net.Interfaces.Clients.FuturesApi;
-using Mexc.Net.Objects.Models;
 using CryptoExchange.Net.RateLimiting.Guards;
 
 namespace Mexc.Net.Clients.FuturesApi

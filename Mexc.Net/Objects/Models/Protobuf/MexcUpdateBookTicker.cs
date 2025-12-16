@@ -1,23 +1,22 @@
 ﻿using Mexc.Net.Objects.Models.Spot;
-using ProtoBuf;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Mexc.Net.Objects.Models.Protobuf
 {
-    [ProtoContract]
-    internal record ProtoStreamBookTicker
+    [ProtoBuf.ProtoContract]
+    [LightProto.ProtoContract]
+    internal partial record MexcUpdateBookTicker
     {
-        [ProtoMember(1)]
+        [ProtoBuf.ProtoMember(1)]
+        [LightProto.ProtoMember(1)]
         public string BidPrice { get; set; } = string.Empty;
-        [ProtoMember(2)]
+        [ProtoBuf.ProtoMember(2)]
+        [LightProto.ProtoMember(2)]
         public string BidQuantity { get; set; } = string.Empty;
-        [ProtoMember(3)]
+        [ProtoBuf.ProtoMember(3)]
+        [LightProto.ProtoMember(3)]
         public string AskPrice { get; set; } = string.Empty;
-        [ProtoMember(4)]
+        [ProtoBuf.ProtoMember(4)]
+        [LightProto.ProtoMember(4)]
         public string AskQuantity { get; set; } = string.Empty;
 
 
