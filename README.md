@@ -151,6 +151,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 4.0.1 - 18 Dec 2025
+    * Added overloads for socketClient.SpotApi.SubscribeToMiniTickerUpdatesAsync specifying timezone, updated default to 24h ticker
+
 * Version 4.0.0 - 16 Dec 2025
     * Added Net10.0 target framework
     * Updated CryptoExchange.Net version to 10.0.0, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
