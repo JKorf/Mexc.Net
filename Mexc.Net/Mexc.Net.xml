@@ -570,7 +570,13 @@
         <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToMiniTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcMiniTickUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToMiniTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcMiniTickUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToAllMiniTickerUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcMiniTickUpdate[]}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToAllMiniTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcMiniTickUpdate[]}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.SubscribeToAccountUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcAccountUpdate}},System.Threading.CancellationToken)">
@@ -4094,10 +4100,27 @@
             <param name="handler">Data handler</param>
             <param name="ct">Cancellation token</param>
         </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToMiniTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcMiniTickUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to mini ticker updates for all symbols
+            </summary>
+            <param name="symbols">The symbols, for example `BTCUSDT`</param>
+            <param name="timeZone">The time zone for calculating the data. Either `24H` or a timezone like `UTC+2`</param>
+            <param name="handler">Data handler</param>
+            <param name="ct">Cancellation token</param>
+        </member>
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToAllMiniTickerUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcMiniTickUpdate[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to mini ticker updates for all symbols
             </summary>
+            <param name="handler">Data handler</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToAllMiniTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcMiniTickUpdate[]}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to mini ticker updates for all symbols
+            </summary>
+            <param name="timeZone">The time zone for calculating the data. Either `24H` or a timezone like `UTC+2`</param>
             <param name="handler">Data handler</param>
             <param name="ct">Cancellation token</param>
         </member>

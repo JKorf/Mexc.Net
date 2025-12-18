@@ -19,6 +19,7 @@ using Mexc.Net.Objects.Models.Spot;
 using Mexc.Net.Objects.Options;
 using Mexc.Net.Objects.Sockets.Queries;
 using Mexc.Net.Objects.Sockets.Subscriptions;
+using System.Collections.Generic;
 using System.Net.WebSockets;
 
 namespace Mexc.Net.Clients.SpotApi
@@ -234,10 +235,14 @@ namespace Mexc.Net.Clients.SpotApi
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToMiniTickerUpdatesAsync(string symbol, Action<DataEvent<MexcMiniTickUpdate>> handler, CancellationToken ct = default)
-            => await SubscribeToMiniTickerUpdatesAsync(new[] { symbol }, handler, ct).ConfigureAwait(false);
+            => await SubscribeToMiniTickerUpdatesAsync(new[] { symbol }, null, handler, ct).ConfigureAwait(false);
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToMiniTickerUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<MexcMiniTickUpdate>> handler, CancellationToken ct = default)
+            => await SubscribeToMiniTickerUpdatesAsync(symbols, null, handler, ct).ConfigureAwait(false);
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToMiniTickerUpdatesAsync(IEnumerable<string> symbols, string? timeZone, Action<DataEvent<MexcMiniTickUpdate>> handler, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, MexcUpdateMiniTicker>((receiveTime, originalData, data) =>
             {
@@ -250,12 +255,16 @@ namespace Mexc.Net.Clients.SpotApi
                     );
             });
 
-            var subscription = new MexcSubscription<MexcUpdateMiniTicker>(_logger, symbols.Select(s => "spot@public.miniTicker.v3.api.pb@" + s + "@UTC+0").ToArray(), internalHandler, false);
+            var subscription = new MexcSubscription<MexcUpdateMiniTicker>(_logger, symbols.Select(s => "spot@public.miniTicker.v3.api.pb@" + s + "@" + (timeZone ?? "24H")).ToArray(), internalHandler, false);
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToAllMiniTickerUpdatesAsync(Action<DataEvent<MexcMiniTickUpdate[]>> handler, CancellationToken ct = default)
+        public Task<CallResult<UpdateSubscription>> SubscribeToAllMiniTickerUpdatesAsync(Action<DataEvent<MexcMiniTickUpdate[]>> handler, CancellationToken ct = default)
+            => SubscribeToAllMiniTickerUpdatesAsync(null, handler);
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToAllMiniTickerUpdatesAsync(string? timeZone, Action<DataEvent<MexcMiniTickUpdate[]>> handler, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, MexcUpdateMiniTickers>((receiveTime, originalData, data) =>
             {
@@ -268,7 +277,7 @@ namespace Mexc.Net.Clients.SpotApi
                     );
             });
 
-            var subscription = new MexcSubscription<MexcUpdateMiniTickers>(_logger, ["spot@public.miniTickers.v3.api.pb@UTC+0"], internalHandler, false);
+            var subscription = new MexcSubscription<MexcUpdateMiniTickers>(_logger, ["spot@public.miniTickers.v3.api.pb@" + (timeZone ?? "24H")], internalHandler, false);
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
 

@@ -168,9 +168,26 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <summary>
         /// Subscribe to mini ticker updates for all symbols
         /// </summary>
+        /// <param name="symbols">The symbols, for example `BTCUSDT`</param>
+        /// <param name="timeZone">The time zone for calculating the data. Either `24H` or a timezone like `UTC+2`</param>
+        /// <param name="handler">Data handler</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<CallResult<UpdateSubscription>> SubscribeToMiniTickerUpdatesAsync(IEnumerable<string> symbols, string? timeZone, Action<DataEvent<MexcMiniTickUpdate>> handler, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to mini ticker updates for all symbols
+        /// </summary>
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         Task<CallResult<UpdateSubscription>> SubscribeToAllMiniTickerUpdatesAsync(Action<DataEvent<MexcMiniTickUpdate[]>> handler, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to mini ticker updates for all symbols
+        /// </summary>
+        /// <param name="timeZone">The time zone for calculating the data. Either `24H` or a timezone like `UTC+2`</param>
+        /// <param name="handler">Data handler</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<CallResult<UpdateSubscription>> SubscribeToAllMiniTickerUpdatesAsync(string? timeZone, Action<DataEvent<MexcMiniTickUpdate[]>> handler, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to account balance updates. Prior to using this, the <see cref="IMexcRestClientSpotApiAccount.StartUserStreamAsync(CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method should be called to start the stream and obtaining a listen key.
