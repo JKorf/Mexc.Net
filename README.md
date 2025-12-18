@@ -151,6 +151,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 4.0.2 - 18 Dec 2025
+    * Fixed inconsistent change percentage result between socketClient.SpotApi.SubscribeToAllMiniTickerUpdatesAsync and socketClient.SpotApi.SubscribeToMiniTickerUpdatesAsync updates
+
 * Version 4.0.1 - 18 Dec 2025
     * Added overloads for socketClient.SpotApi.SubscribeToMiniTickerUpdatesAsync specifying timezone, updated default to 24h ticker
 
