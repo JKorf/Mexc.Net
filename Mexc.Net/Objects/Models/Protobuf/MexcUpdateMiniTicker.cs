@@ -48,8 +48,8 @@ namespace Mexc.Net.Objects.Models.Protobuf
             return new MexcMiniTickUpdate
             {
                 LastPrice = ExchangeHelpers.ParseDecimal(Price) ?? 0,
-                PriceChangePercentage = ExchangeHelpers.ParseDecimal(ZonedRate) ?? 0,
-                PriceChangePercentageUtc8 = ExchangeHelpers.ParseDecimal(Rate) ?? 0,
+                PriceChangePercentage = (ExchangeHelpers.ParseDecimal(ZonedRate) * 100) ?? 0,
+                PriceChangePercentageUtc8 = (ExchangeHelpers.ParseDecimal(Rate) * 100) ?? 0,
                 HighPrice = ExchangeHelpers.ParseDecimal(High) ?? 0,
                 LowPrice = ExchangeHelpers.ParseDecimal(Low) ?? 0,
                 QuoteVolume = ExchangeHelpers.ParseDecimal(Volume) ?? 0,
