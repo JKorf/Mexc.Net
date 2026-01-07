@@ -579,9 +579,6 @@
         <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.GetReconnectUriAsync(CryptoExchange.Net.Sockets.Interfaces.ISocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.GetAuthenticationRequestAsync(CryptoExchange.Net.Sockets.Default.SocketConnection)">
-            <inheritdoc />
-        </member>
         <member name="P:Mexc.Net.Converters.MexcSourceGenerationContext.Boolean">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.

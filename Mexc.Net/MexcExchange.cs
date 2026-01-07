@@ -111,7 +111,8 @@ namespace Mexc.Net
                                             .AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, new IGuardFilter[] { new LimitItemTypeFilter(RateLimitItemType.Connection) }, 100, TimeSpan.FromSeconds(1), RateLimitWindowType.Fixed)); // 100 connections per second per host
 
             SpotRest = new RateLimitGate("Spot Rest")
-                                            .AddGuard(new RateLimitGuard(RateLimitGuard.PerEndpoint, [], 500, TimeSpan.FromSeconds(10), RateLimitWindowType.Sliding)); // 500 request per 10 seconds per IP for each endpoint
+                                            // Although the documentation mentions 500 per 10 seconds the API support says to ignore that and instead limit to 20 requests per second
+                                            .AddGuard(new RateLimitGuard(RateLimitGuard.PerEndpoint, [], 20, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
 
             FuturesRest = new RateLimitGate("Futures Rest");
 
