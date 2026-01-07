@@ -105,9 +105,9 @@ namespace Mexc.Net.SymbolOrderBooks
         private void HandleUpdate(DataEvent<MexcStreamOrderBook> data)
         {
             if (Levels != null)
-                SetInitialOrderBook(long.Parse(data.Data.Sequence), data.Data.Bids, data.Data.Asks);
+                SetInitialOrderBook(long.Parse(data.Data.Sequence), data.Data.Bids, data.Data.Asks, data.DataTime, data.DataTimeLocal);
             else
-                UpdateOrderBook(long.Parse(data.Data.Sequence), data.Data.Bids, data.Data.Asks);
+                UpdateOrderBook(long.Parse(data.Data.Sequence), data.Data.Bids, data.Data.Asks, data.DataTime, data.DataTimeLocal);
         }
 
         /// <inheritdoc />

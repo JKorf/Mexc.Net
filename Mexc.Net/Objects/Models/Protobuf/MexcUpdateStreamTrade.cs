@@ -3,20 +3,15 @@ using Mexc.Net.Objects.Models.Spot;
 
 namespace Mexc.Net.Objects.Models.Protobuf
 {
-    [ProtoBuf.ProtoContract]
     [LightProto.ProtoContract]
     internal partial record MexcUpdateStreamTrade
     {
-        [ProtoBuf.ProtoMember(3)]
         [LightProto.ProtoMember(3)]
         public int Side { get; set; }
-        [ProtoBuf.ProtoMember(1)]
         [LightProto.ProtoMember(1)]
         public string Price { get; set; } = string.Empty;
-        [ProtoBuf.ProtoMember(2)]
         [LightProto.ProtoMember(2)]
         public string Quantity { get; set; } = string.Empty;
-        [ProtoBuf.ProtoMember(4)]
         [LightProto.ProtoMember(4)]
         public long Timestamp { get; set; }
 

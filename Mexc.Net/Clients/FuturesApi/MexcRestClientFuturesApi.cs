@@ -15,8 +15,6 @@ namespace Mexc.Net.Clients.FuturesApi
     /// <inheritdoc />
     internal partial class MexcRestClientFuturesApi : RestApiClient, IMexcRestClientFuturesApi
     {
-        internal static TimeSyncState _timeSyncState = new TimeSyncState("Futures Api");
-
         protected override ErrorMapping ErrorMapping => MexcErrors.FuturesErrors;
         /// <inheritdoc />
         public IMexcRestClientFuturesApiAccount Account { get; }
@@ -73,7 +71,7 @@ namespace Mexc.Net.Clients.FuturesApi
             if (!result && result.Error!.ErrorType == ErrorType.InvalidTimestamp && (ApiOptions.AutoTimestamp ?? ClientOptions.AutoTimestamp))
             {
                 _logger.Log(LogLevel.Debug, "Received Invalid Timestamp error, triggering new time sync");
-                _timeSyncState.LastSyncTime = DateTime.MinValue;
+                TimeOffsetManager.ResetRestUpdateTime(ClientName);
             }
 
             if (!result)
@@ -91,7 +89,7 @@ namespace Mexc.Net.Clients.FuturesApi
             if (!result && result.Error!.ErrorType == ErrorType.InvalidTimestamp && (ApiOptions.AutoTimestamp ?? ClientOptions.AutoTimestamp))
             {
                 _logger.Log(LogLevel.Debug, "Received Invalid Timestamp error, triggering new time sync");
-                _timeSyncState.LastSyncTime = DateTime.MinValue;
+                TimeOffsetManager.ResetRestUpdateTime(ClientName);
             }
 
             return result.AsDataless();
@@ -121,12 +119,5 @@ namespace Mexc.Net.Clients.FuturesApi
         protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
             => ExchangeData.GetServerTimeAsync();
 
-        /// <inheritdoc />
-        public override TimeSyncInfo? GetTimeSyncInfo()
-            => new TimeSyncInfo(_logger, (ApiOptions.AutoTimestamp ?? ClientOptions.AutoTimestamp), (ApiOptions.TimestampRecalculationInterval ?? ClientOptions.TimestampRecalculationInterval), _timeSyncState);
-
-        /// <inheritdoc />
-        public override TimeSpan? GetTimeOffset()
-            => _timeSyncState.TimeOffset;
     }
 }

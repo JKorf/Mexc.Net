@@ -1,7 +1,6 @@
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
-using CryptoExchange.Net.Converters.Protobuf;
 using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.SharedApis;
@@ -73,9 +72,7 @@ namespace Mexc.Net.Clients.SpotApi
             return new MexcProtobufMessageHandler();
         }
 
-        protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType type) =>
-            type == WebSocketMessageType.Binary ? new ProtobufByteMessageAccessor<SocketEvent>(ProtobufInclude.Model) :
-            new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(MexcExchange.SerializerContext));
+        protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType type) => throw new NotImplementedException();
 
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(MexcExchange.SerializerContext));
 
@@ -125,10 +122,12 @@ namespace Mexc.Net.Clients.SpotApi
         {
             var internalHandler = new Action<DateTime, string?, MexcUpdateTrades>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(DateTimeConverter.ConvertFromMilliseconds(data.SendTime));
+
                 handler(
                     new DataEvent<MexcStreamTrade[]>(MexcExchange.ExchangeName, data.Data.Select(x => x.ToModel()).ToArray(), receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime))
+                        .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime), GetTimeOffset())
                         .WithSymbol(data.Symbol)
                         .WithStreamId(data.Channel)
                     );
@@ -148,10 +147,12 @@ namespace Mexc.Net.Clients.SpotApi
         {
             var internalHandler = new Action<DateTime, string?, MexcUpdateKlines>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(DateTimeConverter.ConvertFromMilliseconds(data.SendTime));
+
                 handler(
                     new DataEvent<MexcStreamKline>(MexcExchange.ExchangeName, data.ToModel(), receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime))
+                        .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime), GetTimeOffset())
                         .WithSymbol(data.Symbol)
                         .WithStreamId(data.Channel)
                     );
@@ -174,10 +175,12 @@ namespace Mexc.Net.Clients.SpotApi
         {
             var internalHandler = new Action<DateTime, string?, MexcUpdateOrderBook>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(DateTimeConverter.ConvertFromMilliseconds(data.SendTime));
+
                 handler(
                     new DataEvent<MexcStreamOrderBook>(MexcExchange.ExchangeName, data.ToModel(), receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime))
+                        .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime), GetTimeOffset())
                         .WithSymbol(data.Symbol)
                         .WithStreamId(data.Channel)
                     );
@@ -198,10 +201,12 @@ namespace Mexc.Net.Clients.SpotApi
 
             var internalHandler = new Action<DateTime, string?, MexcUpdateOrderBookLimit>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(DateTimeConverter.ConvertFromMilliseconds(data.SendTime));
+
                 handler(
                     new DataEvent<MexcStreamOrderBook>(MexcExchange.ExchangeName, data.ToModel(), receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime))
+                        .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime), GetTimeOffset())
                         .WithSymbol(data.Symbol)
                         .WithStreamId(data.Channel)
                     );
@@ -220,10 +225,12 @@ namespace Mexc.Net.Clients.SpotApi
         {
             var internalHandler = new Action<DateTime, string?, MexcUpdateBookTickers>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(DateTimeConverter.ConvertFromMilliseconds(data.SendTime));
+
                 handler(
                     new DataEvent<MexcStreamBookTick>(MexcExchange.ExchangeName, data.Data.First().ToModel(), receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime))
+                        .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime), GetTimeOffset())
                         .WithSymbol(data.Symbol)
                         .WithStreamId(data.Channel)
                     );
@@ -246,10 +253,12 @@ namespace Mexc.Net.Clients.SpotApi
         {
             var internalHandler = new Action<DateTime, string?, MexcUpdateMiniTicker>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(DateTimeConverter.ConvertFromMilliseconds(data.SendTime));
+
                 handler(
                     new DataEvent<MexcMiniTickUpdate>(MexcExchange.ExchangeName, data.ToModel(), receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime))
+                        .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime), GetTimeOffset())
                         .WithSymbol(data.Symbol)
                         .WithStreamId(data.Channel)
                     );
@@ -268,10 +277,12 @@ namespace Mexc.Net.Clients.SpotApi
         {
             var internalHandler = new Action<DateTime, string?, MexcUpdateMiniTickers>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(DateTimeConverter.ConvertFromMilliseconds(data.SendTime));
+
                 handler(
                     new DataEvent<MexcMiniTickUpdate[]>(MexcExchange.ExchangeName, data.Tickers.Select(x => x.ToModel()).ToArray(), receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime))
+                        .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime), GetTimeOffset())
                         .WithSymbol(data.Symbol)
                         .WithStreamId(data.Channel)
                     );
@@ -288,10 +299,12 @@ namespace Mexc.Net.Clients.SpotApi
 
             var internalHandler = new Action<DateTime, string?, MexcUpdateAccount>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(DateTimeConverter.ConvertFromMilliseconds(data.SendTime));
+
                 handler(
                     new DataEvent<MexcAccountUpdate>(MexcExchange.ExchangeName, data.ToModel(), receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime))
+                        .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime), GetTimeOffset())
                         .WithSymbol(data.Symbol)
                         .WithStreamId(data.Channel)
                     );
@@ -308,10 +321,12 @@ namespace Mexc.Net.Clients.SpotApi
 
             var internalHandler = new Action<DateTime, string?, MexcUpdateOrder>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(DateTimeConverter.ConvertFromMilliseconds(data.SendTime));
+
                 handler(
                     new DataEvent<MexcUserOrderUpdate>(MexcExchange.ExchangeName, data.ToModel(), receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime))
+                        .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime), GetTimeOffset())
                         .WithSymbol(data.Symbol)
                         .WithStreamId(data.Channel)
                     );
@@ -328,10 +343,12 @@ namespace Mexc.Net.Clients.SpotApi
 
             var internalHandler = new Action<DateTime, string?, MexcUpdateUserTrade>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(DateTimeConverter.ConvertFromMilliseconds(data.SendTime));
+
                 handler(
                     new DataEvent<MexcUserTradeUpdate>(MexcExchange.ExchangeName, data.ToModel(), receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime))
+                        .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime), GetTimeOffset())
                         .WithSymbol(data.Symbol)
                         .WithStreamId(data.Channel)
                     );
@@ -364,9 +381,6 @@ namespace Mexc.Net.Clients.SpotApi
 
             return await base.GetReconnectUriAsync(connection).ConfigureAwait(false);
         }
-
-        /// <inheritdoc />
-        protected override Task<Query?> GetAuthenticationRequestAsync(SocketConnection connection) => Task.FromResult<Query?>(null);
 
         private static string GetIntervalString(KlineInterval interval)
             => interval switch

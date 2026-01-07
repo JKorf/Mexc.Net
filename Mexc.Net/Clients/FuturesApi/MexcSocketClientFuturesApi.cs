@@ -71,12 +71,6 @@ namespace Mexc.Net.Clients.FuturesApi
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
             => MexcExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
 
-        protected override Task<Query?> GetAuthenticationRequestAsync(SocketConnection connection)
-        {
-            var authProvider = (MexcFuturesAuthenticationProvider)AuthenticationProvider!;
-            return Task.FromResult<Query?>(new MexcFuturesQuery("login", authProvider.GetSocketAuthParameters(), false));
-        }
-
         public IMexcSocketClientFuturesApiShared SharedClient => this;
 
         /// <inheritdoc />
@@ -84,10 +78,12 @@ namespace Mexc.Net.Clients.FuturesApi
         {
             var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcFuturesTickerUpdate[]>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 handler(
                     new DataEvent<MexcFuturesTickerUpdate[]>(MexcExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(data.Symbol)
                         .WithStreamId(data.Channel)
                     );
@@ -102,10 +98,12 @@ namespace Mexc.Net.Clients.FuturesApi
         {
             var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcFuturesTicker>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 handler(
                     new DataEvent<MexcFuturesTicker>(MexcExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(data.Symbol)
                         .WithStreamId(data.Channel)
                     );
@@ -120,10 +118,12 @@ namespace Mexc.Net.Clients.FuturesApi
         {
             var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcFuturesTrade[]>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 handler(
                     new DataEvent<MexcFuturesTrade[]>(MexcExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(data.Symbol)
                         .WithStreamId(data.Channel)
                     );
@@ -138,10 +138,12 @@ namespace Mexc.Net.Clients.FuturesApi
         {
             var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcFuturesStreamKline>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 handler(
                     new DataEvent<MexcFuturesStreamKline>(MexcExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(data.Symbol)
                         .WithStreamId(data.Channel)
                     );
@@ -156,10 +158,12 @@ namespace Mexc.Net.Clients.FuturesApi
         {
             var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcFuturesOrderBook>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 handler(
                     new DataEvent<MexcFuturesOrderBook>(MexcExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(data.Symbol)
                         .WithStreamId(data.Channel)
                     );
@@ -174,10 +178,12 @@ namespace Mexc.Net.Clients.FuturesApi
         {
             var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcFuturesOrderBook>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 handler(
                     new DataEvent<MexcFuturesOrderBook>(MexcExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(data.Symbol)
                         .WithStreamId(data.Channel)
                     );
@@ -192,10 +198,12 @@ namespace Mexc.Net.Clients.FuturesApi
         {
             var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcFundingRateUpdate>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 handler(
                     new DataEvent<MexcFundingRateUpdate>(MexcExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(data.Symbol)
                         .WithStreamId(data.Channel)
                     );
@@ -210,10 +218,12 @@ namespace Mexc.Net.Clients.FuturesApi
         {
             var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcPriceUpdate>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 handler(
                     new DataEvent<MexcPriceUpdate>(MexcExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(data.Symbol)
                         .WithStreamId(data.Channel)
                     );
@@ -228,10 +238,12 @@ namespace Mexc.Net.Clients.FuturesApi
         {
             var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcPriceUpdate>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 handler(
                     new DataEvent<MexcPriceUpdate>(MexcExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(data.Symbol)
                         .WithStreamId(data.Channel)
                     );
@@ -251,7 +263,7 @@ namespace Mexc.Net.Clients.FuturesApi
             Action<DataEvent<MexcPositionModeUpdate>>? positionModeUpdateHandler = null,
             CancellationToken ct = default)
         {
-            var subscription = new MexcFuturesUserSubscription(_logger, balanceUpdateHandler, orderUpdateHandler, positionUpdateHandler, riskLimitUpdateHandler, adlUpdateHandler, positionModeUpdateHandler);
+            var subscription = new MexcFuturesUserSubscription(_logger, this, balanceUpdateHandler, orderUpdateHandler, positionUpdateHandler, riskLimitUpdateHandler, adlUpdateHandler, positionModeUpdateHandler);
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
     }

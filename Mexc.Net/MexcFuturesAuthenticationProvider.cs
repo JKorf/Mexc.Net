@@ -1,5 +1,8 @@
 ﻿using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Sockets.Default;
 using Mexc.Net.Clients.FuturesApi;
+using Mexc.Net.Objects.Sockets.Queries;
 
 namespace Mexc.Net
 {
@@ -35,17 +38,18 @@ namespace Mexc.Net
             request.SetQueryString(queryString);
         }
 
-        public Dictionary<string, object> GetSocketAuthParameters()
+        public override Query? GetAuthenticationQuery(SocketApiClient apiClient, SocketConnection connection, Dictionary<string, object?>? context = null)
         {
-            var timestamp = DateTimeConverter.ConvertToMilliseconds(DateTime.UtcNow).Value.ToString(CultureInfo.InvariantCulture);
+            var timestamp = GetMillisecondTimestamp(apiClient);
             var sign = SignHMACSHA256(ApiKey + timestamp).ToLowerInvariant();
-            return new Dictionary<string, object>
+            var parameters = new Dictionary<string, object>
             {
                 { "apiKey", ApiKey },
                 { "reqTime", timestamp },
                 { "signature", sign },
                 { "subscribe", false }
             };
+            return new MexcFuturesQuery("login", parameters, false);
         }
     }
 }

@@ -103,9 +103,9 @@ namespace Mexc.Net.SymbolOrderBooks
         private void HandleUpdate(DataEvent<MexcFuturesOrderBook> data)
         {
             if (Levels != null)
-                SetInitialOrderBook(data.Data.Version, data.Data.Bids, data.Data.Asks);
+                SetInitialOrderBook(data.Data.Version, data.Data.Bids, data.Data.Asks, data.DataTime, data.DataTimeLocal);
             else
-                UpdateOrderBook(data.Data.SequenceStart!.Value, data.Data.SequenceEnd!.Value, data.Data.Bids, data.Data.Asks);
+                UpdateOrderBook(data.Data.SequenceStart!.Value, data.Data.SequenceEnd!.Value, data.Data.Bids, data.Data.Asks, data.DataTime, data.DataTimeLocal);
         }
 
         /// <inheritdoc />

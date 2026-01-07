@@ -1,6 +1,7 @@
 ﻿using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
 using CryptoExchange.Net.Sockets.Default;
+using Mexc.Net.Clients.FuturesApi;
 using Mexc.Net.Objects.Models.Futures;
 using Mexc.Net.Objects.Sockets.Models;
 using Mexc.Net.Objects.Sockets.Queries;
@@ -9,6 +10,8 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
 {
     internal class MexcFuturesUserSubscription : Subscription
     {
+        private readonly MexcSocketClientFuturesApi _client;
+
         private readonly Action<DataEvent<MexcFuturesBalanceUpdate>>? _balanceHandler;
         private readonly Action<DataEvent<MexcFuturesOrder>>? _orderHandler;
         private readonly Action<DataEvent<MexcPosition>>? _positionHandler;
@@ -16,7 +19,8 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
         private readonly Action<DataEvent<MexcAdlUpdate>>? _adlHandler;
         private readonly Action<DataEvent<MexcPositionModeUpdate>>? _positionModeHandler;
 
-        public MexcFuturesUserSubscription(ILogger logger, 
+        public MexcFuturesUserSubscription(ILogger logger,
+            MexcSocketClientFuturesApi client,
             Action<DataEvent<MexcFuturesBalanceUpdate>>? balanceHandler,
             Action<DataEvent<MexcFuturesOrder>>? orderHandler,
             Action<DataEvent<MexcPosition>>? positionHandler,
@@ -25,6 +29,7 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
             Action<DataEvent<MexcPositionModeUpdate>>? positionModeHandler
             ) : base(logger, true)
         {
+            _client = client;
             _balanceHandler = balanceHandler;
             _orderHandler = orderHandler;
             _positionHandler = positionHandler;
@@ -53,67 +58,79 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcFuturesBalanceUpdate> message)
         {
+            _client.UpdateTimeOffset(message.Timestamp);
+
             _balanceHandler?.Invoke(
                 new DataEvent<MexcFuturesBalanceUpdate>(MexcExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
-                    .WithDataTimestamp(message.Timestamp));
+                    .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
             return CallResult.SuccessResult;
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcFuturesOrder> message)
         {
+            _client.UpdateTimeOffset(message.Timestamp);
+
             _orderHandler?.Invoke(
                 new DataEvent<MexcFuturesOrder>(MexcExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
-                    .WithDataTimestamp(message.Timestamp));
+                    .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
             return CallResult.SuccessResult;
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcPosition> message)
         {
+            _client.UpdateTimeOffset(message.Timestamp);
+
             _positionHandler?.Invoke(
                 new DataEvent<MexcPosition>(MexcExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
-                    .WithDataTimestamp(message.Timestamp));
+                    .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
             return CallResult.SuccessResult;
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcRiskLimit> message)
         {
+            _client.UpdateTimeOffset(message.Timestamp);
+
             _riskLimitHandler?.Invoke(
                 new DataEvent<MexcRiskLimit>(MexcExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
-                    .WithDataTimestamp(message.Timestamp));
+                    .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
             return CallResult.SuccessResult;
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcPositionModeUpdate> message)
         {
+            _client.UpdateTimeOffset(message.Timestamp);
+
             _positionModeHandler?.Invoke(
                 new DataEvent<MexcPositionModeUpdate>(MexcExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
-                    .WithDataTimestamp(message.Timestamp));
+                    .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
             return CallResult.SuccessResult;
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcAdlUpdate> message)
         {
+            _client.UpdateTimeOffset(message.Timestamp);
+
             _adlHandler?.Invoke(
                 new DataEvent<MexcAdlUpdate>(MexcExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
-                    .WithDataTimestamp(message.Timestamp));
+                    .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
             return CallResult.SuccessResult;
         }
 
