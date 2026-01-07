@@ -181,7 +181,7 @@ namespace Mexc.Net.Clients.SpotApi
         public async Task<WebCallResult<MexcTicker[]>> GetTickersAsync(CancellationToken ct = default)
         {
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/ticker/24hr", MexcExchange.RateLimiter.SpotRest, 1);
-            return await _baseClient.SendAsync<MexcTicker[]>(request, null, ct, 40).ConfigureAwait(false);
+            return await _baseClient.SendAsync<MexcTicker[]>(request, null, ct, 1).ConfigureAwait(false);
         }
 
         #endregion
