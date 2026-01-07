@@ -155,7 +155,7 @@ namespace Mexc.Net.Clients.SpotApi
             parameters.AddOptional("orderId", orderId);
             parameters.AddOptional("origClientOrderId", clientOrderId);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/order", MexcExchange.RateLimiter.SpotRest, 2, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/order", MexcExchange.RateLimiter.SpotRest, 1, true);
             return await _baseClient.SendAsync<MexcOrder>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -171,7 +171,7 @@ namespace Mexc.Net.Clients.SpotApi
                 { "symbol", symbol }
             };
 
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/openOrders", MexcExchange.RateLimiter.SpotRest, 3, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/openOrders", MexcExchange.RateLimiter.SpotRest, 1, true);
             return await _baseClient.SendAsync<MexcOrder[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -190,7 +190,7 @@ namespace Mexc.Net.Clients.SpotApi
             parameters.AddOptionalMilliseconds("endTime", endTime);
             parameters.AddOptional("limit", limit);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/allOrders", MexcExchange.RateLimiter.SpotRest, 10, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/allOrders", MexcExchange.RateLimiter.SpotRest, 1, true);
             return await _baseClient.SendAsync<MexcOrder[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -210,7 +210,7 @@ namespace Mexc.Net.Clients.SpotApi
             parameters.AddOptional("limit", limit);
             parameters.AddOptional("orderId", orderId);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/myTrades", MexcExchange.RateLimiter.SpotRest, 10, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/myTrades", MexcExchange.RateLimiter.SpotRest, 1, true);
             return await _baseClient.SendAsync<MexcUserTrade[]>(request, parameters, ct).ConfigureAwait(false);
         }
 

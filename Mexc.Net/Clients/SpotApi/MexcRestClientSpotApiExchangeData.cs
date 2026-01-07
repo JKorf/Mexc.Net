@@ -68,7 +68,7 @@ namespace Mexc.Net.Clients.SpotApi
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("symbols", symbols != null ? string.Join(",", symbols): null);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/exchangeInfo", MexcExchange.RateLimiter.SpotRest, 10);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/exchangeInfo", MexcExchange.RateLimiter.SpotRest, 1);
             return await _baseClient.SendAsync<MexcExchangeInfo>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -104,7 +104,7 @@ namespace Mexc.Net.Clients.SpotApi
                 { "symbol", symbol }
             };
             parameters.AddOptional("limit", limit);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/trades", MexcExchange.RateLimiter.SpotRest, 5);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/trades", MexcExchange.RateLimiter.SpotRest, 1);
             return await _baseClient.SendAsync<MexcTrade[]>(request, parameters, ct).ConfigureAwait(false);            
         }
 
@@ -180,7 +180,7 @@ namespace Mexc.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<MexcTicker[]>> GetTickersAsync(CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/ticker/24hr", MexcExchange.RateLimiter.SpotRest, 40);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/ticker/24hr", MexcExchange.RateLimiter.SpotRest, 1);
             return await _baseClient.SendAsync<MexcTicker[]>(request, null, ct, 40).ConfigureAwait(false);
         }
 
@@ -193,7 +193,7 @@ namespace Mexc.Net.Clients.SpotApi
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("symbols", symbols == null ? null : string.Join(",", symbols));
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/ticker/price", MexcExchange.RateLimiter.SpotRest, 2);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/ticker/price", MexcExchange.RateLimiter.SpotRest, 1);
             return await _baseClient.SendAsync<MexcPrice[]>(request, parameters, ct).ConfigureAwait(false);
         }
 

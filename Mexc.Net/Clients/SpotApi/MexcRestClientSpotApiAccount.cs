@@ -21,7 +21,7 @@ namespace Mexc.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<MexcAccountInfo>> GetAccountInfoAsync(CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/account", MexcExchange.RateLimiter.SpotRest, 10, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/account", MexcExchange.RateLimiter.SpotRest, 1, true);
             return await _baseClient.SendAsync<MexcAccountInfo>(request, null, ct).ConfigureAwait(false);
         }
 
@@ -43,7 +43,7 @@ namespace Mexc.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<MexcUserAsset[]>> GetUserAssetsAsync(CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/capital/config/getall", MexcExchange.RateLimiter.SpotRest, 10, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/capital/config/getall", MexcExchange.RateLimiter.SpotRest, 1, true);
             return await _baseClient.SendAsync<MexcUserAsset[]>(request, null, ct).ConfigureAwait(false);
         }
 
@@ -148,7 +148,7 @@ namespace Mexc.Net.Clients.SpotApi
                 { "coin", asset }
             };
             parameters.AddOptional("network", network);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/capital/deposit/address", MexcExchange.RateLimiter.SpotRest, 10, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/capital/deposit/address", MexcExchange.RateLimiter.SpotRest, 1, true);
             return await _baseClient.SendAsync<MexcDepositAddress[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -163,7 +163,7 @@ namespace Mexc.Net.Clients.SpotApi
             parameters.AddOptional("coin", asset);
             parameters.AddOptional("page", page);
             parameters.AddOptional("limit", pageSize);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/capital/withdraw/address", MexcExchange.RateLimiter.SpotRest, 10, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/capital/withdraw/address", MexcExchange.RateLimiter.SpotRest, 1, true);
             return await _baseClient.SendAsync<MexcPaginated<MexcWithdrawAddress[]>>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -243,7 +243,7 @@ namespace Mexc.Net.Clients.SpotApi
             {
                 { "asset", string.Join(",", assets) }
             };
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v3/capital/convert", MexcExchange.RateLimiter.SpotRest, 10, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v3/capital/convert", MexcExchange.RateLimiter.SpotRest, 1, true);
             return await _baseClient.SendAsync<MexcDustResult>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -347,7 +347,7 @@ namespace Mexc.Net.Clients.SpotApi
             var parameters = new ParameterCollection();
             parameters.Add("symbol", symbol);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/tradeFee", MexcExchange.RateLimiter.SpotRest, 20, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/tradeFee", MexcExchange.RateLimiter.SpotRest, 1, true);
             var result = await _baseClient.SendAsync<MexcResult<MexcTradeFee>>(request, parameters, ct).ConfigureAwait(false);
             return result.As<MexcTradeFee>(result.Data?.Data);
         }
