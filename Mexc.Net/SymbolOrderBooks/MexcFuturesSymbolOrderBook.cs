@@ -50,6 +50,7 @@ namespace Mexc.Net.SymbolOrderBooks
 
             _strictLevels = false;
             _sequencesAreConsecutive = options?.Limit == null;
+            _skipSequenceCheckFirstUpdateAfterSnapshotSet = true;
 
             Levels = options?.Limit;
 
@@ -80,7 +81,7 @@ namespace Mexc.Net.SymbolOrderBooks
             if (Levels == null)
             {
                 // Small delay to make sure the snapshot is from after our first stream update
-                await Task.Delay(200).ConfigureAwait(false);
+                await Task.Delay(1000).ConfigureAwait(false);
                 var bookResult = await _restClient.FuturesApi.ExchangeData.GetOrderBookAsync(Symbol, Levels ?? 1000).ConfigureAwait(false);
                 if (!bookResult)
                 {
@@ -89,7 +90,7 @@ namespace Mexc.Net.SymbolOrderBooks
                     return new CallResult<UpdateSubscription>(bookResult.Error!);
                 }
 
-                SetInitialOrderBook(bookResult.Data.Version, bookResult.Data.Bids, bookResult.Data.Asks);
+                SetSnapshot(bookResult.Data.Version, bookResult.Data.Bids, bookResult.Data.Asks);
             }
             else
             {
@@ -103,7 +104,7 @@ namespace Mexc.Net.SymbolOrderBooks
         private void HandleUpdate(DataEvent<MexcFuturesOrderBook> data)
         {
             if (Levels != null)
-                SetInitialOrderBook(data.Data.Version, data.Data.Bids, data.Data.Asks, data.DataTime, data.DataTimeLocal);
+                SetSnapshot(data.Data.Version, data.Data.Bids, data.Data.Asks, data.DataTime, data.DataTimeLocal);
             else
                 UpdateOrderBook(data.Data.SequenceStart!.Value, data.Data.SequenceEnd!.Value, data.Data.Bids, data.Data.Asks, data.DataTime, data.DataTimeLocal);
         }
@@ -119,11 +120,13 @@ namespace Mexc.Net.SymbolOrderBooks
             if (Levels != null)
                 return await WaitForSetOrderBookAsync(TimeSpan.FromSeconds(5), ct).ConfigureAwait(false);
 
+            // Small delay to make sure the snapshot is from after our first stream update
+            await Task.Delay(1000).ConfigureAwait(false);
             var bookResult = await _restClient.FuturesApi.ExchangeData.GetOrderBookAsync(Symbol, Levels ?? 1000).ConfigureAwait(false);
             if (!bookResult)
                 return new CallResult<bool>(bookResult.Error!);
 
-            SetInitialOrderBook(bookResult.Data.Version, bookResult.Data.Bids, bookResult.Data.Asks);
+            SetSnapshot(bookResult.Data.Version, bookResult.Data.Bids, bookResult.Data.Asks);
             return new CallResult<bool>(true);
         }
 
