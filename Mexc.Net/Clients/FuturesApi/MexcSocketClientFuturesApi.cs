@@ -166,6 +166,7 @@ namespace Mexc.Net.Clients.FuturesApi
                         .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(data.Symbol)
                         .WithStreamId(data.Channel)
+                        .WithSequenceNumber(data.Data.SequenceEnd)
                     );
             });
 
@@ -186,6 +187,7 @@ namespace Mexc.Net.Clients.FuturesApi
                         .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(data.Symbol)
                         .WithStreamId(data.Channel)
+                        .WithSequenceNumber(data.Data.SequenceEnd)
                     );
             });
 

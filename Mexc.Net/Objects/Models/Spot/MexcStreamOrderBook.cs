@@ -22,11 +22,11 @@ namespace Mexc.Net.Objects.Models.Spot
         /// Sequence. If start/end sequence numbers are available this is the start sequence number
         /// </summary>
         [JsonPropertyName("r")]
-        public string Sequence { get; set; } = string.Empty;
+        public long Sequence { get; set; }
         /// <summary>
         /// End sequence number
         /// </summary>
-        public string? SequenceEnd { get; set; } = string.Empty;
+        public long? SequenceEnd { get; set; }
     }
 
     /// <summary>
