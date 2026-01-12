@@ -50,7 +50,7 @@ namespace Mexc.Net.SymbolOrderBooks
             Initialize(options);
 
             _strictLevels = false;
-            _sequencesAreConsecutive = options?.Limit == null;
+            _sequencesAreConsecutive = true;
             _updateInterval = options?.UpdateInterval;
 
             Levels = options?.Limit;
@@ -82,7 +82,7 @@ namespace Mexc.Net.SymbolOrderBooks
             if (Levels == null)
             {
                 // Small delay to make sure the snapshot is from after our first stream update
-                await Task.Delay(200).ConfigureAwait(false);
+                await Task.Delay(1000).ConfigureAwait(false);
                 var bookResult = await _restClient.SpotApi.ExchangeData.GetOrderBookAsync(Symbol, Levels ?? 5000).ConfigureAwait(false);
                 if (!bookResult)
                 {
@@ -91,7 +91,7 @@ namespace Mexc.Net.SymbolOrderBooks
                     return new CallResult<UpdateSubscription>(bookResult.Error!);
                 }
 
-                SetInitialOrderBook(bookResult.Data.LastUpdateId, bookResult.Data.Bids, bookResult.Data.Asks);
+                SetSnapshot(bookResult.Data.LastUpdateId, bookResult.Data.Bids, bookResult.Data.Asks);
             }
             else
             {
@@ -105,9 +105,9 @@ namespace Mexc.Net.SymbolOrderBooks
         private void HandleUpdate(DataEvent<MexcStreamOrderBook> data)
         {
             if (Levels != null)
-                SetInitialOrderBook(long.Parse(data.Data.Sequence), data.Data.Bids, data.Data.Asks, data.DataTime, data.DataTimeLocal);
+                SetSnapshot(data.Data.Sequence, data.Data.Bids, data.Data.Asks, data.DataTime, data.DataTimeLocal);
             else
-                UpdateOrderBook(long.Parse(data.Data.Sequence), data.Data.Bids, data.Data.Asks, data.DataTime, data.DataTimeLocal);
+                UpdateOrderBook(data.Data.Sequence, data.Data.SequenceEnd!.Value, data.Data.Bids, data.Data.Asks, data.DataTime, data.DataTimeLocal);
         }
 
         /// <inheritdoc />
@@ -121,11 +121,13 @@ namespace Mexc.Net.SymbolOrderBooks
             if (Levels != null)
                 return await WaitForSetOrderBookAsync(TimeSpan.FromSeconds(5), ct).ConfigureAwait(false);
 
+            // Small delay to make sure the snapshot is from after our first stream update
+            await Task.Delay(1000).ConfigureAwait(false);
             var bookResult = await _restClient.SpotApi.ExchangeData.GetOrderBookAsync(Symbol, Levels ?? 5000).ConfigureAwait(false);
             if (!bookResult)
                 return new CallResult<bool>(bookResult.Error!);
 
-            SetInitialOrderBook(bookResult.Data.LastUpdateId, bookResult.Data.Bids, bookResult.Data.Asks);
+            SetSnapshot(bookResult.Data.LastUpdateId, bookResult.Data.Bids, bookResult.Data.Asks);
             return new CallResult<bool>(true);
         }
 

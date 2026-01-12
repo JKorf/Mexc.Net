@@ -29,8 +29,8 @@ namespace Mexc.Net.Objects.Models.Protobuf
                     Price = ExchangeHelpers.ParseDecimal(x.Price) ?? 0,
                     Quantity = ExchangeHelpers.ParseDecimal(x.Quantity) ?? 0
                 }).ToArray(),
-                Sequence = Version,
-                SequenceEnd = Version2
+                Sequence = long.Parse(Version),
+                SequenceEnd = string.IsNullOrEmpty(Version2) ? null: long.Parse(Version2)
             };
         }
     }

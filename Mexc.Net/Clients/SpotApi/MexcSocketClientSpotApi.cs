@@ -20,6 +20,7 @@ using Mexc.Net.Objects.Sockets.Queries;
 using Mexc.Net.Objects.Sockets.Subscriptions;
 using System.Collections.Generic;
 using System.Net.WebSockets;
+using System.Reflection;
 
 namespace Mexc.Net.Clients.SpotApi
 {
@@ -175,14 +176,16 @@ namespace Mexc.Net.Clients.SpotApi
         {
             var internalHandler = new Action<DateTime, string?, MexcUpdateOrderBook>((receiveTime, originalData, data) =>
             {
+                var model = data.ToModel();
                 UpdateTimeOffset(DateTimeConverter.ConvertFromMilliseconds(data.SendTime));
 
                 handler(
-                    new DataEvent<MexcStreamOrderBook>(MexcExchange.ExchangeName, data.ToModel(), receiveTime, originalData)
+                    new DataEvent<MexcStreamOrderBook>(MexcExchange.ExchangeName, model, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime), GetTimeOffset())
                         .WithSymbol(data.Symbol)
                         .WithStreamId(data.Channel)
+                        .WithSequenceNumber(model.SequenceEnd ?? model.Sequence)
                     );
             });
 
@@ -201,14 +204,16 @@ namespace Mexc.Net.Clients.SpotApi
 
             var internalHandler = new Action<DateTime, string?, MexcUpdateOrderBookLimit>((receiveTime, originalData, data) =>
             {
+                var model = data.ToModel();
                 UpdateTimeOffset(DateTimeConverter.ConvertFromMilliseconds(data.SendTime));
 
                 handler(
-                    new DataEvent<MexcStreamOrderBook>(MexcExchange.ExchangeName, data.ToModel(), receiveTime, originalData)
+                    new DataEvent<MexcStreamOrderBook>(MexcExchange.ExchangeName, model, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(GetDataTimestamp(data.SendTime, data.CreateTime), GetTimeOffset())
                         .WithSymbol(data.Symbol)
                         .WithStreamId(data.Channel)
+                        .WithSequenceNumber(model.SequenceEnd ?? model.Sequence)
                     );
             });
 
