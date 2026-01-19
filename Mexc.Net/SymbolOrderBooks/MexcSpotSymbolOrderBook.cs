@@ -81,8 +81,9 @@ namespace Mexc.Net.SymbolOrderBooks
             Status = OrderBookStatus.Syncing;
             if (Levels == null)
             {
-                // Small delay to make sure the snapshot is from after our first stream update
-                await Task.Delay(1000).ConfigureAwait(false);
+                // Wait up to 1s until the first update has been received
+                await WaitUntilFirstUpdateBufferedAsync(TimeSpan.FromMilliseconds(500), TimeSpan.FromMilliseconds(1000), ct).ConfigureAwait(false);
+
                 var bookResult = await _restClient.SpotApi.ExchangeData.GetOrderBookAsync(Symbol, Levels ?? 5000).ConfigureAwait(false);
                 if (!bookResult)
                 {
@@ -121,8 +122,8 @@ namespace Mexc.Net.SymbolOrderBooks
             if (Levels != null)
                 return await WaitForSetOrderBookAsync(TimeSpan.FromSeconds(5), ct).ConfigureAwait(false);
 
-            // Small delay to make sure the snapshot is from after our first stream update
-            await Task.Delay(1000).ConfigureAwait(false);
+            // Wait up to 1s until the first update has been received
+            await WaitUntilFirstUpdateBufferedAsync(TimeSpan.FromMilliseconds(500), TimeSpan.FromMilliseconds(1000), ct).ConfigureAwait(false);
             var bookResult = await _restClient.SpotApi.ExchangeData.GetOrderBookAsync(Symbol, Levels ?? 5000).ConfigureAwait(false);
             if (!bookResult)
                 return new CallResult<bool>(bookResult.Error!);
