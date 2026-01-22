@@ -13,7 +13,6 @@ namespace Mexc.Net.Objects.Sockets.Queries
             Parameters = parameters
         }, authenticated, weight)
         {
-            MessageMatcher = MessageMatcher.Create<MexcFuturesUpdate<string>>(["rs." + method, "rs.error"], HandleMessage);
             MessageRouter = MessageRouter.CreateWithoutTopicFilter<MexcFuturesUpdate<string>>(["rs." + method, "rs.error"], HandleMessage);
         }
 

@@ -14,6 +14,19 @@ namespace Mexc.Net
     public static class MexcExchange
     {
         /// <summary>
+        /// Platform metadata
+        /// </summary>
+        public static PlatformInfo Metadata { get; } = new PlatformInfo(
+                "Mexc",
+                "Mexc",
+                "https://raw.githubusercontent.com/JKorf/Mexc.Net/master/Mexc.Net/Icon/icon.png",
+                "https://www.mexc.com",
+                ["https://mexcdevelop.github.io/apidocs/spot_v3_en/#introduction"],
+                PlatformType.CryptoCurrencyExchange,
+                CentralizationType.Centralized
+                );
+
+        /// <summary>
         /// Exchange name
         /// </summary>
         public static string ExchangeName => "Mexc";

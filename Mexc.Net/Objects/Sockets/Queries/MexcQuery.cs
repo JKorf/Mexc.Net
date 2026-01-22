@@ -18,7 +18,6 @@ namespace Mexc.Net.Objects.Sockets.Queries
         {
             _expectedTopics = parameters;
 
-            MessageMatcher = MessageMatcher.Create<MexcResponse>(((MexcRequest)Request).Id.ToString(), HandleMessage);
             MessageRouter = MessageRouter.CreateWithoutTopicFilter<MexcResponse>(((MexcRequest)Request).Id.ToString(), HandleMessage);
         }
 

@@ -27,10 +27,6 @@ namespace Mexc.Net.Clients.SpotApi
     /// <inheritdoc />
     internal partial class MexcSocketClientSpotApi : SocketApiClient, IMexcSocketClientSpotApi
     {
-        private static readonly MessagePath _idPath = MessagePath.Get().Property("id");
-        private static readonly MessagePath _msgPath = MessagePath.Get().Property("msg");
-        private static readonly MessagePath _channelPath = MessagePath.Get().Property("c");
-
         public event Action<ListenKeyRenewedEvent>? ListenkeyRenewed;
 
         #region constructor/destructor
@@ -65,6 +61,7 @@ namespace Mexc.Net.Clients.SpotApi
         }
 
         #endregion
+
         public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType)
         {
             if (messageType == WebSocketMessageType.Text)
@@ -73,23 +70,7 @@ namespace Mexc.Net.Clients.SpotApi
             return new MexcProtobufMessageHandler();
         }
 
-        protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType type) => throw new NotImplementedException();
-
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(MexcExchange.SerializerContext));
-
-        /// <inheritdoc />
-        public override string? GetListenerIdentifier(IMessageAccessor messageAccessor)
-        {
-            var msg = messageAccessor.GetValue<string?>(_msgPath);
-            if (msg?.Equals("PONG", StringComparison.Ordinal) == true)
-                return "PONG";
-
-            var id = messageAccessor.GetValue<int?>(_idPath);
-            if (id != null)
-                return id.Value.ToString();
-
-            return messageAccessor.GetValue<string>(_channelPath);
-        }
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)

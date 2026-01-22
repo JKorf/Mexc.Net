@@ -157,9 +157,6 @@
         <member name="T:Mexc.Net.Clients.FuturesApi.MexcSocketClientFuturesApi">
             <inheritdoc />
         </member>
-        <member name="M:Mexc.Net.Clients.FuturesApi.MexcSocketClientFuturesApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
-            <inheritdoc />
-        </member>
         <member name="M:Mexc.Net.Clients.FuturesApi.MexcSocketClientFuturesApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
@@ -505,9 +502,6 @@
             <inheritdoc />
         </member>
         <member name="T:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi">
-            <inheritdoc />
-        </member>
-        <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
         <member name="M:Mexc.Net.Clients.SpotApi.MexcSocketClientSpotApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
@@ -4231,6 +4225,11 @@
         <member name="T:Mexc.Net.MexcExchange">
             <summary>
             Mexc exchange information and configuration
+            </summary>
+        </member>
+        <member name="P:Mexc.Net.MexcExchange.Metadata">
+            <summary>
+            Platform metadata
             </summary>
         </member>
         <member name="P:Mexc.Net.MexcExchange.ExchangeName">

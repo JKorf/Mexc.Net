@@ -33,9 +33,8 @@ namespace Mexc.Net.UnitTests
             //await tester.ValidateAsync<MexcUserTradeUpdate>((client, handler) => client.SpotApi.SubscribeToUserTradeUpdatesAsync("123", handler), "UserTrades");
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateFuturesSubscriptions(bool useUpdatedDeserialization)
+        [Test]
+        public async Task ValidateFuturesSubscriptions()
         {
             var loggerFact = new LoggerFactory();
             loggerFact.AddProvider(new TraceLoggerProvider());
@@ -43,7 +42,6 @@ namespace Mexc.Net.UnitTests
             var client = new MexcSocketClient(Options.Create(new Objects.Options.MexcSocketOptions
             {
                 OutputOriginalData = true,
-                UseUpdatedDeserialization = useUpdatedDeserialization,
                 ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456")
             }), loggerFact);
             var tester = new SocketSubscriptionValidator<MexcSocketClient>(client, "Subscriptions/FuturesApi", "wss://contract.mexc.com/edge", "data");

@@ -21,9 +21,6 @@ namespace Mexc.Net.Clients.FuturesApi
     /// <inheritdoc />
     internal partial class MexcSocketClientFuturesApi : SocketApiClient, IMexcSocketClientFuturesApi
     {
-        private static readonly MessagePath _channelPath = MessagePath.Get().Property("channel");
-        private static readonly MessagePath _symbolPath = MessagePath.Get().Property("symbol");
-
         #region constructor/destructor
 
         internal MexcSocketClientFuturesApi(ILogger logger, MexcSocketOptions options) :
@@ -51,17 +48,9 @@ namespace Mexc.Net.Clients.FuturesApi
 
         #endregion
 
-        protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType msgType) => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(MexcExchange.SerializerContext));
-
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(MexcExchange.SerializerContext));
 
         public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new MexcSocketFuturesMessageHandler();
-
-        /// <inheritdoc />
-        public override string? GetListenerIdentifier(IMessageAccessor messageAccessor)
-        {
-            return messageAccessor.GetValue<string>(_channelPath) + messageAccessor.GetValue<string>(_symbolPath);
-        }
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)

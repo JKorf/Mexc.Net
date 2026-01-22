@@ -11,7 +11,6 @@ namespace Mexc.Net.Objects.Sockets.Queries
         }, false, weight)
         {
             RequestTimeout = TimeSpan.FromSeconds(5);
-            MessageMatcher = MessageMatcher.Create<MexcResponse>("PONG");
             MessageRouter = MessageRouter.CreateWithoutHandler<MexcResponse>("PONG");
         }
     }

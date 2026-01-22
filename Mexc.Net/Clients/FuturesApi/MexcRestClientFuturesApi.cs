@@ -57,8 +57,6 @@ namespace Mexc.Net.Clients.FuturesApi
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
             => new MexcFuturesAuthenticationProvider(credentials);
 
-        protected override IStreamMessageAccessor CreateAccessor() => new SystemTextJsonStreamMessageAccessor(SerializerOptions.WithConverters(MexcExchange.SerializerContext));
-
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(MexcExchange.SerializerContext));
 
 
@@ -98,22 +96,6 @@ namespace Mexc.Net.Clients.FuturesApi
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
             => MexcExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
-
-        private MexcRateLimitError GetRateLimitError(IMessageAccessor accessor)
-        {
-            if (!accessor.IsValid)
-                return new MexcRateLimitError(accessor.GetOriginalString());
-
-            var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));
-            var msg = accessor.GetValue<string>(MessagePath.Get().Property("msg"));
-            if (msg == null)
-                return new MexcRateLimitError(accessor.GetOriginalString());
-
-            if (code == null)
-                return new MexcRateLimitError(msg);
-
-            return new MexcRateLimitError(code.Value, msg);
-        }
 
         /// <inheritdoc />
         protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()

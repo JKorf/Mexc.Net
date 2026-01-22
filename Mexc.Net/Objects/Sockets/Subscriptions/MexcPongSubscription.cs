@@ -8,7 +8,6 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
     {
         public MexcPongSubscription(ILogger logger) : base(logger, false)
         {
-            MessageMatcher = MessageMatcher.Create<MexcResponse>("pong");
             MessageRouter = MessageRouter.CreateWithoutHandler<MexcResponse>("pong");
         }
     }

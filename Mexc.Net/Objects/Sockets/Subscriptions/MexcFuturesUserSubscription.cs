@@ -37,15 +37,6 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
             _adlHandler = adlHandler;
             _positionModeHandler = positionModeHandler;
 
-            MessageMatcher = MessageMatcher.Create([
-                new MessageHandlerLink<MexcFuturesUpdate<MexcFuturesOrder>>("push.personal.order", DoHandleMessage),
-                new MessageHandlerLink<MexcFuturesUpdate<MexcFuturesBalanceUpdate>>("push.personal.asset", DoHandleMessage),
-                new MessageHandlerLink<MexcFuturesUpdate<MexcPosition>>("push.personal.position", DoHandleMessage),
-                new MessageHandlerLink<MexcFuturesUpdate<MexcRiskLimit>>("push.personal.risk.limit", DoHandleMessage),
-                new MessageHandlerLink<MexcFuturesUpdate<MexcAdlUpdate>>("push.personal.adl.level", DoHandleMessage),
-                new MessageHandlerLink<MexcFuturesUpdate<MexcPositionModeUpdate>>("push.personal.position.mode", DoHandleMessage),
-                ]);
-
             MessageRouter = MessageRouter.Create([
                 MessageRoute<MexcFuturesUpdate<MexcFuturesOrder>>.CreateWithoutTopicFilter("push.personal.order", DoHandleMessage),
                 MessageRoute<MexcFuturesUpdate<MexcFuturesBalanceUpdate>>.CreateWithoutTopicFilter("push.personal.asset", DoHandleMessage),

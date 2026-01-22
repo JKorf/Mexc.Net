@@ -8,7 +8,6 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
     {
         public MexcErrorSubscription(ILogger logger) : base(logger, false)
         {
-            MessageMatcher = MessageMatcher.Create<MexcResponse>("0", HandleMessage);
             MessageRouter = MessageRouter.CreateWithoutTopicFilter<MexcResponse>("0", HandleMessage);
         }
 

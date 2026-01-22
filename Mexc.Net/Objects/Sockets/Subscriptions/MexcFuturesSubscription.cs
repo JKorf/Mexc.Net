@@ -22,7 +22,6 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
             _limit = limit;
             _handler = handler;
 
-            MessageMatcher = MessageMatcher.Create<MexcFuturesUpdate<T>>("push." + _topic + symbol, DoHandleMessage);
             MessageRouter = MessageRouter.CreateWithOptionalTopicFilter<MexcFuturesUpdate<T>>("push." + _topic, symbol, DoHandleMessage);
         }
 
