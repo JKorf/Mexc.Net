@@ -152,6 +152,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 4.3.1 - 23 Jan 2026
+    * Fixed CryptoExchange.Net reference
+
 * Version 4.3.0 - 22 Jan 2026
     * Updated CryptoExchange.Net to version 10.3.0, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
     * Removed legacy websocket message handling and the corresponding UseUpdatedDeserialization client option
