@@ -76,7 +76,7 @@ namespace Mexc.Net.Objects.Models.Protobuf
                 QuoteQuantity = ExchangeHelpers.ParseDecimal(QuoteQuantity) ?? 0,
                 QuoteQuantityRemaining = ExchangeHelpers.ParseDecimal(RemainingQuoteQuantity) ?? 0,
                 Side = TradeType == 1 ? OrderSide.Buy : OrderSide.Sell,
-                Timestamp = DateTimeConverter.ParseFromDouble(CreateTime),
+                Timestamp = DateTimeConverter.ParseFromDouble(CreateTimeInt),
                 Status = ToOrderStatus()
             };
         }
