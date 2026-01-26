@@ -152,6 +152,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 4.3.2 - 26 Jan 2026
+    * Fixed incorrect parsing of Timestamp field in user websocket order updates
+
 * Version 4.3.1 - 23 Jan 2026
     * Fixed CryptoExchange.Net reference
 
