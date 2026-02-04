@@ -1,10 +1,13 @@
 ﻿using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Trackers.Klines;
 using CryptoExchange.Net.Trackers.Trades;
+using CryptoExchange.Net.Trackers.UserData.Interfaces;
+using CryptoExchange.Net.Trackers.UserData.Objects;
 using Mexc.Net.Clients;
 using Mexc.Net.Interfaces;
 using Mexc.Net.Interfaces.Clients;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Mexc.Net
 {
@@ -91,6 +94,35 @@ namespace Mexc.Net
                 symbol,
                 limit,
                 period
+                );
+        }
+
+        /// <inheritdoc />
+        public IUserSpotDataTracker CreateUserSpotDataTracker(SpotUserDataTrackerConfig config)
+        {
+            var restClient = _serviceProvider?.GetRequiredService<IMexcRestClient>() ?? new MexcRestClient();
+            var socketClient = _serviceProvider?.GetRequiredService<IMexcSocketClient>() ?? new MexcSocketClient();
+            return new MexcUserSpotDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<MexcUserSpotDataTracker>>() ?? new NullLogger<MexcUserSpotDataTracker>(),
+                restClient,
+                socketClient,
+                null,
+                config
+                );
+        }
+
+        /// <inheritdoc />
+        public IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, SpotUserDataTrackerConfig config, ApiCredentials credentials, MexcEnvironment? environment = null)
+        {
+            var clientProvider = _serviceProvider?.GetRequiredService<IMexcUserClientProvider>() ?? new MexcUserClientProvider();
+            var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);
+            var socketClient = clientProvider.GetSocketClient(userIdentifier, credentials, environment);
+            return new MexcUserSpotDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<MexcUserSpotDataTracker>>() ?? new NullLogger<MexcUserSpotDataTracker>(),
+                restClient,
+                socketClient,
+                userIdentifier,
+                config
                 );
         }
     }
