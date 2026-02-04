@@ -88,7 +88,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<MexcOrder>> GetOrderAsync(string symbol, string? orderId = null, string? clientOrderId = null, CancellationToken ct = default);
 
         /// <summary>
-        /// Get all open orders for a symbol
+        /// Get all open orders
         /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#current-open-orders" /></para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `BTCUSDT`</param>
