@@ -651,7 +651,15 @@ namespace Mexc.Net.Clients.SpotApi
             if (deposits.Data.Count() == (request.Limit ?? 1000))
                 nextToken = new DateTimeToken(deposits.Data.Min(x => x.InsertTime.AddMilliseconds(-1)));
 
-            return deposits.AsExchangeResult<SharedDeposit[]>(Exchange, TradingMode.Spot, deposits.Data.OrderByDescending(x => x.InsertTime).Select(x => new SharedDeposit(x.Asset, x.Quantity, x.Status == DepositStatus.Success, x.InsertTime)
+            return deposits.AsExchangeResult<SharedDeposit[]>(Exchange, TradingMode.Spot, deposits.Data.OrderByDescending(x => x.InsertTime).Select(x => 
+            new SharedDeposit(
+                x.Asset,
+                x.Quantity, 
+                x.Status == DepositStatus.Success, 
+                x.InsertTime,
+                x.Status == DepositStatus.Success ? SharedTransferStatus.Completed
+                : x.Status == DepositStatus.Rejected ? SharedTransferStatus.Failed
+                : SharedTransferStatus.InProgress)
             {
                 Network = x.Network,
                 TransactionId = x.TransactionId,
