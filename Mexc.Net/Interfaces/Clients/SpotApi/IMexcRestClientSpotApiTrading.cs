@@ -94,7 +94,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">Symbol, for example `BTCUSDT`</param>
         /// <param name="ct">Cancelation Token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcOrder[]>> GetOpenOrdersAsync(string symbol, CancellationToken ct = default);
+        Task<WebCallResult<MexcOrder[]>> GetOpenOrdersAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get all orders

@@ -164,12 +164,10 @@ namespace Mexc.Net.Clients.SpotApi
         #region Get Open Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<MexcOrder[]>> GetOpenOrdersAsync(string symbol, CancellationToken ct = default)
+        public async Task<WebCallResult<MexcOrder[]>> GetOpenOrdersAsync(string? symbol = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection()
-            {
-                { "symbol", symbol }
-            };
+            var parameters = new ParameterCollection();
+            parameters.AddOptional("symbol", symbol);
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/openOrders", MexcExchange.RateLimiter.SpotRest, 1, true);
             return await _baseClient.SendAsync<MexcOrder[]>(request, parameters, ct).ConfigureAwait(false);
