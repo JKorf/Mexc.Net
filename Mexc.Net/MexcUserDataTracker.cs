@@ -17,7 +17,7 @@ namespace Mexc.Net
             IMexcRestClient restClient,
             IMexcSocketClient socketClient,
             string? userIdentifier,
-            SpotUserDataTrackerConfig config) : base(
+            SpotUserDataTrackerConfig? config) : base(
                 logger,
                 restClient.SpotApi.SharedClient,
                 restClient.SpotApi.SharedClient,
@@ -27,7 +27,7 @@ namespace Mexc.Net
                 socketClient.SpotApi.SharedClient,
                 socketClient.SpotApi.SharedClient,
                 userIdentifier,
-                config)
+                config ?? new SpotUserDataTrackerConfig())
         {
         }
     }

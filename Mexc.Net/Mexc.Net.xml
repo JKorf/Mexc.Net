@@ -4171,7 +4171,7 @@
             Tracker factory
             </summary>
         </member>
-        <member name="M:Mexc.Net.Interfaces.IMexcTrackerFactory.CreateUserSpotDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,Mexc.Net.MexcEnvironment)">
+        <member name="M:Mexc.Net.Interfaces.IMexcTrackerFactory.CreateUserSpotDataTracker(System.String,CryptoExchange.Net.Authentication.ApiCredentials,CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig,Mexc.Net.MexcEnvironment)">
             <summary>
             Create a new Spot user data tracker
             </summary>
@@ -4341,7 +4341,7 @@
         <member name="M:Mexc.Net.MexcTrackerFactory.CreateUserSpotDataTracker(CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig)">
             <inheritdoc />
         </member>
-        <member name="M:Mexc.Net.MexcTrackerFactory.CreateUserSpotDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,Mexc.Net.MexcEnvironment)">
+        <member name="M:Mexc.Net.MexcTrackerFactory.CreateUserSpotDataTracker(System.String,CryptoExchange.Net.Authentication.ApiCredentials,CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig,Mexc.Net.MexcEnvironment)">
             <inheritdoc />
         </member>
         <member name="T:Mexc.Net.MexcUserSpotDataTracker">
