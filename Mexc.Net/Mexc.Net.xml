@@ -3888,7 +3888,7 @@
         </member>
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiTrading.GetOpenOrdersAsync(System.String,System.Threading.CancellationToken)">
             <summary>
-            Get all open orders for a symbol
+            Get all open orders
             <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#current-open-orders" /></para>
             </summary>
             <param name="symbol">Symbol, for example `BTCUSDT`</param>
