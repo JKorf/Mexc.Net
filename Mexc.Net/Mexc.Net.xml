@@ -4171,6 +4171,21 @@
             Tracker factory
             </summary>
         </member>
+        <member name="M:Mexc.Net.Interfaces.IMexcTrackerFactory.CreateUserSpotDataTracker(System.String,CryptoExchange.Net.Authentication.ApiCredentials,CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig,Mexc.Net.MexcEnvironment)">
+            <summary>
+            Create a new Spot user data tracker
+            </summary>
+            <param name="userIdentifier">User identifier</param>
+            <param name="config">Configuration</param>
+            <param name="credentials">Credentials</param>
+            <param name="environment">Environment</param>
+        </member>
+        <member name="M:Mexc.Net.Interfaces.IMexcTrackerFactory.CreateUserSpotDataTracker(CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig)">
+            <summary>
+            Create a new spot user data tracker
+            </summary>
+            <param name="config">Configuration</param>
+        </member>
         <member name="T:Mexc.Net.MexcEnvironment">
             <summary>
             Mexc environments
@@ -4322,6 +4337,20 @@
         </member>
         <member name="M:Mexc.Net.MexcTrackerFactory.CreateTradeTracker(CryptoExchange.Net.SharedApis.SharedSymbol,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
             <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.MexcTrackerFactory.CreateUserSpotDataTracker(CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig)">
+            <inheritdoc />
+        </member>
+        <member name="M:Mexc.Net.MexcTrackerFactory.CreateUserSpotDataTracker(System.String,CryptoExchange.Net.Authentication.ApiCredentials,CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig,Mexc.Net.MexcEnvironment)">
+            <inheritdoc />
+        </member>
+        <member name="T:Mexc.Net.MexcUserSpotDataTracker">
+            <inheritdoc/>
+        </member>
+        <member name="M:Mexc.Net.MexcUserSpotDataTracker.#ctor(Microsoft.Extensions.Logging.ILogger{Mexc.Net.MexcUserSpotDataTracker},Mexc.Net.Interfaces.Clients.IMexcRestClient,Mexc.Net.Interfaces.Clients.IMexcSocketClient,System.String,CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig)">
+            <summary>
+            ctor
+            </summary>
         </member>
         <member name="T:Mexc.Net.Objects.MexcApiAddresses">
             <summary>

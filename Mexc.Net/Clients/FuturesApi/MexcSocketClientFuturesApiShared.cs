@@ -144,6 +144,7 @@ namespace Mexc.Net.Clients.FuturesApi
                 positionUpdateHandler: update => handler(update.ToType<SharedPosition[]>([new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicId, update.Data.Symbol), update.Data.Symbol, update.Data.PositionSize, update.Data.UpdateTime)
                 {
                     AverageOpenPrice = update.Data.HoldAveragePrice,
+                    PositionMode = SharedPositionMode.HedgeMode,
                     PositionSide = update.Data.PositionSide == Enums.PositionSide.Short ? SharedPositionSide.Short : SharedPositionSide.Long,
                     LiquidationPrice = update.Data.LiquidationPrice,
                     Leverage = update.Data.Leverage

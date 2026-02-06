@@ -28,9 +28,9 @@ namespace Mexc.Net.Clients.SpotApi
             };
             parameters.AddEnum("side", side);
             parameters.AddEnum("type", type);
-            parameters.AddOptionalString("quantity", quantity);
-            parameters.AddOptionalString("quoteOrderQty", quoteQuantity);
-            parameters.AddOptionalString("price", price);
+            parameters.AddOptionalString("quantity", quantity?.Normalize());
+            parameters.AddOptionalString("quoteOrderQty", quoteQuantity?.Normalize());
+            parameters.AddOptionalString("price", price?.Normalize());
             parameters.AddOptional("newClientOrderId", clientOrderId);
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v3/order/test", MexcExchange.RateLimiter.SpotRest, 1, true);
@@ -51,9 +51,9 @@ namespace Mexc.Net.Clients.SpotApi
             };
             parameters.AddEnum("side", side);
             parameters.AddEnum("type", type);
-            parameters.AddOptionalString("quantity", quantity);
-            parameters.AddOptionalString("quoteOrderQty", quoteQuantity);
-            parameters.AddOptionalString("price", price);
+            parameters.AddOptionalString("quantity", quantity?.Normalize());
+            parameters.AddOptionalString("quoteOrderQty", quoteQuantity?.Normalize());
+            parameters.AddOptionalString("price", price?.Normalize());
             parameters.AddOptional("newClientOrderId", clientOrderId);
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v3/order", MexcExchange.RateLimiter.SpotRest, 1, true);
