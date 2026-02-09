@@ -8,8 +8,8 @@ namespace Mexc.Net.Clients
     /// <inheritdoc />
     public class MexcUserClientProvider : IMexcUserClientProvider
     {
-        private static ConcurrentDictionary<string, IMexcRestClient> _restClients = new ConcurrentDictionary<string, IMexcRestClient>();
-        private static ConcurrentDictionary<string, IMexcSocketClient> _socketClients = new ConcurrentDictionary<string, IMexcSocketClient>();
+        private ConcurrentDictionary<string, IMexcRestClient> _restClients = new ConcurrentDictionary<string, IMexcRestClient>();
+        private ConcurrentDictionary<string, IMexcSocketClient> _socketClients = new ConcurrentDictionary<string, IMexcSocketClient>();
 
         private readonly IOptions<MexcRestOptions> _restOptions;
         private readonly IOptions<MexcSocketOptions> _socketOptions;
