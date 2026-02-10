@@ -7,12 +7,14 @@ namespace Mexc.Net.Objects.Sockets.Queries
 {
     internal class MexcFuturesQuery : Query<MexcFuturesUpdate<string>>
     {
-        public MexcFuturesQuery(string method, Dictionary<string, object> parameters, bool authenticated, int weight = 1) : base(new MexcFuturesRequest
+        public MexcFuturesQuery(string method, Dictionary<string, object> parameters, bool authenticated, bool expectsResponse = true, int weight = 1) : base(new MexcFuturesRequest
         {
             Method = method,
             Parameters = parameters
         }, authenticated, weight)
         {
+            ExpectsResponse = expectsResponse;
+
             MessageRouter = MessageRouter.CreateWithoutTopicFilter<MexcFuturesUpdate<string>>(["rs." + method, "rs.error"], HandleMessage);
         }
 

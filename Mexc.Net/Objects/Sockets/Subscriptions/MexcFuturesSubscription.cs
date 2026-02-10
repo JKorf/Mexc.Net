@@ -52,7 +52,7 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
                 parameters.Add("interval", EnumConverter.GetString(_interval.Value));
             if (_limit != null)
                 parameters.Add("limit", _limit);
-            return new MexcFuturesQuery("unsub." + _topic, parameters, Authenticated);
+            return new MexcFuturesQuery("unsub." + _topic, parameters, Authenticated, false);
         }
     }
 }
