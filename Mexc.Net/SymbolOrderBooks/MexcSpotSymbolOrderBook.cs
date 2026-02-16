@@ -97,6 +97,9 @@ namespace Mexc.Net.SymbolOrderBooks
             else
             {
                 var setResult = await WaitForSetOrderBookAsync(TimeSpan.FromSeconds(5), ct).ConfigureAwait(false);
+                if (!setResult)
+                    await subResult.Data.CloseAsync().ConfigureAwait(false);
+
                 return setResult ? subResult : new CallResult<UpdateSubscription>(setResult.Error!);
             }
 
