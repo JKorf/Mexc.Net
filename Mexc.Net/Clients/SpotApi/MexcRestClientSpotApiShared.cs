@@ -352,14 +352,16 @@ namespace Mexc.Net.Clients.SpotApi
                 TriggerPrice = x.StopPrice
             }).ToArray());
         }
-        
-        GetClosedOrdersOptions ISpotOrderRestClient.GetClosedSpotOrdersOptions { get; } = new GetClosedOrdersOptions(false, true, true, 1000);
+
+        GetClosedOrdersOptions ISpotOrderRestClient.GetClosedSpotOrdersOptions { get; } = new GetClosedOrdersOptions(false, true, true, 1000)
+        {
+            MaxAge = TimeSpan.FromDays(7)
+        };
         async Task<ExchangeWebResult<SharedSpotOrder[]>> ISpotOrderRestClient.GetClosedSpotOrdersAsync(GetClosedOrdersRequest request, PageRequest? pageRequest, CancellationToken ct)
         {
             var validationError = ((ISpotOrderRestClient)this).GetClosedSpotOrdersOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedSpotOrder[]>(Exchange, validationError);
-#warning max age 7 days
 
             // Determine page token
             int limit = request.Limit ?? 100;
@@ -383,7 +385,8 @@ namespace Mexc.Net.Clients.SpotApi
                      result.Data.Select(x => x.Timestamp),
                      request.StartTime,
                      request.EndTime ?? DateTime.UtcNow,
-                     pageParams);
+                     pageParams,
+                     maxAge: TimeSpan.FromDays(7));
 
             return result.AsExchangeResult(
                 Exchange,
@@ -738,14 +741,15 @@ namespace Mexc.Net.Clients.SpotApi
 
         #region Withdrawal client
 
-        GetWithdrawalsOptions IWithdrawalRestClient.GetWithdrawalsOptions { get; } = new GetWithdrawalsOptions(false, true, true, 1000);
+        GetWithdrawalsOptions IWithdrawalRestClient.GetWithdrawalsOptions { get; } = new GetWithdrawalsOptions(false, true, true, 1000)
+        {
+            MaxAge = TimeSpan.FromDays(83)
+        };
         async Task<ExchangeWebResult<SharedWithdrawal[]>> IWithdrawalRestClient.GetWithdrawalsAsync(GetWithdrawalsRequest request, PageRequest? pageRequest, CancellationToken ct)
         {
             var validationError = ((IWithdrawalRestClient)this).GetWithdrawalsOptions.ValidateRequest(Exchange, request, TradingMode.Spot, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedWithdrawal[]>(Exchange, validationError);
-
-#warning max age 90 days
 
             // Determine page token
             int limit = request.Limit ?? 1000;
@@ -769,7 +773,8 @@ namespace Mexc.Net.Clients.SpotApi
                     request.StartTime,
                     request.EndTime ?? DateTime.UtcNow,
                     pageParams,
-                    TimeSpan.FromDays(7));
+                    TimeSpan.FromDays(7),
+                    TimeSpan.FromDays(83));
 
             return result.AsExchangeResult(
                 Exchange,
