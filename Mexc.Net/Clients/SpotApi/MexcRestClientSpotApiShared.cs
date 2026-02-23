@@ -439,7 +439,10 @@ namespace Mexc.Net.Clients.SpotApi
             }).ToArray());
         }
 
-        GetUserTradesOptions ISpotOrderRestClient.GetSpotUserTradesOptions { get; } = new GetUserTradesOptions(false, true, true, 100);
+        GetUserTradesOptions ISpotOrderRestClient.GetSpotUserTradesOptions { get; } = new GetUserTradesOptions(false, true, true, 100)
+        {
+            MaxAge = TimeSpan.FromDays(30)
+        };
         async Task<ExchangeWebResult<SharedUserTrade[]>> ISpotOrderRestClient.GetSpotUserTradesAsync(GetUserTradesRequest request, PageRequest? pageRequest, CancellationToken ct)
         {
             var validationError = ((ISpotOrderRestClient)this).GetSpotUserTradesOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
@@ -450,8 +453,6 @@ namespace Mexc.Net.Clients.SpotApi
             int limit = request.Limit ?? 100;
             var direction = DataDirection.Descending;
             var pageParams = Pagination.GetPaginationParameters(direction, limit, request.StartTime, request.EndTime ?? DateTime.UtcNow, pageRequest);
-
-#warning max age 1 month
 
             // Get data
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
@@ -470,7 +471,8 @@ namespace Mexc.Net.Clients.SpotApi
                      result.Data.Select(x => x.Timestamp),
                      request.StartTime,
                      request.EndTime ?? DateTime.UtcNow,
-                     pageParams);
+                     pageParams,
+                     maxAge: TimeSpan.FromDays(30));
 
             return result.AsExchangeResult(
                 Exchange,
@@ -628,14 +630,16 @@ namespace Mexc.Net.Clients.SpotApi
             ).ToArray());
         }
 
-        GetDepositsOptions IDepositRestClient.GetDepositsOptions { get; } = new GetDepositsOptions(false, true, true, 1000);
+        GetDepositsOptions IDepositRestClient.GetDepositsOptions { get; } = new GetDepositsOptions(false, true, true, 1000)
+        {
+            MaxAge = TimeSpan.FromDays(83)
+        };
         async Task<ExchangeWebResult<SharedDeposit[]>> IDepositRestClient.GetDepositsAsync(GetDepositsRequest request, PageRequest? pageRequest, CancellationToken ct)
         {
             var validationError = ((IDepositRestClient)this).GetDepositsOptions.ValidateRequest(Exchange, request, TradingMode.Spot, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedDeposit[]>(Exchange, validationError);
 
-#warning max age 90 days
             // Determine page token
             int limit = request.Limit ?? 1000;
             var direction = DataDirection.Descending;
@@ -658,7 +662,8 @@ namespace Mexc.Net.Clients.SpotApi
                     request.StartTime,
                     request.EndTime ?? DateTime.UtcNow,
                     pageParams,
-                    TimeSpan.FromDays(7));
+                    TimeSpan.FromDays(7),
+                    TimeSpan.FromDays(83));
 
             return result.AsExchangeResult(
                 Exchange,
