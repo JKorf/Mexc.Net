@@ -2713,7 +2713,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiAccount.GetBalanceAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get balance of an asset
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-user-39-s-single-currency-asset-information" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-user-39-s-single-currency-asset-information" /><br />
+            Endpoint:<br />
+            GET /api/v1/private/account/assets/{asset}
+            </para>
             </summary>
             <param name="asset">Asset name</param>
             <param name="ct">Cancellation token</param>
@@ -2721,14 +2726,24 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiAccount.GetBalancesAsync(System.Threading.CancellationToken)">
             <summary>
             Get balances
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-all-informations-of-user-39-s-asset" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-all-informations-of-user-39-s-asset" /><br />
+            Endpoint:<br />
+            GET /api/v1/private/account/assets
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiAccount.GetTransferHistoryAsync(System.String,System.Nullable{Mexc.Net.Enums.TransferStatus},System.Nullable{Mexc.Net.Enums.TransferDirection},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get transfer history
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-user-39-s-asset-transfer-records" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-user-39-s-asset-transfer-records" /><br />
+            Endpoint:<br />
+            GET /api/v1/private/account/transfer_record
+            </para>
             </summary>
             <param name="asset">The asset, for example `ETH`</param>
             <param name="status">Filter by status</param>
@@ -2740,7 +2755,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiAccount.GetFundingHistoryAsync(System.String,System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get funding history
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-details-of-user-s-funding-rate" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-details-of-user-s-funding-rate" /><br />
+            Endpoint:<br />
+            GET /api/v1/private/position/funding_records
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="positionId">Position id</param>
@@ -2751,7 +2771,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiAccount.GetTradingFeesAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get current trading fees
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#gets-the-user-39-s-current-trading-fee-rate" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#gets-the-user-39-s-current-trading-fee-rate" /><br />
+            Endpoint:<br />
+            GET /api/v1/private/account/tiered_fee_rate
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="ct">Cancellation token</param>
@@ -2759,7 +2784,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiAccount.ChangeMarginAsync(System.Int64,System.Decimal,Mexc.Net.Enums.ChangeType,System.Threading.CancellationToken)">
             <summary>
             Change margin
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#increase-or-decrease-margin" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#increase-or-decrease-margin" /><br />
+            Endpoint:<br />
+            POST /api/v1/private/position/change_margin
+            </para>
             </summary>
             <param name="positionId">Position id</param>
             <param name="quantity">Quantity to change</param>
@@ -2769,7 +2799,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiAccount.GetLeverageAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get the current leverage
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-leverage" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-leverage" /><br />
+            Endpoint:<br />
+            GET /api/v1/private/position/leverage
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="ct">Cancellation token</param>
@@ -2777,7 +2812,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiAccount.SetLeverageAsync(System.Int32,System.Nullable{System.Int64},System.Nullable{Mexc.Net.Enums.MarginType},System.String,System.Nullable{Mexc.Net.Enums.PositionSide},System.Threading.CancellationToken)">
             <summary>
             Set leverage
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#switch-leverage" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#switch-leverage" /><br />
+            Endpoint:<br />
+            POST /api/v1/private/position/change_leverage
+            </para>
             </summary>
             <param name="leverage">Leverage</param>
             <param name="positionId">Position id, required when there is an open position</param>
@@ -2789,14 +2829,24 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiAccount.GetPositionModeAsync(System.Threading.CancellationToken)">
             <summary>
             Get the current position mode
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-position-mode" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-position-mode" /><br />
+            Endpoint:<br />
+            GET /api/v1/private/position/position_mode
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiAccount.SetPositionModeAsync(Mexc.Net.Enums.PositionMode,System.Threading.CancellationToken)">
             <summary>
             Set position mode
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#change-position-mode" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#change-position-mode" /><br />
+            Endpoint:<br />
+            POST /api/v1/private/position/change_position_mode
+            </para>
             </summary>
             <param name="positionMode">Position mode</param>
             <param name="ct">Cancellation token</param>
@@ -2809,7 +2859,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiExchangeData.GetServerTimeAsync(System.Threading.CancellationToken)">
             <summary>
             Get the server time
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#market-endpoints" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#market-endpoints" /><br />
+            Endpoint:<br />
+            GET /api/v1/contract/ping
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -2817,7 +2872,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiExchangeData.GetSymbolsAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get contracts
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#market-endpoints" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#market-endpoints" /><br />
+            Endpoint:<br />
+            GET /api/v1/contract/detail
+            </para>
             </summary>
             <param name="symbol">Filter by symbol</param>
             <param name="ct">Cancellation token</param>
@@ -2825,14 +2885,24 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiExchangeData.GetTransferableAssetsAsync(System.Threading.CancellationToken)">
             <summary>
             Get transferable assets
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-transferable-currencies" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-transferable-currencies" /><br />
+            Endpoint:<br />
+            GET /api/v1/contract/support_currencies
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiExchangeData.GetOrderBookAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get order book
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-contract-s-depth-information" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-contract-s-depth-information" /><br />
+            Endpoint:<br />
+            GET /api/v1/contract/depth/{symbol}
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="limit">Limit</param>
@@ -2841,7 +2911,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiExchangeData.GetIndexPriceAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get index price for a symbol
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-index-price" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-index-price" /><br />
+            Endpoint:<br />
+            GET /api/v1/contract/index_price/{symbol}
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="ct">Cancellation token</param>
@@ -2849,7 +2924,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiExchangeData.GetMarkPriceAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get mark price for a symbol
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-fair-price" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-fair-price" /><br />
+            Endpoint:<br />
+            GET /api/v1/contract/fair_price/{symbol}
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="ct">Cancellation token</param>
@@ -2857,7 +2937,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiExchangeData.GetFundingRateAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get funding rate info
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-funding-rate" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-funding-rate" /><br />
+            Endpoint:<br />
+            GET /api/v1/contract/funding_rate/{symbol}
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="ct">Cancellation token</param>
@@ -2865,7 +2950,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiExchangeData.GetKlinesAsync(System.String,Mexc.Net.Enums.FuturesKlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
             <summary>
             Get klines
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#k-line-data" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#k-line-data" /><br />
+            Endpoint:<br />
+            GET /api/v1/contract/kline/{symbol}
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="interval">Kline interval</param>
@@ -2876,7 +2966,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiExchangeData.GetIndexPriceKlinesAsync(System.String,Mexc.Net.Enums.FuturesKlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
             <summary>
             Get index price klines
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#k-line-data" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#k-line-data" /><br />
+            Endpoint:<br />
+            GET /api/v1/contract/kline/index_price/{symbol}
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="interval">Kline interval</param>
@@ -2887,7 +2982,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiExchangeData.GetMarkPriceKlinesAsync(System.String,Mexc.Net.Enums.FuturesKlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
             <summary>
             Get mark price klines
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#k-line-data" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#k-line-data" /><br />
+            Endpoint:<br />
+            GET /api/v1/contract/kline/fair_price/{symbol}
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="interval">Kline interval</param>
@@ -2898,7 +2998,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiExchangeData.GetRecentTradesAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get recent trades
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-transaction-data" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-transaction-data" /><br />
+            Endpoint:<br />
+            GET /api/v1/contract/deals/{symbol}
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="limit">Number of results, max 100</param>
@@ -2907,7 +3012,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiExchangeData.GetTickerAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get ticker for a symbol
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-trend-data" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-trend-data" /><br />
+            Endpoint:<br />
+            GET /api/v1/contract/ticker
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="ct">Cancellation token</param>
@@ -2915,21 +3025,36 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiExchangeData.GetTickersAsync(System.Threading.CancellationToken)">
             <summary>
             Get tickers 
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-trend-data" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-trend-data" /><br />
+            Endpoint:<br />
+            GET /api/v1/contract/ticker
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiExchangeData.GetRiskFundBalancesAsync(System.Threading.CancellationToken)">
             <summary>
             Get risk fund balances
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-all-contract-risk-fund-balance" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-all-contract-risk-fund-balance" /><br />
+            Endpoint:<br />
+            GET /api/v1/contract/risk_reverse
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiExchangeData.GetRiskFundBalanceHistoryAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get risk fund balance history
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-risk-fund-balance-history" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-risk-fund-balance-history" /><br />
+            Endpoint:<br />
+            GET /api/v1/contract/risk_reverse/history
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="page">Page number</param>
@@ -2939,7 +3064,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiExchangeData.GetFundingRateHistoryAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get funding rate history
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-funding-rate-history" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-funding-rate-history" /><br />
+            Endpoint:<br />
+            GET /api/v1/contract/funding_rate/history
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="page">Page number</param>
@@ -2959,7 +3089,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiTrading.GetOpenOrdersAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get open orders
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-user-39-s-current-pending-order" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-user-39-s-current-pending-order" /><br />
+            Endpoint:<br />
+            GET /api/v1/private/order/list/open_orders/{symbol}
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="page">Page number</param>
@@ -2969,7 +3104,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiTrading.GetOrderHistoryAsync(System.String,System.Collections.Generic.IEnumerable{Mexc.Net.Enums.FuturesOrderStatus},System.Nullable{Mexc.Net.Enums.OrderCategory},System.Nullable{Mexc.Net.Enums.FuturesOrderSide},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get order history
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-all-of-the-user-39-s-historical-orders" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-all-of-the-user-39-s-historical-orders" /><br />
+            Endpoint:<br />
+            GET /api/v1/private/order/list/history_orders
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="status">Filter by status</param>
@@ -2984,7 +3124,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiTrading.GetOrderByClientOrderIdAsync(System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Get order by client order id
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#query-the-order-based-on-the-external-number" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#query-the-order-based-on-the-external-number" /><br />
+            Endpoint:<br />
+            GET /api/v1/private/order/external/{symbol}/{clientOrderId}
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="clientOrderId">Client order id</param>
@@ -2993,7 +3138,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiTrading.GetOrderAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get order by id
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#query-the-order-based-on-the-order-number" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#query-the-order-based-on-the-order-number" /><br />
+            Endpoint:<br />
+            GET /api/v1/private/order/get/{orderId}
+            </para>
             </summary>
             <param name="orderId">The order id</param>
             <param name="ct">Cancellation token</param>
@@ -3001,7 +3151,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiTrading.GetOrdersByIdAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <summary>
             Get orders by id
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#query-the-order-in-bulk-based-on-the-order-number" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#query-the-order-in-bulk-based-on-the-order-number" /><br />
+            Endpoint:<br />
+            GET /api/v1/private/order/batch_query
+            </para>
             </summary>
             <param name="orderIds">Ids of the orders to retrieve</param>
             <param name="ct">Cancellation token</param>
@@ -3009,7 +3164,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiTrading.GetOrderTradesAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get trades for an order
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-order-transaction-details-based-on-the-order-id" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-order-transaction-details-based-on-the-order-id" /><br />
+            Endpoint:<br />
+            GET /api/v1/private/order/deal_details/{orderId}
+            </para>
             </summary>
             <param name="orderId">The order id</param>
             <param name="ct">Cancellation token</param>
@@ -3017,7 +3177,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiTrading.GetUserTradesAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get user trades
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-all-transaction-details-of-the-user-s-order" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-all-transaction-details-of-the-user-s-order" /><br />
+            Endpoint:<br />
+            GET /api/v1/private/order/list/order_deals
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="startTime">Filter by start time</param>
@@ -3029,7 +3194,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiTrading.GetTriggerOrdersAsync(System.String,System.Collections.Generic.IEnumerable{Mexc.Net.Enums.FuturesOrderStatus},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get trigger orders
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-all-of-the-user-39-s-historical-orders" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-all-of-the-user-39-s-historical-orders" /><br />
+            Endpoint:<br />
+            GET /api/v1/private/planorder/list/orders
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="status">Filter by status</param>
@@ -3042,7 +3212,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiTrading.GetStopOrdersAsync(System.String,System.Nullable{System.Boolean},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get stop orders
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-stop-limit-order-list" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-stop-limit-order-list" /><br />
+            Endpoint:<br />
+            GET /api/v1/private/stoporder/list/orders
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="finished">Is finished</param>
@@ -3055,7 +3230,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiTrading.GetRiskLimitsAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get risk limits
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-risk-limits" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-risk-limits" /><br />
+            Endpoint:<br />
+            GET /api/v1/private/account/risk_limit
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="ct">Cancellation token</param>
@@ -3063,7 +3243,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiTrading.GetPositionHistoryAsync(System.String,System.Nullable{Mexc.Net.Enums.PositionSide},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get position history
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-user-s-history-position-information" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-user-s-history-position-information" /><br />
+            Endpoint:<br />
+            GET /api/v1/private/position/list/history_positions
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="positionSide">Filter by position side</param>
@@ -3074,7 +3259,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcRestClientFuturesApiTrading.GetPositionsAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get current open positions
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-user-39-s-current-holding-position" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-user-39-s-current-holding-position" /><br />
+            Endpoint:<br />
+            GET /api/v1/private/position/open_positions
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="ct">Cancellation token</param>
@@ -3092,7 +3282,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcSocketClientFuturesApi.SubscribeToTickersUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Futures.MexcFuturesTickerUpdate[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to ticker updates for all symbols
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /><br />
+            Endpoint:<br />
+            tickers
+            </para>
             </summary>
             <param name="handler">Data handler</param>
             <param name="ct">Cancellation token</param>
@@ -3100,7 +3295,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcSocketClientFuturesApi.SubscribeToTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Futures.MexcFuturesTicker}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to ticker updates for a symbol
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /><br />
+            Endpoint:<br />
+            ticker
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="handler">Data handler</param>
@@ -3109,7 +3309,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcSocketClientFuturesApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Futures.MexcFuturesTrade[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to trade updates for a symbol
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /><br />
+            Endpoint:<br />
+            deal
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="handler">Data handler</param>
@@ -3118,7 +3323,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcSocketClientFuturesApi.SubscribeToKlineUpdatesAsync(System.String,Mexc.Net.Enums.FuturesKlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Futures.MexcFuturesStreamKline}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to kline updates
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /><br />
+            Endpoint:<br />
+            kline
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="interval">Kline interval</param>
@@ -3128,7 +3338,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcSocketClientFuturesApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Futures.MexcFuturesOrderBook}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to incremental order book updates
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /><br />
+            Endpoint:<br />
+            depth
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="handler">Data handler</param>
@@ -3137,7 +3352,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcSocketClientFuturesApi.SubscribeToPartialOrderBookUpdatesAsync(System.String,System.Nullable{System.Int32},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Futures.MexcFuturesOrderBook}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to full book updates for the first rows of the order book
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /><br />
+            Endpoint:<br />
+            depth.full
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="limit">Number of rows, 5, 10 or 20</param>
@@ -3147,7 +3367,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcSocketClientFuturesApi.SubscribeToFundingRateUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Futures.MexcFundingRateUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to funding rate updates
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /><br />
+            Endpoint:<br />
+            funding.rate
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="handler">Data handler</param>
@@ -3156,7 +3381,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcSocketClientFuturesApi.SubscribeToIndexPriceUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Futures.MexcPriceUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to index price updates for a symbol
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /><br />
+            Endpoint:<br />
+            index.price
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="handler">Data handler</param>
@@ -3165,7 +3395,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcSocketClientFuturesApi.SubscribeToMarkPriceUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Futures.MexcPriceUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to mark price updates for a symbol
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /><br />
+            Endpoint:<br />
+            fair.price
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="handler">Data handler</param>
@@ -3174,7 +3409,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.FuturesApi.IMexcSocketClientFuturesApi.SubscribeToUserDataUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Futures.MexcFuturesBalanceUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Futures.MexcFuturesOrder}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Futures.MexcPosition}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Futures.MexcRiskLimit}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Futures.MexcAdlUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Futures.MexcPositionModeUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to user data updates
-            <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#private-channels" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#private-channels" /><br />
+            Endpoint:<br />
+            personal.filter
+            </para>
             </summary>
             <param name="balanceUpdateHandler">Balance update handler</param>
             <param name="orderUpdateHandler">Order update handler</param>
@@ -3323,7 +3563,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.GetAccountInfoAsync(System.Threading.CancellationToken)">
             <summary>
             Get account and balance info
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#account-information" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#account-information" /><br />
+            Endpoint:<br />
+            GET /api/v3/account
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -3331,7 +3576,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.GetKycStatusAsync(System.Threading.CancellationToken)">
             <summary>
             Get KYC status for the account
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-kyc-status" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-kyc-status" /><br />
+            Endpoint:<br />
+            GET /api/v3/kyc/status
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -3339,7 +3589,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.GetUserAssetsAsync(System.Threading.CancellationToken)">
             <summary>
             Get a list of user assets and deposit/withdrawal data
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-the-currency-information" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-the-currency-information" /><br />
+            Endpoint:<br />
+            GET /api/v3/capital/config/getall
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -3347,7 +3602,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.WithdrawAsync(System.String,System.String,System.Decimal,System.String,System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Withdraw funds
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#withdraw-new" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#withdraw-new" /><br />
+            Endpoint:<br />
+            POST /api/v3/capital/withdraw
+            </para>
             </summary>
             <param name="asset">Asset, for example `BTC`</param>
             <param name="address">Address to withdraw to</param>
@@ -3363,7 +3623,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.CancelWithdrawAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Cancel a withdrawal
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#cancel-withdraw" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#cancel-withdraw" /><br />
+            Endpoint:<br />
+            DELETE /api/v3/capital/withdraw
+            </para>
             </summary>
             <param name="withdrawId">The id of the withdrawal to cancel</param>
             <param name="ct">Cancellation token</param>
@@ -3372,7 +3637,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.GetDepositHistoryAsync(System.String,System.Nullable{Mexc.Net.Enums.DepositStatus},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get deposit history
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#deposit-history-supporting-network" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#deposit-history-supporting-network" /><br />
+            Endpoint:<br />
+            GET /api/v3/capital/deposit/hisrec
+            </para>
             </summary>
             <param name="asset">Filter by asset, for example `BTC`</param>
             <param name="status">Filter by status</param>
@@ -3385,7 +3655,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.GetWithdrawHistoryAsync(System.String,System.Nullable{Mexc.Net.Enums.WithdrawStatus},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get withdrawal history
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#withdraw-history-supporting-network" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#withdraw-history-supporting-network" /><br />
+            Endpoint:<br />
+            GET /api/v3/capital/withdraw/history
+            </para>
             </summary>
             <param name="asset">Filter by asset, for example `BTC`</param>
             <param name="status">Filter by status</param>
@@ -3398,7 +3673,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.GenerateDepositAddressAsync(System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Generate a deposit address
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#generate-deposit-address-supporting-network" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#generate-deposit-address-supporting-network" /><br />
+            Endpoint:<br />
+            POST /api/v3/capital/deposit/address
+            </para>
             </summary>
             <param name="asset">Asset, for example `BTC`</param>
             <param name="network">Network</param>
@@ -3408,7 +3688,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.GetDepositAddressesAsync(System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Get deposit addresses
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#deposit-address-supporting-network" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#deposit-address-supporting-network" /><br />
+            Endpoint:<br />
+            GET /api/v3/capital/deposit/address
+            </para>
             </summary>
             <param name="asset">Asset, for example `BTC`</param>
             <param name="network">Filter by network</param>
@@ -3418,7 +3703,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.GetWithdrawAddressesAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get withdrawal addresses
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#withdraw-address-supporting-network" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#withdraw-address-supporting-network" /><br />
+            Endpoint:<br />
+            GET /api/v3/capital/withdraw/address
+            </para>
             </summary>
             <param name="asset">Filter by asset, for example `BTC`</param>
             <param name="page">Page</param>
@@ -3429,7 +3719,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.TransferAsync(System.String,Mexc.Net.Enums.AccountType,Mexc.Net.Enums.AccountType,System.Decimal,System.Threading.CancellationToken)">
             <summary>
             Transfer between accounts
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#user-universal-transfer" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#user-universal-transfer" /><br />
+            Endpoint:<br />
+            POST /api/v3/capital/transfer
+            </para>
             </summary>
             <param name="asset">The asset to transfer, for example `BTC`</param>
             <param name="fromAccountType">From account</param>
@@ -3441,7 +3736,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.GetTransferHistoryAsync(Mexc.Net.Enums.AccountType,Mexc.Net.Enums.AccountType,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get user transfer history
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-user-universal-transfer-history" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-user-universal-transfer-history" /><br />
+            Endpoint:<br />
+            GET /api/v3/capital/transfer
+            </para>
             </summary>
             <param name="fromAccount">From account type</param>
             <param name="toAccount">To account type</param>
@@ -3455,7 +3755,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.GetTransferAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get info on a transfer
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-user-universal-transfer-history-by-tranid" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-user-universal-transfer-history-by-tranid" /><br />
+            Endpoint:<br />
+            GET /api/v3/capital/transfer/tranId
+            </para>
             </summary>
             <param name="transferId">Transfer id</param>
             <param name="ct">Cancellation token</param>
@@ -3464,7 +3769,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.GetAssetsForDustTransferAsync(System.Threading.CancellationToken)">
             <summary>
             Get dust assets which can be converted
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#get-assets-that-can-be-converted-into-mx" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#get-assets-that-can-be-converted-into-mx" /><br />
+            Endpoint:<br />
+            GET /api/v3/capital/convert/list
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -3472,7 +3782,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.DustTransferAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <summary>
             Convert small amount (dust) of certain assets to equal value Mx
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#dust-transfer" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#dust-transfer" /><br />
+            Endpoint:<br />
+            POST /api/v3/capital/convert
+            </para>
             </summary>
             <param name="assets">Assets to convert, for example `BTC`</param>
             <param name="ct">Cancellation token</param>
@@ -3481,7 +3796,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.GetDustLogAsync(System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get dust transfer log
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#dust-transfer" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#dust-transfer" /><br />
+            Endpoint:<br />
+            GET /api/v3/capital/convert
+            </para>
             </summary>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
@@ -3493,7 +3813,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.TransferInternalAsync(System.String,System.Decimal,Mexc.Net.Enums.TransferAccountType,System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Transfer an asset to another user on MEXC
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#internal-transfer" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#internal-transfer" /><br />
+            Endpoint:<br />
+            POST /api/v3/capital/transfer/internal
+            </para>
             </summary>
             <param name="asset">Asset to transfer</param>
             <param name="quantity">Quantity to transfer</param>
@@ -3506,7 +3831,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.GetInternalTransferHistoryAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get internal transfer history
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#internal-transfer" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#internal-transfer" /><br />
+            Endpoint:<br />
+            GET /api/v3/capital/transfer/internal
+            </para>
             </summary>
             <param name="transferId">Filter by transfer id</param>
             <param name="startTime">Filter by start time</param>
@@ -3519,7 +3849,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.SetMxDeductionAsync(System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Set MX deduction status
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#enable-mx-deduct" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#enable-mx-deduct" /><br />
+            Endpoint:<br />
+            POST /api/v3/mxDeduct/enable
+            </para>
             </summary>
             <param name="enabled">Enabled</param>
             <param name="ct">Cancellation token</param>
@@ -3528,7 +3863,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.GetMxDeductionStatusAsync(System.Threading.CancellationToken)">
             <summary>
             Get MX deduction status
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-mx-deduct-status" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-mx-deduct-status" /><br />
+            Endpoint:<br />
+            GET /api/v3/mxDeduct/enable
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -3536,7 +3876,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.GetTradeFeeAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get trade fee for a symbol
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-symbol-commission" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-symbol-commission" /><br />
+            Endpoint:<br />
+            GET /api/v3/tradeFee
+            </para>
             </summary>
             <param name="symbol">Symbol, for example `BTCUSDT`</param>
             <param name="ct">Cancellation token</param>
@@ -3545,7 +3890,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.StartUserStreamAsync(System.Threading.CancellationToken)">
             <summary>
             Starts a user stream by requesting a listen key. This listen key can be used in a subsequent request to user subscribe methods in the socket client. The stream will close after 60 minutes unless <see cref="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.KeepAliveUserStreamAsync(System.String,System.Threading.CancellationToken)">KeepAliveUserStreamAsync</see> is called.
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#listen-key" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#listen-key" /><br />
+            Endpoint:<br />
+            POST /api/v3/userDataStream
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -3553,7 +3903,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.KeepAliveUserStreamAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Sends a keep alive for the current user stream listen key to keep the stream from closing. Stream auto closes after 60 minutes if no keep alive is send. 30 minute interval for keep alive is recommended.
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#listen-key" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#listen-key" /><br />
+            Endpoint:<br />
+            PUT /api/v3/userDataStream
+            </para>
             </summary>
             <param name="listenKey"></param>
             <param name="ct"></param>
@@ -3562,7 +3917,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.StopUserStreamAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Stops the current user stream
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#listen-key" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#listen-key" /><br />
+            Endpoint:<br />
+            DELETE /api/v3/userDataStream
+            </para>
             </summary>
             <param name="listenKey"></param>
             <param name="ct"></param>
@@ -3576,7 +3936,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData.PingAsync(System.Threading.CancellationToken)">
             <summary>
             Ping the server, returns the response time in milliseconds
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#test-connectivity" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#test-connectivity" /><br />
+            Endpoint:<br />
+            GET /api/v3/ping
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -3584,7 +3949,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData.GetServerTimeAsync(System.Threading.CancellationToken)">
             <summary>
             Get the server time
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#check-server-time" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#check-server-time" /><br />
+            Endpoint:<br />
+            GET /api/v3/time
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -3592,7 +3962,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData.GetApiSymbolsAsync(System.Threading.CancellationToken)">
             <summary>
             Get a list of symbols supported by the API
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#api-default-symbol" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#api-default-symbol" /><br />
+            Endpoint:<br />
+            GET /api/v3/defaultSymbols
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -3600,7 +3975,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData.GetExchangeInfoAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <summary>
             Get the exchange info, including symbol info
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#exchange-information" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#exchange-information" /><br />
+            Endpoint:<br />
+            GET /api/v3/exchangeInfo
+            </para>
             </summary>
             <param name="symbols">Filter by symbols, for example `BTCUSDT`</param>
             <param name="ct">Cancellation token</param>
@@ -3609,7 +3989,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData.GetOrderBookAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get the current order book
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#order-book" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#order-book" /><br />
+            Endpoint:<br />
+            GET /api/v3/depth
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `BTCUSDT`</param>
             <param name="limit">Number of rows, max 500</param>
@@ -3619,7 +4004,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData.GetRecentTradesAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get a list of the most recent trades
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#recent-trades-list" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#recent-trades-list" /><br />
+            Endpoint:<br />
+            GET /api/v3/trades
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `BTCUSDT`</param>
             <param name="limit">Number of rows, max 1000</param>
@@ -3629,7 +4019,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData.GetAggregatedTradeHistoryAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get a list of aggregated trades
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#compressed-aggregate-trades-list" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#compressed-aggregate-trades-list" /><br />
+            Endpoint:<br />
+            GET /api/v3/aggTrades
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `BTCUSDT`</param>
             <param name="startTime">Filter by start time</param>
@@ -3641,7 +4036,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData.GetKlinesAsync(System.String,Mexc.Net.Enums.KlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get kline/candlestick data
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#kline-candlestick-data" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#kline-candlestick-data" /><br />
+            Endpoint:<br />
+            GET /api/v3/klines
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `BTCUSDT`</param>
             <param name="interval">Kline interval</param>
@@ -3654,7 +4054,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData.GetAveragePriceAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get average price for a symbol
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#current-average-price" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#current-average-price" /><br />
+            Endpoint:<br />
+            GET /api/v3/avgPrice
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `BTCUSDT`</param>
             <param name="ct">Cancellation token</param>
@@ -3663,7 +4068,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData.GetTickerAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get 24h price statistics
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#24hr-ticker-price-change-statistics" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#24hr-ticker-price-change-statistics" /><br />
+            Endpoint:<br />
+            GET /api/v3/ticker/24hr
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `BTCUSDT`</param>
             <param name="ct">Cancellation token</param>
@@ -3672,7 +4082,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData.GetTickersAsync(System.Threading.CancellationToken)">
             <summary>
             Get 24h price statistics
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#24hr-ticker-price-change-statistics" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#24hr-ticker-price-change-statistics" /><br />
+            Endpoint:<br />
+            GET /api/v3/ticker/24hr
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -3680,7 +4095,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData.GetPricesAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <summary>
             Get the last symbol prices
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#symbol-price-ticker" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#symbol-price-ticker" /><br />
+            Endpoint:<br />
+            GET /api/v3/ticker/price
+            </para>
             </summary>
             <param name="symbols">Filter by symbol, for example `BTCUSDT`</param>
             <param name="ct">Cancellation token</param>
@@ -3689,7 +4109,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData.GetBookPricesAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get the best book prices
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#symbol-order-book-ticker" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#symbol-order-book-ticker" /><br />
+            Endpoint:<br />
+            GET /api/v3/ticker/bookTicker
+            </para>
             </summary>
             <param name="symbol">Filter by symbol, for example `BTCUSDT`</param>
             <param name="ct">Cancellation token</param>
@@ -3698,7 +4123,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiExchangeData.GetBookPricesAsync(System.Threading.CancellationToken)">
             <summary>
             Get the best book prices
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#symbol-order-book-ticker" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#symbol-order-book-ticker" /><br />
+            Endpoint:<br />
+            GET /api/v3/ticker/bookTicker
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -3716,7 +4146,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiSubAccount.GetSubUserAccountsAsync(System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get details of the available sub-accounts
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-sub-account-list-for-master-account"/></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-sub-account-list-for-master-account" /><br />
+            Endpoint:<br />
+            GET /api/v3/sub-account/list
+            </para>
             </summary>
             <param name="name">The name of the sub-account</param>
             <param name="isFreeze">Filter by 'Is Freeze'</param>
@@ -3728,7 +4163,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiSubAccount.GetSubUserAccountApiDetailsAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get API details of a sub-account
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-the-apikey-of-a-sub-account-for-master-account"/></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-the-apikey-of-a-sub-account-for-master-account" /><br />
+            Endpoint:<br />
+            GET /api/v3/sub-account/apiKey
+            </para>
             </summary>
             <param name="subAccount">The name of the sub-account</param>
             <param name="ct">Cancellation token</param>
@@ -3737,7 +4177,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiSubAccount.UniversalTransferAsync(System.String,System.Decimal,Mexc.Net.Enums.AccountType,Mexc.Net.Enums.AccountType,System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Perform a universal transfer between accounts
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#universal-transfer-for-master-account"/></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#universal-transfer-for-master-account" /><br />
+            Endpoint:<br />
+            POST /api/v3/capital/sub-account/universalTransfer
+            </para>
             </summary>
             <param name="asset">The name of the asset, for example `USDT`</param>
             <param name="amount">The amount that should be transferred</param>
@@ -3751,7 +4196,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiSubAccount.GetUniversalTransfersAsync(Mexc.Net.Enums.AccountType,Mexc.Net.Enums.AccountType,System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Query the universal transfer history
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-universal-transfer-history-for-master-account"/></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-universal-transfer-history-for-master-account" /><br />
+            Endpoint:<br />
+            GET /api/v3/capital/sub-account/universalTransfer
+            </para>
             </summary>
             <param name="fromAccountType">The origin account type</param>
             <param name="toAccountType">The destination account type</param>
@@ -3767,7 +4217,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiSubAccount.CreateSubAccountAsync(System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Create a new virtual sub account
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#create-a-sub-account-for-master-account"/></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#create-a-sub-account-for-master-account" /><br />
+            Endpoint:<br />
+            POST /api/v3/sub-account/virtualSubAccount
+            </para>
             </summary>
             <param name="name">Name</param>
             <param name="note">Notes</param>
@@ -3776,7 +4231,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiSubAccount.CreateSubAccountApiKeyAsync(System.String,System.String,System.String[],System.String[],System.Threading.CancellationToken)">
             <summary>
             Create API key for sub account
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#create-an-apikey-for-a-sub-account-for-master-account"/></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#create-an-apikey-for-a-sub-account-for-master-account" /><br />
+            Endpoint:<br />
+            POST /api/v3/sub-account/apiKey
+            </para>
             </summary>
             <param name="subAccount">Sub account</param>
             <param name="note">Key note</param>
@@ -3787,7 +4247,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiSubAccount.DeleteSubAccountApiKeyAsync(System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Delete a sub account API key
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#delete-the-apikey-of-a-sub-account-for-master-account"/></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#delete-the-apikey-of-a-sub-account-for-master-account" /><br />
+            Endpoint:<br />
+            DELETE /api/v3/sub-account/apiKey
+            </para>
             </summary>
             <param name="subAccount">Sub account</param>
             <param name="apiKey">The API key</param>
@@ -3796,7 +4261,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiSubAccount.GetSubAccountBalancesAsync(System.String,Mexc.Net.Enums.AccountType,System.Threading.CancellationToken)">
             <summary>
             Get sub account balances
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-sub-account-asset"/></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-sub-account-asset" /><br />
+            Endpoint:<br />
+            GET /api/v3/sub-account/asset
+            </para>
             </summary>
             <param name="subAccount">Sub account</param>
             <param name="accountType">Account type</param>
@@ -3810,7 +4280,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiTrading.PlaceTestOrderAsync(System.String,Mexc.Net.Enums.OrderSide,Mexc.Net.Enums.OrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Threading.CancellationToken)">
             <summary>
             Place a new test order. Only validates the rules, doesn't actually place any order
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#test-new-order" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#test-new-order" /><br />
+            Endpoint:<br />
+            POST /api/v3/order/test
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `BTCUSDT`</param>
             <param name="side">Order side</param>
@@ -3825,7 +4300,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiTrading.PlaceOrderAsync(System.String,Mexc.Net.Enums.OrderSide,Mexc.Net.Enums.OrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Threading.CancellationToken)">
             <summary>
             Place a new order
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#new-order" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#new-order" /><br />
+            Endpoint:<br />
+            POST /api/v3/order
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `BTCUSDT`</param>
             <param name="side">Order side</param>
@@ -3840,7 +4320,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiTrading.PlaceMultipleOrdersAsync(System.Collections.Generic.IEnumerable{Mexc.Net.Objects.Models.Spot.MexcPlaceOrderRequest},System.Threading.CancellationToken)">
             <summary>
             Place multiple new orders in a single request
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#batch-orders" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#batch-orders" /><br />
+            Endpoint:<br />
+            POST /api/v3/batchOrders
+            </para>
             </summary>
             <param name="requests">Order requests, max 20</param>
             <param name="ct">Cancelation Token</param>
@@ -3848,7 +4333,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiTrading.CancelOrderAsync(System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Cancel an order
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#cancel-order" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#cancel-order" /><br />
+            Endpoint:<br />
+            DELETE /api/v3/order
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `BTCUSDT`</param>
             <param name="orderId">Cancel by order id</param>
@@ -3860,7 +4350,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiTrading.CancelAllOrdersAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Cancel all orders on a symbol
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#cancel-all-open-orders-on-a-symbol" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#cancel-all-open-orders-on-a-symbol" /><br />
+            Endpoint:<br />
+            DELETE /api/v3/openOrders
+            </para>
             </summary>
             <param name="symbol">The symbol to close all orders on, for example `BTCUSDT`</param>
             <param name="ct">Cancelation Token</param>
@@ -3869,7 +4364,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiTrading.CancelAllOrdersAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <summary>
             Cancel all orders on a symbol
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#cancel-all-open-orders-on-a-symbol" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#cancel-all-open-orders-on-a-symbol" /><br />
+            Endpoint:<br />
+            DELETE /api/v3/openOrders
+            </para>
             </summary>
             <param name="symbols">The symbols to close all orders on (max 5), for example `BTCUSDT`</param>
             <param name="ct">Cancelation Token</param>
@@ -3878,7 +4378,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiTrading.GetOrderAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Get an order
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-order" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-order" /><br />
+            Endpoint:<br />
+            GET /api/v3/order
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `BTCUSDT`</param>
             <param name="orderId">Get by order id</param>
@@ -3889,7 +4394,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiTrading.GetOpenOrdersAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get all open orders
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#current-open-orders" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#current-open-orders" /><br />
+            Endpoint:<br />
+            GET /api/v3/openOrders
+            </para>
             </summary>
             <param name="symbol">Symbol, for example `BTCUSDT`</param>
             <param name="ct">Cancelation Token</param>
@@ -3898,7 +4408,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiTrading.GetOrdersAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get all orders
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#all-orders" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#all-orders" /><br />
+            Endpoint:<br />
+            GET /api/v3/allOrders
+            </para>
             </summary>
             <param name="symbol">Symbol, for example `BTCUSDT`</param>
             <param name="startTime">Filter by start time</param>
@@ -3910,7 +4425,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiTrading.GetUserTradesAsync(System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get user trades
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#account-trade-list" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#account-trade-list" /><br />
+            Endpoint:<br />
+            GET /api/v3/myTrades
+            </para>
             </summary>
             <param name="orderId">Filter by order id</param>
             <param name="symbol">Symbol, for example `BTCUSDT`</param>
@@ -3938,7 +4458,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamTrade[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to trade updates
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#trade-streams" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#trade-streams" /><br />
+            Endpoint:<br />
+            spot@public.aggre.deals.v3.api.pb@{interval}ms@{symbol}
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `BTCUSDT`</param>
             <param name="handler">Data handler</param>
@@ -3948,7 +4473,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamTrade[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to trade updates
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#trade-streams" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#trade-streams" /><br />
+            Endpoint:<br />
+            spot@public.aggre.deals.v3.api.pb@{interval}ms@{symbol}
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `BTCUSDT`</param>
             <param name="updateInterval">Interval for updates, either 10 or 100 ms</param>
@@ -3959,7 +4489,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamTrade[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to trade updates
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#trade-streams" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#trade-streams" /><br />
+            Endpoint:<br />
+            spot@public.aggre.deals.v3.api.pb@{interval}ms@{symbol}
+            </para>
             </summary>
             <param name="symbols">The symbols to subscribe, for example `BTCUSDT`</param>
             <param name="updateInterval">Interval for updates, either 10 or 100 ms</param>
@@ -3970,7 +4505,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToKlineUpdatesAsync(System.String,Mexc.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamKline}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to kline/candlestick updates
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#kline-streams" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#kline-streams" /><br />
+            Endpoint:<br />
+            spot@public.kline.v3.api.pb@{symbol}@{interval}
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `BTCUSDT`</param>
             <param name="interval">The interval of the candles</param>
@@ -3981,7 +4521,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToKlineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},Mexc.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamKline}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to kline/candlestick updates
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#kline-streams" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#kline-streams" /><br />
+            Endpoint:<br />
+            spot@public.kline.v3.api.pb@{symbol}@{interval}
+            </para>
             </summary>
             <param name="symbols">The symbols, for example `BTCUSDT`</param>
             <param name="interval">The interval of the candles</param>
@@ -3992,7 +4537,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to orderbook change updates
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#diff-depth-stream" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#diff-depth-stream" /><br />
+            Endpoint:<br />
+            spot@public.aggre.depth.v3.api.pb@{interval}ms@{symbol}
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `BTCUSDT`</param>
             <param name="handler">Data handler</param>
@@ -4002,7 +4552,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to orderbook change updates
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#diff-depth-stream" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#diff-depth-stream" /><br />
+            Endpoint:<br />
+            spot@public.aggre.depth.v3.api.pb@{interval}ms@{symbol}
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `BTCUSDT`</param>
             <param name="updateInterval">Interval for updates, either 10 or 100 ms</param>
@@ -4013,7 +4568,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to orderbook change updates
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#diff-depth-stream" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#diff-depth-stream" /><br />
+            Endpoint:<br />
+            spot@public.aggre.depth.v3.api.pb@{interval}ms@{symbol}
+            </para>
             </summary>
             <param name="symbols">The symbols, for example `BTCUSDT`</param>
             <param name="updateInterval">Interval for updates, either 10 or 100 ms</param>
@@ -4024,7 +4584,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToPartialOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to full orderbook updates
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#partial-book-depth-streams" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#partial-book-depth-streams" /><br />
+            Endpoint:<br />
+            spot@public.limit.depth.v3.api.pb@{symbol}@{depth}
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `BTCUSDT`</param>
             <param name="depth">The depth of the book, 5, 10 or 20</param>
@@ -4035,7 +4600,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToPartialOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamOrderBook}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to full orderbook updates
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#partial-book-depth-streams" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#partial-book-depth-streams" /><br />
+            Endpoint:<br />
+            spot@public.limit.depth.v3.api.pb@{symbol}@{depth}
+            </para>
             </summary>
             <param name="symbols">The symbols, for example `BTCUSDT`</param>
             <param name="depth">The depth of the book, 5, 10 or 20</param>
@@ -4046,7 +4616,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToBookTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamBookTick}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to book ticker (best bid/ask) updates
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#individual-symbol-book-ticker-streams" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#individual-symbol-book-ticker-streams" /><br />
+            Endpoint:<br />
+            spot@public.bookTicker.batch.v3.api.pb@{symbol}
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `BTCUSDT`</param>
             <param name="handler">Data handler</param>
@@ -4056,7 +4631,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToBookTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcStreamBookTick}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to book ticker (best bid/ask) updates
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#individual-symbol-book-ticker-streams" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#individual-symbol-book-ticker-streams" /><br />
+            Endpoint:<br />
+            spot@public.bookTicker.batch.v3.api.pb@{symbol}
+            </para>
             </summary>
             <param name="symbols">The symbols, for example `BTCUSDT`</param>
             <param name="handler">Data handler</param>
@@ -4106,7 +4686,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToAccountUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcAccountUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to account balance updates. Prior to using this, the <see cref="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.StartUserStreamAsync(System.Threading.CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method should be called to start the stream and obtaining a listen key.
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#spot-account-update" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#spot-account-update" /><br />
+            Endpoint:<br />
+            spot@private.account.v3.api.pb
+            </para>
             </summary>
             <param name="listenKey">Listen key retrieved by the <see cref="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.StartUserStreamAsync(System.Threading.CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method</param>
             <param name="handler">Data handler</param>
@@ -4116,7 +4701,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToOrderUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcUserOrderUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to account order updates. Prior to using this, the <see cref="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.StartUserStreamAsync(System.Threading.CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method should be called to start the stream and obtaining a listen key.
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#spot-account-orders" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#spot-account-orders" /><br />
+            Endpoint:<br />
+            spot@private.orders.v3.api.pb
+            </para>
             </summary>
             <param name="listenKey">Listen key retrieved by the <see cref="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.StartUserStreamAsync(System.Threading.CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method</param>
             <param name="handler">Data handler</param>
@@ -4126,7 +4716,12 @@
         <member name="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcSocketClientSpotApi.SubscribeToUserTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Mexc.Net.Objects.Models.Spot.MexcUserTradeUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to account trade updates. Prior to using this, the <see cref="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.StartUserStreamAsync(System.Threading.CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method should be called to start the stream and obtaining a listen key.
-            <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#spot-account-deals" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#spot-account-deals" /><br />
+            Endpoint:<br />
+            spot@private.deals.v3.api.pb
+            </para>
             </summary>
             <param name="listenKey">Listen key retrieved by the <see cref="M:Mexc.Net.Interfaces.Clients.SpotApi.IMexcRestClientSpotApiAccount.StartUserStreamAsync(System.Threading.CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method</param>
             <param name="handler">Data handler</param>

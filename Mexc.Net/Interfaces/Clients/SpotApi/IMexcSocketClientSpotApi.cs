@@ -23,7 +23,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to trade updates
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#trade-streams" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#trade-streams" /><br />
+        /// Endpoint:<br />
+        /// spot@public.aggre.deals.v3.api.pb@{interval}ms@{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
         /// <param name="handler">Data handler</param>
@@ -33,7 +38,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to trade updates
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#trade-streams" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#trade-streams" /><br />
+        /// Endpoint:<br />
+        /// spot@public.aggre.deals.v3.api.pb@{interval}ms@{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
         /// <param name="updateInterval">Interval for updates, either 10 or 100 ms</param>
@@ -44,7 +54,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to trade updates
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#trade-streams" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#trade-streams" /><br />
+        /// Endpoint:<br />
+        /// spot@public.aggre.deals.v3.api.pb@{interval}ms@{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbols">The symbols to subscribe, for example `BTCUSDT`</param>
         /// <param name="updateInterval">Interval for updates, either 10 or 100 ms</param>
@@ -55,7 +70,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to kline/candlestick updates
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#kline-streams" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#kline-streams" /><br />
+        /// Endpoint:<br />
+        /// spot@public.kline.v3.api.pb@{symbol}@{interval}
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
         /// <param name="interval">The interval of the candles</param>
@@ -66,7 +86,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to kline/candlestick updates
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#kline-streams" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#kline-streams" /><br />
+        /// Endpoint:<br />
+        /// spot@public.kline.v3.api.pb@{symbol}@{interval}
+        /// </para>
         /// </summary>
         /// <param name="symbols">The symbols, for example `BTCUSDT`</param>
         /// <param name="interval">The interval of the candles</param>
@@ -77,7 +102,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to orderbook change updates
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#diff-depth-stream" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#diff-depth-stream" /><br />
+        /// Endpoint:<br />
+        /// spot@public.aggre.depth.v3.api.pb@{interval}ms@{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
         /// <param name="handler">Data handler</param>
@@ -87,7 +117,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to orderbook change updates
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#diff-depth-stream" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#diff-depth-stream" /><br />
+        /// Endpoint:<br />
+        /// spot@public.aggre.depth.v3.api.pb@{interval}ms@{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
         /// <param name="updateInterval">Interval for updates, either 10 or 100 ms</param>
@@ -98,7 +133,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to orderbook change updates
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#diff-depth-stream" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#diff-depth-stream" /><br />
+        /// Endpoint:<br />
+        /// spot@public.aggre.depth.v3.api.pb@{interval}ms@{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbols">The symbols, for example `BTCUSDT`</param>
         /// <param name="updateInterval">Interval for updates, either 10 or 100 ms</param>
@@ -109,7 +149,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to full orderbook updates
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#partial-book-depth-streams" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#partial-book-depth-streams" /><br />
+        /// Endpoint:<br />
+        /// spot@public.limit.depth.v3.api.pb@{symbol}@{depth}
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
         /// <param name="depth">The depth of the book, 5, 10 or 20</param>
@@ -120,7 +165,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to full orderbook updates
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#partial-book-depth-streams" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#partial-book-depth-streams" /><br />
+        /// Endpoint:<br />
+        /// spot@public.limit.depth.v3.api.pb@{symbol}@{depth}
+        /// </para>
         /// </summary>
         /// <param name="symbols">The symbols, for example `BTCUSDT`</param>
         /// <param name="depth">The depth of the book, 5, 10 or 20</param>
@@ -131,7 +181,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to book ticker (best bid/ask) updates
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#individual-symbol-book-ticker-streams" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#individual-symbol-book-ticker-streams" /><br />
+        /// Endpoint:<br />
+        /// spot@public.bookTicker.batch.v3.api.pb@{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
         /// <param name="handler">Data handler</param>
@@ -141,7 +196,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to book ticker (best bid/ask) updates
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#individual-symbol-book-ticker-streams" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#individual-symbol-book-ticker-streams" /><br />
+        /// Endpoint:<br />
+        /// spot@public.bookTicker.batch.v3.api.pb@{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbols">The symbols, for example `BTCUSDT`</param>
         /// <param name="handler">Data handler</param>
@@ -191,7 +251,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to account balance updates. Prior to using this, the <see cref="IMexcRestClientSpotApiAccount.StartUserStreamAsync(CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method should be called to start the stream and obtaining a listen key.
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#spot-account-update" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#spot-account-update" /><br />
+        /// Endpoint:<br />
+        /// spot@private.account.v3.api.pb
+        /// </para>
         /// </summary>
         /// <param name="listenKey">Listen key retrieved by the <see cref="IMexcRestClientSpotApiAccount.StartUserStreamAsync(CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method</param>
         /// <param name="handler">Data handler</param>
@@ -201,7 +266,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to account order updates. Prior to using this, the <see cref="IMexcRestClientSpotApiAccount.StartUserStreamAsync(CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method should be called to start the stream and obtaining a listen key.
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#spot-account-orders" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#spot-account-orders" /><br />
+        /// Endpoint:<br />
+        /// spot@private.orders.v3.api.pb
+        /// </para>
         /// </summary>
         /// <param name="listenKey">Listen key retrieved by the <see cref="IMexcRestClientSpotApiAccount.StartUserStreamAsync(CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method</param>
         /// <param name="handler">Data handler</param>
@@ -211,7 +281,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to account trade updates. Prior to using this, the <see cref="IMexcRestClientSpotApiAccount.StartUserStreamAsync(CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method should be called to start the stream and obtaining a listen key.
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#spot-account-deals" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#spot-account-deals" /><br />
+        /// Endpoint:<br />
+        /// spot@private.deals.v3.api.pb
+        /// </para>
         /// </summary>
         /// <param name="listenKey">Listen key retrieved by the <see cref="IMexcRestClientSpotApiAccount.StartUserStreamAsync(CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method</param>
         /// <param name="handler">Data handler</param>

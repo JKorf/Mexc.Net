@@ -10,7 +10,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
     {
         /// <summary>
         /// Get the server time
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#market-endpoints" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#market-endpoints" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/contract/ping
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -18,7 +23,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get contracts
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#market-endpoints" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#market-endpoints" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/contract/detail
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol</param>
         /// <param name="ct">Cancellation token</param>
@@ -26,14 +36,24 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get transferable assets
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-transferable-currencies" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-transferable-currencies" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/contract/support_currencies
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<string[]>> GetTransferableAssetsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get order book
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-contract-s-depth-information" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-contract-s-depth-information" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/contract/depth/{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="limit">Limit</param>
@@ -42,7 +62,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get index price for a symbol
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-index-price" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-index-price" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/contract/index_price/{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -50,7 +75,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get mark price for a symbol
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-fair-price" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-fair-price" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/contract/fair_price/{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -58,7 +88,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get funding rate info
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-funding-rate" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-funding-rate" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/contract/funding_rate/{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -66,7 +101,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get klines
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#k-line-data" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#k-line-data" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/contract/kline/{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="interval">Kline interval</param>
@@ -77,7 +117,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get index price klines
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#k-line-data" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#k-line-data" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/contract/kline/index_price/{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="interval">Kline interval</param>
@@ -88,7 +133,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get mark price klines
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#k-line-data" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#k-line-data" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/contract/kline/fair_price/{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="interval">Kline interval</param>
@@ -99,7 +149,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get recent trades
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-transaction-data" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-transaction-data" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/contract/deals/{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="limit">Number of results, max 100</param>
@@ -108,7 +163,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get ticker for a symbol
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-trend-data" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-trend-data" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/contract/ticker
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -116,21 +176,36 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get tickers 
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-trend-data" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-trend-data" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/contract/ticker
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<MexcFuturesTicker[]>> GetTickersAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get risk fund balances
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-all-contract-risk-fund-balance" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-all-contract-risk-fund-balance" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/contract/risk_reverse
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<MexcRiskFundBalance[]>> GetRiskFundBalancesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get risk fund balance history
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-risk-fund-balance-history" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-risk-fund-balance-history" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/contract/risk_reverse/history
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="page">Page number</param>
@@ -140,7 +215,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get funding rate history
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-funding-rate-history" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-funding-rate-history" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/contract/funding_rate/history
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="page">Page number</param>

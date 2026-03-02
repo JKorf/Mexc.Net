@@ -10,7 +10,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
     {
         /// <summary>
         /// Get balance of an asset
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-user-39-s-single-currency-asset-information" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-user-39-s-single-currency-asset-information" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/private/account/assets/{asset}
+        /// </para>
         /// </summary>
         /// <param name="asset">Asset name</param>
         /// <param name="ct">Cancellation token</param>
@@ -18,14 +23,24 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get balances
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-all-informations-of-user-39-s-asset" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-all-informations-of-user-39-s-asset" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/private/account/assets
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<MexcFuturesBalance[]>> GetBalancesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get transfer history
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-user-39-s-asset-transfer-records" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-user-39-s-asset-transfer-records" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/private/account/transfer_record
+        /// </para>
         /// </summary>
         /// <param name="asset">The asset, for example `ETH`</param>
         /// <param name="status">Filter by status</param>
@@ -37,7 +52,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get funding history
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-details-of-user-s-funding-rate" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-details-of-user-s-funding-rate" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/private/position/funding_records
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="positionId">Position id</param>
@@ -48,7 +68,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get current trading fees
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#gets-the-user-39-s-current-trading-fee-rate" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#gets-the-user-39-s-current-trading-fee-rate" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/private/account/tiered_fee_rate
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -56,7 +81,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Change margin
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#increase-or-decrease-margin" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#increase-or-decrease-margin" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/private/position/change_margin
+        /// </para>
         /// </summary>
         /// <param name="positionId">Position id</param>
         /// <param name="quantity">Quantity to change</param>
@@ -66,7 +96,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get the current leverage
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-leverage" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-leverage" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/private/position/leverage
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -74,7 +109,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Set leverage
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#switch-leverage" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#switch-leverage" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/private/position/change_leverage
+        /// </para>
         /// </summary>
         /// <param name="leverage">Leverage</param>
         /// <param name="positionId">Position id, required when there is an open position</param>
@@ -86,14 +126,24 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get the current position mode
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-position-mode" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-position-mode" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/private/position/position_mode
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<PositionMode>> GetPositionModeAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Set position mode
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#change-position-mode" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#change-position-mode" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/private/position/change_position_mode
+        /// </para>
         /// </summary>
         /// <param name="positionMode">Position mode</param>
         /// <param name="ct">Cancellation token</param>

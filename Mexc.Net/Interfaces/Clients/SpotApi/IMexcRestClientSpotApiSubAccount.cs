@@ -10,7 +10,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
     {
         /// <summary>
         /// Get details of the available sub-accounts
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-sub-account-list-for-master-account"/></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-sub-account-list-for-master-account" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v3/sub-account/list
+        /// </para>
         /// </summary>
         /// <param name="name">The name of the sub-account</param>
         /// <param name="isFreeze">Filter by 'Is Freeze'</param>
@@ -22,7 +27,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get API details of a sub-account
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-the-apikey-of-a-sub-account-for-master-account"/></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-the-apikey-of-a-sub-account-for-master-account" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v3/sub-account/apiKey
+        /// </para>
         /// </summary>
         /// <param name="subAccount">The name of the sub-account</param>
         /// <param name="ct">Cancellation token</param>
@@ -31,7 +41,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Perform a universal transfer between accounts
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#universal-transfer-for-master-account"/></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#universal-transfer-for-master-account" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v3/capital/sub-account/universalTransfer
+        /// </para>
         /// </summary>
         /// <param name="asset">The name of the asset, for example `USDT`</param>
         /// <param name="amount">The amount that should be transferred</param>
@@ -45,7 +60,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Query the universal transfer history
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-universal-transfer-history-for-master-account"/></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-universal-transfer-history-for-master-account" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v3/capital/sub-account/universalTransfer
+        /// </para>
         /// </summary>
         /// <param name="fromAccountType">The origin account type</param>
         /// <param name="toAccountType">The destination account type</param>
@@ -61,7 +81,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Create a new virtual sub account
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#create-a-sub-account-for-master-account"/></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#create-a-sub-account-for-master-account" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v3/sub-account/virtualSubAccount
+        /// </para>
         /// </summary>
         /// <param name="name">Name</param>
         /// <param name="note">Notes</param>
@@ -70,7 +95,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Create API key for sub account
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#create-an-apikey-for-a-sub-account-for-master-account"/></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#create-an-apikey-for-a-sub-account-for-master-account" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v3/sub-account/apiKey
+        /// </para>
         /// </summary>
         /// <param name="subAccount">Sub account</param>
         /// <param name="note">Key note</param>
@@ -81,7 +111,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Delete a sub account API key
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#delete-the-apikey-of-a-sub-account-for-master-account"/></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#delete-the-apikey-of-a-sub-account-for-master-account" /><br />
+        /// Endpoint:<br />
+        /// DELETE /api/v3/sub-account/apiKey
+        /// </para>
         /// </summary>
         /// <param name="subAccount">Sub account</param>
         /// <param name="apiKey">The API key</param>
@@ -90,7 +125,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get sub account balances
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-sub-account-asset"/></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-sub-account-asset" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v3/sub-account/asset
+        /// </para>
         /// </summary>
         /// <param name="subAccount">Sub account</param>
         /// <param name="accountType">Account type</param>

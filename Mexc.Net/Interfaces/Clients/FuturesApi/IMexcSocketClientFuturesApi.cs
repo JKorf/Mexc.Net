@@ -17,7 +17,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to ticker updates for all symbols
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /><br />
+        /// Endpoint:<br />
+        /// tickers
+        /// </para>
         /// </summary>
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
@@ -25,7 +30,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to ticker updates for a symbol
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /><br />
+        /// Endpoint:<br />
+        /// ticker
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="handler">Data handler</param>
@@ -34,7 +44,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to trade updates for a symbol
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /><br />
+        /// Endpoint:<br />
+        /// deal
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="handler">Data handler</param>
@@ -43,7 +58,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to kline updates
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /><br />
+        /// Endpoint:<br />
+        /// kline
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="interval">Kline interval</param>
@@ -53,7 +73,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to incremental order book updates
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /><br />
+        /// Endpoint:<br />
+        /// depth
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="handler">Data handler</param>
@@ -62,7 +87,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to full book updates for the first rows of the order book
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /><br />
+        /// Endpoint:<br />
+        /// depth.full
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="limit">Number of rows, 5, 10 or 20</param>
@@ -72,7 +102,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to funding rate updates
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /><br />
+        /// Endpoint:<br />
+        /// funding.rate
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="handler">Data handler</param>
@@ -81,7 +116,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to index price updates for a symbol
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /><br />
+        /// Endpoint:<br />
+        /// index.price
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="handler">Data handler</param>
@@ -90,7 +130,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to mark price updates for a symbol
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /><br />
+        /// Endpoint:<br />
+        /// fair.price
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="handler">Data handler</param>
@@ -99,7 +144,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to user data updates
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#private-channels" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#private-channels" /><br />
+        /// Endpoint:<br />
+        /// personal.filter
+        /// </para>
         /// </summary>
         /// <param name="balanceUpdateHandler">Balance update handler</param>
         /// <param name="orderUpdateHandler">Order update handler</param>

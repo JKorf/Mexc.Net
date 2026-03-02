@@ -10,7 +10,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
     {
         /// <summary>
         /// Get open orders
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-user-39-s-current-pending-order" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-user-39-s-current-pending-order" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/private/order/list/open_orders/{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="page">Page number</param>
@@ -20,7 +25,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get order history
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-all-of-the-user-39-s-historical-orders" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-all-of-the-user-39-s-historical-orders" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/private/order/list/history_orders
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="status">Filter by status</param>
@@ -35,7 +45,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get order by client order id
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#query-the-order-based-on-the-external-number" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#query-the-order-based-on-the-external-number" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/private/order/external/{symbol}/{clientOrderId}
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="clientOrderId">Client order id</param>
@@ -44,7 +59,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get order by id
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#query-the-order-based-on-the-order-number" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#query-the-order-based-on-the-order-number" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/private/order/get/{orderId}
+        /// </para>
         /// </summary>
         /// <param name="orderId">The order id</param>
         /// <param name="ct">Cancellation token</param>
@@ -52,7 +72,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get orders by id
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#query-the-order-in-bulk-based-on-the-order-number" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#query-the-order-in-bulk-based-on-the-order-number" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/private/order/batch_query
+        /// </para>
         /// </summary>
         /// <param name="orderIds">Ids of the orders to retrieve</param>
         /// <param name="ct">Cancellation token</param>
@@ -60,7 +85,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get trades for an order
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-order-transaction-details-based-on-the-order-id" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-order-transaction-details-based-on-the-order-id" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/private/order/deal_details/{orderId}
+        /// </para>
         /// </summary>
         /// <param name="orderId">The order id</param>
         /// <param name="ct">Cancellation token</param>
@@ -68,7 +98,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         
         /// <summary>
         /// Get user trades
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-all-transaction-details-of-the-user-s-order" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-all-transaction-details-of-the-user-s-order" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/private/order/list/order_deals
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="startTime">Filter by start time</param>
@@ -80,7 +115,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get trigger orders
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-all-of-the-user-39-s-historical-orders" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-all-of-the-user-39-s-historical-orders" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/private/planorder/list/orders
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="status">Filter by status</param>
@@ -93,7 +133,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get stop orders
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-stop-limit-order-list" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-stop-limit-order-list" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/private/stoporder/list/orders
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="finished">Is finished</param>
@@ -106,7 +151,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get risk limits
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-risk-limits" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-risk-limits" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/private/account/risk_limit
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -114,7 +164,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get position history
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-user-s-history-position-information" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-user-s-history-position-information" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/private/position/list/history_positions
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="positionSide">Filter by position side</param>
@@ -125,7 +180,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get current open positions
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-user-39-s-current-holding-position" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-user-39-s-current-holding-position" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/private/position/open_positions
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>

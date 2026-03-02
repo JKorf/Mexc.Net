@@ -10,7 +10,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
     {
         /// <summary>
         /// Ping the server, returns the response time in milliseconds
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#test-connectivity" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#test-connectivity" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v3/ping
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -18,7 +23,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get the server time
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#check-server-time" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#check-server-time" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v3/time
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -26,7 +36,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get a list of symbols supported by the API
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#api-default-symbol" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#api-default-symbol" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v3/defaultSymbols
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -34,7 +49,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get the exchange info, including symbol info
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#exchange-information" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#exchange-information" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v3/exchangeInfo
+        /// </para>
         /// </summary>
         /// <param name="symbols">Filter by symbols, for example `BTCUSDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -43,7 +63,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get the current order book
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#order-book" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#order-book" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v3/depth
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
         /// <param name="limit">Number of rows, max 500</param>
@@ -53,7 +78,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get a list of the most recent trades
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#recent-trades-list" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#recent-trades-list" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v3/trades
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
         /// <param name="limit">Number of rows, max 1000</param>
@@ -63,7 +93,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get a list of aggregated trades
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#compressed-aggregate-trades-list" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#compressed-aggregate-trades-list" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v3/aggTrades
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
         /// <param name="startTime">Filter by start time</param>
@@ -75,7 +110,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get kline/candlestick data
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#kline-candlestick-data" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#kline-candlestick-data" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v3/klines
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
         /// <param name="interval">Kline interval</param>
@@ -88,7 +128,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get average price for a symbol
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#current-average-price" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#current-average-price" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v3/avgPrice
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -97,7 +142,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get 24h price statistics
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#24hr-ticker-price-change-statistics" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#24hr-ticker-price-change-statistics" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v3/ticker/24hr
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -106,7 +156,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get 24h price statistics
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#24hr-ticker-price-change-statistics" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#24hr-ticker-price-change-statistics" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v3/ticker/24hr
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -114,7 +169,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get the last symbol prices
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#symbol-price-ticker" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#symbol-price-ticker" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v3/ticker/price
+        /// </para>
         /// </summary>
         /// <param name="symbols">Filter by symbol, for example `BTCUSDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -123,7 +183,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get the best book prices
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#symbol-order-book-ticker" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#symbol-order-book-ticker" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v3/ticker/bookTicker
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol, for example `BTCUSDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -132,7 +197,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get the best book prices
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#symbol-order-book-ticker" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#symbol-order-book-ticker" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v3/ticker/bookTicker
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>

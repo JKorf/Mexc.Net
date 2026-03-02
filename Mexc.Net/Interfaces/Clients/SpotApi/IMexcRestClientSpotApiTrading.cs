@@ -10,7 +10,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
     {
         /// <summary>
         /// Place a new test order. Only validates the rules, doesn't actually place any order
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#test-new-order" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#test-new-order" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v3/order/test
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
         /// <param name="side">Order side</param>
@@ -25,7 +30,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Place a new order
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#new-order" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#new-order" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v3/order
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
         /// <param name="side">Order side</param>
@@ -40,7 +50,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Place multiple new orders in a single request
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#batch-orders" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#batch-orders" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v3/batchOrders
+        /// </para>
         /// </summary>
         /// <param name="requests">Order requests, max 20</param>
         /// <param name="ct">Cancelation Token</param>
@@ -48,7 +63,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Cancel an order
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#cancel-order" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#cancel-order" /><br />
+        /// Endpoint:<br />
+        /// DELETE /api/v3/order
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
         /// <param name="orderId">Cancel by order id</param>
@@ -60,7 +80,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Cancel all orders on a symbol
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#cancel-all-open-orders-on-a-symbol" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#cancel-all-open-orders-on-a-symbol" /><br />
+        /// Endpoint:<br />
+        /// DELETE /api/v3/openOrders
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol to close all orders on, for example `BTCUSDT`</param>
         /// <param name="ct">Cancelation Token</param>
@@ -69,7 +94,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Cancel all orders on a symbol
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#cancel-all-open-orders-on-a-symbol" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#cancel-all-open-orders-on-a-symbol" /><br />
+        /// Endpoint:<br />
+        /// DELETE /api/v3/openOrders
+        /// </para>
         /// </summary>
         /// <param name="symbols">The symbols to close all orders on (max 5), for example `BTCUSDT`</param>
         /// <param name="ct">Cancelation Token</param>
@@ -78,7 +108,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get an order
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-order" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-order" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v3/order
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `BTCUSDT`</param>
         /// <param name="orderId">Get by order id</param>
@@ -89,7 +124,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get all open orders
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#current-open-orders" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#current-open-orders" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v3/openOrders
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `BTCUSDT`</param>
         /// <param name="ct">Cancelation Token</param>
@@ -98,7 +138,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get all orders
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#all-orders" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#all-orders" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v3/allOrders
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `BTCUSDT`</param>
         /// <param name="startTime">Filter by start time</param>
@@ -110,7 +155,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get user trades
-        /// <para><a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#account-trade-list" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#account-trade-list" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v3/myTrades
+        /// </para>
         /// </summary>
         /// <param name="orderId">Filter by order id</param>
         /// <param name="symbol">Symbol, for example `BTCUSDT`</param>
