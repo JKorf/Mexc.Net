@@ -57,14 +57,14 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// POST /api/v3/capital/withdraw
         /// </para>
         /// </summary>
-        /// <param name="asset">Asset, for example `BTC`</param>
-        /// <param name="address">Address to withdraw to</param>
-        /// <param name="quantity">Quantity to withdraw</param>
-        /// <param name="clientOrderId">Order id</param>
-        /// <param name="network">Network to use</param>
-        /// <param name="memo">Memo</param>
-        /// <param name="remark">Remark</param>
-        /// <param name="contractAddress">Asset contract address</param>
+        /// <param name="asset">["<c>coin</c>"] Asset, for example `BTC`</param>
+        /// <param name="address">["<c>address</c>"] Address to withdraw to</param>
+        /// <param name="quantity">["<c>amount</c>"] Quantity to withdraw</param>
+        /// <param name="clientOrderId">["<c>withdrawOrderId</c>"] Order id</param>
+        /// <param name="network">["<c>netWork</c>"] Network to use</param>
+        /// <param name="memo">["<c>memo</c>"] Memo</param>
+        /// <param name="remark">["<c>remark</c>"] Remark</param>
+        /// <param name="contractAddress">["<c>contractAddress</c>"] Asset contract address</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<MexcId>> WithdrawAsync(string asset, string address, decimal quantity, string? clientOrderId = null, string? network = null, string? memo = null, string? remark = null, string? contractAddress = null, CancellationToken ct = default);
@@ -78,7 +78,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// DELETE /api/v3/capital/withdraw
         /// </para>
         /// </summary>
-        /// <param name="withdrawId">The id of the withdrawal to cancel</param>
+        /// <param name="withdrawId">["<c>id</c>"] The id of the withdrawal to cancel</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<MexcId>> CancelWithdrawAsync(string withdrawId, CancellationToken ct = default);
@@ -92,11 +92,11 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// GET /api/v3/capital/deposit/hisrec
         /// </para>
         /// </summary>
-        /// <param name="asset">Filter by asset, for example `BTC`</param>
-        /// <param name="status">Filter by status</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="limit">Filter by limit</param>
+        /// <param name="asset">["<c>coin</c>"] Filter by asset, for example `BTC`</param>
+        /// <param name="status">["<c>status</c>"] Filter by status</param>
+        /// <param name="startTime">["<c>startTime</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>endTime</c>"] Filter by end time</param>
+        /// <param name="limit">["<c>limit</c>"] Filter by limit</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<MexcDeposit[]>> GetDepositHistoryAsync(string? asset = null, DepositStatus? status = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
@@ -110,11 +110,11 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// GET /api/v3/capital/withdraw/history
         /// </para>
         /// </summary>
-        /// <param name="asset">Filter by asset, for example `BTC`</param>
-        /// <param name="status">Filter by status</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="limit">Filter by limit</param>
+        /// <param name="asset">["<c>coin</c>"] Filter by asset, for example `BTC`</param>
+        /// <param name="status">["<c>status</c>"] Filter by status</param>
+        /// <param name="startTime">["<c>startTime</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>endTime</c>"] Filter by end time</param>
+        /// <param name="limit">["<c>limit</c>"] Filter by limit</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<MexcWithdrawal[]>> GetWithdrawHistoryAsync(string? asset = null, WithdrawStatus? status = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
@@ -128,8 +128,8 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// POST /api/v3/capital/deposit/address
         /// </para>
         /// </summary>
-        /// <param name="asset">Asset, for example `BTC`</param>
-        /// <param name="network">Network</param>
+        /// <param name="asset">["<c>coin</c>"] Asset, for example `BTC`</param>
+        /// <param name="network">["<c>network</c>"] Network</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<MexcDepositAddress[]>> GenerateDepositAddressAsync(string asset, string network, CancellationToken ct = default);
@@ -143,8 +143,8 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// GET /api/v3/capital/deposit/address
         /// </para>
         /// </summary>
-        /// <param name="asset">Asset, for example `BTC`</param>
-        /// <param name="network">Filter by network</param>
+        /// <param name="asset">["<c>coin</c>"] Asset, for example `BTC`</param>
+        /// <param name="network">["<c>network</c>"] Filter by network</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<MexcDepositAddress[]>> GetDepositAddressesAsync(string asset, string? network = null, CancellationToken ct = default);
@@ -158,9 +158,9 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// GET /api/v3/capital/withdraw/address
         /// </para>
         /// </summary>
-        /// <param name="asset">Filter by asset, for example `BTC`</param>
-        /// <param name="page">Page</param>
-        /// <param name="pageSize">Page size</param>
+        /// <param name="asset">["<c>coin</c>"] Filter by asset, for example `BTC`</param>
+        /// <param name="page">["<c>page</c>"] Page</param>
+        /// <param name="pageSize">["<c>limit</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<MexcPaginated<MexcWithdrawAddress[]>>> GetWithdrawAddressesAsync(string? asset = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
@@ -174,10 +174,10 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// POST /api/v3/capital/transfer
         /// </para>
         /// </summary>
-        /// <param name="asset">The asset to transfer, for example `BTC`</param>
-        /// <param name="fromAccountType">From account</param>
-        /// <param name="toAccountType">To account</param>
-        /// <param name="quantity">Quantity</param>
+        /// <param name="asset">["<c>asset</c>"] The asset to transfer, for example `BTC`</param>
+        /// <param name="fromAccountType">["<c>fromAccountType</c>"] From account</param>
+        /// <param name="toAccountType">["<c>toAccountType</c>"] To account</param>
+        /// <param name="quantity">["<c>amount</c>"] Quantity</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<MexcTransferId>> TransferAsync(string asset, AccountType fromAccountType, AccountType toAccountType, decimal quantity, CancellationToken ct = default);
@@ -191,12 +191,12 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// GET /api/v3/capital/transfer
         /// </para>
         /// </summary>
-        /// <param name="fromAccount">From account type</param>
-        /// <param name="toAccount">To account type</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="page">Page</param>
-        /// <param name="pageSize">Page size</param>
+        /// <param name="fromAccount">["<c>fromAccountType</c>"] From account type</param>
+        /// <param name="toAccount">["<c>toAccountType</c>"] To account type</param>
+        /// <param name="startTime">["<c>startTime</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>endTime</c>"] Filter by end time</param>
+        /// <param name="page">["<c>page</c>"] Page</param>
+        /// <param name="pageSize">["<c>size</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<MexcRows<MexcTransfer[]>>> GetTransferHistoryAsync(AccountType fromAccount, AccountType toAccount, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
@@ -210,7 +210,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// GET /api/v3/capital/transfer/tranId
         /// </para>
         /// </summary>
-        /// <param name="transferId">Transfer id</param>
+        /// <param name="transferId">["<c>tranId</c>"] Transfer id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<MexcTransfer>> GetTransferAsync(string transferId, CancellationToken ct = default);
@@ -237,7 +237,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// POST /api/v3/capital/convert
         /// </para>
         /// </summary>
-        /// <param name="assets">Assets to convert, for example `BTC`</param>
+        /// <param name="assets">["<c>asset</c>"] Assets to convert, for example `BTC`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<MexcDustResult>> DustTransferAsync(IEnumerable<string> assets, CancellationToken ct = default);
@@ -251,10 +251,10 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// GET /api/v3/capital/convert
         /// </para>
         /// </summary>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="page">Page</param>
-        /// <param name="pageSize">Page size</param>
+        /// <param name="startTime">["<c>startTime</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>endTime</c>"] Filter by end time</param>
+        /// <param name="page">["<c>page</c>"] Page</param>
+        /// <param name="pageSize">["<c>limit</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<MexcPaginated<MexcDustLog[]>>> GetDustLogAsync(DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
@@ -268,11 +268,11 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// POST /api/v3/capital/transfer/internal
         /// </para>
         /// </summary>
-        /// <param name="asset">Asset to transfer</param>
-        /// <param name="quantity">Quantity to transfer</param>
-        /// <param name="toAccountType">Type of identifier to transfer to</param>
-        /// <param name="toAccount">Account identifier</param>
-        /// <param name="areaCode">Area code</param>
+        /// <param name="asset">["<c>asset</c>"] Asset to transfer</param>
+        /// <param name="quantity">["<c>amount</c>"] Quantity to transfer</param>
+        /// <param name="toAccountType">["<c>toAccountType</c>"] Type of identifier to transfer to</param>
+        /// <param name="toAccount">["<c>toAccount</c>"] Account identifier</param>
+        /// <param name="areaCode">["<c>areaCode</c>"] Area code</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<MexcTransferId>> TransferInternalAsync(
@@ -292,11 +292,11 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// GET /api/v3/capital/transfer/internal
         /// </para>
         /// </summary>
-        /// <param name="transferId">Filter by transfer id</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="page">Page</param>
-        /// <param name="pageSize">Page size</param>
+        /// <param name="transferId">["<c>tranId</c>"] Filter by transfer id</param>
+        /// <param name="startTime">["<c>startTime</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>endTime</c>"] Filter by end time</param>
+        /// <param name="page">["<c>page</c>"] Page</param>
+        /// <param name="pageSize">["<c>limit</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<MexcPaginated<MexcInternalTransfer[]>>> GetInternalTransferHistoryAsync(string? transferId = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
@@ -310,7 +310,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// POST /api/v3/mxDeduct/enable
         /// </para>
         /// </summary>
-        /// <param name="enabled">Enabled</param>
+        /// <param name="enabled">["<c>mxDeductEnable</c>"] Enabled</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<MexcDeductStatus>> SetMxDeductionAsync(bool enabled, CancellationToken ct = default);
@@ -337,7 +337,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// GET /api/v3/tradeFee
         /// </para>
         /// </summary>
-        /// <param name="symbol">Symbol, for example `BTCUSDT`</param>
+        /// <param name="symbol">["<c>symbol</c>"] Symbol, for example `BTCUSDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<MexcTradeFee>> GetTradeFeeAsync(string symbol, CancellationToken ct = default);
@@ -364,7 +364,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// PUT /api/v3/userDataStream
         /// </para>
         /// </summary>
-        /// <param name="listenKey"></param>
+        /// <param name="listenKey">["<c>listenKey</c>"] Listen key</param>
         /// <param name="ct"></param>
         /// <returns></returns>
         Task<WebCallResult> KeepAliveUserStreamAsync(string listenKey, CancellationToken ct = default);
@@ -378,7 +378,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// DELETE /api/v3/userDataStream
         /// </para>
         /// </summary>
-        /// <param name="listenKey"></param>
+        /// <param name="listenKey">["<c>listenKey</c>"] Listen key</param>
         /// <param name="ct"></param>
         /// <returns></returns>
         Task<WebCallResult> StopUserStreamAsync(string listenKey, CancellationToken ct = default);

@@ -17,9 +17,9 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/private/order/list/open_orders/{symbol}
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
-        /// <param name="page">Page number</param>
-        /// <param name="pageSize">Page size</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH_USDT`</param>
+        /// <param name="page">["<c>page_num</c>"] Page number</param>
+        /// <param name="pageSize">["<c>page_size</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<MexcFuturesOrder[]>> GetOpenOrdersAsync(string symbol, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
@@ -32,14 +32,14 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/private/order/list/history_orders
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
-        /// <param name="status">Filter by status</param>
-        /// <param name="category">Filter by category</param>
-        /// <param name="side">Filter by side</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="page">Page number</param>
-        /// <param name="pageSize">Page size</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH_USDT`</param>
+        /// <param name="status">["<c>states</c>"] Filter by status</param>
+        /// <param name="category">["<c>category</c>"] Filter by category</param>
+        /// <param name="side">["<c>side</c>"] Filter by side</param>
+        /// <param name="startTime">["<c>start_time</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>end_time</c>"] Filter by end time</param>
+        /// <param name="page">["<c>page_num</c>"] Page number</param>
+        /// <param name="pageSize">["<c>page_size</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<MexcFuturesOrder[]>> GetOrderHistoryAsync(string? symbol = null, IEnumerable<FuturesOrderStatus>? status = null, OrderCategory? category = null, FuturesOrderSide? side = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
@@ -52,8 +52,8 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/private/order/external/{symbol}/{clientOrderId}
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
-        /// <param name="clientOrderId">Client order id</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH_USDT`</param>
+        /// <param name="clientOrderId">["<c>clientOrderId</c>"] Client order id</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<MexcFuturesOrder>> GetOrderByClientOrderIdAsync(string symbol, string clientOrderId, CancellationToken ct = default);
 
@@ -66,7 +66,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/private/order/get/{orderId}
         /// </para>
         /// </summary>
-        /// <param name="orderId">The order id</param>
+        /// <param name="orderId">["<c>orderId</c>"] The order id</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<MexcFuturesOrder>> GetOrderAsync(string orderId, CancellationToken ct = default);
 
@@ -79,7 +79,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/private/order/batch_query
         /// </para>
         /// </summary>
-        /// <param name="orderIds">Ids of the orders to retrieve</param>
+        /// <param name="orderIds">["<c>order_ids</c>"] Ids of the orders to retrieve</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<MexcFuturesOrder[]>> GetOrdersByIdAsync(IEnumerable<string> orderIds, CancellationToken ct = default);
 
@@ -92,7 +92,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/private/order/deal_details/{orderId}
         /// </para>
         /// </summary>
-        /// <param name="orderId">The order id</param>
+        /// <param name="orderId">["<c>orderId</c>"] The order id</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<MexcFuturesUserTrade[]>> GetOrderTradesAsync(string orderId, CancellationToken ct = default);
         
@@ -105,11 +105,11 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/private/order/list/order_deals
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="page">Page number</param>
-        /// <param name="pageSize">Page size</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH_USDT`</param>
+        /// <param name="startTime">["<c>start_time</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>end_time</c>"] Filter by end time</param>
+        /// <param name="page">["<c>page_num</c>"] Page number</param>
+        /// <param name="pageSize">["<c>page_size</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<MexcFuturesUserTrade[]>> GetUserTradesAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
@@ -122,12 +122,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/private/planorder/list/orders
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
-        /// <param name="status">Filter by status</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="page">Page number</param>
-        /// <param name="pageSize">Page size</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH_USDT`</param>
+        /// <param name="status">["<c>states</c>"] Filter by status</param>
+        /// <param name="startTime">["<c>start_time</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>end_time</c>"] Filter by end time</param>
+        /// <param name="page">["<c>page_num</c>"] Page number</param>
+        /// <param name="pageSize">["<c>page_size</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<MexcFuturesTriggerOrder[]>> GetTriggerOrdersAsync(string? symbol = null, IEnumerable<FuturesOrderStatus>? status = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
@@ -140,12 +140,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/private/stoporder/list/orders
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
-        /// <param name="finished">Is finished</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="page">Page number</param>
-        /// <param name="pageSize">Page size</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH_USDT`</param>
+        /// <param name="finished">["<c>is_finished</c>"] Is finished</param>
+        /// <param name="startTime">["<c>start_time</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>end_time</c>"] Filter by end time</param>
+        /// <param name="page">["<c>page_num</c>"] Page number</param>
+        /// <param name="pageSize">["<c>page_size</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<MexcStopOrder[]>> GetStopOrdersAsync(string? symbol = null, bool? finished = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
@@ -158,7 +158,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/private/account/risk_limit
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<Dictionary<string, MexcRiskLimit[]>>> GetRiskLimitsAsync(string? symbol = null, CancellationToken ct = default);
 
@@ -171,10 +171,10 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/private/position/list/history_positions
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
-        /// <param name="positionSide">Filter by position side</param>
-        /// <param name="page">Page number</param>
-        /// <param name="pageSize">Page size</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH_USDT`</param>
+        /// <param name="positionSide">["<c>positionSide</c>"] Filter by position side</param>
+        /// <param name="page">["<c>page_num</c>"] Page number</param>
+        /// <param name="pageSize">["<c>page_size</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<MexcPosition[]>> GetPositionHistoryAsync(string? symbol = null, PositionSide? positionSide = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
@@ -187,7 +187,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/private/position/open_positions
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<MexcPosition[]>> GetPositionsAsync(string? symbol = null, CancellationToken ct = default);
 

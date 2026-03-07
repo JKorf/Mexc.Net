@@ -17,7 +17,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/private/account/assets/{asset}
         /// </para>
         /// </summary>
-        /// <param name="asset">Asset name</param>
+        /// <param name="asset">["<c>asset</c>"] Asset name</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<MexcFuturesBalance>> GetBalanceAsync(string asset, CancellationToken ct = default);
 
@@ -42,11 +42,11 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/private/account/transfer_record
         /// </para>
         /// </summary>
-        /// <param name="asset">The asset, for example `ETH`</param>
-        /// <param name="status">Filter by status</param>
-        /// <param name="direction">Filter by direction</param>
-        /// <param name="page">Page number</param>
-        /// <param name="pageSize">Page size</param>
+        /// <param name="asset">["<c>currency</c>"] The asset, for example `ETH`</param>
+        /// <param name="status">["<c>state</c>"] Filter by status</param>
+        /// <param name="direction">["<c>type</c>"] Filter by direction</param>
+        /// <param name="page">["<c>page_num</c>"] Page number</param>
+        /// <param name="pageSize">["<c>page_size</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<MexcFuturesTransferPage>> GetTransferHistoryAsync(string? asset = null, TransferStatus? status = null, TransferDirection? direction = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
@@ -59,10 +59,10 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/private/position/funding_records
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
-        /// <param name="positionId">Position id</param>
-        /// <param name="page">Page number</param>
-        /// <param name="pageSize">Page size</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH_USDT`</param>
+        /// <param name="positionId">["<c>position_id</c>"] Position id</param>
+        /// <param name="page">["<c>page_num</c>"] Page number</param>
+        /// <param name="pageSize">["<c>page_size</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<MexcFundingRecordPage>> GetFundingHistoryAsync(string? symbol = null, long? positionId = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
@@ -75,7 +75,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/private/account/tiered_fee_rate
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<MexcFuturesFee>> GetTradingFeesAsync(string symbol, CancellationToken ct = default);
 
@@ -88,9 +88,9 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// POST /api/v1/private/position/change_margin
         /// </para>
         /// </summary>
-        /// <param name="positionId">Position id</param>
-        /// <param name="quantity">Quantity to change</param>
-        /// <param name="changeType">Change type</param>
+        /// <param name="positionId">["<c>positionId</c>"] Position id</param>
+        /// <param name="quantity">["<c>amount</c>"] Quantity to change</param>
+        /// <param name="changeType">["<c>type</c>"] Change type</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult> ChangeMarginAsync(long positionId, decimal quantity, ChangeType changeType, CancellationToken ct = default);
 
@@ -103,7 +103,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/private/position/leverage
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<MexcLeverage[]>> GetLeverageAsync(string symbol, CancellationToken ct = default);
 
@@ -116,11 +116,11 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// POST /api/v1/private/position/change_leverage
         /// </para>
         /// </summary>
-        /// <param name="leverage">Leverage</param>
-        /// <param name="positionId">Position id, required when there is an open position</param>
-        /// <param name="marginType">Margin type, required when there is no open position</param>
-        /// <param name="symbol">The symbol, for example `ETH_USDT`, required when there is no open position</param>
-        /// <param name="positionSide">Position side, required when there is no open position</param>
+        /// <param name="leverage">["<c>leverage</c>"] Leverage</param>
+        /// <param name="positionId">["<c>positionId</c>"] Position id, required when there is an open position</param>
+        /// <param name="marginType">["<c>openType</c>"] Margin type, required when there is no open position</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH_USDT`, required when there is no open position</param>
+        /// <param name="positionSide">["<c>positionType</c>"] Position side, required when there is no open position</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult> SetLeverageAsync(int leverage, long? positionId = null, MarginType? marginType = null, string? symbol = null, PositionSide? positionSide = null, CancellationToken ct = default);
 
@@ -145,7 +145,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// POST /api/v1/private/position/change_position_mode
         /// </para>
         /// </summary>
-        /// <param name="positionMode">Position mode</param>
+        /// <param name="positionMode">["<c>positionMode</c>"] Position mode</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult> SetPositionModeAsync(PositionMode positionMode, CancellationToken ct = default);
 
