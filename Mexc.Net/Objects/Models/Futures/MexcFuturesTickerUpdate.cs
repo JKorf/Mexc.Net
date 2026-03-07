@@ -1,4 +1,4 @@
-﻿namespace Mexc.Net.Objects.Models.Futures
+namespace Mexc.Net.Objects.Models.Futures
 {
     /// <summary>
     /// Ticker
@@ -6,62 +6,62 @@
     public record MexcFuturesTickerUpdate
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Last price
+        /// ["<c>lastPrice</c>"] Last price
         /// </summary>
         [JsonPropertyName("lastPrice")]
         public decimal LastPrice { get; set; }
         /// <summary>
-        /// Volume in last 24h
+        /// ["<c>volume24</c>"] Volume in last 24h
         /// </summary>
         [JsonPropertyName("volume24")]
         public decimal Volume24h { get; set; }
         /// <summary>
-        /// Volume in quote asset last 24h
+        /// ["<c>amount24</c>"] Volume in quote asset last 24h
         /// </summary>
         [JsonPropertyName("amount24")]
         public decimal QuoteVolume24h { get; set; }
         /// <summary>
-        /// Lowest price last 24h
+        /// ["<c>lower24Price</c>"] Lowest price last 24h
         /// </summary>
         [JsonPropertyName("lower24Price")]
         public decimal LowPrice { get; set; }
         /// <summary>
-        /// Highest price last 24h
+        /// ["<c>high24Price</c>"] Highest price last 24h
         /// </summary>
         [JsonPropertyName("high24Price")]
         public decimal HighPrice { get; set; }
         /// <summary>
-        /// Change percentage
+        /// ["<c>riseFallRate</c>"] Change percentage
         /// </summary>
         [JsonPropertyName("riseFallRate")]
         public decimal ChangePercentage { get; set; }
         /// <summary>
-        /// Index price
+        /// ["<c>indexPrice</c>"] Index price
         /// </summary>
         [JsonPropertyName("indexPrice")]
         public decimal IndexPrice { get; set; }
         /// <summary>
-        /// Mark price
+        /// ["<c>fairPrice</c>"] Mark price
         /// </summary>
         [JsonPropertyName("fairPrice")]
         public decimal MarkPrice { get; set; }
         /// <summary>
-        /// Max bid price
+        /// ["<c>maxBidPrice</c>"] Max bid price
         /// </summary>
         [JsonPropertyName("maxBidPrice")]
         public decimal MaxBidPrice { get; set; }
         /// <summary>
-        /// Min ask price
+        /// ["<c>minAskPrice</c>"] Min ask price
         /// </summary>
         [JsonPropertyName("minAskPrice")]
         public decimal MinAskPrice { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }

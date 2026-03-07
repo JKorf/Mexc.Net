@@ -7,27 +7,27 @@ namespace Mexc.Net.Objects.Models.Spot
     public record MexcAggregatedTrade
     {
         /// <summary>
-        /// Trade price
+        /// ["<c>p</c>"] Trade price
         /// </summary>
         [JsonPropertyName("p")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Trade quantity
+        /// ["<c>q</c>"] Trade quantity
         /// </summary>
         [JsonPropertyName("q")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>T</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("T")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Buyer was maker
+        /// ["<c>m</c>"] Buyer was maker
         /// </summary>
         [JsonPropertyName("m")]
         public bool IsBuyerMaker { get; set; }
         /// <summary>
-        /// Best price match
+        /// ["<c>M</c>"] Best price match
         /// </summary>
         [JsonPropertyName("M")]
         public bool IsBestMatch { get; set; }

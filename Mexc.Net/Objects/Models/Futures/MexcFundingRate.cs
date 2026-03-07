@@ -1,4 +1,4 @@
-﻿namespace Mexc.Net.Objects.Models.Futures
+namespace Mexc.Net.Objects.Models.Futures
 {
     /// <summary>
     /// Funding rate info
@@ -6,37 +6,37 @@
     public record MexcFundingRate
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Funding rate
+        /// ["<c>fundingRate</c>"] Funding rate
         /// </summary>
         [JsonPropertyName("fundingRate")]
         public decimal FundingRate { get; set; }
         /// <summary>
-        /// Max funding rate
+        /// ["<c>maxFundingRate</c>"] Max funding rate
         /// </summary>
         [JsonPropertyName("maxFundingRate")]
         public decimal MaxFundingRate { get; set; }
         /// <summary>
-        /// Min funding rate
+        /// ["<c>minFundingRate</c>"] Min funding rate
         /// </summary>
         [JsonPropertyName("minFundingRate")]
         public decimal MinFundingRate { get; set; }
         /// <summary>
-        /// Interval in hours
+        /// ["<c>collectCycle</c>"] Interval in hours
         /// </summary>
         [JsonPropertyName("collectCycle")]
         public decimal Interval { get; set; }
         /// <summary>
-        /// Next settle time
+        /// ["<c>nextSettleTime</c>"] Next settle time
         /// </summary>
         [JsonPropertyName("nextSettleTime")]
         public DateTime? NextSettleTime { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }

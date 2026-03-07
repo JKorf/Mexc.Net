@@ -7,12 +7,12 @@ namespace Mexc.Net.Objects.Models.Spot
     public record MexcPrice
     {
         /// <summary>
-        /// Symbol name
+        /// ["<c>symbol</c>"] Symbol name
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Last price
+        /// ["<c>price</c>"] Last price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal Price { get; set; }

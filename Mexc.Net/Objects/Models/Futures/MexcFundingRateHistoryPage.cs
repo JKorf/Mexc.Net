@@ -1,4 +1,4 @@
-﻿namespace Mexc.Net.Objects.Models.Futures
+namespace Mexc.Net.Objects.Models.Futures
 {
     /// <summary>
     /// Funding history page
@@ -6,27 +6,27 @@
     public record MexcFundingRateHistoryPage
     {
         /// <summary>
-        /// Page size
+        /// ["<c>pageSize</c>"] Page size
         /// </summary>
         [JsonPropertyName("pageSize")]
         public decimal PageSize { get; set; }
         /// <summary>
-        /// Total count
+        /// ["<c>totalCount</c>"] Total count
         /// </summary>
         [JsonPropertyName("totalCount")]
         public decimal TotalCount { get; set; }
         /// <summary>
-        /// Total pages
+        /// ["<c>totalPage</c>"] Total pages
         /// </summary>
         [JsonPropertyName("totalPage")]
         public decimal TotalPages { get; set; }
         /// <summary>
-        /// Current page
+        /// ["<c>currentPage</c>"] Current page
         /// </summary>
         [JsonPropertyName("currentPage")]
         public decimal CurrentPage { get; set; }
         /// <summary>
-        /// Data
+        /// ["<c>resultList</c>"] Data
         /// </summary>
         [JsonPropertyName("resultList")]
         public MexcFundingRateHistory[] Data { get; set; } = [];
@@ -38,17 +38,17 @@
     public record MexcFundingRateHistory
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Funding rate
+        /// ["<c>fundingRate</c>"] Funding rate
         /// </summary>
         [JsonPropertyName("fundingRate")]
         public decimal FundingRate { get; set; }
         /// <summary>
-        /// Settle time
+        /// ["<c>settleTime</c>"] Settle time
         /// </summary>
         [JsonPropertyName("settleTime")]
         public DateTime SettleTime { get; set; }

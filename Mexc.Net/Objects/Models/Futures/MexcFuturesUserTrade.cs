@@ -1,4 +1,4 @@
-﻿using Mexc.Net.Enums;
+using Mexc.Net.Enums;
 
 namespace Mexc.Net.Objects.Models.Futures
 {
@@ -8,62 +8,62 @@ namespace Mexc.Net.Objects.Models.Futures
     public record MexcFuturesUserTrade
     {
         /// <summary>
-        /// Id
+        /// ["<c>id</c>"] Id
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Side
+        /// ["<c>side</c>"] Side
         /// </summary>
         [JsonPropertyName("side")]
         public FuturesOrderSide Side { get; set; }
         /// <summary>
-        /// Quantity
+        /// ["<c>vol</c>"] Quantity
         /// </summary>
         [JsonPropertyName("vol")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Price
+        /// ["<c>price</c>"] Price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Fee asset
+        /// ["<c>feeCurrency</c>"] Fee asset
         /// </summary>
         [JsonPropertyName("feeCurrency")]
         public string FeeAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Fee
+        /// ["<c>fee</c>"] Fee
         /// </summary>
         [JsonPropertyName("fee")]
         public decimal Fee { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Realized profit
+        /// ["<c>profit</c>"] Realized profit
         /// </summary>
         [JsonPropertyName("profit")]
         public decimal Profit { get; set; }
         /// <summary>
-        /// Category
+        /// ["<c>category</c>"] Category
         /// </summary>
         [JsonPropertyName("category")]
         public OrderCategory Category { get; set; }
         /// <summary>
-        /// Order id
+        /// ["<c>orderId</c>"] Order id
         /// </summary>
         [JsonPropertyName("orderId")]
         public long OrderId { get; set; }
         /// <summary>
-        /// Taker
+        /// ["<c>taker</c>"] Taker
         /// </summary>
         [JsonPropertyName("taker")]
         public bool Taker { get; set; }

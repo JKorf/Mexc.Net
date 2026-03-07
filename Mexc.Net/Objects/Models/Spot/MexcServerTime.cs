@@ -7,7 +7,7 @@ namespace Mexc.Net.Objects.Models.Spot
     public record MexcServerTime
     {
         /// <summary>
-        /// Current server time
+        /// ["<c>serverTime</c>"] Current server time
         /// </summary>
         [JsonPropertyName("serverTime")]
         public DateTime ServerTime { get; set; }

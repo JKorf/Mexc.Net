@@ -1,4 +1,4 @@
-﻿namespace Mexc.Net.Objects.Models.Futures
+namespace Mexc.Net.Objects.Models.Futures
 {
     /// <summary>
     /// Auto deleverage update
@@ -6,12 +6,12 @@
     public record MexcAdlUpdate
     {
         /// <summary>
-        /// Adl level
+        /// ["<c>adlLevel</c>"] Adl level
         /// </summary>
         [JsonPropertyName("adlLevel")]
         public int AdlLevel { get; set; }
         /// <summary>
-        /// Position id
+        /// ["<c>positionId</c>"] Position id
         /// </summary>
         [JsonPropertyName("positionId")]
         public long PositionId { get; set; }

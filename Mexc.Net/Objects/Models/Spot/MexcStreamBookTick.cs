@@ -9,23 +9,23 @@ namespace Mexc.Net.Objects.Models.Spot
     public record MexcStreamBookTick : MexcStreamEvent
     {
         /// <summary>
-        /// Best ask price
+        /// ["<c>a</c>"] Best ask price
         /// </summary>
         [JsonPropertyName("a")]
         public decimal BestAskPrice { get; set; }
         /// <summary>
-        /// Best ask quantity
+        /// ["<c>A</c>"] Best ask quantity
         /// </summary>
         [JsonPropertyName("A")]
         [JsonConverter(typeof(BigDecimalConverter))]
         public decimal BestAskQuantity { get; set; }
         /// <summary>
-        /// Best bid price
+        /// ["<c>b</c>"] Best bid price
         /// </summary>
         [JsonPropertyName("b")]
         public decimal BestBidPrice { get; set; }
         /// <summary>
-        /// Best bid quantity
+        /// ["<c>B</c>"] Best bid quantity
         /// </summary>
         [JsonPropertyName("B")]
         [JsonConverter(typeof(BigDecimalConverter))]

@@ -1,4 +1,4 @@
-﻿namespace Mexc.Net.Objects.Models.Spot
+namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Universal transfer result
@@ -6,7 +6,7 @@
     public record MexcUniversalTransferResult
     {
         /// <summary>
-        /// Transaction id
+        /// ["<c>tranId</c>"] Transaction id
         /// </summary>
         [JsonPropertyName("tranId")]
         public string TransactionId { get; set; } = String.Empty;

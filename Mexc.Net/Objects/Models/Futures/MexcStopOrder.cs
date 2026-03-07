@@ -1,4 +1,4 @@
-﻿using Mexc.Net.Enums;
+using Mexc.Net.Enums;
 
 namespace Mexc.Net.Objects.Models.Futures
 {
@@ -8,87 +8,87 @@ namespace Mexc.Net.Objects.Models.Futures
     public record MexcStopOrder
     {
         /// <summary>
-        /// Id
+        /// ["<c>id</c>"] Id
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
-        /// Order id
+        /// ["<c>orderId</c>"] Order id
         /// </summary>
         [JsonPropertyName("orderId")]
         public long OrderId { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Position id
+        /// ["<c>positionId</c>"] Position id
         /// </summary>
         [JsonPropertyName("positionId")]
         public long PositionId { get; set; }
         /// <summary>
-        /// Stop loss price
+        /// ["<c>stopLossPrice</c>"] Stop loss price
         /// </summary>
         [JsonPropertyName("stopLossPrice")]
         public decimal? StopLossPrice { get; set; }
         /// <summary>
-        /// Take profit price
+        /// ["<c>takeProfitPrice</c>"] Take profit price
         /// </summary>
         [JsonPropertyName("takeProfitPrice")]
         public decimal? TakeProfitPrice { get; set; }
         /// <summary>
-        /// Status
+        /// ["<c>state</c>"] Status
         /// </summary>
         [JsonPropertyName("state")]
         public FuturesOrderStatus Status { get; set; }
         /// <summary>
-        /// Trigger side
+        /// ["<c>triggerSide</c>"] Trigger side
         /// </summary>
         [JsonPropertyName("triggerSide")]
         public TriggerSide TriggerSide { get; set; }
         /// <summary>
-        /// Position side
+        /// ["<c>positionType</c>"] Position side
         /// </summary>
         [JsonPropertyName("positionType")]
         public PositionSide PositionSide { get; set; }
         /// <summary>
-        /// Quantity
+        /// ["<c>vol</c>"] Quantity
         /// </summary>
         [JsonPropertyName("vol")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Actual quantity
+        /// ["<c>realityVol</c>"] Actual quantity
         /// </summary>
         [JsonPropertyName("realityVol")]
         public decimal ActualQuantity { get; set; }
         /// <summary>
-        /// Placed order id
+        /// ["<c>placeOrderId</c>"] Placed order id
         /// </summary>
         [JsonPropertyName("placeOrderId")]
         public long? PlacedOrderId { get; set; }
         /// <summary>
-        /// Error code
+        /// ["<c>errorCode</c>"] Error code
         /// </summary>
         [JsonPropertyName("errorCode")]
         public int ErrorCode { get; set; }
         /// <summary>
-        /// Version
+        /// ["<c>version</c>"] Version
         /// </summary>
         [JsonPropertyName("version")]
         public int Version { get; set; }
         /// <summary>
-        /// Is finished
+        /// ["<c>isFinished</c>"] Is finished
         /// </summary>
         [JsonPropertyName("isFinished")]
         public bool IsFinished { get; set; }
         /// <summary>
-        /// Create time
+        /// ["<c>createTime</c>"] Create time
         /// </summary>
         [JsonPropertyName("createTime")]
         public DateTime CreateTime { get; set; }
         /// <summary>
-        /// Update time
+        /// ["<c>updateTime</c>"] Update time
         /// </summary>
         [JsonPropertyName("updateTime")]
         public DateTime? UpdateTime { get; set; }

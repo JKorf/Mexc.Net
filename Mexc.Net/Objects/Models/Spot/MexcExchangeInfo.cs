@@ -7,18 +7,18 @@ namespace Mexc.Net.Objects.Models.Spot
     public record MexcExchangeInfo
     {
         /// <summary>
-        /// The timezone the server uses
+        /// ["<c>timezone</c>"] The timezone the server uses
         /// </summary>
         [JsonPropertyName("timezone")]
         public string TimeZone { get; set; } = string.Empty;
         /// <summary>
-        /// The current server time
+        /// ["<c>serverTime</c>"] The current server time
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("serverTime")]
         public DateTime ServerTime { get; set; }
         /// <summary>
-        /// All symbols supported
+        /// ["<c>symbols</c>"] All symbols supported
         /// </summary>
         [JsonPropertyName("symbols")]
         public MexcSymbol[] Symbols { get; set; } = Array.Empty<MexcSymbol>();

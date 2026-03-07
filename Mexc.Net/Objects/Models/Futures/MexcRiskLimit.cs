@@ -1,4 +1,4 @@
-﻿using Mexc.Net.Enums;
+using Mexc.Net.Enums;
 
 namespace Mexc.Net.Objects.Models.Futures
 {
@@ -8,37 +8,37 @@ namespace Mexc.Net.Objects.Models.Futures
     public record MexcRiskLimit
     {
         /// <summary>
-        /// Level
+        /// ["<c>level</c>"] Level
         /// </summary>
         [JsonPropertyName("level")]
         public int Level { get; set; }
         /// <summary>
-        /// Max quantity
+        /// ["<c>maxVol</c>"] Max quantity
         /// </summary>
         [JsonPropertyName("maxVol")]
         public decimal MaxQuantity { get; set; }
         /// <summary>
-        /// Max leverage
+        /// ["<c>maxLeverage</c>"] Max leverage
         /// </summary>
         [JsonPropertyName("maxLeverage")]
         public int MaxLeverage { get; set; }
         /// <summary>
-        /// Maintenance margin rate
+        /// ["<c>mmr</c>"] Maintenance margin rate
         /// </summary>
         [JsonPropertyName("mmr")]
         public decimal MaintenanceMarginRate { get; set; }
         /// <summary>
-        /// Initial margin rate
+        /// ["<c>imr</c>"] Initial margin rate
         /// </summary>
         [JsonPropertyName("imr")]
         public decimal InitialMarginRate { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Position side
+        /// ["<c>positionType</c>"] Position side
         /// </summary>
         [JsonPropertyName("positionType")]
         public PositionSide PositionSide { get; set; }

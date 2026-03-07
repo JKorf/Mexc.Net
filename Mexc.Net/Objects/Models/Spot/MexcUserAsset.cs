@@ -7,17 +7,17 @@ namespace Mexc.Net.Objects.Models.Spot
     public record MexcUserAsset
     {
         /// <summary>
-        /// Asset
+        /// ["<c>coin</c>"] Asset
         /// </summary>
         [JsonPropertyName("coin")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Asset name
+        /// ["<c>name</c>"] Asset name
         /// </summary>
         [JsonPropertyName("name")]
         public string AssetName { get; set; } = string.Empty;
         /// <summary>
-        /// Asset network info
+        /// ["<c>networkList</c>"] Asset network info
         /// </summary>
         [JsonPropertyName("networkList")]
         public MexcNetwork[] Networks { get; set; } = Array.Empty<MexcNetwork>();
@@ -30,32 +30,32 @@ namespace Mexc.Net.Objects.Models.Spot
     public record MexcNetwork
     {
         /// <summary>
-        /// Asset
+        /// ["<c>coin</c>"] Asset
         /// </summary>
         [JsonPropertyName("coin")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Deposit description
+        /// ["<c>depositDesc</c>"] Deposit description
         /// </summary>
         [JsonPropertyName("depositDesc")]
         public string DepositDescription { get; set; } = string.Empty;
         /// <summary>
-        /// Is deposit enabled
+        /// ["<c>depositEnable</c>"] Is deposit enabled
         /// </summary>
         [JsonPropertyName("depositEnable")]
         public bool DepositEnabled { get; set; }
         /// <summary>
-        /// Minimal number of confirmations needed for deposit
+        /// ["<c>minConfirm</c>"] Minimal number of confirmations needed for deposit
         /// </summary>
         [JsonPropertyName("minConfirm")]
         public int MinConfirmations { get; set; }
         /// <summary>
-        /// Name
+        /// ["<c>Name</c>"] Name
         /// </summary>
         [JsonPropertyName("Name")]
         public string Name { get; set; } = string.Empty;
         /// <summary>
-        /// Network name
+        /// ["<c>netWork</c>"] Network name
         /// </summary>
         [JsonPropertyName("netWork")]
         public string Network { get; set; } = string.Empty;
@@ -65,47 +65,47 @@ namespace Mexc.Net.Objects.Models.Spot
             set => Network = value;
         }
         /// <summary>
-        /// Is withdrawing enabled
+        /// ["<c>withdrawEnable</c>"] Is withdrawing enabled
         /// </summary>
         [JsonPropertyName("withdrawEnable")]
         public bool WithdrawEnabled { get; set; }
         /// <summary>
-        /// Withdrawal fee
+        /// ["<c>withdrawFee</c>"] Withdrawal fee
         /// </summary>
         [JsonPropertyName("withdrawFee")]
         public decimal WithdrawFee { get; set; }
         /// <summary>
-        /// Withdrawal multiple
+        /// ["<c>withdrawIntegerMultiple</c>"] Withdrawal multiple
         /// </summary>
         [JsonPropertyName("withdrawIntegerMultiple")]
         public int? WithdrawIntegerMultiple { get; set; }
         /// <summary>
-        /// Max withdrawal
+        /// ["<c>withdrawMax</c>"] Max withdrawal
         /// </summary>
         [JsonPropertyName("withdrawMax"), JsonConverter(typeof(BigDecimalConverter))]
         public decimal WithdrawMax { get; set; }
         /// <summary>
-        /// Minimal withdrawal
+        /// ["<c>withdrawMin</c>"] Minimal withdrawal
         /// </summary>
         [JsonPropertyName("withdrawMin")]
         public decimal WithdrawMin { get; set; }
         /// <summary>
-        /// Same address
+        /// ["<c>sameAddress</c>"] Same address
         /// </summary>
         [JsonPropertyName("sameAddress")]
         public bool SameAddress { get; set; }
         /// <summary>
-        /// Contract address
+        /// ["<c>contract</c>"] Contract address
         /// </summary>
         [JsonPropertyName("contract")]
         public string Contract { get; set; } = string.Empty;
         /// <summary>
-        /// Withdraw tips
+        /// ["<c>withdrawTips</c>"] Withdraw tips
         /// </summary>
         [JsonPropertyName("withdrawTips")]
         public string? WithdrawTips { get; set; }
         /// <summary>
-        /// Deposit tips
+        /// ["<c>depositTips</c>"] Deposit tips
         /// </summary>
         [JsonPropertyName("depositTips")]
         public string? DepositTips { get; set; }

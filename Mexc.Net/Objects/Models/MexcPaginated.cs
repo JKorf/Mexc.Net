@@ -8,22 +8,22 @@ namespace Mexc.Net.Objects.Models
     public record MexcPaginated<T>
     {
         /// <summary>
-        /// Total records
+        /// ["<c>totalRecords</c>"] Total records
         /// </summary>
         [JsonPropertyName("totalRecords")]
         public int Total { get; set; }
         /// <summary>
-        /// Page
+        /// ["<c>page</c>"] Page
         /// </summary>
         [JsonPropertyName("page")]
         public int Page { get; set; }
         /// <summary>
-        /// Total pages
+        /// ["<c>totalPageNum</c>"] Total pages
         /// </summary>
         [JsonPropertyName("totalPageNum")]
         public int TotalPages { get; set; }
         /// <summary>
-        /// Data
+        /// ["<c>data</c>"] Data
         /// </summary>
         [JsonPropertyName("data")]
         public T Data { get; set; } = default!;

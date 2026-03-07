@@ -1,4 +1,4 @@
-﻿using Mexc.Net.Enums;
+using Mexc.Net.Enums;
 
 namespace Mexc.Net.Objects.Models.Futures
 {
@@ -8,27 +8,27 @@ namespace Mexc.Net.Objects.Models.Futures
     public record MexcLeverage
     {
         /// <summary>
-        /// Position side
+        /// ["<c>positionType</c>"] Position side
         /// </summary>
         [JsonPropertyName("positionType")]
         public PositionSide PositionSide { get; set; }
         /// <summary>
-        /// Level
+        /// ["<c>level</c>"] Level
         /// </summary>
         [JsonPropertyName("level")]
         public int Level { get; set; }
         /// <summary>
-        /// Initial margin rate
+        /// ["<c>imr</c>"] Initial margin rate
         /// </summary>
         [JsonPropertyName("imr")]
         public decimal InitialMarginRate { get; set; }
         /// <summary>
-        /// Maintenance margin rate
+        /// ["<c>mmr</c>"] Maintenance margin rate
         /// </summary>
         [JsonPropertyName("mmr")]
         public decimal MaintenanceMarginRate { get; set; }
         /// <summary>
-        /// Leverage
+        /// ["<c>leverage</c>"] Leverage
         /// </summary>
         [JsonPropertyName("leverage")]
         public int Leverage { get; set; }

@@ -1,4 +1,4 @@
-﻿using Mexc.Net.Enums;
+using Mexc.Net.Enums;
 
 namespace Mexc.Net.Objects.Models.Futures
 {
@@ -8,107 +8,107 @@ namespace Mexc.Net.Objects.Models.Futures
     public record MexcPosition
     {
         /// <summary>
-        /// Position id
+        /// ["<c>positionId</c>"] Position id
         /// </summary>
         [JsonPropertyName("positionId")]
         public long PositionId { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Position side
+        /// ["<c>positionType</c>"] Position side
         /// </summary>
         [JsonPropertyName("positionType")]
         public PositionSide PositionSide { get; set; }
         /// <summary>
-        /// Margin type
+        /// ["<c>openType</c>"] Margin type
         /// </summary>
         [JsonPropertyName("openType")]
         public MarginType MarginType { get; set; }
         /// <summary>
-        /// Status
+        /// ["<c>state</c>"] Status
         /// </summary>
         [JsonPropertyName("state")]
         public PositionStatus Status { get; set; }
         /// <summary>
-        /// Holding volume
+        /// ["<c>holdVol</c>"] Holding volume
         /// </summary>
         [JsonPropertyName("holdVol")]
         public decimal PositionSize { get; set; }
         /// <summary>
-        /// Frozen volume
+        /// ["<c>frozenVol</c>"] Frozen volume
         /// </summary>
         [JsonPropertyName("frozenVol")]
         public decimal FrozenVolume { get; set; }
         /// <summary>
-        /// Close volume
+        /// ["<c>closeVol</c>"] Close volume
         /// </summary>
         [JsonPropertyName("closeVol")]
         public decimal CloseVolume { get; set; }
         /// <summary>
-        /// Hold average price
+        /// ["<c>holdAvgPrice</c>"] Hold average price
         /// </summary>
         [JsonPropertyName("holdAvgPrice")]
         public decimal HoldAveragePrice { get; set; }
         /// <summary>
-        /// Open average price
+        /// ["<c>openAvgPrice</c>"] Open average price
         /// </summary>
         [JsonPropertyName("openAvgPrice")]
         public decimal OpenAveragePrice { get; set; }
         /// <summary>
-        /// Close average price
+        /// ["<c>closeAvgPrice</c>"] Close average price
         /// </summary>
         [JsonPropertyName("closeAvgPrice")]
         public decimal CloseAveragePrice { get; set; }
         /// <summary>
-        /// Liquidate price
+        /// ["<c>liquidatePrice</c>"] Liquidate price
         /// </summary>
         [JsonPropertyName("liquidatePrice")]
         public decimal LiquidationPrice { get; set; }
         /// <summary>
-        /// Original initial margin
+        /// ["<c>oim</c>"] Original initial margin
         /// </summary>
         [JsonPropertyName("oim")]
         public decimal OriginalInitialMargin { get; set; }
         /// <summary>
-        /// Initial margin
+        /// ["<c>im</c>"] Initial margin
         /// </summary>
         [JsonPropertyName("im")]
         public decimal InitialMargin { get; set; }
         /// <summary>
-        /// Hold fee
+        /// ["<c>holdFee</c>"] Hold fee
         /// </summary>
         [JsonPropertyName("holdFee")]
         public decimal HoldFee { get; set; }
         /// <summary>
-        /// Realised profit and loss
+        /// ["<c>realised</c>"] Realised profit and loss
         /// </summary>
         [JsonPropertyName("realised")]
         public decimal RealisedPnl { get; set; }
         /// <summary>
-        /// Auto deleverage level
+        /// ["<c>adlLevel</c>"] Auto deleverage level
         /// </summary>
         [JsonPropertyName("adlLevel")]
         public int AdlLevel { get; set; }
         /// <summary>
-        /// Leverage
+        /// ["<c>leverage</c>"] Leverage
         /// </summary>
         [JsonPropertyName("leverage")]
         public int Leverage { get; set; }
         /// <summary>
-        /// Create time
+        /// ["<c>createTime</c>"] Create time
         /// </summary>
         [JsonPropertyName("createTime")]
         public DateTime CreateTime { get; set; }
         /// <summary>
-        /// Update time
+        /// ["<c>updateTime</c>"] Update time
         /// </summary>
         [JsonPropertyName("updateTime")]
         public DateTime? UpdateTime { get; set; }
         /// <summary>
-        /// Auto margin enabled
+        /// ["<c>autoAddIm</c>"] Auto margin enabled
         /// </summary>
         [JsonPropertyName("autoAddIm")]
         public bool AutoMargin { get; set; }

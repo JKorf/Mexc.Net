@@ -9,67 +9,67 @@ namespace Mexc.Net.Objects.Models.Spot
     public record MexcOrder
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Order id
+        /// ["<c>orderId</c>"] Order id
         /// </summary>
         [JsonPropertyName("orderId"), JsonConverter(typeof(NumberStringConverter))]
         public string OrderId { get; set; } = string.Empty;
         /// <summary>
-        /// Price
+        /// ["<c>price</c>"] Price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Quantity
+        /// ["<c>origQty</c>"] Quantity
         /// </summary>
         [JsonPropertyName("origQty")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Iceberg quantity
+        /// ["<c>icebergQty</c>"] Iceberg quantity
         /// </summary>
         [JsonPropertyName("icebergQty")]
         public decimal? IcebergQty { get; set; }
         /// <summary>
-        /// Quantity filled
+        /// ["<c>executedQty</c>"] Quantity filled
         /// </summary>
         [JsonPropertyName("executedQty")]
         public decimal QuantityFilled { get; set; }
         /// <summary>
-        /// The currently executed amount of quote asset. Amounts to Sum(quantity * price) of executed trades for this order
+        /// ["<c>cummulativeQuoteQty</c>"] The currently executed amount of quote asset. Amounts to Sum(quantity * price) of executed trades for this order
         /// </summary>
         [JsonPropertyName("cummulativeQuoteQty")]
         public decimal QuoteQuantityFilled { get; set; }
         /// <summary>
-        /// Side
+        /// ["<c>side</c>"] Side
         /// </summary>
         [JsonPropertyName("side")]
         public OrderSide Side { get; set; }
         /// <summary>
-        /// Type
+        /// ["<c>type</c>"] Type
         /// </summary>
         [JsonPropertyName("type")]
         public OrderType OrderType { get; set; }
         /// <summary>
-        /// Status
+        /// ["<c>status</c>"] Status
         /// </summary>
         [JsonPropertyName("status")]
         public OrderStatus Status { get; set; }
         /// <summary>
-        /// Time in force
+        /// ["<c>timeInForce</c>"] Time in force
         /// </summary>
         [JsonPropertyName("timeInForce")]
         public TimeInForce? TimeInForce { get; set; }
         /// <summary>
-        /// Last update timestamp
+        /// ["<c>updateTime</c>"] Last update timestamp
         /// </summary>
         [JsonPropertyName("updateTime")]
         public DateTime? UpdateTime { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>transactTime</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("transactTime")]
         public DateTime Timestamp { get; set; }
@@ -82,27 +82,27 @@ namespace Mexc.Net.Objects.Models.Spot
         }
 
         /// <summary>
-        /// Original client order id
+        /// ["<c>origClientOrderId</c>"] Original client order id
         /// </summary>
         [JsonPropertyName("origClientOrderId")]
         public string? OriginalClientOrderId { get; set; }
         /// <summary>
-        /// Client order id
+        /// ["<c>clientOrderId</c>"] Client order id
         /// </summary>
         [JsonPropertyName("clientOrderId")]
         public string? ClientOrderId { get; set; }
         /// <summary>
-        /// Stop price
+        /// ["<c>stopPrice</c>"] Stop price
         /// </summary>
         [JsonPropertyName("stopPrice")]
         public decimal? StopPrice { get; set; }
         /// <summary>
-        /// Is order book
+        /// ["<c>isWorking</c>"] Is order book
         /// </summary>
         [JsonPropertyName("isWorking")]
         public bool IsWorking { get; set; }
         /// <summary>
-        /// Original quote order quantity
+        /// ["<c>origQuoteOrderQty</c>"] Original quote order quantity
         /// </summary>
         [JsonPropertyName("origQuoteOrderQty")]
         public decimal? QuoteQuantity { get; set; }

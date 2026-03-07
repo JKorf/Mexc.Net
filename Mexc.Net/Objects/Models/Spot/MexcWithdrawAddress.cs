@@ -7,27 +7,27 @@ namespace Mexc.Net.Objects.Models.Spot
     public record MexcWithdrawAddress
     {
         /// <summary>
-        /// Asset
+        /// ["<c>coin</c>"] Asset
         /// </summary>
         [JsonPropertyName("coin")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Network
+        /// ["<c>network</c>"] Network
         /// </summary>
         [JsonPropertyName("network")]
         public string Network { get; set; } = string.Empty;
         /// <summary>
-        /// Address
+        /// ["<c>address</c>"] Address
         /// </summary>
         [JsonPropertyName("address")]
         public string Address { get; set; } = string.Empty;
         /// <summary>
-        /// Tag
+        /// ["<c>addressTag</c>"] Tag
         /// </summary>
         [JsonPropertyName("addressTag")]
         public string? Tag { get; set; }
         /// <summary>
-        /// Memo
+        /// ["<c>memo</c>"] Memo
         /// </summary>
         [JsonPropertyName("memo")]
         public string? Memo { get; set; }

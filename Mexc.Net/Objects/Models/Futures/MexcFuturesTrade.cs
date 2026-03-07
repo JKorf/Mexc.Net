@@ -1,4 +1,4 @@
-﻿using Mexc.Net.Enums;
+using Mexc.Net.Enums;
 
 namespace Mexc.Net.Objects.Models.Futures
 {
@@ -8,27 +8,27 @@ namespace Mexc.Net.Objects.Models.Futures
     public record MexcFuturesTrade
     {
         /// <summary>
-        /// Price
+        /// ["<c>p</c>"] Price
         /// </summary>
         [JsonPropertyName("p")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Quantity
+        /// ["<c>v</c>"] Quantity
         /// </summary>
         [JsonPropertyName("v")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Order side
+        /// ["<c>T</c>"] Order side
         /// </summary>
         [JsonPropertyName("T")]
         public OrderSide Side { get; set; }
         /// <summary>
-        /// Self transaction
+        /// ["<c>M</c>"] Self transaction
         /// </summary>
         [JsonPropertyName("M")]
         public FuturesBool SelfTransaction { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>t</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("t")]
         public DateTime Timestamp { get; set; }

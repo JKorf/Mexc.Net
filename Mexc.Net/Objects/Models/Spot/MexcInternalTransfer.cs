@@ -9,42 +9,42 @@ namespace Mexc.Net.Objects.Models.Spot
     public record MexcInternalTransfer
     {
         /// <summary>
-        /// Transfer id
+        /// ["<c>tranId</c>"] Transfer id
         /// </summary>
         [JsonPropertyName("tranId")]
         public string TransferId { get; set; } = string.Empty;
         /// <summary>
-        /// Asset
+        /// ["<c>asset</c>"] Asset
         /// </summary>
         [JsonPropertyName("asset")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Quantity
+        /// ["<c>amount</c>"] Quantity
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// To account type
+        /// ["<c>toAccountType</c>"] To account type
         /// </summary>
         [JsonPropertyName("toAccountType")]
         public TransferAccountType TransferAccountType { get; set; }
         /// <summary>
-        /// To account identifier
+        /// ["<c>toAccount</c>"] To account identifier
         /// </summary>
         [JsonPropertyName("toAccount")]
         public string ToAccount { get; set; } = string.Empty;
         /// <summary>
-        /// From account identifier
+        /// ["<c>fromAccount</c>"] From account identifier
         /// </summary>
         [JsonPropertyName("fromAccount")]
         public string FromAccount { get; set; } = string.Empty;
         /// <summary>
-        /// Status
+        /// ["<c>status</c>"] Status
         /// </summary>
         [JsonPropertyName("status")]
         public string TransferStatus { get; set; } = string.Empty;
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }

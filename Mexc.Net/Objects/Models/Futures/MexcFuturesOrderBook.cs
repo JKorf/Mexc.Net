@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Converters;
+using CryptoExchange.Net.Converters;
 
 namespace Mexc.Net.Objects.Models.Futures
 {
@@ -8,32 +8,32 @@ namespace Mexc.Net.Objects.Models.Futures
     public record MexcFuturesOrderBook
     {
         /// <summary>
-        /// Asks
+        /// ["<c>asks</c>"] Asks
         /// </summary>
         [JsonPropertyName("asks")]
         public MexcOrderBookFuturesEntry[] Asks { get; set; } = [];
         /// <summary>
-        /// Bids
+        /// ["<c>bids</c>"] Bids
         /// </summary>
         [JsonPropertyName("bids")]
         public MexcOrderBookFuturesEntry[] Bids { get; set; } = [];
         /// <summary>
-        /// Version
+        /// ["<c>version</c>"] Version
         /// </summary>
         [JsonPropertyName("version")]
         public long Version { get; set; }
         /// <summary>
-        /// Last update id in the update
+        /// ["<c>end</c>"] Last update id in the update
         /// </summary>
         [JsonPropertyName("end")]
         public long? SequenceEnd { get; set; }
         /// <summary>
-        /// First update id in the update
+        /// ["<c>begin</c>"] First update id in the update
         /// </summary>
         [JsonPropertyName("begin")]
         public long? SequenceStart { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime? Timestamp { get; set; }

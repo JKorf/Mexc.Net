@@ -1,4 +1,4 @@
-﻿namespace Mexc.Net.Objects.Models.Spot
+namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Sub account API key info
@@ -6,37 +6,37 @@
     public record MexcSubAccountApiKey
     {
         /// <summary>
-        /// Sub account
+        /// ["<c>subAccount</c>"] Sub account
         /// </summary>
         [JsonPropertyName("subAccount")]
         public string SubAccount { get; set; } = string.Empty;
         /// <summary>
-        /// Note
+        /// ["<c>note</c>"] Note
         /// </summary>
         [JsonPropertyName("note")]
         public string Note { get; set; } = string.Empty;
         /// <summary>
-        /// API key
+        /// ["<c>apiKey</c>"] API key
         /// </summary>
         [JsonPropertyName("apiKey")]
         public string ApiKey { get; set; } = string.Empty;
         /// <summary>
-        /// Secret key
+        /// ["<c>secretKey</c>"] Secret key
         /// </summary>
         [JsonPropertyName("secretKey")]
         public string SecretKey { get; set; } = string.Empty;
         /// <summary>
-        /// Key permissions
+        /// ["<c>permissions</c>"] Key permissions
         /// </summary>
         [JsonPropertyName("permissions")]
         public string Permissions { get; set; } = string.Empty;
         /// <summary>
-        /// IP whitelist
+        /// ["<c>ip</c>"] IP whitelist
         /// </summary>
         [JsonPropertyName("ip")]
         public string Ip { get; set; } = string.Empty;
         /// <summary>
-        /// Create time
+        /// ["<c>createTime</c>"] Create time
         /// </summary>
         [JsonPropertyName("createTime")]
         public DateTime CreateTime { get; set; }

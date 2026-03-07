@@ -7,32 +7,32 @@ namespace Mexc.Net.Objects.Models.Spot
     public record MexcTrade
     {
         /// <summary>
-        /// Trade price
+        /// ["<c>price</c>"] Trade price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Traded quantity
+        /// ["<c>qty</c>"] Traded quantity
         /// </summary>
         [JsonPropertyName("qty"), JsonConverter(typeof(BigDecimalConverter))]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Trade value
+        /// ["<c>quoteQty</c>"] Trade value
         /// </summary>
         [JsonPropertyName("quoteQty")]
         public decimal QuoteQuantity { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>time</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("time")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Buyer was maker
+        /// ["<c>isBuyerMaker</c>"] Buyer was maker
         /// </summary>
         [JsonPropertyName("isBuyerMaker")]
         public bool IsBuyerMaker { get; set; }
         /// <summary>
-        /// Best price match
+        /// ["<c>isBestMatch</c>"] Best price match
         /// </summary>
         [JsonPropertyName("isBestMatch")]
         public bool IsBestMatch { get; set; }

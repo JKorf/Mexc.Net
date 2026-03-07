@@ -1,4 +1,4 @@
-﻿using Mexc.Net.Enums;
+using Mexc.Net.Enums;
 
 namespace Mexc.Net.Objects.Models.Spot
 {
@@ -8,37 +8,37 @@ namespace Mexc.Net.Objects.Models.Spot
     public record MexcPlaceOrderRequest
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Order side
+        /// ["<c>side</c>"] Order side
         /// </summary>
         [JsonPropertyName("side")]
         public OrderSide Side { get; set; }
         /// <summary>
-        /// Order type
+        /// ["<c>type</c>"] Order type
         /// </summary>
         [JsonPropertyName("type")]
         public OrderType Type { get; set; }
         /// <summary>
-        /// Order quantity
+        /// ["<c>quantity</c>"] Order quantity
         /// </summary>
         [JsonPropertyName("quantity"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public decimal? Quantity { get; set; }
         /// <summary>
-        /// Quote order quantity
+        /// ["<c>quoteOrderQty</c>"] Quote order quantity
         /// </summary>
         [JsonPropertyName("quoteOrderQty"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public decimal? QuoteQuantity { get; set; }
         /// <summary>
-        /// Order price
+        /// ["<c>price</c>"] Order price
         /// </summary>
         [JsonPropertyName("price"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public decimal? Price { get; set; }
         /// <summary>
-        /// Client order id
+        /// ["<c>newClientOrderId</c>"] Client order id
         /// </summary>
         [JsonPropertyName("newClientOrderId"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string? ClientOrderId { get; set; }

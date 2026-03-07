@@ -8,12 +8,12 @@ namespace Mexc.Net.Objects.Models
     public record MexcRows<T>
     {
         /// <summary>
-        /// Total records
+        /// ["<c>total</c>"] Total records
         /// </summary>
         [JsonPropertyName("total")]
         public int Total { get; set; }
         /// <summary>
-        /// Data
+        /// ["<c>rows</c>"] Data
         /// </summary>
         [JsonPropertyName("rows")]
         public T Data { get; set; } = default!;

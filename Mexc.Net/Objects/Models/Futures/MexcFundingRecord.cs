@@ -1,4 +1,4 @@
-﻿using Mexc.Net.Enums;
+using Mexc.Net.Enums;
 
 namespace Mexc.Net.Objects.Models.Futures
 {
@@ -8,27 +8,27 @@ namespace Mexc.Net.Objects.Models.Futures
     public record MexcFundingRecordPage
     {
         /// <summary>
-        /// Page quantity
+        /// ["<c>pageSize</c>"] Page quantity
         /// </summary>
         [JsonPropertyName("pageSize")]
         public int PageQuantity { get; set; }
         /// <summary>
-        /// Total count
+        /// ["<c>totalCount</c>"] Total count
         /// </summary>
         [JsonPropertyName("totalCount")]
         public int TotalCount { get; set; }
         /// <summary>
-        /// Total page
+        /// ["<c>totalPage</c>"] Total page
         /// </summary>
         [JsonPropertyName("totalPage")]
         public int TotalPage { get; set; }
         /// <summary>
-        /// Current page
+        /// ["<c>currentPage</c>"] Current page
         /// </summary>
         [JsonPropertyName("currentPage")]
         public int CurrentPage { get; set; }
         /// <summary>
-        /// Data
+        /// ["<c>resultList</c>"] Data
         /// </summary>
         [JsonPropertyName("resultList")]
         public MexcFundingRecord[] Data { get; set; } = [];
@@ -40,37 +40,37 @@ namespace Mexc.Net.Objects.Models.Futures
     public record MexcFundingRecord
     {
         /// <summary>
-        /// Id
+        /// ["<c>id</c>"] Id
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Position side
+        /// ["<c>positionType</c>"] Position side
         /// </summary>
         [JsonPropertyName("positionType")]
         public PositionSide PositionSide { get; set; }
         /// <summary>
-        /// Position value
+        /// ["<c>positionValue</c>"] Position value
         /// </summary>
         [JsonPropertyName("positionValue")]
         public decimal PositionValue { get; set; }
         /// <summary>
-        /// Funding
+        /// ["<c>funding</c>"] Funding
         /// </summary>
         [JsonPropertyName("funding")]
         public decimal Funding { get; set; }
         /// <summary>
-        /// Rate
+        /// ["<c>rate</c>"] Rate
         /// </summary>
         [JsonPropertyName("rate")]
         public decimal Rate { get; set; }
         /// <summary>
-        /// Settle time
+        /// ["<c>settleTime</c>"] Settle time
         /// </summary>
         [JsonPropertyName("settleTime")]
         public DateTime SettleTime { get; set; }

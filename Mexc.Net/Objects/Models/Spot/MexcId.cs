@@ -7,7 +7,7 @@ namespace Mexc.Net.Objects.Models.Spot
     public record MexcId
     {
         /// <summary>
-        /// Id
+        /// ["<c>id</c>"] Id
         /// </summary>
         [JsonPropertyName("id")]
         public string Id { get; set; } = string.Empty;

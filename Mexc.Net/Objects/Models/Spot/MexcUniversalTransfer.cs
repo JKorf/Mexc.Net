@@ -1,4 +1,4 @@
-﻿using Mexc.Net.Enums;
+using Mexc.Net.Enums;
 
 namespace Mexc.Net.Objects.Models.Spot
 {
@@ -8,13 +8,13 @@ namespace Mexc.Net.Objects.Models.Spot
     public record MexcUniversalTransferPaged
     {
         /// <summary>
-        /// Total pages
+        /// ["<c>totalCount</c>"] Total pages
         /// </summary>
         [JsonPropertyName("totalCount")]
         public int TotalPages { get; set; }
 
         /// <summary>
-        /// Transfers data
+        /// ["<c>result</c>"] Transfers data
         /// </summary>
         [JsonPropertyName("result")]
         public MexcUniversalTransfer[] Data { get; set; } = [];
@@ -26,61 +26,61 @@ namespace Mexc.Net.Objects.Models.Spot
     public record MexcUniversalTransfer
     {
         /// <summary>
-        /// Transfer id
+        /// ["<c>tranId</c>"] Transfer id
         /// </summary>
         [JsonPropertyName("tranId")]
         public string TransferId { get; set; } = string.Empty;
 
         /// <summary>
-        /// Name of the origin account
+        /// ["<c>fromAccount</c>"] Name of the origin account
         /// </summary>
         [JsonPropertyName("fromAccount")]
         public string FromAccount { get; set; } = string.Empty;
 
         /// <summary>
-        /// Name of the destination account
+        /// ["<c>toAccount</c>"] Name of the destination account
         /// </summary>
         [JsonPropertyName("toAccount")]
         public string ToAccount { get; set; } = string.Empty;
 
         /// <summary>
-        /// Client transfer id
+        /// ["<c>clientTranId</c>"] Client transfer id
         /// </summary>
         [JsonPropertyName("clientTranId")]
         public string? ClientTransferId { get; set; } = string.Empty;
 
         /// <summary>
-        /// Asset that was transferred
+        /// ["<c>asset</c>"] Asset that was transferred
         /// </summary>
         [JsonPropertyName("asset")]
         public string Asset { get; set; } = string.Empty;
 
         /// <summary>
-        /// Amount transferred
+        /// ["<c>amount</c>"] Amount transferred
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal Amount { get; set; }
 
         /// <summary>
-        /// Type of the origin account
+        /// ["<c>fromAccountType</c>"] Type of the origin account
         /// </summary>
         [JsonPropertyName("fromAccountType")]
         public AccountType FromAccountType { get; set; }
 
         /// <summary>
-        /// Type of the destination account
+        /// ["<c>toAccountType</c>"] Type of the destination account
         /// </summary>
         [JsonPropertyName("toAccountType")]
         public AccountType ToAccountType { get; set; }
 
         /// <summary>
-        /// Status of the transfer
+        /// ["<c>status</c>"] Status of the transfer
         /// </summary>
         [JsonPropertyName("status")]
         public TransferStatus Status { get; set; }
 
         /// <summary>
-        /// Timestamp of the transfer
+        /// ["<c>timestamp</c>"] Timestamp of the transfer
         /// </summary>
         [JsonPropertyName("timestamp")]
         [JsonConverter(typeof(DateTimeConverter))]

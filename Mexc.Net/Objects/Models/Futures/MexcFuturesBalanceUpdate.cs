@@ -1,4 +1,4 @@
-﻿namespace Mexc.Net.Objects.Models.Futures
+namespace Mexc.Net.Objects.Models.Futures
 {
     /// <summary>
     /// Balance info
@@ -6,27 +6,27 @@
     public record MexcFuturesBalanceUpdate
     {
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Position margin
+        /// ["<c>positionMargin</c>"] Position margin
         /// </summary>
         [JsonPropertyName("positionMargin")]
         public decimal PositionMargin { get; set; }
         /// <summary>
-        /// Available balance
+        /// ["<c>availableBalance</c>"] Available balance
         /// </summary>
         [JsonPropertyName("availableBalance")]
         public decimal AvailableBalance { get; set; }
         /// <summary>
-        /// Frozen balance
+        /// ["<c>frozenBalance</c>"] Frozen balance
         /// </summary>
         [JsonPropertyName("frozenBalance")]
         public decimal FrozenBalance { get; set; }
         /// <summary>
-        /// Bonus
+        /// ["<c>bonus</c>"] Bonus
         /// </summary>
         [JsonPropertyName("bonus")]
         public decimal Bonus { get; set; }

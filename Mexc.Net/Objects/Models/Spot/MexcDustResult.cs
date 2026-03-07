@@ -7,22 +7,22 @@ namespace Mexc.Net.Objects.Models.Spot
     public record MexcDustResult
     {
         /// <summary>
-        /// Successfully converted
+        /// ["<c>successList</c>"] Successfully converted
         /// </summary>
         [JsonPropertyName("successList")]
         public string[] Successful { get; set; } = Array.Empty<string>();
         /// <summary>
-        /// Failed to convert
+        /// ["<c>failedList</c>"] Failed to convert
         /// </summary>
         [JsonPropertyName("failedList")]
         public MexcFailedDust[] Failed { get; set; } = Array.Empty<MexcFailedDust>();
         /// <summary>
-        /// Total converted
+        /// ["<c>totalConvert</c>"] Total converted
         /// </summary>
         [JsonPropertyName("totalConvert")]
         public decimal TotalConverted { get; set; }
         /// <summary>
-        /// Convert fee
+        /// ["<c>convertFee</c>"] Convert fee
         /// </summary>
         [JsonPropertyName("convertFee")]
         public decimal ConvertFee { get; set; }
@@ -35,17 +35,17 @@ namespace Mexc.Net.Objects.Models.Spot
     public record MexcFailedDust
     {
         /// <summary>
-        /// Asset name
+        /// ["<c>asset</c>"] Asset name
         /// </summary>
         [JsonPropertyName("asset")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Message
+        /// ["<c>message</c>"] Message
         /// </summary>
         [JsonPropertyName("message")]
         public string Message { get; set; } = string.Empty;
         /// <summary>
-        /// Code
+        /// ["<c>code</c>"] Code
         /// </summary>
         [JsonPropertyName("code")]
         public int Code { get; set; }

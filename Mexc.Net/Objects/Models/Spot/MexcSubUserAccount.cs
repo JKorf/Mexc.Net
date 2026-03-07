@@ -1,4 +1,4 @@
-﻿namespace Mexc.Net.Objects.Models.Spot
+namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Sub accounts info
@@ -6,7 +6,7 @@
     internal record MexcSubUserAccounts
     {
         /// <summary>
-        /// Sub accounts
+        /// ["<c>subAccounts</c>"] Sub accounts
         /// </summary>
         [JsonPropertyName("subAccounts")]
         public MexcSubUserAccount[] SubAccounts { get; set; } = [];
@@ -18,26 +18,26 @@
     public record MexcSubUserAccount
     {
         /// <summary>
-        /// Sub account name
+        /// ["<c>subAccount</c>"] Sub account name
         /// </summary>
         [JsonPropertyName("subAccount")]
         public string Name { get; set; } = string.Empty;
 
         /// <summary>
-        /// Is frozen
+        /// ["<c>isFreeze</c>"] Is frozen
         /// </summary>
         [JsonPropertyName("isFreeze")]
         public bool IsFreeze { get; set; }
 
         /// <summary>
-        /// Creation time
+        /// ["<c>createTime</c>"] Creation time
         /// </summary>
         [JsonPropertyName("createTime")]
         [JsonConverter(typeof(DateTimeConverter))]
         public DateTime CreateTime { get; set; }
 
         /// <summary>
-        /// Account id
+        /// ["<c>uid</c>"] Account id
         /// </summary>
         [JsonPropertyName("uid")]
         public long AccountId { get; set; }

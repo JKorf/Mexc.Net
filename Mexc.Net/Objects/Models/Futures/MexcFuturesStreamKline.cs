@@ -1,4 +1,4 @@
-﻿using Mexc.Net.Enums;
+using Mexc.Net.Enums;
 
 namespace Mexc.Net.Objects.Models.Futures
 {
@@ -8,55 +8,55 @@ namespace Mexc.Net.Objects.Models.Futures
     public record MexcFuturesStreamKline
     {
         /// <summary>
-        /// Open time
+        /// ["<c>t</c>"] Open time
         /// </summary>
         [JsonPropertyName("t")]
         public DateTime OpenTime { get; set; }
 
         /// <summary>
-        /// Open price
+        /// ["<c>o</c>"] Open price
         /// </summary>
         [JsonPropertyName("o")]
         public decimal OpenPrice { get; set; }
 
         /// <summary>
-        /// Close price
+        /// ["<c>c</c>"] Close price
         /// </summary>
         [JsonPropertyName("c")]
         public decimal ClosePrice { get; set; }
 
         /// <summary>
-        /// High price
+        /// ["<c>h</c>"] High price
         /// </summary>
         [JsonPropertyName("h")]
         public decimal HighPrice { get; set; }
 
         /// <summary>
-        /// Low price
+        /// ["<c>l</c>"] Low price
         /// </summary>
         [JsonPropertyName("l")]
         public decimal LowPrice { get; set; }
 
         /// <summary>
-        /// Volume
+        /// ["<c>a</c>"] Volume
         /// </summary>
         [JsonPropertyName("a")]
         public decimal Volume { get; set; }
 
         /// <summary>
-        /// Quote volume
+        /// ["<c>q</c>"] Quote volume
         /// </summary>
         [JsonPropertyName("q")]
         public decimal QuoteVolume { get; set; }
 
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
 
         /// <summary>
-        /// Interval
+        /// ["<c>interval</c>"] Interval
         /// </summary>
         [JsonPropertyName("interval")]
         public FuturesKlineInterval Interval { get; set; }

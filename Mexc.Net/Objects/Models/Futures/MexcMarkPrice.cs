@@ -1,4 +1,4 @@
-﻿namespace Mexc.Net.Objects.Models.Futures
+namespace Mexc.Net.Objects.Models.Futures
 {
     /// <summary>
     /// Mark price
@@ -6,17 +6,17 @@
     public record MexcMarkPrice
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Mark price
+        /// ["<c>fairPrice</c>"] Mark price
         /// </summary>
         [JsonPropertyName("fairPrice")]
         public decimal MarkPrice { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }

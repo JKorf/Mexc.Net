@@ -1,4 +1,4 @@
-﻿using Mexc.Net.Enums;
+using Mexc.Net.Enums;
 
 namespace Mexc.Net.Objects.Models.Futures
 {
@@ -8,137 +8,137 @@ namespace Mexc.Net.Objects.Models.Futures
     public record MexcFuturesOrder
     {
         /// <summary>
-        /// Order id
+        /// ["<c>orderId</c>"] Order id
         /// </summary>
         [JsonPropertyName("orderId")]
         public long OrderId { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Position id
+        /// ["<c>positionId</c>"] Position id
         /// </summary>
         [JsonPropertyName("positionId")]
         public long PositionId { get; set; }
         /// <summary>
-        /// Price
+        /// ["<c>price</c>"] Price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal? Price { get; set; }
         /// <summary>
-        /// Quantity
+        /// ["<c>vol</c>"] Quantity
         /// </summary>
         [JsonPropertyName("vol")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Quantity open
+        /// ["<c>remainVol</c>"] Quantity open
         /// </summary>
         [JsonPropertyName("remainVol")]
         public decimal? QuantityRemaining { get; set; }
         /// <summary>
-        /// Leverage
+        /// ["<c>leverage</c>"] Leverage
         /// </summary>
         [JsonPropertyName("leverage")]
         public int Leverage { get; set; }
         /// <summary>
-        /// Order side
+        /// ["<c>side</c>"] Order side
         /// </summary>
         [JsonPropertyName("side")]
         public FuturesOrderSide OrderSide { get; set; }
         /// <summary>
-        /// Category
+        /// ["<c>category</c>"] Category
         /// </summary>
         [JsonPropertyName("category")]
         public OrderCategory Category { get; set; }
         /// <summary>
-        /// Order type
+        /// ["<c>orderType</c>"] Order type
         /// </summary>
         [JsonPropertyName("orderType")]
         public OrderType OrderType { get; set; }
         /// <summary>
-        /// Average fill price
+        /// ["<c>dealAvgPrice</c>"] Average fill price
         /// </summary>
         [JsonPropertyName("dealAvgPrice")]
         public decimal? AveragePrice { get; set; }
         /// <summary>
-        /// Quantity filled
+        /// ["<c>dealVol</c>"] Quantity filled
         /// </summary>
         [JsonPropertyName("dealVol")]
         public decimal QuantityFilled { get; set; }
         /// <summary>
-        /// Order margin
+        /// ["<c>orderMargin</c>"] Order margin
         /// </summary>
         [JsonPropertyName("orderMargin")]
         public decimal OrderMargin { get; set; }
         /// <summary>
-        /// Taker fee
+        /// ["<c>takerFee</c>"] Taker fee
         /// </summary>
         [JsonPropertyName("takerFee")]
         public decimal TakerFee { get; set; }
         /// <summary>
-        /// Maker fee
+        /// ["<c>makerFee</c>"] Maker fee
         /// </summary>
         [JsonPropertyName("makerFee")]
         public decimal MakerFee { get; set; }
         /// <summary>
-        /// Profit
+        /// ["<c>profit</c>"] Profit
         /// </summary>
         [JsonPropertyName("profit")]
         public decimal Profit { get; set; }
         /// <summary>
-        /// Fee asset
+        /// ["<c>feeCurrency</c>"] Fee asset
         /// </summary>
         [JsonPropertyName("feeCurrency")]
         public string FeeAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Margin type
+        /// ["<c>openType</c>"] Margin type
         /// </summary>
         [JsonPropertyName("openType")]
         public MarginType MarginType { get; set; }
         /// <summary>
-        /// Order status
+        /// ["<c>state</c>"] Order status
         /// </summary>
         [JsonPropertyName("state")]
         public FuturesOrderStatus Status { get; set; }
         /// <summary>
-        /// Client order id
+        /// ["<c>externalOid</c>"] Client order id
         /// </summary>
         [JsonPropertyName("externalOid")]
         public string? ClientOrderId { get; set; }
         /// <summary>
-        /// Error code
+        /// ["<c>errorCode</c>"] Error code
         /// </summary>
         [JsonPropertyName("errorCode")]
         public int ErrorCode { get; set; }
         /// <summary>
-        /// Used margin
+        /// ["<c>usedMargin</c>"] Used margin
         /// </summary>
         [JsonPropertyName("usedMargin")]
         public decimal UsedMargin { get; set; }
         /// <summary>
-        /// Create time
+        /// ["<c>createTime</c>"] Create time
         /// </summary>
         [JsonPropertyName("createTime")]
         public DateTime CreateTime { get; set; }
         /// <summary>
-        /// Update time
+        /// ["<c>updateTime</c>"] Update time
         /// </summary>
         [JsonPropertyName("updateTime")]
         public DateTime? UpdateTime { get; set; }
         /// <summary>
-        /// Stop loss price
+        /// ["<c>stopLossPrice</c>"] Stop loss price
         /// </summary>
         [JsonPropertyName("stopLossPrice")]
         public decimal? StopLossPrice { get; set; }
         /// <summary>
-        /// Take profit price
+        /// ["<c>takeProfitPrice</c>"] Take profit price
         /// </summary>
         [JsonPropertyName("takeProfitPrice")]
         public decimal? TakeProfitPrice { get; set; }
         /// <summary>
-        /// Version
+        /// ["<c>version</c>"] Version
         /// </summary>
         [JsonPropertyName("version")]
         public int? Version { get; set; }

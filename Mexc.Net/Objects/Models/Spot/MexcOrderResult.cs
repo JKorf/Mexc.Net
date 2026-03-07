@@ -1,4 +1,4 @@
-﻿namespace Mexc.Net.Objects.Models.Spot
+namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
     /// Order result
@@ -6,28 +6,28 @@
     public record MexcOrderResult
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string? Symbol { get; set; }
         /// <summary>
-        /// Order id
+        /// ["<c>orderId</c>"] Order id
         /// </summary>
         [JsonPropertyName("orderId")]
         public string? OrderId { get; set; }
         /// <summary>
-        /// Client order id
+        /// ["<c>clientOrderId</c>"] Client order id
         /// </summary>
         [JsonPropertyName("clientOrderId")]
         public string? ClientOrderId { get; set; }
 
         /// <summary>
-        /// Error message
+        /// ["<c>msg</c>"] Error message
         /// </summary>
         [JsonInclude, JsonPropertyName("msg")]
         internal string? ErrorMessage { get; set; }
         /// <summary>
-        /// Error code
+        /// ["<c>code</c>"] Error code
         /// </summary>
         [JsonInclude, JsonPropertyName("code")]
         internal int? ErrorCode { get; set; }

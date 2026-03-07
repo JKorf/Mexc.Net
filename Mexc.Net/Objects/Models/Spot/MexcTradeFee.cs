@@ -7,12 +7,12 @@ namespace Mexc.Net.Objects.Models.Spot
     public record MexcTradeFee
     {
         /// <summary>
-        /// Maker fee
+        /// ["<c>makerCommission</c>"] Maker fee
         /// </summary>
         [JsonPropertyName("makerCommission")]
         public decimal MakerFee { get; set; }
         /// <summary>
-        /// Taker fee
+        /// ["<c>takerCommission</c>"] Taker fee
         /// </summary>
         [JsonPropertyName("takerCommission")]
         public decimal TakerFee { get; set; }

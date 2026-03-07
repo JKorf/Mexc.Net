@@ -7,7 +7,7 @@ namespace Mexc.Net.Objects.Models.Spot
     public record MexcDeductStatus
     {
         /// <summary>
-        /// Is deduction enabled
+        /// ["<c>mxDeductEnable</c>"] Is deduction enabled
         /// </summary>
         [JsonPropertyName("mxDeductEnable")]
         public bool MxDeductionEnable { get; set; }

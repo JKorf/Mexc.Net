@@ -9,23 +9,23 @@ namespace Mexc.Net.Objects.Models.Spot
     public record MexcStreamTrade
     {
         /// <summary>
-        /// Order side
+        /// ["<c>S</c>"] Order side
         /// </summary>
         [JsonPropertyName("S")]
         public OrderSide Side { get; set; }
         /// <summary>
-        /// Price
+        /// ["<c>p</c>"] Price
         /// </summary>
         [JsonPropertyName("p")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Quantity
+        /// ["<c>v</c>"] Quantity
         /// </summary>
         [JsonPropertyName("v")]
         [JsonConverter(typeof(BigDecimalConverter))]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Trade time
+        /// ["<c>t</c>"] Trade time
         /// </summary>
         [JsonPropertyName("t")]
         public DateTime Timestamp { get; set; }

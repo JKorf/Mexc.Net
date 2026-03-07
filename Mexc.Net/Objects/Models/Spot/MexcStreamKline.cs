@@ -9,47 +9,47 @@ namespace Mexc.Net.Objects.Models.Spot
     public record MexcStreamKline
     {
         /// <summary>
-        /// Start time
+        /// ["<c>t</c>"] Start time
         /// </summary>
         [JsonPropertyName("t")]
         public DateTime StartTime { get; set; }
         /// <summary>
-        /// End time
+        /// ["<c>T</c>"] End time
         /// </summary>
         [JsonPropertyName("T")]
         public DateTime EndTime { get; set; }
         /// <summary>
-        /// Volume in quote asset
+        /// ["<c>a</c>"] Volume in quote asset
         /// </summary>
         [JsonPropertyName("a"), JsonConverter(typeof(BigDecimalConverter))]
         public decimal QuoteVolume { get; set; }
         /// <summary>
-        /// Close price
+        /// ["<c>c</c>"] Close price
         /// </summary>
         [JsonPropertyName("c")]
         public decimal ClosePrice { get; set; }
         /// <summary>
-        /// Highest price
+        /// ["<c>h</c>"] Highest price
         /// </summary>
         [JsonPropertyName("h")]
         public decimal HighPrice { get; set; }
         /// <summary>
-        /// Interval
+        /// ["<c>i</c>"] Interval
         /// </summary>
         [JsonPropertyName("i")]
         public KlineInterval Interval { get; set; }
         /// <summary>
-        /// Lowest price
+        /// ["<c>l</c>"] Lowest price
         /// </summary>
         [JsonPropertyName("l")]
         public decimal LowPrice { get; set; }
         /// <summary>
-        /// Open price
+        /// ["<c>o</c>"] Open price
         /// </summary>
         [JsonPropertyName("o")]
         public decimal OpenPrice { get; set; }
         /// <summary>
-        /// Volume
+        /// ["<c>v</c>"] Volume
         /// </summary>
         [JsonPropertyName("v")]
         [JsonConverter(typeof(BigDecimalConverter))]

@@ -1,4 +1,4 @@
-﻿namespace Mexc.Net.Objects.Models.Futures
+namespace Mexc.Net.Objects.Models.Futures
 {
     /// <summary>
     /// Risk fund balance
@@ -6,22 +6,22 @@
     public record MexcRiskFundBalance
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Available
+        /// ["<c>available</c>"] Available
         /// </summary>
         [JsonPropertyName("available")]
         public decimal Available { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }

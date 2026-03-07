@@ -7,32 +7,32 @@ namespace Mexc.Net.Objects.Models.Spot
     public record MexcEligibleDust
     {
         /// <summary>
-        /// Resulting Mx
+        /// ["<c>convertMx</c>"] Resulting Mx
         /// </summary>
         [JsonPropertyName("convertMx")]
         public decimal ConvertMx { get; set; }
         /// <summary>
-        /// Dust worth
+        /// ["<c>convertUsdt</c>"] Dust worth
         /// </summary>
         [JsonPropertyName("convertUsdt")]
         public decimal ConvertUsdt { get; set; }
         /// <summary>
-        /// Current balance
+        /// ["<c>balance</c>"] Current balance
         /// </summary>
         [JsonPropertyName("balance")]
         public decimal Balance { get; set; }
         /// <summary>
-        /// Asset name
+        /// ["<c>asset</c>"] Asset name
         /// </summary>
         [JsonPropertyName("asset")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Code
+        /// ["<c>code</c>"] Code
         /// </summary>
         [JsonPropertyName("code")]
         public string Code { get; set; } = string.Empty;
         /// <summary>
-        /// Message
+        /// ["<c>message</c>"] Message
         /// </summary>
         [JsonPropertyName("message")]
         public string Message { get; set; } = string.Empty;

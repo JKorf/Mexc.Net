@@ -7,37 +7,37 @@ namespace Mexc.Net.Objects.Models.Spot
     public record MexcAccountUpdate
     {
         /// <summary>
-        /// Asset
+        /// ["<c>a</c>"] Asset
         /// </summary>
         [JsonPropertyName("a")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Timestamp
+        /// ["<c>c</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("c")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// New free quantity
+        /// ["<c>f</c>"] New free quantity
         /// </summary>
         [JsonPropertyName("f")]
         public decimal Free { get; set; }
         /// <summary>
-        /// Changed free quantity
+        /// ["<c>fd</c>"] Changed free quantity
         /// </summary>
         [JsonPropertyName("fd")]
         public decimal FreeChange { get; set; }
         /// <summary>
-        /// New frozen quantity
+        /// ["<c>l</c>"] New frozen quantity
         /// </summary>
         [JsonPropertyName("l")]
         public decimal Frozen { get; set; }
         /// <summary>
-        /// Changed frozen quantity
+        /// ["<c>ld</c>"] Changed frozen quantity
         /// </summary>
         [JsonPropertyName("ld")]
         public decimal FrozenChange { get; set; }
         /// <summary>
-        /// Trigger update type
+        /// ["<c>o</c>"] Trigger update type
         /// </summary>
         [JsonPropertyName("o")]
         public string UpdateType { get; set; } = string.Empty;

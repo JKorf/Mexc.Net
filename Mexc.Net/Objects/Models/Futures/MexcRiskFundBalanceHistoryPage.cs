@@ -1,4 +1,4 @@
-﻿namespace Mexc.Net.Objects.Models.Futures
+namespace Mexc.Net.Objects.Models.Futures
 {
     /// <summary>
     /// Risk fund balance history page
@@ -6,27 +6,27 @@
     public record MexcRiskFundBalanceHistoryPage
     {
         /// <summary>
-        /// Page size
+        /// ["<c>pageSize</c>"] Page size
         /// </summary>
         [JsonPropertyName("pageSize")]
         public decimal PageSize { get; set; }
         /// <summary>
-        /// Total number of results
+        /// ["<c>totalCount</c>"] Total number of results
         /// </summary>
         [JsonPropertyName("totalCount")]
         public decimal TotalCount { get; set; }
         /// <summary>
-        /// Total pages
+        /// ["<c>totalPage</c>"] Total pages
         /// </summary>
         [JsonPropertyName("totalPage")]
         public decimal TotalPages { get; set; }
         /// <summary>
-        /// Current page
+        /// ["<c>currentPage</c>"] Current page
         /// </summary>
         [JsonPropertyName("currentPage")]
         public decimal CurrentPage { get; set; }
         /// <summary>
-        /// Data
+        /// ["<c>resultList</c>"] Data
         /// </summary>
         [JsonPropertyName("resultList")]
         public MexcRiskFundBalanceHistory[] Data { get; set; } = [];
@@ -38,22 +38,22 @@
     public record MexcRiskFundBalanceHistory
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Available
+        /// ["<c>available</c>"] Available
         /// </summary>
         [JsonPropertyName("available")]
         public decimal Available { get; set; }
         /// <summary>
-        /// Snapshot time
+        /// ["<c>snapshotTime</c>"] Snapshot time
         /// </summary>
         [JsonPropertyName("snapshotTime")]
         public DateTime SnapshotTime { get; set; }

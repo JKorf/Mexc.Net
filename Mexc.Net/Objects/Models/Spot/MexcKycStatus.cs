@@ -9,7 +9,7 @@ namespace Mexc.Net.Objects.Models.Spot
     public record MexcKycStatus
     {
         /// <summary>
-        /// Status
+        /// ["<c>status</c>"] Status
         /// </summary>
         [JsonPropertyName("status")]
         public KycStatus Status { get; set; }
