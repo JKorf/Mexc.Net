@@ -9,22 +9,22 @@ namespace Mexc.Net.Enums
     public enum KycStatus
     {
         /// <summary>
-        /// Unverified
+        /// ["<c>1</c>"] Unverified
         /// </summary>
         [Map("1")]
         Unverified,
         /// <summary>
-        /// Primary
+        /// ["<c>2</c>"] Primary
         /// </summary>
         [Map("2")]
         Primary,
         /// <summary>
-        /// Advanced
+        /// ["<c>3</c>"] Advanced
         /// </summary>
         [Map("3")]
         Advanced,
         /// <summary>
-        /// Institutional
+        /// ["<c>4</c>"] Institutional
         /// </summary>
         [Map("4")]
         Institutional

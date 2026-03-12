@@ -9,12 +9,12 @@ namespace Mexc.Net.Enums
     public enum PositionMode
     {
         /// <summary>
-        /// Hedge mode
+        /// ["<c>1</c>"] Hedge mode
         /// </summary>
         [Map("1")]
         Hedge,
         /// <summary>
-        /// One way mode
+        /// ["<c>2</c>"] One way mode
         /// </summary>
         [Map("2")]
         OneWay

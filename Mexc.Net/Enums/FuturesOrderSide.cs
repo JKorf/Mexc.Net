@@ -9,22 +9,22 @@ namespace Mexc.Net.Enums
     public enum FuturesOrderSide
     {
         /// <summary>
-        /// Open long
+        /// ["<c>1</c>"] Open long
         /// </summary>
         [Map("1")]
         OpenLong,
         /// <summary>
-        /// Close short
+        /// ["<c>2</c>"] Close short
         /// </summary>
         [Map("2")]
         CloseShort,
         /// <summary>
-        /// Open short
+        /// ["<c>3</c>"] Open short
         /// </summary>
         [Map("3")]
         OpenShort,
         /// <summary>
-        /// Close long
+        /// ["<c>4</c>"] Close long
         /// </summary>
         [Map("4")]
         CloseLong

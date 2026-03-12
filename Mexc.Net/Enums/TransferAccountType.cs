@@ -9,17 +9,17 @@ namespace Mexc.Net.Enums
     public enum TransferAccountType
     {
         /// <summary>
-        /// Email
+        /// ["<c>EMAIL</c>"] Email
         /// </summary>
         [Map("EMAIL")]
         Email,
         /// <summary>
-        /// User id
+        /// ["<c>UID</c>"] User id
         /// </summary>
         [Map("UID")]
         UID,
         /// <summary>
-        /// Mobile number
+        /// ["<c>MOBILE</c>"] Mobile number
         /// </summary>
         [Map("MOBILE")]
         Mobile

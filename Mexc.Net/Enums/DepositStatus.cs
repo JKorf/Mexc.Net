@@ -9,37 +9,37 @@ namespace Mexc.Net.Enums
     public enum DepositStatus
     {
         /// <summary>
-        /// Small delay
+        /// ["<c>1</c>"] Small delay
         /// </summary>
         [Map("1")]
         DelayedSmall,
         /// <summary>
-        /// Delayed
+        /// ["<c>2</c>"] Delayed
         /// </summary>
         [Map("2")]
         Delayed,
         /// <summary>
-        /// Large delay
+        /// ["<c>3</c>"] Large delay
         /// </summary>
         [Map("3")]
         DelayedLarge,
         /// <summary>
-        /// Pending
+        /// ["<c>4</c>"] Pending
         /// </summary>
         [Map("4")]
         Pending,
         /// <summary>
-        /// Success
+        /// ["<c>5</c>"] Success
         /// </summary>
         [Map("5")]
         Success,
         /// <summary>
-        /// Auditing
+        /// ["<c>6</c>"] Auditing
         /// </summary>
         [Map("6")]
         Auditing,
         /// <summary>
-        /// Rejected
+        /// ["<c>7</c>"] Rejected
         /// </summary>
         [Map("7")]
         Rejected

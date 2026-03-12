@@ -9,17 +9,17 @@ namespace Mexc.Net.Enums
     public enum SymbolStatus
     {
         /// <summary>
-        /// Trading is enabled
+        /// ["<c>1</c>"] Trading is enabled
         /// </summary>
         [Map("1")]
         Enabled,
         /// <summary>
-        /// Trading is paused
+        /// ["<c>2</c>"] Trading is paused
         /// </summary>
         [Map("2")]
         Paused,
         /// <summary>
-        /// Symbol is offline
+        /// ["<c>3</c>"] Symbol is offline
         /// </summary>
         [Map("3")]
         Offline

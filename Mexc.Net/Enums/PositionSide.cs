@@ -9,12 +9,12 @@ namespace Mexc.Net.Enums
     public enum PositionSide
     {
         /// <summary>
-        /// Long
+        /// ["<c>1</c>"] Long
         /// </summary>
         [Map("1")]
         Long,
         /// <summary>
-        /// Short
+        /// ["<c>2</c>"] Short
         /// </summary>
         [Map("2")]
         Short

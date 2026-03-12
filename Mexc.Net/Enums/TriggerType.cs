@@ -9,12 +9,12 @@ namespace Mexc.Net.Enums
     public enum TriggerType
     {
         /// <summary>
-        /// More than or equal
+        /// ["<c>1</c>"] More than or equal
         /// </summary>
         [Map("1")]
         MoreThanOrEqual,
         /// <summary>
-        /// Less than or equal
+        /// ["<c>2</c>"] Less than or equal
         /// </summary>
         [Map("2")]
         LessThanOrEqual

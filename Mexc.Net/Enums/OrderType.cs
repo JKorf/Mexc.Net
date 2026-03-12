@@ -9,27 +9,27 @@ namespace Mexc.Net.Enums
     public enum OrderType
     {
         /// <summary>
-        /// Limit
+        /// ["<c>LIMIT</c>"] Limit
         /// </summary>
         [Map("LIMIT", "1")]
         Limit,
         /// <summary>
-        /// Market
+        /// ["<c>MARKET</c>"] Market
         /// </summary>
         [Map("MARKET", "5")]
         Market,
         /// <summary>
-        /// Limit maker
+        /// ["<c>LIMIT_MAKER</c>"] Limit maker
         /// </summary>
         [Map("LIMIT_MAKER", "2")]
         LimitMaker,
         /// <summary>
-        /// Immediate or cancel
+        /// ["<c>IMMEDIATE_OR_CANCEL</c>"] Immediate or cancel
         /// </summary>
         [Map("IMMEDIATE_OR_CANCEL", "3")]
         ImmediateOrCancel,
         /// <summary>
-        /// Fill or kill
+        /// ["<c>FILL_OR_KILL</c>"] Fill or kill
         /// </summary>
         [Map("FILL_OR_KILL", "4")]
         FillOrKill,

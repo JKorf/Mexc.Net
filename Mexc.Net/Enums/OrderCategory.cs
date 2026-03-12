@@ -9,22 +9,22 @@ namespace Mexc.Net.Enums
     public enum OrderCategory
     {
         /// <summary>
-        /// Limit order
+        /// ["<c>1</c>"] Limit order
         /// </summary>
         [Map("1")]
         Limit,
         /// <summary>
-        /// System takeover delegate
+        /// ["<c>2</c>"] System takeover delegate
         /// </summary>
         [Map("2")]
         SystemDelegate,
         /// <summary>
-        /// Close delegate
+        /// ["<c>3</c>"] Close delegate
         /// </summary>
         [Map("3")]
         CloseDelegate,
         /// <summary>
-        /// Auto Deleverage reduction
+        /// ["<c>4</c>"] Auto Deleverage reduction
         /// </summary>
         [Map("4")]
         ADLReduction

@@ -9,17 +9,17 @@ namespace Mexc.Net.Enums
     public enum PositionStatus
     {
         /// <summary>
-        /// Holding
+        /// ["<c>1</c>"] Holding
         /// </summary>
         [Map("1")]
         Holding,
         /// <summary>
-        /// System auto holding
+        /// ["<c>2</c>"] System auto holding
         /// </summary>
         [Map("2")]
         SystemAutoHolding,
         /// <summary>
-        /// Closed
+        /// ["<c>3</c>"] Closed
         /// </summary>
         [Map("3")]
         Closed

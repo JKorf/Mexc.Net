@@ -9,12 +9,12 @@ namespace Mexc.Net.Enums
     public enum TransferType
     {
         /// <summary>
-        /// Outside transfer
+        /// ["<c>0</c>"] Outside transfer
         /// </summary>
         [Map("0")]
         TransferOut,
         /// <summary>
-        /// Internal transfer
+        /// ["<c>1</c>"] Internal transfer
         /// </summary>
         [Map("1")]
         TransferInternal

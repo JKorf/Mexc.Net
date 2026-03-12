@@ -9,17 +9,17 @@ namespace Mexc.Net.Enums
     public enum TriggerPriceType
     {
         /// <summary>
-        /// Last price
+        /// ["<c>1</c>"] Last price
         /// </summary>
         [Map("1")]
         LastPrice,
         /// <summary>
-        /// Mark price
+        /// ["<c>2</c>"] Mark price
         /// </summary>
         [Map("2")]
         MarkPrice,
         /// <summary>
-        /// Index price
+        /// ["<c>3</c>"] Index price
         /// </summary>
         [Map("3")]
         IndexPrice

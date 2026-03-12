@@ -9,27 +9,27 @@ namespace Mexc.Net.Enums
     public enum OrderStatus
     {
         /// <summary>
-        /// New
+        /// ["<c>NEW</c>"] New
         /// </summary>
         [Map("NEW", "1")]
         New,
         /// <summary>
-        /// Filled
+        /// ["<c>FILLED</c>"] Filled
         /// </summary>
         [Map("FILLED", "2")]
         Filled,
         /// <summary>
-        /// Partially filled
+        /// ["<c>PARTIALLY_FILLED</c>"] Partially filled
         /// </summary>
         [Map("PARTIALLY_FILLED", "3")]
         PartiallyFilled,
         /// <summary>
-        /// Fully canceled
+        /// ["<c>CANCELED</c>"] Fully canceled
         /// </summary>
         [Map("CANCELED", "4")]
         Canceled,
         /// <summary>
-        /// Partially filled, partially canceled
+        /// ["<c>PARTIALLY_CANCELED</c>"] Partially filled, partially canceled
         /// </summary>
         [Map("PARTIALLY_CANCELED", "5")]
         PartiallyCanceled

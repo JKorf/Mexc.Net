@@ -9,12 +9,12 @@ namespace Mexc.Net.Enums
     public enum AccountType
     {
         /// <summary>
-        /// Spot account
+        /// ["<c>SPOT</c>"] Spot account
         /// </summary>
         [Map("SPOT")]
         Spot,
         /// <summary>
-        /// Futures account
+        /// ["<c>FUTURES</c>"] Futures account
         /// </summary>
         [Map("FUTURES", "FUTURE")]
         Futures

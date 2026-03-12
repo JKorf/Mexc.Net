@@ -9,12 +9,12 @@ namespace Mexc.Net.Enums
     public enum MarginType
     {
         /// <summary>
-        /// Isolated margin
+        /// ["<c>1</c>"] Isolated margin
         /// </summary>
         [Map("1")]
         Isolated,
         /// <summary>
-        /// Cross margin
+        /// ["<c>2</c>"] Cross margin
         /// </summary>
         [Map("2")]
         Cross

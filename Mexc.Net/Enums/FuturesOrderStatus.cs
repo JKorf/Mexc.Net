@@ -9,22 +9,22 @@ namespace Mexc.Net.Enums
     public enum FuturesOrderStatus
     {
         /// <summary>
-        /// Open
+        /// ["<c>1</c>"] Open
         /// </summary>
         [Map("1", "2")]
         Open,
         /// <summary>
-        /// Filled
+        /// ["<c>3</c>"] Filled
         /// </summary>
         [Map("3")]
         Filled,
         /// <summary>
-        /// Fully canceled
+        /// ["<c>4</c>"] Fully canceled
         /// </summary>
         [Map("4")]
         Canceled,
         /// <summary>
-        /// Invalid
+        /// ["<c>5</c>"] Invalid
         /// </summary>
         [Map("5")]
         Invalid

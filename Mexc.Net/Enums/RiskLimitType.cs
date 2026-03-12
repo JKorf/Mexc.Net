@@ -9,12 +9,12 @@ namespace Mexc.Net.Enums
     public enum RiskLimitType
     {
         /// <summary>
-        /// By volume
+        /// ["<c>BY_VOLUME</c>"] By volume
         /// </summary>
         [Map("BY_VOLUME")]
         ByVolume,
         /// <summary>
-        /// By value
+        /// ["<c>BY_VALUE</c>"] By value
         /// </summary>
         [Map("BY_VALUE")]
         ByValue

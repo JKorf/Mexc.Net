@@ -9,12 +9,12 @@ namespace Mexc.Net.Enums
     public enum OrderSide
     {
         /// <summary>
-        /// Buy
+        /// ["<c>BUY</c>"] Buy
         /// </summary>
         [Map("BUY", "1")]
         Buy,
         /// <summary>
-        /// Sell
+        /// ["<c>SELL</c>"] Sell
         /// </summary>
         [Map("SELL", "2")]
         Sell

@@ -9,17 +9,17 @@ namespace Mexc.Net.Enums
     public enum TriggerSide
     {
         /// <summary>
-        /// Untriggered
+        /// ["<c>0</c>"] Untriggered
         /// </summary>
         [Map("0")]
         Untriggered,
         /// <summary>
-        /// Take profit
+        /// ["<c>1</c>"] Take profit
         /// </summary>
         [Map("1")]
         TakeProfit,
         /// <summary>
-        /// Stop loss
+        /// ["<c>2</c>"] Stop loss
         /// </summary>
         [Map("2")]
         StopLoss

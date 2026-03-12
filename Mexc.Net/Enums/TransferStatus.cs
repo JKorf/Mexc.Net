@@ -9,17 +9,17 @@ namespace Mexc.Net.Enums
     public enum TransferStatus
     {
         /// <summary>
-        /// Processing
+        /// ["<c>WAIT</c>"] Processing
         /// </summary>
         [Map("WAIT")]
         Processing,
         /// <summary>
-        /// Success
+        /// ["<c>SUCCESS</c>"] Success
         /// </summary>
         [Map("SUCCESS")]
         Success,
         /// <summary>
-        /// Failed
+        /// ["<c>FAILED</c>"] Failed
         /// </summary>
         [Map("FAILED")]
         Failed

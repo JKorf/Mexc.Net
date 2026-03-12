@@ -9,12 +9,12 @@ namespace Mexc.Net.Enums
     public enum ChangeType
     {
         /// <summary>
-        /// Increase
+        /// ["<c>ADD</c>"] Increase
         /// </summary>
         [Map("ADD")]
         Increase,
         /// <summary>
-        /// Decrease
+        /// ["<c>SUB</c>"] Decrease
         /// </summary>
         [Map("SUB")]
         Decrease

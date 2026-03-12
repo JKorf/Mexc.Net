@@ -9,52 +9,52 @@ namespace Mexc.Net.Enums
     public enum WithdrawStatus
     {
         /// <summary>
-        /// Applied for withdrawal
+        /// ["<c>1</c>"] Applied for withdrawal
         /// </summary>
         [Map("1")]
         Applied,
         /// <summary>
-        /// Auditing
+        /// ["<c>2</c>"] Auditing
         /// </summary>
         [Map("2")]
         Auditing,
         /// <summary>
-        /// Waiting
+        /// ["<c>3</c>"] Waiting
         /// </summary>
         [Map("3")]
         Waiting,
         /// <summary>
-        /// Processing
+        /// ["<c>4</c>"] Processing
         /// </summary>
         [Map("4")]
         Processing,
         /// <summary>
-        /// Wait for packaging
+        /// ["<c>5</c>"] Wait for packaging
         /// </summary>
         [Map("5")]
         WaitPackaging,
         /// <summary>
-        /// Wait for confirmations
+        /// ["<c>6</c>"] Wait for confirmations
         /// </summary>
         [Map("6")]
         WaitConfirmations,
         /// <summary>
-        /// Successful
+        /// ["<c>7</c>"] Successful
         /// </summary>
         [Map("7")]
         Success,
         /// <summary>
-        /// Failed
+        /// ["<c>8</c>"] Failed
         /// </summary>
         [Map("8")]
         Failed,
         /// <summary>
-        /// Canceled
+        /// ["<c>9</c>"] Canceled
         /// </summary>
         [Map("9")]
         Canceled,
         /// <summary>
-        /// Manual
+        /// ["<c>10</c>"] Manual
         /// </summary>
         [Map("10")]
         Manual

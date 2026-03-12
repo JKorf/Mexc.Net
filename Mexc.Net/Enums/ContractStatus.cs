@@ -9,27 +9,27 @@ namespace Mexc.Net.Enums
     public enum ContractStatus
     {
         /// <summary>
-        /// Trading is enabled
+        /// ["<c>0</c>"] Trading is enabled
         /// </summary>
         [Map("0")]
         Enabled,
         /// <summary>
-        /// Delivering
+        /// ["<c>1</c>"] Delivering
         /// </summary>
         [Map("1")]
         Delivering,
         /// <summary>
-        /// Completed
+        /// ["<c>2</c>"] Completed
         /// </summary>
         [Map("2")]
         Completed,
         /// <summary>
-        /// Symbol is offline
+        /// ["<c>3</c>"] Symbol is offline
         /// </summary>
         [Map("3")]
         Offline,
         /// <summary>
-        /// Trading is paused
+        /// ["<c>4</c>"] Trading is paused
         /// </summary>
         [Map("4")]
         Paused

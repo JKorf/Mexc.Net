@@ -9,22 +9,22 @@ namespace Mexc.Net.Enums
     public enum TradeSidesStatus
     {
         /// <summary>
-        /// Both buying and selling are enabled
+        /// ["<c>1</c>"] Both buying and selling are enabled
         /// </summary>
         [Map("1")]
         AllEnabled,
         /// <summary>
-        /// Only buying is enabled
+        /// ["<c>2</c>"] Only buying is enabled
         /// </summary>
         [Map("2")]
         BuyEnabled,
         /// <summary>
-        /// Only selling is enabled
+        /// ["<c>3</c>"] Only selling is enabled
         /// </summary>
         [Map("3")]
         SellEnabled,
         /// <summary>
-        /// Not enabled
+        /// ["<c>4</c>"] Not enabled
         /// </summary>
         [Map("4")]
         NoneEnabled

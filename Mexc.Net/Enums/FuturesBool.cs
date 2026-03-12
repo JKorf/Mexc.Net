@@ -9,12 +9,12 @@ namespace Mexc.Net.Enums
     public enum FuturesBool
     {
         /// <summary>
-        /// Yes
+        /// ["<c>1</c>"] Yes
         /// </summary>
         [Map("1")]
         Yes,
         /// <summary>
-        /// No
+        /// ["<c>2</c>"] No
         /// </summary>
         [Map("2")]
         No

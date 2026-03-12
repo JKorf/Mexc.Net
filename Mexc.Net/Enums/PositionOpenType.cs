@@ -9,17 +9,17 @@ namespace Mexc.Net.Enums
     public enum PositionOpenType
     {
         /// <summary>
-        /// Isolated
+        /// ["<c>1</c>"] Isolated
         /// </summary>
         [Map("1")]
         Isolated,
         /// <summary>
-        /// Cross
+        /// ["<c>2</c>"] Cross
         /// </summary>
         [Map("2")]
         Cross,
         /// <summary>
-        /// Both
+        /// ["<c>3</c>"] Both
         /// </summary>
         [Map("3")]
         Both

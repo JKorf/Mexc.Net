@@ -9,12 +9,12 @@ namespace Mexc.Net.Enums
     public enum TransferDirection
     {
         /// <summary>
-        /// In
+        /// ["<c>IN</c>"] In
         /// </summary>
         [Map("IN")]
         In,
         /// <summary>
-        /// Out
+        /// ["<c>OUT</c>"] Out
         /// </summary>
         [Map("OUT")]
         Out
