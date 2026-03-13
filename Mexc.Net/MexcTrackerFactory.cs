@@ -112,7 +112,7 @@ namespace Mexc.Net
         }
 
         /// <inheritdoc />
-        public IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, ApiCredentials credentials, SpotUserDataTrackerConfig? config = null, MexcEnvironment? environment = null)
+        public IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, MexcCredentials credentials, SpotUserDataTrackerConfig? config = null, MexcEnvironment? environment = null)
         {
             var clientProvider = _serviceProvider?.GetRequiredService<IMexcUserClientProvider>() ?? new MexcUserClientProvider();
             var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);

@@ -12,7 +12,7 @@ using System.Net.Http.Headers;
 namespace Mexc.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    internal partial class MexcRestClientSpotApi : RestApiClient, IMexcRestClientSpotApi
+    internal partial class MexcRestClientSpotApi : RestApiClient<MexcEnvironment, MexcAuthenticationProvider, MexcCredentials>, IMexcRestClientSpotApi
     {
         protected override IRestMessageHandler MessageHandler { get; } = new MexcRestMessageHandler(MexcErrors.SpotErrors);
         protected override ErrorMapping ErrorMapping => MexcErrors.SpotErrors;
@@ -59,7 +59,7 @@ namespace Mexc.Net.Clients.SpotApi
         #endregion
 
         /// <inheritdoc />
-        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+        protected override MexcAuthenticationProvider CreateAuthenticationProvider(MexcCredentials credentials)
             => new MexcAuthenticationProvider(credentials);
 
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(MexcExchange.SerializerContext));

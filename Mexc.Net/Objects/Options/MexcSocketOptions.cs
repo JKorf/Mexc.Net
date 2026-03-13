@@ -5,7 +5,7 @@ namespace Mexc.Net.Objects.Options
     /// <summary>
     /// Mexc Socket client options
     /// </summary>
-    public class MexcSocketOptions : SocketExchangeOptions<MexcEnvironment>
+    public class MexcSocketOptions : SocketExchangeOptions<MexcEnvironment, MexcCredentials>
     {
         /// <summary>
         /// Default options for new clients
@@ -27,11 +27,11 @@ namespace Mexc.Net.Objects.Options
         /// <summary>
         /// Options for the Spot API
         /// </summary>
-        public SocketApiOptions SpotOptions { get; private set; } = new SocketApiOptions();
+        public SocketApiOptions<MexcCredentials> SpotOptions { get; private set; } = new SocketApiOptions<MexcCredentials>();
         /// <summary>
         /// Options for the Futures API
         /// </summary>
-        public SocketApiOptions FuturesOptions { get; private set; } = new SocketApiOptions();
+        public SocketApiOptions<MexcCredentials> FuturesOptions { get; private set; } = new SocketApiOptions<MexcCredentials>();
 
 
         internal MexcSocketOptions Set(MexcSocketOptions targetOptions)

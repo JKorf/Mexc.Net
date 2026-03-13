@@ -25,7 +25,7 @@ using System.Reflection;
 namespace Mexc.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    internal partial class MexcSocketClientSpotApi : SocketApiClient, IMexcSocketClientSpotApi
+    internal partial class MexcSocketClientSpotApi : SocketApiClient<MexcEnvironment, MexcAuthenticationProvider, MexcCredentials>, IMexcSocketClientSpotApi
     {
         public event Action<ListenKeyRenewedEvent>? ListenkeyRenewed;
 
@@ -73,7 +73,7 @@ namespace Mexc.Net.Clients.SpotApi
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(MexcExchange.SerializerContext));
 
         /// <inheritdoc />
-        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+        protected override MexcAuthenticationProvider CreateAuthenticationProvider(MexcCredentials credentials)
             => new MexcAuthenticationProvider(credentials);
 
         /// <inheritdoc />

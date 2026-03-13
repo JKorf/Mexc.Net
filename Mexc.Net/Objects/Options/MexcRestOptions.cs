@@ -5,7 +5,7 @@ namespace Mexc.Net.Objects.Options
     /// <summary>
     /// Options for the MexcRestClient
     /// </summary>
-    public class MexcRestOptions : RestExchangeOptions<MexcEnvironment>
+    public class MexcRestOptions : RestExchangeOptions<MexcEnvironment, MexcCredentials>
     {
         /// <summary>
         /// Default options for new clients
@@ -37,12 +37,12 @@ namespace Mexc.Net.Objects.Options
         /// <summary>
         /// Spot API options
         /// </summary>
-        public RestApiOptions SpotOptions { get; private set; } = new RestApiOptions();
+        public RestApiOptions<MexcCredentials> SpotOptions { get; private set; } = new RestApiOptions<MexcCredentials>();
 
         /// <summary>
         /// Futures API options
         /// </summary>
-        public RestApiOptions FuturesOptions { get; private set; } = new RestApiOptions();
+        public RestApiOptions<MexcCredentials> FuturesOptions { get; private set; } = new RestApiOptions<MexcCredentials>();
 
         internal MexcRestOptions Set(MexcRestOptions targetOptions)
         {

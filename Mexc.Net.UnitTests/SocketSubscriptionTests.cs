@@ -17,7 +17,7 @@ namespace Mexc.Net.UnitTests
         {
             var client = new MexcSocketClient(opts =>
             {
-                opts.ApiCredentials = new ApiCredentials("123", "456");
+                opts.ApiCredentials = new MexcCredentials("123", "456");
             });
             var tester = new SocketSubscriptionValidator<MexcSocketClient>(client, "Subscriptions/SpotApi", "wss://wbs.mexc.com", "d");
 
@@ -42,7 +42,7 @@ namespace Mexc.Net.UnitTests
             var client = new MexcSocketClient(Options.Create(new Objects.Options.MexcSocketOptions
             {
                 OutputOriginalData = true,
-                ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456")
+                ApiCredentials = new MexcCredentials("123", "456")
             }), loggerFact);
             var tester = new SocketSubscriptionValidator<MexcSocketClient>(client, "Subscriptions/FuturesApi", "wss://contract.mexc.com/edge", "data");
             await tester.ValidateAsync<MexcFuturesTickerUpdate[]>((client, handler) => client.FuturesApi.SubscribeToTickersUpdatesAsync(handler), "Tickers", ignoreProperties: []);

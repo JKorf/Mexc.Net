@@ -11,7 +11,7 @@ using Microsoft.Extensions.Options;
 namespace Mexc.Net.Clients
 {
     /// <inheritdoc />
-    public class MexcSocketClient : BaseSocketClient, IMexcSocketClient
+    public class MexcSocketClient : BaseSocketClient<MexcEnvironment, MexcCredentials>, IMexcSocketClient
     {
         /// <inheritdoc />
         public IMexcSocketClientSpotApi SpotApi { get; set; }
@@ -42,13 +42,6 @@ namespace Mexc.Net.Clients
         }
         #endregion
 
-        /// <inheritdoc />
-        public void SetOptions(UpdateOptions options)
-        {
-            SpotApi.SetOptions(options);
-            FuturesApi.SetOptions(options);
-        }
-
         /// <summary>
         /// Set the default options to be used when creating new clients
         /// </summary>
@@ -58,11 +51,5 @@ namespace Mexc.Net.Clients
             MexcSocketOptions.Default = ApplyOptionsDelegate(optionsDelegate);
         }
 
-        /// <inheritdoc />
-        public void SetApiCredentials(ApiCredentials credentials)
-        {
-            SpotApi.SetApiCredentials(credentials);
-            FuturesApi.SetApiCredentials(credentials);
-        }
     }
 }

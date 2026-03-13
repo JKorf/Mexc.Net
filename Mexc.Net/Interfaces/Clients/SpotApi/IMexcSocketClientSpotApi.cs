@@ -9,7 +9,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
     /// <summary>
     /// Spot API socket subscriptions and requests
     /// </summary>
-    public interface IMexcSocketClientSpotApi: ISocketApiClient
+    public interface IMexcSocketClientSpotApi: ISocketApiClient<MexcCredentials>
     {
         /// <summary>
         /// Get the shared socket subscription client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.

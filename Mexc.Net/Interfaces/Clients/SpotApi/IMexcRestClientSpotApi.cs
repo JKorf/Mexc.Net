@@ -6,7 +6,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
     /// <summary>
     /// Mexc Spot API endpoints
     /// </summary>
-    public interface IMexcRestClientSpotApi: IRestApiClient
+    public interface IMexcRestClientSpotApi: IRestApiClient<MexcCredentials>
     {
         /// <summary>
         /// Get the shared rest requests client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.

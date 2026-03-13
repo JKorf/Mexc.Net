@@ -13,7 +13,7 @@ using Mexc.Net.Clients.MessageHandlers;
 namespace Mexc.Net.Clients.FuturesApi
 {
     /// <inheritdoc />
-    internal partial class MexcRestClientFuturesApi : RestApiClient, IMexcRestClientFuturesApi
+    internal partial class MexcRestClientFuturesApi : RestApiClient<MexcEnvironment, MexcFuturesAuthenticationProvider, MexcCredentials>, IMexcRestClientFuturesApi
     {
         protected override ErrorMapping ErrorMapping => MexcErrors.FuturesErrors;
         /// <inheritdoc />
@@ -54,7 +54,7 @@ namespace Mexc.Net.Clients.FuturesApi
         #endregion
 
         /// <inheritdoc />
-        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+        protected override MexcFuturesAuthenticationProvider CreateAuthenticationProvider(MexcCredentials credentials)
             => new MexcFuturesAuthenticationProvider(credentials);
 
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(MexcExchange.SerializerContext));
