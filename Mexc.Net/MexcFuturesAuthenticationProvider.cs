@@ -9,7 +9,7 @@ namespace Mexc.Net
     internal class MexcFuturesAuthenticationProvider : AuthenticationProvider<MexcCredentials>
     {
         private static readonly IStringMessageSerializer _serializer = new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(MexcExchange.SerializerContext));
-        public override string PublicKey => ApiCredentials.PublicKey;
+        public override string Key => ApiCredentials.Key;
 
         public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.Hmac];
 
@@ -26,11 +26,11 @@ namespace Mexc.Net
             var queryString = request.GetQueryString(true);
             var body = request.ParameterPosition == HttpMethodParameterPosition.InBody ? GetSerializedBody(_serializer, request.BodyParameters ?? new Dictionary<string, object>()) : string.Empty;
 
-            var signStr = $"{ApiCredentials.PublicKey}{timestamp}{queryString}{body}";
+            var signStr = $"{ApiCredentials.Key}{timestamp}{queryString}{body}";
             var signature = SignHMACSHA256(ApiCredentials.Hmac!, signStr);
 
             request.Headers ??= new Dictionary<string, string>();
-            request.Headers["ApiKey"] = ApiCredentials.PublicKey;
+            request.Headers["ApiKey"] = ApiCredentials.Key;
             request.Headers["Request-Time"] = timestamp;
             request.Headers["Signature"] = signature.ToLowerInvariant();
             request.Headers["Recv-Window"] = ((MexcRestClientFuturesApi)apiClient).ClientOptions.ReceiveWindow.TotalMilliseconds.ToString();
@@ -42,10 +42,10 @@ namespace Mexc.Net
         public override Query? GetAuthenticationQuery(SocketApiClient apiClient, SocketConnection connection, Dictionary<string, object?>? context = null)
         {
             var timestamp = GetMillisecondTimestamp(apiClient);
-            var sign = SignHMACSHA256(ApiCredentials.Hmac!, ApiCredentials.PublicKey + timestamp).ToLowerInvariant();
+            var sign = SignHMACSHA256(ApiCredentials.Hmac!, ApiCredentials.Key + timestamp).ToLowerInvariant();
             var parameters = new Dictionary<string, object>
             {
-                { "apiKey", ApiCredentials.PublicKey },
+                { "apiKey", ApiCredentials.Key },
                 { "reqTime", timestamp },
                 { "signature", sign },
                 { "subscribe", false }

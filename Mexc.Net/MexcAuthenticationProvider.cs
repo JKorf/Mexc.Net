@@ -7,7 +7,7 @@ namespace Mexc.Net
     internal class MexcAuthenticationProvider : AuthenticationProvider<MexcCredentials>
     {
         public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.Hmac, ApiCredentialsType.Rsa];
-        public override string PublicKey => ApiCredentials.PublicKey;
+        public override string Key => ApiCredentials.Key;
 
         public MexcAuthenticationProvider(MexcCredentials credentials) : base(credentials)
         {
@@ -19,7 +19,7 @@ namespace Mexc.Net
                 return;
 
             request.Headers ??= new Dictionary<string, string>();
-            request.Headers.Add("X-MEXC-APIKEY", ApiCredentials.PublicKey);
+            request.Headers.Add("X-MEXC-APIKEY", ApiCredentials.Key);
 
             var parameters = request.GetPositionParameters();
             var timestamp = GetMillisecondTimestamp(apiClient);
