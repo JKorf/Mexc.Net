@@ -11,7 +11,7 @@ namespace Mexc.Net
         private static readonly IStringMessageSerializer _serializer = new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(MexcExchange.SerializerContext));
         public override string Key => ApiCredentials.Key;
 
-        public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.Hmac];
+        public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.HMAC];
 
         public MexcFuturesAuthenticationProvider(MexcCredentials credentials) : base(credentials)
         {
@@ -27,7 +27,7 @@ namespace Mexc.Net
             var body = request.ParameterPosition == HttpMethodParameterPosition.InBody ? GetSerializedBody(_serializer, request.BodyParameters ?? new Dictionary<string, object>()) : string.Empty;
 
             var signStr = $"{ApiCredentials.Key}{timestamp}{queryString}{body}";
-            var signature = SignHMACSHA256(ApiCredentials.Hmac!, signStr);
+            var signature = SignHMACSHA256(ApiCredentials.HMAC!, signStr);
 
             request.Headers ??= new Dictionary<string, string>();
             request.Headers["ApiKey"] = ApiCredentials.Key;
@@ -42,7 +42,7 @@ namespace Mexc.Net
         public override Query? GetAuthenticationQuery(SocketApiClient apiClient, SocketConnection connection, Dictionary<string, object?>? context = null)
         {
             var timestamp = GetMillisecondTimestamp(apiClient);
-            var sign = SignHMACSHA256(ApiCredentials.Hmac!, ApiCredentials.Key + timestamp).ToLowerInvariant();
+            var sign = SignHMACSHA256(ApiCredentials.HMAC!, ApiCredentials.Key + timestamp).ToLowerInvariant();
             var parameters = new Dictionary<string, object>
             {
                 { "apiKey", ApiCredentials.Key },
