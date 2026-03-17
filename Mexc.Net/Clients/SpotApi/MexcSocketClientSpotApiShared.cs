@@ -159,7 +159,7 @@ namespace Mexc.Net.Clients.SpotApi
                             update.Data.OrderId!,
                             update.Data.OrderType == Enums.OrderType.Limit ? SharedOrderType.Limit : update.Data.OrderType == Enums.OrderType.Market ? SharedOrderType.Market : SharedOrderType.Other,
                             update.Data.Side == Enums.OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                            (update.Data.Status == Enums.OrderStatus.Canceled || update.Data.Status == Enums.OrderStatus.PartiallyCanceled) ? SharedOrderStatus.Canceled : (update.Data.Status == Enums.OrderStatus.New || update.Data.Status == Enums.OrderStatus.PartiallyFilled) ? SharedOrderStatus.Open : SharedOrderStatus.Filled,
+                            ParseOrderStatus(update.Data.Status),
                             update.Data.Timestamp)
                         {
                             ClientOrderId = update.Data.ClientOrderId,
@@ -174,6 +174,18 @@ namespace Mexc.Net.Clients.SpotApi
                 ct: ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
+        }
+
+        private SharedOrderStatus ParseOrderStatus(OrderStatus status)
+        {
+            if (status == Enums.OrderStatus.Canceled || status == Enums.OrderStatus.PartiallyCanceled)
+                return SharedOrderStatus.Canceled;
+            if (status == Enums.OrderStatus.New || status == Enums.OrderStatus.PartiallyFilled)
+                return SharedOrderStatus.Open;
+            if (status == OrderStatus.Filled)
+                return SharedOrderStatus.Filled;
+
+            return SharedOrderStatus.Unknown;
         }
         #endregion
 

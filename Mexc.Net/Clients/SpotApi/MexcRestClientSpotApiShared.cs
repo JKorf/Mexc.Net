@@ -516,9 +516,14 @@ namespace Mexc.Net.Clients.SpotApi
 
         private SharedOrderStatus ParseOrderStatus(OrderStatus status)
         {
-            if (status == OrderStatus.New || status == OrderStatus.PartiallyFilled) return SharedOrderStatus.Open;
-            if (status == OrderStatus.Canceled || status == OrderStatus.PartiallyCanceled) return SharedOrderStatus.Canceled;
-            return SharedOrderStatus.Filled;
+            if (status == Enums.OrderStatus.Canceled || status == Enums.OrderStatus.PartiallyCanceled)
+                return SharedOrderStatus.Canceled;
+            if (status == Enums.OrderStatus.New || status == Enums.OrderStatus.PartiallyFilled)
+                return SharedOrderStatus.Open;
+            if (status == OrderStatus.Filled)
+                return SharedOrderStatus.Filled;
+
+            return SharedOrderStatus.Unknown;
         }
 
         private SharedOrderType ParseOrderType(OrderType type)
@@ -678,14 +683,30 @@ namespace Mexc.Net.Clients.SpotApi
                         x.Quantity, 
                         x.Status == DepositStatus.Success, 
                         x.InsertTime,
-                        x.Status == DepositStatus.Success ? SharedTransferStatus.Completed
-                        : x.Status == DepositStatus.Rejected ? SharedTransferStatus.Failed
-                        : SharedTransferStatus.InProgress)
+                        ParseTransferStatus(x.Status))
                     {
                         Network = x.Network,
                         TransactionId = x.TransactionId,
                         Tag = x.Memo
                     }).ToArray(), nextPageRequest);
+        }
+
+        private SharedTransferStatus ParseTransferStatus(DepositStatus status)
+        {
+            if (status == DepositStatus.Success)
+                return SharedTransferStatus.Completed;
+            if (status == DepositStatus.Rejected)
+                return SharedTransferStatus.Failed;
+            if (status == DepositStatus.Pending
+                || status == DepositStatus.Auditing
+                || status == DepositStatus.DelayedLarge
+                || status == DepositStatus.DelayedSmall
+                || status == DepositStatus.Delayed)
+            {
+                return SharedTransferStatus.InProgress;
+            }
+
+            return SharedTransferStatus.Unknown;
         }
 
         #endregion
