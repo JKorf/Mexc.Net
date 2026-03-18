@@ -37,12 +37,12 @@ namespace Mexc.Net.Objects.Options
         /// <summary>
         /// Spot API options
         /// </summary>
-        public RestApiOptions<MexcCredentials> SpotOptions { get; private set; } = new RestApiOptions<MexcCredentials>();
+        public RestApiOptions SpotOptions { get; private set; } = new RestApiOptions();
 
         /// <summary>
         /// Futures API options
         /// </summary>
-        public RestApiOptions<MexcCredentials> FuturesOptions { get; private set; } = new RestApiOptions<MexcCredentials>();
+        public RestApiOptions FuturesOptions { get; private set; } = new RestApiOptions();
 
         internal MexcRestOptions Set(MexcRestOptions targetOptions)
         {

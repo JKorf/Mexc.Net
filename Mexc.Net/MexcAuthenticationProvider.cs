@@ -6,8 +6,7 @@ namespace Mexc.Net
 {
     internal class MexcAuthenticationProvider : AuthenticationProvider<MexcCredentials>
     {
-        public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.HMAC, ApiCredentialsType.RSA];
-        public override string Key => ApiCredentials.Key;
+        public override string Key => ApiCredentials.Credential.Key;
 
         public MexcAuthenticationProvider(MexcCredentials credentials) : base(credentials)
         {
@@ -19,14 +18,14 @@ namespace Mexc.Net
                 return;
 
             request.Headers ??= new Dictionary<string, string>();
-            request.Headers.Add("X-MEXC-APIKEY", ApiCredentials.Key);
+            request.Headers.Add("X-MEXC-APIKEY", ApiCredentials.Credential.Key);
 
             var parameters = request.GetPositionParameters();
             var timestamp = GetMillisecondTimestamp(apiClient);
             parameters.Add("recvWindow", ((MexcRestClientSpotApi)apiClient).ClientOptions.ReceiveWindow.TotalMilliseconds.ToString());
             parameters.Add("timestamp", timestamp);
 
-            if (ApiCredentials.CredentialType == ApiCredentialsType.HMAC)
+            if (ApiCredentials.Credential is HMACCredential hmacCredentials)
             {
                 if (request.ParameterPosition == HttpMethodParameterPosition.InUri)
                 {
@@ -39,7 +38,7 @@ namespace Mexc.Net
                         .Replace("%7d", "%7D")
                         .Replace("%5d", "%5D");
 
-                    var signature = SignHMACSHA256(ApiCredentials.HMAC!, queryString);
+                    var signature = SignHMACSHA256(hmacCredentials, queryString);
                     request.QueryParameters ??= new Dictionary<string, object>();
                     request.QueryParameters.Add("signature", signature);
                     request.SetQueryString($"{queryString}&signature={signature}");
@@ -47,22 +46,26 @@ namespace Mexc.Net
                 else
                 {
                     var body = parameters.ToFormData();
-                    var signature = SignHMACSHA256(ApiCredentials.HMAC!, body);
+                    var signature = SignHMACSHA256(hmacCredentials, body);
                     request.BodyParameters ??= new Dictionary<string, object>();
                     request.BodyParameters.Add("signature", signature);
                     request.SetBodyContent($"{body}&signature={signature}");
                 }
             }
-            else
+            else if (ApiCredentials.Credential is RSACredential rsaCredential)
             {
                 var parameterString = parameters.ToFormData();
-                var sign = SignRSASHA256(ApiCredentials.RSA!, Encoding.ASCII.GetBytes(parameterString), SignOutputType.Base64);
+                var sign = SignRSASHA256(rsaCredential, Encoding.ASCII.GetBytes(parameterString), SignOutputType.Base64);
                 var signed = $"{parameterString}&signature={sign}";
 
                 if (request.ParameterPosition == HttpMethodParameterPosition.InUri)
                     request.SetQueryString(signed);
                 else
                     request.SetBodyContent(signed);
+            }
+            else
+            {
+                throw new NotImplementedException();
             }
         }
     }

@@ -26,7 +26,7 @@ namespace Mexc.Net.UnitTests
             return new MexcSocketClient(Options.Create(new MexcSocketOptions
             {
                 OutputOriginalData = true,
-                ApiCredentials = Authenticated ? new MexcCredentials(key, sec) : null
+                ApiCredentials = Authenticated ? new MexcCredentials().WithHMAC(key, sec) : null
             }), loggerFactory);
         }
 
@@ -38,7 +38,7 @@ namespace Mexc.Net.UnitTests
             Authenticated = key != null && sec != null;
             return new MexcRestClient(x =>
             {
-                x.ApiCredentials = Authenticated ? new MexcCredentials(key, sec) : null;
+                x.ApiCredentials = Authenticated ? new MexcCredentials().WithHMAC(key, sec) : null;
             });
         }
 

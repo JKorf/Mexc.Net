@@ -33,7 +33,7 @@ namespace Mexc.Net.UnitTests
             return new MexcRestClient(null, loggerFactory, Options.Create(new Objects.Options.MexcRestOptions
             {
                 OutputOriginalData = true,
-                ApiCredentials = Authenticated ? new MexcCredentials(key, sec) : null
+                ApiCredentials = Authenticated ? new MexcCredentials().WithHMAC(key, sec) : null
             }));
         }
 

@@ -15,7 +15,7 @@ namespace Mexc.Net.UnitTests
             var client = new MexcRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.ApiCredentials = new MexcCredentials("123", "456");
+                opts.ApiCredentials = new MexcCredentials().WithHMAC("123", "456");
                 opts.OutputOriginalData = true;
             });
             var tester = new RestRequestValidator<MexcRestClient>(client, "Endpoints/SpotApi/Account", "https://api.mexc.com", IsAuthenticated);
@@ -50,7 +50,7 @@ namespace Mexc.Net.UnitTests
             var client = new MexcRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.ApiCredentials = new MexcCredentials("123", "456");
+                opts.ApiCredentials = new MexcCredentials().WithHMAC("123", "456");
                 opts.OutputOriginalData = true;
             });
             var tester = new RestRequestValidator<MexcRestClient>(client, "Endpoints/SpotApi/ExchangeData", "https://api.mexc.com", IsAuthenticated);
@@ -74,7 +74,7 @@ namespace Mexc.Net.UnitTests
             var client = new MexcRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.ApiCredentials = new MexcCredentials("123", "456");
+                opts.ApiCredentials = new MexcCredentials().WithHMAC("123", "456");
                 opts.OutputOriginalData = true;
             });
             var tester = new RestRequestValidator<MexcRestClient>(client, "Endpoints/SpotApi/Trading", "https://api.mexc.com", IsAuthenticated);
@@ -94,7 +94,7 @@ namespace Mexc.Net.UnitTests
             var client = new MexcRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.ApiCredentials = new MexcCredentials("123", "456");
+                opts.ApiCredentials = new MexcCredentials().WithHMAC("123", "456");
                 opts.OutputOriginalData = true;
             });
             var tester = new RestRequestValidator<MexcRestClient>(client, "Endpoints/SpotApi/SubAccount", "https://api.mexc.com", IsAuthenticated);
@@ -113,7 +113,7 @@ namespace Mexc.Net.UnitTests
             var client = new MexcRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.ApiCredentials = new MexcCredentials("123", "456");
+                opts.ApiCredentials = new MexcCredentials().WithHMAC("123", "456");
                 opts.OutputOriginalData = true;
             });
             var tester = new RestRequestValidator<MexcRestClient>(client, "Endpoints/FuturesApi/Account", "https://contract.mexc.com", IsAuthenticatedFutures);
@@ -134,7 +134,7 @@ namespace Mexc.Net.UnitTests
             var client = new MexcRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.ApiCredentials = new MexcCredentials("123", "456");
+                opts.ApiCredentials = new MexcCredentials().WithHMAC("123", "456");
                 opts.OutputOriginalData = true;
             });
             var tester = new RestRequestValidator<MexcRestClient>(client, "Endpoints/FuturesApi/ExchangeData", "https://contract.mexc.com", IsAuthenticatedFutures); 
@@ -154,7 +154,7 @@ namespace Mexc.Net.UnitTests
             var client = new MexcRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.ApiCredentials = new MexcCredentials("123", "456");
+                opts.ApiCredentials = new MexcCredentials().WithHMAC("123", "456");
                 opts.OutputOriginalData = true;
             });
             var tester = new RestRequestValidator<MexcRestClient>(client, "Endpoints/FuturesApi/Trading", "https://contract.mexc.com", IsAuthenticatedFutures);

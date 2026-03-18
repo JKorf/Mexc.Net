@@ -59,7 +59,7 @@ namespace Mexc.Net.UnitTests
         public void CheckSignatureExample()
         {
             var authProvider = new MexcAuthenticationProvider(
-                new MexcCredentials("mx0aBYs33eIilxBWC5", "45d0b3c26f2644f19bfb98b07741b2f5")
+                new MexcCredentials().WithHMAC("mx0aBYs33eIilxBWC5", "45d0b3c26f2644f19bfb98b07741b2f5")
                 );
             var client = (RestApiClient)new MexcRestClient().SpotApi;
 
