@@ -8,20 +8,19 @@ namespace Mexc.Net
     public class MexcCredentials : ApiCredentials
     {
         internal CredentialPair Credential { get; set; }
-        internal string? Passphrase =>
-            HMAC?.Pass
-            ?? RSAXml?.Pass
-#if NETSTANDARD2_1_OR_GREATER || NET7_0_OR_GREATER
-            ?? RSAPem?.Pass
-#endif
-            ;
 
+        /// <summary>
+        /// HMAC credentials
+        /// </summary>
         public HMACCredential? HMAC
         {
             get => Credential as HMACCredential;
             set { if (value != null) Credential = value; }
         }
 
+        /// <summary>
+        /// RSA credentials in XML format
+        /// </summary>
         public RSAXmlCredential? RSAXml
         {
             get => Credential as RSAXmlCredential;
@@ -29,6 +28,9 @@ namespace Mexc.Net
         }
 
 #if NETSTANDARD2_1_OR_GREATER || NET7_0_OR_GREATER
+        /// <summary>
+        /// RSA credentials in PEM/Base64 format
+        /// </summary>
         public RSAPemCredential? RSAPem
         {
             get => Credential as RSAPemCredential;
@@ -36,6 +38,57 @@ namespace Mexc.Net
         }
 #endif
 
+        /// <summary>
+        /// Create new credentials
+        /// </summary>
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+        public MexcCredentials() { }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+
+        /// <summary>
+        /// Create new credentials providing HMAC credentials
+        /// </summary>
+        /// <param name="key">API key</param>
+        /// <param name="secret">API secret</param>
+        public MexcCredentials(string key, string secret)
+        {
+            Credential = new HMACCredential(key, secret);
+        }
+
+        /// <summary>
+        /// Create new credentials providing HMAC credentials
+        /// </summary>
+        /// <param name="credential">HMAC credentials</param>
+        public MexcCredentials(HMACCredential credential)
+        {
+            Credential = credential;
+        }
+
+        /// <summary>
+        /// Create new credentials providing RSA credentials in XML format
+        /// </summary>
+        /// <param name="credential">RSA credentials in XML format</param>
+        public MexcCredentials(RSAXmlCredential credential)
+        {
+            Credential = credential;
+        }
+
+#if NETSTANDARD2_1_OR_GREATER || NET7_0_OR_GREATER
+        /// <summary>
+        /// Create new credentials providing RSA credentials in PEM/Base64 format
+        /// </summary>
+        /// <param name="credential">RSA credentials in PEM/Base64 format</param>
+        public MexcCredentials(RSAPemCredential credential)
+        {
+            Credential = credential;
+        }
+#endif
+
+        /// <summary>
+        /// Specify the HMAC credentials
+        /// </summary>
+        /// <param name="key">API key</param>
+        /// <param name="secret">API secret</param>
         public MexcCredentials WithHMAC(string key, string secret)
         {
             if (Credential != null) throw new InvalidOperationException("Credentials already set");
@@ -44,6 +97,11 @@ namespace Mexc.Net
             return this;
         }
 
+        /// <summary>
+        /// Specify the RSA credentials in XML format
+        /// </summary>
+        /// <param name="key">API key</param>
+        /// <param name="privateKey">Private key</param>
         public MexcCredentials WithRSAXml(string key, string privateKey)
         {
             if (Credential != null) throw new InvalidOperationException("Credentials already set");
@@ -53,6 +111,11 @@ namespace Mexc.Net
         }
 
 #if NETSTANDARD2_1_OR_GREATER || NET7_0_OR_GREATER
+        /// <summary>
+        /// Specify the RSA credentials in PEM/Base64 format
+        /// </summary>
+        /// <param name="key">API key</param>
+        /// <param name="privateKey">Private key</param>
         public MexcCredentials WithRSAPem(string key, string privateKey)
         {
             if (Credential != null) throw new InvalidOperationException("Credentials already set");
@@ -65,54 +128,13 @@ namespace Mexc.Net
         /// <inheritdoc />
         public override ApiCredentials Copy() => new MexcCredentials { Credential = Credential };
 
+        /// <inheritdoc />
+        public override void Validate()
+        {
+            if (Credential == null)
+                throw new ArgumentException("Credential not set");
 
-
-        //        /// <summary>
-        //        /// Credential type provided
-        //        /// </summary>
-        //        public ApiCredentialsType CredentialType => CredentialPairs.First().CredentialType;
-
-        //        /// <summary>
-        //        /// </summary>
-        //        [Obsolete("Parameterless constructor is only for deserialization purposes and should not be used directly. Use parameterized constructor instead.")]
-        //        public MexcCredentials() { }
-
-        //        /// <summary>
-        //        /// Create credentials using an HMAC key, secret and passphrase
-        //        /// </summary>
-        //        /// <param name="apiKey">The API key</param>
-        //        /// <param name="secret">The API secret</param>
-        //        public MexcCredentials(string apiKey, string secret) : this(new HMACCredential(apiKey, secret)) { }
-
-        //        /// <summary>
-        //        /// Create Mexc credentials using HMAC credentials
-        //        /// </summary>
-        //        /// <param name="credential">The HMAC credentials</param>
-        //        public MexcCredentials(HMACCredential credential) : base(credential) { }
-
-        //#if NETSTANDARD2_1_OR_GREATER || NET7_0_OR_GREATER
-        //        /// <summary>
-        //        /// Create Mexc credentials using RSA credentials in PEM format
-        //        /// </summary>
-        //        /// <param name="rsaCredential">RSA credentials</param>
-        //        public MexcCredentials(RSAPemCredential rsaCredential)
-        //            : base(rsaCredential)
-        //        {
-        //        }
-        //#endif
-        //        /// <summary>
-        //        /// Create Mexc credentials using RSA credentials in XML format
-        //        /// </summary>
-        //        /// <param name="rsaCredential">RSA credentials</param>
-        //        public MexcCredentials(RSAXmlCredential rsaCredential)
-        //            : base(rsaCredential)
-        //        {
-        //        }
-
-
-        //        /// <inheritdoc />
-        //#pragma warning disable CS0618 // Type or member is obsolete
-        //        public override ApiCredentials Copy() => new MexcCredentials { CredentialPairs = CredentialPairs };
-        //#pragma warning restore CS0618 // Type or member is obsolete
+            Credential.Validate();
+        }
     }
 }
