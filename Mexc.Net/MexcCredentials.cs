@@ -7,7 +7,7 @@ namespace Mexc.Net
     /// </summary>
     public class MexcCredentials : ApiCredentials
     {
-        internal CredentialPair Credential { get; set; }
+        internal CredentialSet Credential { get; set; }
 
         /// <summary>
         /// HMAC credentials
