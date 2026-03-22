@@ -103,7 +103,6 @@ namespace Mexc.Net.Benchmark.Client
             SocketClient = new MexcSocketClient(Options.Create(new MexcSocketOptions
             {
                 ReconnectPolicy = ReconnectPolicy.Disabled,
-                UseUpdatedDeserialization = enableNewDeserialization,
                 RateLimiterEnabled = false,
                 Environment = env
             }), logger);

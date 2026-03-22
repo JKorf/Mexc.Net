@@ -103,8 +103,6 @@ namespace Microsoft.Extensions.DependencyInjection
             }).SetHandlerLifetime(Timeout.InfiniteTimeSpan);
             services.Add(new ServiceDescriptor(typeof(IMexcSocketClient), x => { return new MexcSocketClient(x.GetRequiredService<IOptions<MexcSocketOptions>>(), x.GetRequiredService<ILoggerFactory>()); }, socketClientLifeTime ?? ServiceLifetime.Singleton));
 
-            services.AddTransient<ICryptoRestClient, CryptoRestClient>();
-            services.AddTransient<ICryptoSocketClient, CryptoSocketClient>();
             services.AddTransient<IMexcOrderBookFactory, MexcOrderBookFactory>();
             services.AddTransient<IMexcTrackerFactory, MexcTrackerFactory>();
             services.AddTransient<ITrackerFactory, MexcTrackerFactory>();
