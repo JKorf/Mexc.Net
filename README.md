@@ -45,7 +45,7 @@ Mexc.Net is available on [GitHub packages](https://github.com/JKorf/Mexc.Net/pkg
 The NuGet package files are added along side the source with the latest GitHub release which can found [here](https://github.com/JKorf/Mexc.Net/releases).
 
 ## How to use
-*REST Endpoints*  
+*Basic request:*  
 
 ```csharp
 // Get the ETH/USDT ticker via rest request
@@ -54,7 +54,23 @@ var tickerResult = await restClient.SpotApi.ExchangeData.GetTickerAsync("ETHUSDT
 var lastPrice = tickerResult.Data.LastPrice;
 ```
 
-*Websocket streams*  
+*Place order:*
+```csharp
+var restClient = new MexcRestClient(opts => {
+	opts.ApiCredentials = new MexcCredentials("APIKEY", "APISECRET");
+});
+
+// Place Limit order to buy 0.1 ETH at 2000
+var orderResult = await restClient.SpotApi.Trading.PlaceOrderAsync(
+    "ETHUSDT",
+    OrderSide.Buy,
+    OrderType.Limit,
+    quantity: 10,
+    price: 2000
+    );
+```
+
+*WebSocket subscription:* 
 
 ```csharp
 // Subscribe to ETH/USDT ticker updates via the websocket API
