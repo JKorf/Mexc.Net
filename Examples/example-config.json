@@ -3,8 +3,10 @@
 	"Mexc": {
 		// API credentials for both REST and Websocket client
 		"ApiCredentials": {
-			"Key": "APIKEY",
-			"Secret": "APISECRET"
+			"HMAC": {
+				"Key": "APIKEY",
+				"Secret": "APISECRET"
+			}
 		},
 		// Set the environment by name
 		"Environment": {
