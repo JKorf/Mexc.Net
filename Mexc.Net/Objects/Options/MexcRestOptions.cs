@@ -5,7 +5,7 @@ namespace Mexc.Net.Objects.Options
     /// <summary>
     /// Options for the MexcRestClient
     /// </summary>
-    public class MexcRestOptions : RestExchangeOptions<MexcEnvironment>
+    public class MexcRestOptions : RestExchangeOptions<MexcEnvironment, MexcCredentials>
     {
         /// <summary>
         /// Default options for new clients

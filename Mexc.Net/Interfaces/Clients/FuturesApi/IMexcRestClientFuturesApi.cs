@@ -6,7 +6,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
     /// <summary>
     /// Mexc Futures API endpoints
     /// </summary>
-    public interface IMexcRestClientFuturesApi: IRestApiClient
+    public interface IMexcRestClientFuturesApi: IRestApiClient<MexcCredentials>
     {
         /// <summary>
         /// Get the shared rest requests client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.

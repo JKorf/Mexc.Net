@@ -45,7 +45,7 @@ namespace Mexc.Net.Clients
         }
 
         /// <inheritdoc />
-        public void InitializeUserClient(string userIdentifier, ApiCredentials credentials, MexcEnvironment? environment = null)
+        public void InitializeUserClient(string userIdentifier, MexcCredentials credentials, MexcEnvironment? environment = null)
         {
             CreateRestClient(userIdentifier, credentials, environment);
             CreateSocketClient(userIdentifier, credentials, environment);
@@ -59,7 +59,7 @@ namespace Mexc.Net.Clients
         }
 
         /// <inheritdoc />
-        public IMexcRestClient GetRestClient(string userIdentifier, ApiCredentials? credentials = null, MexcEnvironment? environment = null)
+        public IMexcRestClient GetRestClient(string userIdentifier, MexcCredentials? credentials = null, MexcEnvironment? environment = null)
         {
             if (!_restClients.TryGetValue(userIdentifier, out var client) || client.Disposed)
                 client = CreateRestClient(userIdentifier, credentials, environment);
@@ -68,7 +68,7 @@ namespace Mexc.Net.Clients
         }
 
         /// <inheritdoc />
-        public IMexcSocketClient GetSocketClient(string userIdentifier, ApiCredentials? credentials = null, MexcEnvironment? environment = null)
+        public IMexcSocketClient GetSocketClient(string userIdentifier, MexcCredentials? credentials = null, MexcEnvironment? environment = null)
         {
             if (!_socketClients.TryGetValue(userIdentifier, out var client) || client.Disposed)
                 client = CreateSocketClient(userIdentifier, credentials, environment);
@@ -76,7 +76,7 @@ namespace Mexc.Net.Clients
             return client;
         }
 
-        private IMexcRestClient CreateRestClient(string userIdentifier, ApiCredentials? credentials, MexcEnvironment? environment)
+        private IMexcRestClient CreateRestClient(string userIdentifier, MexcCredentials? credentials, MexcEnvironment? environment)
         {
             var clientRestOptions = SetRestEnvironment(environment);
             var client = new MexcRestClient(_httpClient, _loggerFactory, clientRestOptions);
@@ -88,7 +88,7 @@ namespace Mexc.Net.Clients
             return client;
         }
 
-        private IMexcSocketClient CreateSocketClient(string userIdentifier, ApiCredentials? credentials, MexcEnvironment? environment)
+        private IMexcSocketClient CreateSocketClient(string userIdentifier, MexcCredentials? credentials, MexcEnvironment? environment)
         {
             var clientSocketOptions = SetSocketEnvironment(environment);
             var client = new MexcSocketClient(clientSocketOptions!, _loggerFactory);

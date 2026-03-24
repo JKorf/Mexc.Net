@@ -19,7 +19,7 @@ using System.Net.WebSockets;
 namespace Mexc.Net.Clients.FuturesApi
 {
     /// <inheritdoc />
-    internal partial class MexcSocketClientFuturesApi : SocketApiClient, IMexcSocketClientFuturesApi
+    internal partial class MexcSocketClientFuturesApi : SocketApiClient<MexcEnvironment, MexcFuturesAuthenticationProvider, MexcCredentials>, IMexcSocketClientFuturesApi
     {
         #region constructor/destructor
 
@@ -53,7 +53,7 @@ namespace Mexc.Net.Clients.FuturesApi
         public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new MexcSocketFuturesMessageHandler();
 
         /// <inheritdoc />
-        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+        protected override MexcFuturesAuthenticationProvider CreateAuthenticationProvider(MexcCredentials credentials)
             => new MexcFuturesAuthenticationProvider(credentials);
 
         /// <inheritdoc />

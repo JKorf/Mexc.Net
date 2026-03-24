@@ -8,7 +8,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
     /// <summary>
     /// Futures API socket subscriptions and requests
     /// </summary>
-    public interface IMexcSocketClientFuturesApi : ISocketApiClient
+    public interface IMexcSocketClientFuturesApi : ISocketApiClient<MexcCredentials>
     {
         /// <summary>
         /// Get the shared socket subscription client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.

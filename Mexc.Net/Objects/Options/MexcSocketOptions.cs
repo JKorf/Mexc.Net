@@ -5,7 +5,7 @@ namespace Mexc.Net.Objects.Options
     /// <summary>
     /// Mexc Socket client options
     /// </summary>
-    public class MexcSocketOptions : SocketExchangeOptions<MexcEnvironment>
+    public class MexcSocketOptions : SocketExchangeOptions<MexcEnvironment, MexcCredentials>
     {
         /// <summary>
         /// Default options for new clients

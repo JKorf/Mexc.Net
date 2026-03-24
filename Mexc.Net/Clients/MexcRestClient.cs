@@ -11,7 +11,7 @@ using Microsoft.Extensions.Options;
 namespace Mexc.Net.Clients
 {
     /// <inheritdoc />
-    public class MexcRestClient : BaseRestClient, IMexcRestClient
+    public class MexcRestClient : BaseRestClient<MexcEnvironment, MexcCredentials>, IMexcRestClient
     {
         /// <inheritdoc />
         public IMexcRestClientSpotApi SpotApi { get; }
@@ -45,13 +45,6 @@ namespace Mexc.Net.Clients
 
         #endregion
 
-        /// <inheritdoc />
-        public void SetOptions(UpdateOptions options)
-        {
-            SpotApi.SetOptions(options);
-            FuturesApi.SetOptions(options);
-        }
-
         /// <summary>
         /// Set the default options to be used when creating new clients
         /// </summary>
@@ -59,13 +52,6 @@ namespace Mexc.Net.Clients
         public static void SetDefaultOptions(Action<MexcRestOptions> optionsDelegate)
         {
             MexcRestOptions.Default = ApplyOptionsDelegate(optionsDelegate);
-        }
-
-        /// <inheritdoc />
-        public void SetApiCredentials(ApiCredentials apiCredentials)
-        {
-            SpotApi.SetApiCredentials(apiCredentials);
-            FuturesApi.SetApiCredentials(apiCredentials);
         }
     }
 }

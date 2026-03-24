@@ -6,13 +6,12 @@ using Mexc.Net.Objects.Sockets.Queries;
 
 namespace Mexc.Net
 {
-    internal class MexcFuturesAuthenticationProvider : AuthenticationProvider
+    internal class MexcFuturesAuthenticationProvider : AuthenticationProvider<MexcCredentials>
     {
         private static readonly IStringMessageSerializer _serializer = new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(MexcExchange.SerializerContext));
+        public override string Key => ApiCredentials.Credential.Key;
 
-        public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.Hmac];
-
-        public MexcFuturesAuthenticationProvider(ApiCredentials credentials) : base(credentials)
+        public MexcFuturesAuthenticationProvider(MexcCredentials credentials) : base(credentials)
         {
         }
 
@@ -25,11 +24,11 @@ namespace Mexc.Net
             var queryString = request.GetQueryString(true);
             var body = request.ParameterPosition == HttpMethodParameterPosition.InBody ? GetSerializedBody(_serializer, request.BodyParameters ?? new Dictionary<string, object>()) : string.Empty;
 
-            var signStr = $"{ApiKey}{timestamp}{queryString}{body}";
-            var signature = SignHMACSHA256(signStr);
+            var signStr = $"{ApiCredentials.Credential.Key}{timestamp}{queryString}{body}";
+            var signature = SignHMACSHA256(ApiCredentials.HMAC!, signStr);
 
             request.Headers ??= new Dictionary<string, string>();
-            request.Headers["ApiKey"] = ApiKey;
+            request.Headers["ApiKey"] = ApiCredentials.Credential.Key;
             request.Headers["Request-Time"] = timestamp;
             request.Headers["Signature"] = signature.ToLowerInvariant();
             request.Headers["Recv-Window"] = ((MexcRestClientFuturesApi)apiClient).ClientOptions.ReceiveWindow.TotalMilliseconds.ToString();
@@ -41,10 +40,10 @@ namespace Mexc.Net
         public override Query? GetAuthenticationQuery(SocketApiClient apiClient, SocketConnection connection, Dictionary<string, object?>? context = null)
         {
             var timestamp = GetMillisecondTimestamp(apiClient);
-            var sign = SignHMACSHA256(ApiKey + timestamp).ToLowerInvariant();
+            var sign = SignHMACSHA256(ApiCredentials.HMAC!, ApiCredentials.Credential.Key + timestamp).ToLowerInvariant();
             var parameters = new Dictionary<string, object>
             {
-                { "apiKey", ApiKey },
+                { "apiKey", ApiCredentials.Credential.Key },
                 { "reqTime", timestamp },
                 { "signature", sign },
                 { "subscribe", false }
