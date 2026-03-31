@@ -138,9 +138,12 @@ namespace Mexc.Net.UnitTests
                 opts.OutputOriginalData = true;
             });
             var tester = new RestRequestValidator<MexcRestClient>(client, "Endpoints/FuturesApi/ExchangeData", "https://contract.mexc.com", IsAuthenticatedFutures);
+            await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetSymbolAsync("BTC_USDT"), "GetSymbol", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetSymbolsAsync(), "GetSymbols", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetIndexPriceAsync("ETH_USDT"), "GetIndexPrice", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetMarkPriceAsync("ETH_USDT"), "GetMarkPrice", nestedJsonProperty: "data");
-            await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetFundingRatesAsync("BTC_USDT"), "GetFundingRates", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetFundingRateAsync("BTC_USDT"), "GetFundingRate", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetFundingRatesAsync(), "GetFundingRates", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetRecentTradesAsync("ETH_USDT", 123), "GetRecentTrades", nestedJsonProperty: "data", ignoreProperties: ["O"]);
             await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetTickersAsync(), "GetTickers", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetRiskFundBalancesAsync(), "GetRiskFundBalances", nestedJsonProperty: "data");

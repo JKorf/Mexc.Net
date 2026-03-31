@@ -1,0 +1,44 @@
+GET
+/api/v1/contract/detail
+false
+{
+    "success": true,
+    "code": 0,
+    "data": {
+        "symbol": "BTC_USDT",
+        "displayName": "BTC_USDT",
+        "displayNameEn": "BTC_USDT",
+        "positionOpenType": 1,
+        "baseCoin": "BTC",
+        "quoteCoin": "USDT",
+        "settleCoin": "USDT",
+        "contractSize": 0.0001,
+        "minLeverage": 1,
+        "maxLeverage": 125,
+        "priceScale": 2,
+        "volScale": 0,
+        "amountScale": 4,
+        "priceUnit": 0.5,
+        "volUnit": 1,
+        "minVol": 1,
+        "maxVol": 1000000,
+        "bidLimitPriceRate": 0.1,
+        "askLimitPriceRate": 0.1,
+        "takerFeeRate": 0.0006,
+        "makerFeeRate": 0.0002,
+        "maintenanceMarginRate": 0.004,
+        "initialMarginRate": 0.008,
+        "riskBaseVol": 10000,
+        "riskIncrVol": 10000,
+        "riskIncrMmr": 0.004,
+        "riskIncrImr": 0.004,
+        "riskLevelLimit": 100,
+        "priceCoefficientVariation": 0.1,
+        "indexOrigin": ["Binance", "Huobi"],
+        "state": 0,
+        "isNew": false,
+        "isHot": true,
+        "isHidden": false,
+        "apiAllowed": true
+    }
+}

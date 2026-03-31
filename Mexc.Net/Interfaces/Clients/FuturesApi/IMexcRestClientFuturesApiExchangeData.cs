@@ -22,7 +22,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         Task<WebCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default);
 
         /// <summary>
-        /// Get contracts
+        /// Get contract
         /// <para>
         /// Docs:<br />
         /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#market-endpoints" /><br />
@@ -32,7 +32,19 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] Filter by symbol</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcContract[]>> GetSymbolsAsync(string? symbol = null, CancellationToken ct = default);
+        Task<WebCallResult<MexcContract>> GetSymbolAsync(string symbol, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get contracts
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#market-endpoints" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/contract/detail
+        /// </para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<MexcContract[]>> GetSymbolsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get transferable assets
@@ -87,7 +99,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         Task<WebCallResult<MexcMarkPrice>> GetMarkPriceAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
-        /// Get funding rates
+        /// Get funding rate info
         /// <para>
         /// Docs:<br />
         /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-funding-rate" /><br />
@@ -95,9 +107,21 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/contract/funding_rate/{symbol}
         /// </para>
         /// </summary>
-        /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH_USDT`. If not provided funding rates for all symbols will be returned.</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcFundingRate>> GetFundingRatesAsync(string? symbol = null, CancellationToken ct = default);
+        Task<WebCallResult<MexcFundingRate>> GetFundingRateAsync(string symbol, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get funding rates for all symbols
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-funding-rate" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/contract/funding_rate
+        /// </para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<MexcFundingRate[]>> GetFundingRatesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get klines
