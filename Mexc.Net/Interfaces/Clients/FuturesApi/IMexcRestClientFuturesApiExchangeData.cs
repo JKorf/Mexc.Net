@@ -87,7 +87,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         Task<WebCallResult<MexcMarkPrice>> GetMarkPriceAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
-        /// Get funding rate info
+        /// Get funding rates
         /// <para>
         /// Docs:<br />
         /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-funding-rate" /><br />
@@ -95,9 +95,9 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/contract/funding_rate/{symbol}
         /// </para>
         /// </summary>
-        /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH_USDT`</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH_USDT`. If not provided funding rates for all symbols will be returned.</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcFundingRate>> GetFundingRateAsync(string symbol, CancellationToken ct = default);
+        Task<WebCallResult<MexcFundingRate>> GetFundingRatesAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get klines
@@ -175,7 +175,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         Task<WebCallResult<MexcFuturesTicker>> GetTickerAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
-        /// Get tickers 
+        /// Get tickers
         /// <para>
         /// Docs:<br />
         /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-trend-data" /><br />

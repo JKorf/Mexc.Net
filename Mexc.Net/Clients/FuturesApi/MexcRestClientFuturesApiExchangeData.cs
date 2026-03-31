@@ -37,7 +37,7 @@ namespace Mexc.Net.Clients.FuturesApi
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("symbol", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/contract/detail", MexcExchange.RateLimiter.FuturesRest, 1, false, 
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/contract/detail", MexcExchange.RateLimiter.FuturesRest, 1, false,
                 limitGuard: new SingleLimitGuard(1, TimeSpan.FromSeconds(5), RateLimitWindowType.Sliding));
             return await _baseClient.SendAsync<MexcContract[]>(request, parameters, ct).ConfigureAwait(false);
         }
@@ -103,7 +103,7 @@ namespace Mexc.Net.Clients.FuturesApi
         #region Get Funding Rate
 
         /// <inheritdoc />
-        public async Task<WebCallResult<MexcFundingRate>> GetFundingRateAsync(string symbol, CancellationToken ct = default)
+        public async Task<WebCallResult<MexcFundingRate>> GetFundingRatesAsync(string? symbol = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/contract/funding_rate/{symbol}", MexcExchange.RateLimiter.FuturesRest, 1, false,
