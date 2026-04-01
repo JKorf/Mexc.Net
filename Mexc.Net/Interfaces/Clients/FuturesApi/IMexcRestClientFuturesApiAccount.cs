@@ -1,4 +1,5 @@
 using Mexc.Net.Enums;
+using Mexc.Net.Objects.Models;
 using Mexc.Net.Objects.Models.Futures;
 
 namespace Mexc.Net.Interfaces.Clients.FuturesApi
@@ -148,6 +149,72 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="positionMode">["<c>positionMode</c>"] Position mode</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult> SetPositionModeAsync(PositionMode positionMode, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get profit rate
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints#view-personal-profit-rate" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/private/account/profit_rate/{type}<br />
+        /// </para>
+        /// </summary>
+        /// <param name="period">["<c>type</c>"] Profit period</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<MexcProfitRate>> GetProfitRateAsync(ProfitPeriod period, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get deduction configuration
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints#deduction-configuration" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/private/account/feeDeductConfigs<br />
+        /// </para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<MexcDeductionConfig[]>> GetDeductionConfigAsync(CancellationToken ct = default);
+
+        /// <summary>
+        /// Get discount type config
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints#query-user-discount-usage" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/private/account/discountType<br />
+        /// </para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<MexcDiscountTypes>> GetDiscountTypesAsync(CancellationToken ct = default);
+
+        /// <summary>
+        /// Get zero fee trading pairs
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints#zero-fee-trading-pairs" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/private/account/contract/zero_fee_rate<br />
+        /// </para>
+        /// </summary>
+        /// <param name="symbol">["<c>symbol</c>"] Filter by symbol, for example `ETH_USDT`</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<MexcZeroFeeSymbols>> GetZeroFeeSymbolsAsync(string? symbol = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Toggle auto-add margin for a position
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints#enable-or-disable-auto-add-margin" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/private/position/change_auto_add_im<br />
+        /// </para>
+        /// </summary>
+        /// <param name="positionId">["<c>positionId</c>"] Position id</param>
+        /// <param name="isEnabled">["<c>isEnabled</c>"] Whether auto-add margin is enabled</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult> ToggleAutoAddMarginAsync(long positionId,
+            bool isEnabled,
+            CancellationToken ct = default);
 
     }
 }

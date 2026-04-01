@@ -1,0 +1,41 @@
+GET
+/api/v1/private/stoporder/open_orders
+true
+{
+  "success": true,
+  "code": 0,
+  "data": [
+    {
+      "id": 357859177,
+      "orderId": "720733527158642176",
+      "symbol": "BTC_USDT",
+      "positionId": "1027177055",
+      "lossTrend": 1,
+      "profitTrend": 1,
+      "stopLossPrice": 111325,
+      "takeProfitPrice": 113573.9,
+      "state": 3,
+      "triggerSide": 2,
+      "positionType": 1,
+      "vol": 2,
+      "realityVol": 2,
+      "placeOrderId": "720744238723187712",
+      "errorCode": 0,
+      "version": 2,
+      "isFinished": 1,
+      "priceProtect": 0,
+      "profitLossVolType": "SEPARATE",
+      "takeProfitVol": 2,
+      "stopLossVol": 2,
+      "createTime": 1757506663000,
+      "updateTime": 1757509217000,
+      "volType": 1,
+      "takeProfitReverse": 2,
+      "stopLossReverse": 2,
+      "closeTryTimes": 0,
+      "reverseTryTimes": 0,
+      "reverseErrorCode": 0,
+      "takeProfitType": 0
+    }
+  ]
+}

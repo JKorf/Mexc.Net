@@ -1,0 +1,12 @@
+GET
+/api/v1/private/account/profit_rate/1
+true
+{
+  "success": true,
+  "code": 0,
+  "data": {
+    "ranking": 0,
+    "profitRate": 0,
+    "statisticTime": 1666612800000
+  }
+}

@@ -32,6 +32,31 @@ namespace Mexc.Net.Objects.Models.Futures
         /// </summary>
         [JsonPropertyName("leverage")]
         public int Leverage { get; set; }
+        /// <summary>
+        /// ["<c>maxLeverageView</c>"] Max leverage
+        /// </summary>
+        [JsonPropertyName("maxLeverageView")]
+        public int MaxLeverage { get; set; }
+        /// <summary>
+        /// ["<c>maxVol</c>"] Max volume
+        /// </summary>
+        [JsonPropertyName("maxVol")]
+        public decimal MaxVolume { get; set; }
+        /// <summary>
+        /// ["<c>currentMmr</c>"] Current margin maintenance rate
+        /// </summary>
+        [JsonPropertyName("currentMmr")]
+        public decimal CurrentMaintenanceMarginRate { get; set; }
+        /// <summary>
+        /// ["<c>openType</c>"] Margin type
+        /// </summary>
+        [JsonPropertyName("openType")]
+        public MarginType MarginType { get; set; }
+        /// <summary>
+        /// ["<c>limitBySys</c>"] Limited by system
+        /// </summary>
+        [JsonPropertyName("limitBySys")]
+        public bool LimitBySystem { get; set; }
     }
 
 

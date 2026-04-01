@@ -6,6 +6,7 @@ using Mexc.Net.Objects.Models.Futures;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using CryptoExchange.Net.Objects;
+using Mexc.Net.Objects.Models;
 
 namespace Mexc.Net.UnitTests
 {
@@ -54,10 +55,23 @@ namespace Mexc.Net.UnitTests
             await tester.ValidateAsync<MexcFundingRateUpdate>((client, handler) => client.FuturesApi.SubscribeToFundingRateUpdatesAsync("BTC_USDT", handler), "FundingRate", ignoreProperties: []);
             await tester.ValidateAsync<MexcPriceUpdate>((client, handler) => client.FuturesApi.SubscribeToIndexPriceUpdatesAsync("BTC_USDT", handler), "IndexPrice", ignoreProperties: []);
             await tester.ValidateAsync<MexcPriceUpdate>((client, handler) => client.FuturesApi.SubscribeToMarkPriceUpdatesAsync("BTC_USDT", handler), "MarkPrice", ignoreProperties: []);
+            await tester.ValidateAsync<MexcContract>((client, handler) => client.FuturesApi.SubscribeToSymbolUpdatesAsync(handler), "Symbol", ignoreProperties: ["openingCountdownOption"]);
 
             await tester.ValidateAsync<MexcFuturesBalanceUpdate>((client, handler) => client.FuturesApi.SubscribeToUserDataUpdatesAsync(handler), "Balance", ignoreProperties: []);
-            await tester.ValidateAsync<MexcFuturesOrder>((client, handler) => client.FuturesApi.SubscribeToUserDataUpdatesAsync(null, handler), "Order", ignoreProperties: []);
+            await tester.ValidateAsync<MexcFuturesOrder>((client, handler) => client.FuturesApi.SubscribeToUserDataUpdatesAsync(null, handler), "Order", ignoreProperties: ["remainVol"]);
             await tester.ValidateAsync<MexcPosition>((client, handler) => client.FuturesApi.SubscribeToUserDataUpdatesAsync(null, null, handler), "Position", ignoreProperties: []);
+            await tester.ValidateAsync<MexcRiskLimit>((client, handler) => client.FuturesApi.SubscribeToUserDataUpdatesAsync(null, null, null, handler), "RiskLimit", ignoreProperties: ["maxVolView"]);
+            await tester.ValidateAsync<MexcPositionModeUpdate>((client, handler) => client.FuturesApi.SubscribeToUserDataUpdatesAsync(null, null, null, null, null, handler), "PositionMode", ignoreProperties: []);
+            await tester.ValidateAsync<MexcStopOrder>((client, handler) => client.FuturesApi.SubscribeToUserDataUpdatesAsync(null, null, null, null, null, null, handler), "PlanOrder", ignoreProperties: []);
+            await tester.ValidateAsync<MexcTpSlOrder>((client, handler) => client.FuturesApi.SubscribeToUserDataUpdatesAsync(null, null, null, null, null, null, null, handler), "TpSlOrder", ignoreProperties: []);
+            await tester.ValidateAsync<MexcTrailingOrder>((client, handler) => client.FuturesApi.SubscribeToUserDataUpdatesAsync(null, null, null, null, null, null, null, null, handler), "TrailingOrder", ignoreProperties: []);
+            await tester.ValidateAsync<MexcTpSlPriceUpdate>((client, handler) => client.FuturesApi.SubscribeToUserDataUpdatesAsync(null, null, null, null, null, null, null, null, null, handler), "TpSlPrice", ignoreProperties: []);
+            await tester.ValidateAsync<MexcFuturesUserTradeUpdate>((client, handler) => client.FuturesApi.SubscribeToUserDataUpdatesAsync(null, null, null, null, null, null, null, null, null, null, handler), "UserTrade", ignoreProperties: []);
+            await tester.ValidateAsync<MexcChaseOrderFailure>((client, handler) => client.FuturesApi.SubscribeToUserDataUpdatesAsync(null, null, null, null, null, null, null, null, null, null, null, handler), "ChaseFail", ignoreProperties: []);
+            await tester.ValidateAsync<MexcLiquidationRiskUpdate>((client, handler) => client.FuturesApi.SubscribeToUserDataUpdatesAsync(null, null, null, null, null, null, null, null, null, null, null, null, handler), "LiquidationRisk", ignoreProperties: []);
+            await tester.ValidateAsync<MexcLeverageModeUpdate>((client, handler) => client.FuturesApi.SubscribeToUserDataUpdatesAsync(null, null, null, null, null, null, null, null, null, null, null, null, null, handler), "LeverageMode", ignoreProperties: []);
+            await tester.ValidateAsync<MexcReversePositionUpdate>((client, handler) => client.FuturesApi.SubscribeToUserDataUpdatesAsync(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, handler), "ReversePosition", ignoreProperties: []);
+            await tester.ValidateAsync<MexcLiquidationUpdate>((client, handler) => client.FuturesApi.SubscribeToUserDataUpdatesAsync(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, handler), "Liquidation", ignoreProperties: []);
 
         }
     }

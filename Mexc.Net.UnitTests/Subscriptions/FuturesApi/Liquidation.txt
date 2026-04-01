@@ -1,0 +1,20 @@
+> { "method":"login","param":{"apiKey":"123", "reqTime":"123", "signature":"signature"}}
+< { "channel":"rs.login", "data":"success", "ts":"1587442022003" }
+> { "method":"personal.filter","param":{"filters":[]}}
+< { "channel":"rs.personal.filter", "data":"success", "ts":"1587442022003" }
+= 
+{
+  "channel": "push.personal.generic.notify",
+  "data": {
+    "type": 1,
+    "param": {
+      "notifyType": 2,
+      "openType": 1,
+      "dn": "BTC_USDT",
+      "dne": "BTC_USDT PERPETUAL",
+      "multiAssets": false,
+      "marginRate": 0.085
+    }
+  },
+  "ts": 1760942212000
+}

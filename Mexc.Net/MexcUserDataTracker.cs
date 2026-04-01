@@ -31,4 +31,34 @@ namespace Mexc.Net
         {
         }
     }
+
+    /// <inheritdoc/>
+    public class MexcUserFuturesDataTracker : UserFuturesDataTracker
+    {
+        /// <inheritdoc/>
+        protected override bool WebsocketPositionUpdatesAreFullSnapshots => false;
+
+        /// <summary>
+        /// ctor
+        /// </summary>
+        public MexcUserFuturesDataTracker(
+            ILogger<MexcUserFuturesDataTracker> logger,
+            IMexcRestClient restClient,
+            IMexcSocketClient socketClient,
+            string? userIdentifier,
+            FuturesUserDataTrackerConfig? config) : base(
+                logger,
+                restClient.FuturesApi.SharedClient,
+                null,
+                restClient.FuturesApi.SharedClient,
+                socketClient.FuturesApi.SharedClient,
+                restClient.FuturesApi.SharedClient,
+                socketClient.FuturesApi.SharedClient,
+                socketClient.FuturesApi.SharedClient,
+                socketClient.FuturesApi.SharedClient,
+                userIdentifier,
+                config ?? new FuturesUserDataTrackerConfig())
+        {
+        }
+    }
 }

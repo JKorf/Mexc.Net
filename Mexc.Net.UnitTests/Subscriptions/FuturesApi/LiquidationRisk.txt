@@ -1,0 +1,16 @@
+> { "method":"login","param":{"apiKey":"123", "reqTime":"123", "signature":"signature"}}
+< { "channel":"rs.login", "data":"success", "ts":"1587442022003" }
+> { "method":"personal.filter","param":{"filters":[]}}
+< { "channel":"rs.personal.filter", "data":"success", "ts":"1587442022003" }
+= 
+{
+  "channel": "push.personal.liquidate.risk",
+  "data": {
+    "symbol": "BTC_USDT",
+    "positionId": 123456789,
+    "liquidatePrice": 35000.0,
+    "marginRatio": 0.1,
+    "adlLevel": 3
+  },
+  "ts": 1760942212000
+}

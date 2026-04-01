@@ -14,6 +14,11 @@ namespace Mexc.Net.Interfaces
         public IOrderBookFactory<MexcOrderBookOptions> Spot { get; }
 
         /// <summary>
+        /// Futures order book factory methods
+        /// </summary>
+        public IOrderBookFactory<MexcOrderBookOptions> Futures { get; }
+
+        /// <summary>
         /// Create a SymbolOrderBook for the symbol
         /// </summary>
         /// <param name="symbol">The symbol</param>

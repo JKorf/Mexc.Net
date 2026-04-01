@@ -13,6 +13,11 @@ namespace Mexc.Net.Objects.Models.Futures
         [JsonPropertyName("level")]
         public int Level { get; set; }
         /// <summary>
+        /// ["<c>riskSource</c>"] Risk source
+        /// </summary>
+        [JsonPropertyName("riskSource")]
+        public int RiskSource { get; set; }
+        /// <summary>
         /// ["<c>maxVol</c>"] Max quantity
         /// </summary>
         [JsonPropertyName("maxVol")]
@@ -22,6 +27,11 @@ namespace Mexc.Net.Objects.Models.Futures
         /// </summary>
         [JsonPropertyName("maxLeverage")]
         public int MaxLeverage { get; set; }
+        /// <summary>
+        /// ["<c>leverage</c>"] Leverage
+        /// </summary>
+        [JsonPropertyName("leverage")]
+        public int Leverage { get; set; }
         /// <summary>
         /// ["<c>mmr</c>"] Maintenance margin rate
         /// </summary>
@@ -42,6 +52,16 @@ namespace Mexc.Net.Objects.Models.Futures
         /// </summary>
         [JsonPropertyName("positionType")]
         public PositionSide PositionSide { get; set; }
+        /// <summary>
+        /// ["<c>openType</c>"] Margin type
+        /// </summary>
+        [JsonPropertyName("openType")]
+        public MarginType MarginType { get; set; }
+        /// <summary>
+        /// ["<c>limitBySys</c>"] Limited by system
+        /// </summary>
+        [JsonPropertyName("limitBySys")]
+        public bool LimitBySystem { get; set; }
     }
 
 

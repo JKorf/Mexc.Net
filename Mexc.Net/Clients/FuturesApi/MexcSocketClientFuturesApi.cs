@@ -9,6 +9,7 @@ using CryptoExchange.Net.Sockets.Default;
 using Mexc.Net.Clients.MessageHandlers;
 using Mexc.Net.Enums;
 using Mexc.Net.Interfaces.Clients.FuturesApi;
+using Mexc.Net.Objects.Models;
 using Mexc.Net.Objects.Models.Futures;
 using Mexc.Net.Objects.Options;
 using Mexc.Net.Objects.Sockets.Models;
@@ -245,6 +246,26 @@ namespace Mexc.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToSymbolUpdatesAsync(Action<DataEvent<MexcContract>> handler, CancellationToken ct = default)
+        {
+            var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcContract>>((receiveTime, originalData, data) =>
+            {
+                UpdateTimeOffset(data.Timestamp);
+
+                handler(
+                    new DataEvent<MexcContract>(MexcExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
+                        .WithSymbol(data.Symbol)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
+            var subscription = new MexcFuturesSubscription<MexcContract>(_logger, "contract", null, null, null, internalHandler, false);
+            return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToUserDataUpdatesAsync(
             Action<DataEvent<MexcFuturesBalanceUpdate>>? balanceUpdateHandler = null,
             Action<DataEvent<MexcFuturesOrder>>? orderUpdateHandler = null,
@@ -252,9 +273,39 @@ namespace Mexc.Net.Clients.FuturesApi
             Action<DataEvent<MexcRiskLimit>>? riskLimitUpdateHandler = null,
             Action<DataEvent<MexcAdlUpdate>>? adlUpdateHandler = null,
             Action<DataEvent<MexcPositionModeUpdate>>? positionModeUpdateHandler = null,
+            Action<DataEvent<MexcStopOrder>>? planOrderHandler = null,
+            Action<DataEvent<MexcTpSlOrder>>? tpSlOrderHandler = null,
+            Action<DataEvent<MexcTrailingOrder>>? trailingOrderHandler = null,
+            Action<DataEvent<MexcTpSlPriceUpdate>>? tpSlPriceUpdate = null,
+            Action<DataEvent<MexcFuturesUserTradeUpdate>>? userTradeUpdate = null,
+            Action<DataEvent<MexcChaseOrderFailure>>? chaseOrderFailUpdate = null,
+            Action<DataEvent<MexcLiquidationRiskUpdate>>? liquidationRiskUpdate = null,
+            Action<DataEvent<MexcLeverageModeUpdate>>? leverageModeUpdate = null,
+            Action<DataEvent<object>>? closeAllFailUpdate = null,
+            Action<DataEvent<MexcReversePositionUpdate>>? reversePositionUpdate = null,
+            Action<DataEvent<MexcLiquidationUpdate>>? liquidationUpdate = null,
             CancellationToken ct = default)
         {
-            var subscription = new MexcFuturesUserSubscription(_logger, this, balanceUpdateHandler, orderUpdateHandler, positionUpdateHandler, riskLimitUpdateHandler, adlUpdateHandler, positionModeUpdateHandler);
+            var subscription = new MexcFuturesUserSubscription(
+                _logger, 
+                this,
+                balanceUpdateHandler,
+                orderUpdateHandler,
+                positionUpdateHandler,
+                riskLimitUpdateHandler,
+                adlUpdateHandler,
+                positionModeUpdateHandler,
+                planOrderHandler,
+                tpSlOrderHandler,
+                trailingOrderHandler,
+                tpSlPriceUpdate,
+                userTradeUpdate,
+                chaseOrderFailUpdate,
+                liquidationRiskUpdate,
+                leverageModeUpdate,
+                closeAllFailUpdate,
+                reversePositionUpdate,
+                liquidationUpdate);
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
     }

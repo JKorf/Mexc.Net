@@ -1,0 +1,7 @@
+POST
+/api/v1/private/stoporder/cancel_all
+true
+{
+  "success": true,
+  "code": 0
+}

@@ -143,11 +143,13 @@ namespace Mexc.Net.Clients.FuturesApi
             var result = await SubscribeToUserDataUpdatesAsync(
                 positionUpdateHandler: update => handler(update.ToType<SharedPosition[]>([new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicId, update.Data.Symbol), update.Data.Symbol, update.Data.PositionSize, update.Data.UpdateTime)
                 {
+                    Id = update.Data.PositionId.ToString(),
                     AverageOpenPrice = update.Data.HoldAveragePrice,
                     PositionMode = SharedPositionMode.HedgeMode,
                     PositionSide = update.Data.PositionSide == Enums.PositionSide.Short ? SharedPositionSide.Short : SharedPositionSide.Long,
                     LiquidationPrice = update.Data.LiquidationPrice,
-                    Leverage = update.Data.Leverage
+                    Leverage = update.Data.Leverage,
+                    UnrealizedPnl = update.Data.Pnl
                 }])),
                 ct: ct).ConfigureAwait(false);
 
@@ -206,32 +208,63 @@ namespace Mexc.Net.Clients.FuturesApi
             return SharedOrderStatus.Filled;
         }
 
-        private SharedTimeInForce? ParseTimeInForce(OrderType orderType)
+        private SharedTimeInForce? ParseTimeInForce(FuturesOrderType orderType)
         {
-            if (orderType == OrderType.ImmediateOrCancel || orderType == OrderType.Market)
+            if (orderType == FuturesOrderType.ImmediateOrCancel || orderType == FuturesOrderType.Market)
                 return SharedTimeInForce.ImmediateOrCancel;
 
-            if (orderType == OrderType.FillOrKill)
+            if (orderType == FuturesOrderType.FillOrKill)
                 return SharedTimeInForce.FillOrKill;
 
-            if (orderType == OrderType.Limit)
+            if (orderType == FuturesOrderType.Limit)
                 return SharedTimeInForce.GoodTillCanceled;
 
             return null;
         }
 
-        private SharedOrderType ParseOrderType(OrderType type)
+        private SharedOrderType ParseOrderType(FuturesOrderType type)
         {
-            if (type == OrderType.Market)
+            if (type == FuturesOrderType.Market)
                 return SharedOrderType.Market;
 
-            if (type == OrderType.Limit)
+            if (type == FuturesOrderType.Limit)
                 return SharedOrderType.Limit;
 
-            if (type == OrderType.LimitMaker)
+            if (type == FuturesOrderType.LimitMaker)
                 return SharedOrderType.LimitMaker;
 
             return SharedOrderType.Other;
+        }
+        #endregion
+
+        #region User Trade client
+        EndpointOptions<SubscribeUserTradeRequest> IUserTradeSocketClient.SubscribeUserTradeOptions { get; } = new EndpointOptions<SubscribeUserTradeRequest>(false);
+        async Task<ExchangeResult<UpdateSubscription>> IUserTradeSocketClient.SubscribeToUserTradeUpdatesAsync(SubscribeUserTradeRequest request, Action<DataEvent<SharedUserTrade[]>> handler, CancellationToken ct)
+        {
+            var validationError = ((IUserTradeSocketClient)this).SubscribeUserTradeOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
+
+            var result = await SubscribeToUserDataUpdatesAsync(
+                userTradeUpdate: update => handler(update.ToType<SharedUserTrade[]>(new[] {
+                    new SharedUserTrade(
+                        ExchangeSymbolCache.ParseSymbol(_topicId, update.Data.Symbol) ?? ExchangeSymbolCache.ParseSymbol(_topicId, update.Data.Symbol),
+                        update.Data.Symbol,
+                        update.Data.OrderId.ToString(),
+                        update.Data.Id.ToString(),
+                        (update.Data.Side == FuturesOrderSide.OpenLong || update.Data.Side == FuturesOrderSide.CloseShort) ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                        update.Data.Quantity,
+                        update.Data.Price,
+                        update.Data.Timestamp)
+                    {
+                        Role = update.Data.IsTaker ? SharedRole.Taker : SharedRole.Maker,
+                        Fee = update.Data.Fee,
+                        FeeAsset = update.Data.FeeAsset,
+                    }
+                })),
+                ct: ct).ConfigureAwait(false);
+
+            return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }
         #endregion
     }

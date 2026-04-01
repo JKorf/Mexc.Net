@@ -125,5 +125,34 @@ namespace Mexc.Net
                 config
                 );
         }
+
+        /// <inheritdoc />
+        public IUserFuturesDataTracker CreateUserFuturesDataTracker(FuturesUserDataTrackerConfig? config = null)
+        {
+            var restClient = _serviceProvider?.GetRequiredService<IMexcRestClient>() ?? new MexcRestClient();
+            var socketClient = _serviceProvider?.GetRequiredService<IMexcSocketClient>() ?? new MexcSocketClient();
+            return new MexcUserFuturesDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<MexcUserFuturesDataTracker>>() ?? new NullLogger<MexcUserFuturesDataTracker>(),
+                restClient,
+                socketClient,
+                null,
+                config
+                );
+        }
+
+        /// <inheritdoc />
+        public IUserFuturesDataTracker CreateUserFuturesDataTracker(string userIdentifier, MexcCredentials credentials, FuturesUserDataTrackerConfig? config = null, MexcEnvironment? environment = null)
+        {
+            var clientProvider = _serviceProvider?.GetRequiredService<IMexcUserClientProvider>() ?? new MexcUserClientProvider();
+            var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);
+            var socketClient = clientProvider.GetSocketClient(userIdentifier, credentials, environment);
+            return new MexcUserFuturesDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<MexcUserFuturesDataTracker>>() ?? new NullLogger<MexcUserFuturesDataTracker>(),
+                restClient,
+                socketClient,
+                userIdentifier,
+                config
+                );
+        }
     }
 }

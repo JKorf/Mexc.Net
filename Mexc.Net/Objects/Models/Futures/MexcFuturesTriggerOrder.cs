@@ -83,6 +83,11 @@ namespace Mexc.Net.Objects.Models.Futures
         [JsonPropertyName("errorCode")]
         public int ErrorCode { get; set; }
         /// <summary>
+        /// ["<c>priceProtect</c>"] Price protect enabled
+        /// </summary>
+        [JsonPropertyName("priceProtect")]
+        public bool PriceProtect { get; set; }
+        /// <summary>
         /// ["<c>createTime</c>"] Create time
         /// </summary>
         [JsonPropertyName("createTime")]
@@ -92,6 +97,31 @@ namespace Mexc.Net.Objects.Models.Futures
         /// </summary>
         [JsonPropertyName("updateTime")]
         public DateTime? UpdateTime { get; set; }
+        /// <summary>
+        /// ["<c>positionMode</c>"] Position mode
+        /// </summary>
+        [JsonPropertyName("positionMode")]
+        public PositionMode PositionMode { get; set; }
+        /// <summary>
+        /// ["<c>lossTrend</c>"] Stop loss price type
+        /// </summary>
+        [JsonPropertyName("lossTrend")]
+        public TriggerPriceType StopLossPriceType { get; set; }
+        /// <summary>
+        /// ["<c>profitTrend</c>"] Take profit price type
+        /// </summary>
+        [JsonPropertyName("profitTrend")]
+        public TriggerPriceType TakeProfitPriceType { get; set; }
+        /// <summary>
+        /// ["<c>reduceOnly</c>"] Reduce only
+        /// </summary>
+        [JsonPropertyName("reduceOnly")]
+        public bool ReduceOnly { get; set; }
+        /// <summary>
+        /// ["<c>extraTakerFeeRate</c>"] Extra taker fee rate
+        /// </summary>
+        [JsonPropertyName("extraTakerFeeRate")]
+        public decimal ExtraTakerFeeRate { get; set; }
     }
 
 

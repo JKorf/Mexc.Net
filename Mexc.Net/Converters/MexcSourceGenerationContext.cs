@@ -3,10 +3,36 @@ using Mexc.Net.Objects.Models;
 using Mexc.Net.Objects.Models.Futures;
 using Mexc.Net.Objects.Models.Spot;
 using Mexc.Net.Objects.Sockets.Models;
-using static Mexc.Net.Objects.Sockets.Subscriptions.MexcFuturesUserSubscription;
 
 namespace Mexc.Net.Converters
 {
+    [JsonSerializable(typeof(MexcFuturesResponse<MexcFuturesBalance>))]
+    [JsonSerializable(typeof(MexcFuturesResponse<MexcZeroFeeSymbols>))]
+    [JsonSerializable(typeof(MexcFuturesResponse<MexcDiscountTypes>))]
+    [JsonSerializable(typeof(MexcFuturesResponse<MexcDeductionConfig[]>))]
+    [JsonSerializable(typeof(MexcFuturesResponse<MexcFuturesOrderResult>))]
+    [JsonSerializable(typeof(MexcFuturesResponse<MexcCancelResult[]>))]
+    [JsonSerializable(typeof(MexcFuturesResponse<MexcOrderCount>))]
+    [JsonSerializable(typeof(MexcFuturesResponse<MexcTpSlOrder[]>))]
+    [JsonSerializable(typeof(MexcFuturesResponse<MexcFuturesTriggerOrder[]>))]
+    [JsonSerializable(typeof(MexcFuturesResponse<MexcTrailingOrder[]>))]
+    [JsonSerializable(typeof(MexcFuturesResponse<MexcFuturesBatchOrderResult[]>))]
+    [JsonSerializable(typeof(MexcCancelRequest[]))]
+    [JsonSerializable(typeof(MexcFuturesOrderRequest[]))]
+    [JsonSerializable(typeof(MexcFuturesResponse<MexcProfitRate>))]
+    [JsonSerializable(typeof(MexcFuturesUpdate<MexcSymbol>))]
+    [JsonSerializable(typeof(MexcFuturesUpdate<MexcStopOrder>))]
+    [JsonSerializable(typeof(MexcFuturesUpdate<MexcTpSlOrder>))]
+    [JsonSerializable(typeof(MexcFuturesUpdate<MexcTrailingOrder>))]
+    [JsonSerializable(typeof(MexcFuturesUpdate<MexcTpSlPriceUpdate>))]
+    [JsonSerializable(typeof(MexcFuturesUpdate<MexcFuturesUserTradeUpdate>))]
+    [JsonSerializable(typeof(MexcFuturesUpdate<MexcChaseOrderFailure>))]
+    [JsonSerializable(typeof(MexcFuturesUpdate<MexcLiquidationRiskUpdate>))]
+    [JsonSerializable(typeof(MexcFuturesUpdate<MexcLeverageModeUpdate>))]
+    [JsonSerializable(typeof(MexcFuturesUpdate<MexcLiquidationUpdate>))]
+    [JsonSerializable(typeof(MexcFuturesUpdate<MexcContract>))]
+    [JsonSerializable(typeof(MexcFuturesUpdate<MexcReversePositionUpdate>))]
+
     [JsonSerializable(typeof(MexcPlaceOrderRequest[]))]
     [JsonSerializable(typeof(MexcOrderResult[]))]
     [JsonSerializable(typeof(MexcFuturesResponse<long>))]
@@ -41,7 +67,7 @@ namespace Mexc.Net.Converters
     [JsonSerializable(typeof(MexcFuturesResponse<Dictionary<string, MexcRiskLimit[]>>))]
 
     [JsonSerializable(typeof(MexcFuturesRequest))]
-    [JsonSerializable(typeof(SubFilter[]))]
+    [JsonSerializable(typeof(Objects.Sockets.Subscriptions.MexcFuturesUserSubscription.SubFilter[]))]
     [JsonSerializable(typeof(MexcFuturesResponse<MexcFuturesTicker[]>))]
 
     [JsonSerializable(typeof(MexcFuturesUpdate<MexcPriceUpdate>))]
@@ -134,6 +160,7 @@ namespace Mexc.Net.Converters
     [JsonSerializable(typeof(int))]
     [JsonSerializable(typeof(long?))]
     [JsonSerializable(typeof(long))]
+    [JsonSerializable(typeof(long[]))]
     [JsonSerializable(typeof(decimal?))]
     [JsonSerializable(typeof(decimal))]
     [JsonSerializable(typeof(DateTime))]

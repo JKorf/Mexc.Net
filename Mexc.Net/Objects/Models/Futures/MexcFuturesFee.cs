@@ -6,6 +6,11 @@ namespace Mexc.Net.Objects.Models.Futures
     public record MexcFuturesFee
     {
         /// <summary>
+        /// ["<c>symbol</c>"] Symbol
+        /// </summary>
+        [JsonPropertyName("symbol")]
+        public string Symbol { get; set; } = string.Empty;
+        /// <summary>
         /// ["<c>level</c>"] Level
         /// </summary>
         [JsonPropertyName("level")]
@@ -40,6 +45,36 @@ namespace Mexc.Net.Objects.Models.Futures
         /// </summary>
         [JsonPropertyName("takerFeeDiscount")]
         public decimal TakerFeeDiscount { get; set; }
+        /// <summary>
+        /// ["<c>feeType</c>"] Fee type
+        /// </summary>
+        [JsonPropertyName("feeType")]
+        public int FeeType { get; set; }
+        /// <summary>
+        /// ["<c>makerFeeDeduct</c>"] Maker fee deduct
+        /// </summary>
+        [JsonPropertyName("makerFeeDeduct")]
+        public decimal MakerFeeDeduct { get; set; }
+        /// <summary>
+        /// ["<c>takerFeeDeduct</c>"] Taker fee deduct
+        /// </summary>
+        [JsonPropertyName("takerFeeDeduct")]
+        public decimal TakerFeeDeduct { get; set; }
+        /// <summary>
+        /// ["<c>mxDeduct</c>"] MX deduct
+        /// </summary>
+        [JsonPropertyName("mxDeduct")]
+        public bool MxDeduct { get; set; }
+        /// <summary>
+        /// ["<c>mxDiscount</c>"] MX discount
+        /// </summary>
+        [JsonPropertyName("mxDiscount")]
+        public bool MxDiscount { get; set; }
+        /// <summary>
+        /// ["<c>feeRateMode</c>"] Fee rate mode
+        /// </summary>
+        [JsonPropertyName("feeRateMode")]
+        public string FeeRateMode { get; set; } = string.Empty;
     }
 
 

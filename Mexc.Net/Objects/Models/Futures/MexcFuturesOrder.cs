@@ -33,11 +33,6 @@ namespace Mexc.Net.Objects.Models.Futures
         [JsonPropertyName("vol")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// ["<c>remainVol</c>"] Quantity open
-        /// </summary>
-        [JsonPropertyName("remainVol")]
-        public decimal? QuantityRemaining { get; set; }
-        /// <summary>
         /// ["<c>leverage</c>"] Leverage
         /// </summary>
         [JsonPropertyName("leverage")]
@@ -56,7 +51,7 @@ namespace Mexc.Net.Objects.Models.Futures
         /// ["<c>orderType</c>"] Order type
         /// </summary>
         [JsonPropertyName("orderType")]
-        public OrderType OrderType { get; set; }
+        public FuturesOrderType OrderType { get; set; }
         /// <summary>
         /// ["<c>dealAvgPrice</c>"] Average fill price
         /// </summary>
@@ -142,6 +137,26 @@ namespace Mexc.Net.Objects.Models.Futures
         /// </summary>
         [JsonPropertyName("version")]
         public int? Version { get; set; }
+        /// <summary>
+        /// ["<c>positionMode</c>"] Version
+        /// </summary>
+        [JsonPropertyName("positionMode")]
+        public PositionMode PositionMode { get; set; }
+        /// <summary>
+        /// ["<c>reduceOnly</c>"] Reduce only
+        /// </summary>
+        [JsonPropertyName("reduceOnly")]
+        public bool ReduceOnly { get; set; }
+        /// <summary>
+        /// ["<c>bboTypeNum</c>"] Limit order type
+        /// </summary>
+        [JsonPropertyName("bboTypeNum")]
+        public LimitOrderType LimitOrderType { get; set; }
+        /// <summary>
+        /// ["<c>totalFee</c>"] Total fee
+        /// </summary>
+        [JsonPropertyName("totalFee")]
+        public decimal? TotalFee { get; set; }
     }
 
 

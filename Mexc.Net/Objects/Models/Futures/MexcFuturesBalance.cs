@@ -11,6 +11,11 @@ namespace Mexc.Net.Objects.Models.Futures
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
+        /// ["<c>displayCurrency</c>"] Display asset
+        /// </summary>
+        [JsonPropertyName("displayCurrency")]
+        public string DisplayAsset { get; set; } = string.Empty;
+        /// <summary>
         /// ["<c>positionMargin</c>"] Position margin
         /// </summary>
         [JsonPropertyName("positionMargin")]
@@ -45,7 +50,30 @@ namespace Mexc.Net.Objects.Models.Futures
         /// </summary>
         [JsonPropertyName("bonus")]
         public decimal Bonus { get; set; }
+        /// <summary>
+        /// ["<c>availableCash</c>"] Available cash
+        /// </summary>
+        [JsonPropertyName("availableCash")]
+        public decimal? AvailableCash { get; set; }
+        /// <summary>
+        /// ["<c>availableOpen</c>"] Available open
+        /// </summary>
+        [JsonPropertyName("availableOpen")]
+        public decimal? AvailableOpen { get; set; }
+        /// <summary>
+        /// ["<c>debtAmount</c>"] Debt
+        /// </summary>
+        [JsonPropertyName("debtAmount")]
+        public decimal? Debt { get; set; }
+        /// <summary>
+        /// ["<c>contributeMarginAmount</c>"] Contribute margin quantity
+        /// </summary>
+        [JsonPropertyName("contributeMarginAmount")]
+        public decimal? ContributeMarginQuantity { get; set; }
+        /// <summary>
+        /// ["<c>vcoinId</c>"] Asset id
+        /// </summary>
+        [JsonPropertyName("vcoinId")]
+        public string? AssetId { get; set; }
     }
-
-
 }

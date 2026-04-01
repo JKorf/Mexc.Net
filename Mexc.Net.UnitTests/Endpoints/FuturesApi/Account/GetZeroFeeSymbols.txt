@@ -1,0 +1,15 @@
+GET
+/api/v1/private/account/contract/zero_fee_rate
+true
+{
+  "success": true,
+  "code": 0,
+  "data": {
+    "contracts": [
+      {
+        "contractId": 10,
+        "ifHotTag": false
+      }
+    ]
+  }
+}

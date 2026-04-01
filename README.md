@@ -2,7 +2,7 @@
 
 [![.NET](https://img.shields.io/github/actions/workflow/status/JKorf/Mexc.Net/dotnet.yml?style=for-the-badge)](https://github.com/JKorf/Mexc.Net/actions/workflows/dotnet.yml) ![License](https://img.shields.io/github/license/JKorf/Mexc.Net?style=for-the-badge)
 
-Mexc.Net is a strongly typed client library for accessing the [Mexc REST and Websocket API](https://mexcdevelop.github.io/apidocs/spot_v3_en/#introduction). 
+Mexc.Net is a strongly typed client library for accessing the [Mexc REST and Websocket API](https://www.mexc.com/api-docs/spot-v3/introduction). 
 ## Features
 * Response data is mapped to descriptive models
 * Input parameters and response values are mapped to discriptive enum values where possible
@@ -122,12 +122,6 @@ CryptoExchange.Net also allows for [easy access to different exchange API's](htt
 [![Nuget version](https://img.shields.io/discord/847020490588422145?style=for-the-badge)](https://discord.gg/MSpeEtSY8t)  
 A Discord server is available [here](https://discord.gg/MSpeEtSY8t). Feel free to join for discussion and/or questions around the CryptoExchange.Net and implementation libraries.
 
-## AOT Support
-Mexc websocket uses Protobuf serialization. The library uses the `protobuf-net` library to handle this, but unfortunately this library is not AOT compatible by itself.  
-To support AOT compilation:
-1. Add the `rd.xml` file to your application start project. File can be found [here](https://github.com/JKorf/Mexc.Net/rd.xml).
-2. In your application start project add a reference to the file with the following property in your `.csproj` file: `<RdXmlFile Include="rd.xml" />`
-
 ## Supported functionality
 
 ### Spot V3
@@ -141,8 +135,6 @@ To support AOT compilation:
 |Websocket User Data Streams|✓|`socketClient.SpotApi`|
 
 ### Futures
-*Futures trading is not currently available in the MEXC API*
-
 |API|Supported|Location|
 |--|--:|--|
 |Market Endpoints|✓|`restClient.FuturesApi.ExchangeData`|

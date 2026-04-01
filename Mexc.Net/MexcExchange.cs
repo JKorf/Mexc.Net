@@ -50,7 +50,7 @@ namespace Mexc.Net
         /// Urls to the API documentation
         /// </summary>
         public static string[] ApiDocsUrl { get; } = new[] {
-            "https://mexcdevelop.github.io/apidocs/spot_v3_en/#introduction"
+            "https://www.mexc.com/api-docs/spot-v3/introduction"
             };
 
         /// <summary>

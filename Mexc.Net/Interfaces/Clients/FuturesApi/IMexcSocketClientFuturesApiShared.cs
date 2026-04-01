@@ -13,7 +13,8 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         ITradeSocketClient,
         IBalanceSocketClient,
         IFuturesOrderSocketClient,
-        IPositionSocketClient
+        IPositionSocketClient,
+        IUserTradeSocketClient
     {
     }
 }

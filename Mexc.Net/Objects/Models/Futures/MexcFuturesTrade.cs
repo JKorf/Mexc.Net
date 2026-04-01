@@ -32,6 +32,11 @@ namespace Mexc.Net.Objects.Models.Futures
         /// </summary>
         [JsonPropertyName("t")]
         public DateTime Timestamp { get; set; }
+        /// <summary>
+        /// ["<c>Id</c>"] Timestamp
+        /// </summary>
+        [JsonPropertyName("i")]
+        public long Id { get; set; }
     }
 
 

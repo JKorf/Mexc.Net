@@ -16,7 +16,9 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         ILeverageRestClient,
         IPositionModeRestClient,
         IPositionHistoryRestClient,
-        IFeeRestClient
+        IFeeRestClient,
+        IFuturesOrderRestClient,
+        IFuturesTriggerOrderRestClient
     {
     }
 }

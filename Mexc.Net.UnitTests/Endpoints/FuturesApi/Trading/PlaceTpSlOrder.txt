@@ -1,0 +1,9 @@
+POST
+/api/v1/private/stoporder/place
+true
+{
+  "success": false,
+  "code": 0,
+  "message": "",
+  "data": 123
+}

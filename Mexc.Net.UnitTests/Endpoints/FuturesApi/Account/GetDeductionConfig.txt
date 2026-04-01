@@ -1,0 +1,19 @@
+GET
+/api/v1/private/account/feeDeductConfigs
+true
+{
+  "success": true,
+  "code": 0,
+  "data": [
+    {
+      "deductCoin": "MX",
+      "settleCoin": "USDT",
+      "discountRatio": 0.8
+    },
+    {
+      "deductCoin": "MXPOINT",
+      "settleCoin": "USDT",
+      "discountRatio": 1
+    }
+  ]
+}

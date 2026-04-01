@@ -1,0 +1,17 @@
+> { "method":"login","param":{"apiKey":"123", "reqTime":"123", "signature":"signature"}}
+< { "channel":"rs.login", "data":"success", "ts":"1587442022003" }
+> { "method":"personal.filter","param":{"filters":[]}}
+< { "channel":"rs.personal.filter", "data":"success", "ts":"1587442022003" }
+= 
+{
+  "channel": "push.personal.stop.order",
+  "data": {
+    "symbol": "BTC_USDT",
+    "orderId": 123456789,
+    "lossTrend": 1,
+    "profitTrend": 2,
+    "stopLossPrice": 42000.0,
+    "takeProfitPrice": 48000.0
+  },
+  "ts": 1760942212000
+}

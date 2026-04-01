@@ -90,6 +90,61 @@ namespace Mexc.Net.UnitTests
             await RunAndCheckResult(client => client.SpotApi.Trading.GetUserTradesAsync("ETHUSDT", default, default, default, default, default), true);
         }
 
+
+        [Test]
+        public async Task TestFuturesAccount()
+        {
+            await RunAndCheckResult(client => client.FuturesApi.Account.GetBalanceAsync("USDC", default), true, true, "data");
+            await RunAndCheckResult(client => client.FuturesApi.Account.GetBalancesAsync(default), true, true, "data");
+            await RunAndCheckResult(client => client.FuturesApi.Account.GetTransferHistoryAsync(default, default, default, default, default, default), true, true, "data");
+            await RunAndCheckResult(client => client.FuturesApi.Account.GetFundingHistoryAsync(default, default, default, default, default), true, true, "data");
+            await RunAndCheckResult(client => client.FuturesApi.Account.GetTradingFeesAsync("ETH_USDC", default), true, true, "data", ignoreProperties: ["leverageFeeRates", "tieredFeeRates", "inviterKyc"]);
+            await RunAndCheckResult(client => client.FuturesApi.Account.GetLeverageAsync("ETH_USDC", default), true, true, "data");
+            await RunAndCheckResult(client => client.FuturesApi.Account.GetPositionModeAsync(default), true, true, "data");
+            await RunAndCheckResult(client => client.FuturesApi.Account.GetProfitRateAsync(Enums.ProfitPeriod.Day, default), true, true, "data");
+            await RunAndCheckResult(client => client.FuturesApi.Account.GetDeductionConfigAsync(default), true, true, "data");
+            await RunAndCheckResult(client => client.FuturesApi.Account.GetDiscountTypesAsync(default), true, true, "data");
+            await RunAndCheckResult(client => client.FuturesApi.Account.GetZeroFeeSymbolsAsync(default, default), true, true, "data", ["hotRecs", "soonEffectiveContracts", "soonEffectiveHotRecs"]);
+        }
+
+        [Test]
+        public async Task TestFuturesExchangeData()
+        {
+            await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetServerTimeAsync(default), false);
+            await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetSymbolsAsync(default), false);
+            await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetTransferableAssetsAsync(default), false, true, "data");
+            await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetOrderBookAsync("ETH_USDC", default, default), false, true, "data");
+            await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetIndexPriceAsync("ETH_USDC", default), false, true, "data");
+            await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetMarkPriceAsync("ETH_USDC", default), false, true, "data");
+            await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetFundingRateAsync("ETH_USDC", default), false, true, "data");
+            await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetKlinesAsync("ETH_USDC", Enums.FuturesKlineInterval.OneDay, default, default, default), false);
+            await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetIndexPriceKlinesAsync("ETH_USDC", Enums.FuturesKlineInterval.OneDay, default, default, default), false);
+            await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetMarkPriceKlinesAsync("ETH_USDC", Enums.FuturesKlineInterval.OneDay, default, default, default), false);
+            await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetRecentTradesAsync("ETH_USDC", default, default), false, true, "data", ignoreProperties: ["O"]);
+            await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetTickerAsync("ETH_USDC", default), false, true, "data", ["riseFallRates", "riseFallRatesOfTimezone"]);
+            await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetTickersAsync(default), false, true, "data", ["riseFallRates", "riseFallRatesOfTimezone"]);
+            await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetRiskFundBalancesAsync(default), false, true, "data");
+            await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetRiskFundBalanceHistoryAsync("ETH_USDC", default, default, default), false, true, "data");
+            await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetFundingRateHistoryAsync("ETH_USDC", default, default, default), false, true, "data");
+        }
+
+        [Test]
+        public async Task TestFuturesTrading()
+        {
+            await RunAndCheckResult(client => client.FuturesApi.Trading.GetOpenOrdersAsync(default, default, default), true, true, "data");
+            await RunAndCheckResult(client => client.FuturesApi.Trading.GetOrderHistoryAsync(default, default, default, default, default, default, default, default, default), true, true, "data", ignoreProperties: ["priceStr", "dealAvgPriceStr", "showCancelReason", "showProfitRateShare", "zeroSaveTotalFeeBinance", "zeroTradeTotalFeeBinance"]);
+            await RunAndCheckResult(client => client.FuturesApi.Trading.GetUserTradesAsync("ETH_USDC", default, default, default, default, default), true, true, "data");
+            await RunAndCheckResult(client => client.FuturesApi.Trading.GetTriggerOrdersAsync(default, default, default, default, default, default, default), true, true, "data", ["ensureStopLoss"]);
+            await RunAndCheckResult(client => client.FuturesApi.Trading.GetTpSlOrdersAsync(default, default, default, default , default , default, default), true, true, "data");
+            await RunAndCheckResult(client => client.FuturesApi.Trading.GetRiskLimitsAsync(default, default), true, true, "data");
+            await RunAndCheckResult(client => client.FuturesApi.Trading.GetPositionHistoryAsync(default, default, default, default, default), true, true, "data", ["zeroSaveTotalFeeBinance", "zeroTradeTotalFeeBinance", "deductFeeList", "positionShowStatus", "holdAvgPriceFullyScale", "openAvgPriceFullyScale"]);
+            await RunAndCheckResult(client => client.FuturesApi.Trading.GetPositionsAsync(default, default), true, true, "data");
+            await RunAndCheckResult(client => client.FuturesApi.Trading.GetOpenOrderCountsAsync(default), true, true, "data");
+            await RunAndCheckResult(client => client.FuturesApi.Trading.GetOpenTpSlOrdersAsync(default, default), true, true, "data");
+            await RunAndCheckResult(client => client.FuturesApi.Trading.GetTrailingOrdersAsync(default, default, default, default, default, default, default, default), true, true, "data");
+
+        }
+
         [Test]
         public async Task TestOrderBooks()
         {

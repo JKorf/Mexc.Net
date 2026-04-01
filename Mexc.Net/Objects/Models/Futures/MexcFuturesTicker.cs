@@ -6,6 +6,11 @@ namespace Mexc.Net.Objects.Models.Futures
     public record MexcFuturesTicker
     {
         /// <summary>
+        /// ["<c>contractId</c>"] Contract id
+        /// </summary>
+        [JsonPropertyName("contractId")]
+        public long ContractId { get; set; }
+        /// <summary>
         /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]

@@ -33,10 +33,20 @@ namespace Mexc.Net.Objects.Models.Futures
         [JsonPropertyName("baseCoin")]
         public string BaseAsset { get; set; } = string.Empty;
         /// <summary>
+        /// ["<c>baseCoinName</c>"] Base asset name
+        /// </summary>
+        [JsonPropertyName("baseCoinName")]
+        public string BaseAssetName { get; set; } = string.Empty;
+        /// <summary>
         /// ["<c>quoteCoin</c>"] Quote asset
         /// </summary>
         [JsonPropertyName("quoteCoin")]
         public string QuoteAsset { get; set; } = string.Empty;
+        /// <summary>
+        /// ["<c>quoteCoinName</c>"] Quote asset name
+        /// </summary>
+        [JsonPropertyName("quoteCoinName")]
+        public string QuoteAssetName { get; set; } = string.Empty;
         /// <summary>
         /// ["<c>settleCoin</c>"] Settle asset
         /// </summary>
@@ -188,6 +198,11 @@ namespace Mexc.Net.Objects.Models.Futures
         [JsonPropertyName("conceptPlate")]
         public string[] ConceptPlate { get; set; } = [];
         /// <summary>
+        /// ["<c>conceptPlateId</c>"] Concept plate id
+        /// </summary>
+        [JsonPropertyName("conceptPlateId")]
+        public long[] ConceptPlateId { get; set; } = [];
+        /// <summary>
         /// ["<c>riskLimitType</c>"] Risk limit type
         /// </summary>
         [JsonPropertyName("riskLimitType")]
@@ -221,18 +236,76 @@ namespace Mexc.Net.Objects.Models.Futures
         /// ["<c>showAppraisalCountdown</c>"] Show appraisal countdown
         /// </summary>
         [JsonPropertyName("showAppraisalCountdown")]
-        public decimal ShowAppraisalCountdown { get; set; }
+        public bool ShowAppraisalCountdown { get; set; }
         /// <summary>
         /// ["<c>automaticDelivery</c>"] Automatic delivery
         /// </summary>
         [JsonPropertyName("automaticDelivery")]
-        public decimal AutomaticDelivery { get; set; }
+        public bool AutomaticDelivery { get; set; }
         /// <summary>
         /// ["<c>apiAllowed</c>"] Api allowed
         /// </summary>
         [JsonPropertyName("apiAllowed")]
         public bool ApiAllowed { get; set; }
+        /// <summary>
+        /// ["<c>depthStepList</c>"] Api allowed
+        /// </summary>
+        [JsonPropertyName("depthStepList")]
+        public string[] DepthStepList { get; set; } = [];
+        /// <summary>
+        /// ["<c>feeRateMode</c>"] Fee rate mode
+        /// </summary>
+        [JsonPropertyName("feeRateMode")]
+        public string FeeRateMode { get; set; } = string.Empty;
+        /// <summary>
+        /// ["<c>futureType</c>"] Future type
+        /// </summary>
+        [JsonPropertyName("futureType")]
+        public int FuturesType { get; set; }
+        /// <summary>
+        /// ["<c>liquidationFeeRate</c>"] Liquidation fee rate
+        /// </summary>
+        [JsonPropertyName("liquidationFeeRate")]
+        public decimal LiquidationFeeRate { get; set; }
+        /// <summary>
+        /// ["<c>limitMaxVol</c>"] Limit order max size
+        /// </summary>
+        [JsonPropertyName("limitMaxVol")]
+        public decimal MaxOrderQuantityLimit { get; set; }
+        /// <summary>
+        /// ["<c>openingTime</c>"] Opening timestamp
+        /// </summary>
+        [JsonPropertyName("openingTime")]
+        public DateTime? OpenTime { get; set; }
+        /// <summary>
+        /// ["<c>riskLimitMode</c>"] Risk limit mode
+        /// </summary>
+        [JsonPropertyName("riskLimitMode")]
+        public string RiskLimitMode { get; set; } = string.Empty;
+        /// <summary>
+        /// ["<c>riskLongShortSwitch</c>"] Risk long short switch
+        /// </summary>
+        [JsonPropertyName("riskLongShortSwitch")]
+        public bool RiskLongShortSwitch { get; set; }
+        /// <summary>
+        /// ["<c>countryConfigContractMaxLeverage</c>"] Country specific max leverage
+        /// </summary>
+        [JsonPropertyName("countryConfigContractMaxLeverage")]
+        public int? CountryConfigContractMaxLeverage { get; set; }
+        /// <summary>
+        /// ["<c>baseCoinIconUrl</c>"] Base asset icon url
+        /// </summary>
+        [JsonPropertyName("baseCoinIconUrl")]
+        public string? BaseAssetIconUrl { get; set; }
+        /// <summary>
+        /// ["<c>id</c>"] Id
+        /// </summary>
+        [JsonPropertyName("id")]
+        public long Id { get; set; }
+        /// <summary>
+        /// ["<c>baseCoinId</c>"] Base asset id
+        /// </summary>
+        [JsonPropertyName("baseCoinId")]
+        public string BaseAssetId { get; set; } = string.Empty;
     }
-
-
 }

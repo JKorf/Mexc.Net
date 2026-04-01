@@ -1,0 +1,13 @@
+> { "method":"login","param":{"apiKey":"123", "reqTime":"123", "signature":"signature"}}
+< { "channel":"rs.login", "data":"success", "ts":"1587442022003" }
+> { "method":"personal.filter","param":{"filters":[]}}
+< { "channel":"rs.personal.filter", "data":"success", "ts":"1587442022003" }
+= 
+{
+  "channel": "push.personal.order.chase",
+  "data": {
+    "ec": 1001,
+    "s": "BTC_USDT"
+  },
+  "ts": 1760942212000
+}

@@ -3,6 +3,7 @@ using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Testing;
 using Mexc.Net.Clients;
 using Mexc.Net.Enums;
+using Mexc.Net.Objects.Models.Futures;
 
 namespace Mexc.Net.UnitTests
 {
@@ -126,6 +127,11 @@ namespace Mexc.Net.UnitTests
             await tester.ValidateAsync(client => client.FuturesApi.Account.SetLeverageAsync(123), "SetLeverage");
             await tester.ValidateAsync(client => client.FuturesApi.Account.GetPositionModeAsync(), "GetPositionMode", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.FuturesApi.Account.SetPositionModeAsync(PositionMode.OneWay), "SetPositionMode");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.GetProfitRateAsync(ProfitPeriod.Day), "GetProfitRate", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.GetDeductionConfigAsync(), "GetDeductionConfig", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.GetDiscountTypesAsync(), "GetDiscountTypes", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.GetZeroFeeSymbolsAsync(), "GetZeroFeeSymbols", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.ToggleAutoAddMarginAsync(123, true), "ToggleAutoAddMargin");
         }
 
         [Test]
@@ -161,16 +167,37 @@ namespace Mexc.Net.UnitTests
                 opts.OutputOriginalData = true;
             });
             var tester = new RestRequestValidator<MexcRestClient>(client, "Endpoints/FuturesApi/Trading", "https://contract.mexc.com", IsAuthenticatedFutures);
-            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetOpenOrdersAsync("ETH_USDT"), "GetOpenOrders", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetOpenOrdersAsync(), "GetOpenOrders", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.FuturesApi.Trading.GetOrderHistoryAsync(), "GetOrderHistory", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.FuturesApi.Trading.GetOrderByClientOrderIdAsync("ETH_USDT", "123"), "GetOrderByClientOrderId", nestedJsonProperty: "data");
-            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetOrderAsync("123"), "GetOrder", nestedJsonProperty: "data");
-            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetOrdersByIdAsync(["123"]), "GetOrdersById", nestedJsonProperty: "data");
-            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetOrderTradesAsync("123"), "GetOrderTrades", nestedJsonProperty: "data");
-            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetStopOrdersAsync(), "GetStopOrders", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetOrderAsync(123), "GetOrder", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetOrdersByIdAsync([123]), "GetOrdersById", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetOrderTradesAsync(123), "GetOrderTrades", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetTpSlOrdersAsync(), "GetTpSlOrders", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.FuturesApi.Trading.GetRiskLimitsAsync(), "GetRiskLimits", skipResponseValidation: true);
             await tester.ValidateAsync(client => client.FuturesApi.Trading.GetPositionHistoryAsync(), "GetPositionHistory", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.FuturesApi.Trading.GetPositionsAsync(), "GetPositions", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.PlaceOrderAsync("123", FuturesOrderSide.OpenLong, FuturesOrderType.Market, 0.1m), "PlaceOrder", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.CancelOrdersAsync([123]), "CancelOrders", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.ChaseOrderAsync(123), "ChaseOrder");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.EditOrderAsync(123, 0.1m, 0.1m), "EditOrder");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.CancelOrdersByClientOrderIdsAsync([new MexcCancelRequest()]), "CancelOrdersByClientOrderIds", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.CancelAllOrdersAsync(), "CancelAllOrders");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.ReversePositionAsync("123", 123, 0.1m), "ReversePosition");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.CloseAllPositionsAsync(), "CloseAllPositions");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetOpenOrderCountsAsync(), "GetOpenOrderCounts", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.PlacePlanOrderAsync("123", FuturesOrderSide.OpenLong, FuturesOrderType.ImmediateOrCancel, 0.1m, MarginType.Isolated, 0.1m, TriggerType.LessThanOrEqual, ExecuteCycle.OneDay, TriggerPriceType.IndexPrice), "PlacePlanOrder", "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.EditPlanOrderAsync("123", 123, 0.1m, 0.1m, FuturesOrderType.Limit, TriggerType.LessThanOrEqual, TriggerPriceType.IndexPrice), "EditPlanOrder");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.CancelAllPlannedOrdersAsync(), "CancelAllPlannedOrders");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.PlaceTpSlOrderAsync(123, 0.1m, TriggerPriceType.IndexPrice, TriggerPriceType.IndexPrice), "PlaceTpSlOrder");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.CancelTpSlOrdersAsync([new MexcCancelRequest()]), "CancelTpSlOrders");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.CancelAllTpSlOrdersAsync(), "CancelAllTpSlOrders");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.EditLimitOrderTpSlAsync(123), "EditLimitOrderTpSl");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.EditTpSlOrderAsync(123), "EditTpSlOrder");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetOpenTpSlOrdersAsync(), "GetOpenTpSlOrders", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.PlaceTrailingOrderAsync("123", FuturesOrderSide.OpenLong, 0.1m, 123, MarginType.Cross, TriggerPriceType.LastPrice, CallbackType.Percentage, 0.1m, PositionMode.OneWay, true), "PlaceTrailingOrder", "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.CancelTrailingOrderAsync("123", 123), "CancelTrailingOrder");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.EditTrailingOrderAsync("123", 123, TriggerPriceType.IndexPrice, CallbackType.Absolute, 0.1m, 0.1m), "EditTrailingOrder");
         }
 
         private bool IsAuthenticatedFutures(WebCallResult result)

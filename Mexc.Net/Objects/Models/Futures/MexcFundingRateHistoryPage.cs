@@ -52,6 +52,11 @@ namespace Mexc.Net.Objects.Models.Futures
         /// </summary>
         [JsonPropertyName("settleTime")]
         public DateTime SettleTime { get; set; }
+        /// <summary>
+        /// ["<c>collectCycle</c>"] Collect cycle in hours
+        /// </summary>
+        [JsonPropertyName("collectCycle")]
+        public int CollectCycle { get; set; }
     }
 
 

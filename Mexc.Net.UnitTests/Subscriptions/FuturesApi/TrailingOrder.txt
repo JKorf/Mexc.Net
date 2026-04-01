@@ -1,0 +1,31 @@
+> { "method":"login","param":{"apiKey":"123", "reqTime":"123", "signature":"signature"}}
+< { "channel":"rs.login", "data":"success", "ts":"1587442022003" }
+> { "method":"personal.filter","param":{"filters":[]}}
+< { "channel":"rs.personal.filter", "data":"success", "ts":"1587442022003" }
+= 
+{
+  "channel": "push.personal.track.order",
+  "data": {
+    "id": 987654321,
+    "symbol": "BTC_USDT",
+    "leverage": 20,
+    "side": 1,
+    "vol": 50,
+    "openType": 1,
+    "trend": 1,
+    "activePrice": 45000.0,
+    "markPrice": 44950.0,
+    "backType": 1,
+    "backValue": 0.5,
+    "triggerPrice": 44750.0,
+    "triggerType": 2,
+    "orderId": 123456789,
+    "errorCode": 0,
+    "state": 1,
+    "positionMode": 2,
+    "reduceOnly": false,
+    "createTime": 1760942212000,
+    "updateTime": 1760942212000
+  },
+  "ts": 1760942212000
+}

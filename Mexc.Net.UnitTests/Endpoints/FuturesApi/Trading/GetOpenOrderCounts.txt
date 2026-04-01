@@ -1,0 +1,14 @@
+GET
+/api/v1/private/order/open_order_total_count
+true
+{
+  "success": true,
+  "code": 0,
+  "data": {
+    "sumCount": 1,
+    "limitOrderCount": 1,
+    "stopOrderCount": 0,
+    "planOrderCount": 0,
+    "trackOrderCount": 0
+  }
+}

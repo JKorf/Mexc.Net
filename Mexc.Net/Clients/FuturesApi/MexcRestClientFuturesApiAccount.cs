@@ -2,6 +2,7 @@ using Mexc.Net.Enums;
 using Mexc.Net.Objects.Models.Futures;
 using Mexc.Net.Interfaces.Clients.FuturesApi;
 using CryptoExchange.Net.RateLimiting.Guards;
+using Mexc.Net.Objects.Models;
 
 namespace Mexc.Net.Clients.FuturesApi
 {
@@ -22,7 +23,7 @@ namespace Mexc.Net.Clients.FuturesApi
         public async Task<WebCallResult<MexcFuturesBalance>> GetBalanceAsync(string asset, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/private/account/assets/{asset}", MexcExchange.RateLimiter.FuturesRest, 1, true, limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/private/account/asset/{asset}", MexcExchange.RateLimiter.FuturesRest, 1, true, limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<MexcFuturesBalance>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -129,9 +130,9 @@ namespace Mexc.Net.Clients.FuturesApi
             var parameters = new ParameterCollection();
             parameters.Add("leverage", leverage);
             parameters.AddOptional("positionId", positionId);
-            parameters.AddOptionalEnum("openType", marginType);
+            parameters.AddOptionalEnumAsInt("openType", marginType);
             parameters.AddOptional("symbol", symbol);
-            parameters.AddOptionalEnum("positionType", positionSide);
+            parameters.AddOptionalEnumAsInt("positionType", positionSide);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "api/v1/private/position/change_leverage", MexcExchange.RateLimiter.FuturesRest, 1, true, limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
             return result;
@@ -158,8 +159,76 @@ namespace Mexc.Net.Clients.FuturesApi
         public async Task<WebCallResult> SetPositionModeAsync(PositionMode positionMode, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            parameters.AddEnum("positionMode", positionMode);
+            parameters.AddEnumAsInt("positionMode", positionMode);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "api/v1/private/position/change_position_mode", MexcExchange.RateLimiter.FuturesRest, 1, true, limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Get Profit Rate
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<MexcProfitRate>> GetProfitRateAsync(ProfitPeriod period, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"/api/v1/private/account/profit_rate/{(period == ProfitPeriod.Day ? 1 : 2)}", MexcExchange.RateLimiter.FuturesRest, 1, true, limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var result = await _baseClient.SendAsync<MexcProfitRate>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Get Deduction Config
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<MexcDeductionConfig[]>> GetDeductionConfigAsync(CancellationToken ct = default)
+        {
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/private/account/feeDeductConfigs", MexcExchange.RateLimiter.FuturesRest, 1, true, limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var result = await _baseClient.SendAsync<MexcDeductionConfig[]>(request, null, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Get Discount Types
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<MexcDiscountTypes>> GetDiscountTypesAsync(CancellationToken ct = default)
+        {
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/private/account/discountType", MexcExchange.RateLimiter.FuturesRest, 1, true, limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var result = await _baseClient.SendAsync<MexcDiscountTypes>(request, null, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Get Zero Fee Symbols
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<MexcZeroFeeSymbols>> GetZeroFeeSymbolsAsync(string? symbol = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptional("symbol", symbol);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/private/account/contract/zero_fee_rate", MexcExchange.RateLimiter.FuturesRest, 1, true, limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var result = await _baseClient.SendAsync<MexcZeroFeeSymbols>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Toggle Auto Add Margin
+
+        /// <inheritdoc />
+        public async Task<WebCallResult> ToggleAutoAddMarginAsync(long positionId,
+        bool isEnabled,
+        CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("positionId", positionId);
+            parameters.Add("isEnabled", isEnabled);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v1/private/position/change_auto_add_im", MexcExchange.RateLimiter.FuturesRest, 1, true, limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
             return result;
         }

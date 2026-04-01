@@ -1,0 +1,24 @@
+POST
+/api/v1/private/order/cancel
+true
+{
+  "success": true,
+  "code": 0,
+  "data": [
+    {
+      "orderId": 101716841474621953,
+      "errorCode": 2040,
+      "errorMsg": "order not exist"
+    },
+    {
+      "orderId": 108885377779302912,
+      "errorCode": 2041,
+      "errorMsg": "order state cannot be cancelled"
+    },
+    {
+      "orderId": 108886241042563584,
+      "errorCode": 0,
+      "errorMsg": "success"
+    }
+  ]
+}

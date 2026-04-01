@@ -1,6 +1,7 @@
 using CryptoExchange.Net.Interfaces.Clients;
 using CryptoExchange.Net.Objects.Sockets;
 using Mexc.Net.Enums;
+using Mexc.Net.Objects.Models;
 using Mexc.Net.Objects.Models.Futures;
 
 namespace Mexc.Net.Interfaces.Clients.FuturesApi
@@ -143,6 +144,19 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceUpdatesAsync(string symbol, Action<DataEvent<MexcPriceUpdate>> handler, CancellationToken ct = default);
 
         /// <summary>
+        /// Subscribe to contract/symbol updates
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /><br />
+        /// Endpoint:<br />
+        /// contract
+        /// </para>
+        /// </summary>
+        /// <param name="handler">Data handler</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<CallResult<UpdateSubscription>> SubscribeToSymbolUpdatesAsync(Action<DataEvent<MexcContract>> handler, CancellationToken ct = default);
+
+        /// <summary>
         /// Subscribe to user data updates
         /// <para>
         /// Docs:<br />
@@ -157,6 +171,17 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="riskLimitUpdateHandler">Risk limit update handler</param>
         /// <param name="adlUpdateHandler">Adl update handler</param>
         /// <param name="positionModeUpdateHandler">Position update handler</param>
+        /// <param name="planOrderHandler">Plan order update handler</param>
+        /// <param name="tpSlOrderHandler">Take profit/stop loss order update handler</param>
+        /// <param name="trailingOrderHandler">Trailing order update handler</param>
+        /// <param name="tpSlPriceUpdate">Take profit/stop loss price update handler</param>
+        /// <param name="userTradeUpdate">User trade update</param>
+        /// <param name="chaseOrderFailUpdate">Chase order failed update</param>
+        /// <param name="liquidationRiskUpdate">Liquidation risk update</param>
+        /// <param name="leverageModeUpdate">Leverage mode update</param>
+        /// <param name="closeAllFailUpdate">Close all orders failed update</param>
+        /// <param name="reversePositionUpdate">Reverse position update</param>
+        /// <param name="liquidationUpdate">Liquidation (warning) update</param>
         /// <param name="ct">Cancellation token</param>
         Task<CallResult<UpdateSubscription>> SubscribeToUserDataUpdatesAsync(
             Action<DataEvent<MexcFuturesBalanceUpdate>>? balanceUpdateHandler = null,
@@ -165,6 +190,17 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
             Action<DataEvent<MexcRiskLimit>>? riskLimitUpdateHandler = null,
             Action<DataEvent<MexcAdlUpdate>>? adlUpdateHandler = null,
             Action<DataEvent<MexcPositionModeUpdate>>? positionModeUpdateHandler = null,
+            Action<DataEvent<MexcStopOrder>>? planOrderHandler = null,
+            Action<DataEvent<MexcTpSlOrder>>? tpSlOrderHandler = null,
+            Action<DataEvent<MexcTrailingOrder>>? trailingOrderHandler = null,
+            Action<DataEvent<MexcTpSlPriceUpdate>>? tpSlPriceUpdate = null,
+            Action<DataEvent<MexcFuturesUserTradeUpdate>>? userTradeUpdate = null,
+            Action<DataEvent<MexcChaseOrderFailure>>? chaseOrderFailUpdate = null,
+            Action<DataEvent<MexcLiquidationRiskUpdate>>? liquidationRiskUpdate = null,
+            Action<DataEvent<MexcLeverageModeUpdate>>? leverageModeUpdate = null,
+            Action<DataEvent<object>>? closeAllFailUpdate = null,
+            Action<DataEvent<MexcReversePositionUpdate>>? reversePositionUpdate = null,
+            Action<DataEvent<MexcLiquidationUpdate>>? liquidationUpdate = null,
             CancellationToken ct = default);
     }
 }

@@ -1,0 +1,7 @@
+POST
+/api/v1/private/stoporder/change_price
+true
+{
+  "success": true,
+  "code": 0
+}

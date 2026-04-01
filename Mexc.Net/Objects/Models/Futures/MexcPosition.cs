@@ -88,15 +88,25 @@ namespace Mexc.Net.Objects.Models.Futures
         [JsonPropertyName("realised")]
         public decimal RealisedPnl { get; set; }
         /// <summary>
+        /// ["<c>pnl</c>"] Profit and loss
+        /// </summary>
+        [JsonPropertyName("pnl")]
+        public decimal? Pnl { get; set; }
+        /// <summary>
         /// ["<c>adlLevel</c>"] Auto deleverage level
         /// </summary>
         [JsonPropertyName("adlLevel")]
-        public int AdlLevel { get; set; }
+        public int? AdlLevel { get; set; }
         /// <summary>
         /// ["<c>leverage</c>"] Leverage
         /// </summary>
         [JsonPropertyName("leverage")]
         public int Leverage { get; set; }
+        /// <summary>
+        /// ["<c>marginRatio</c>"] Margin ratio
+        /// </summary>
+        [JsonPropertyName("marginRatio")]
+        public decimal? MarginRatio { get; set; }
         /// <summary>
         /// ["<c>createTime</c>"] Create time
         /// </summary>
@@ -112,6 +122,41 @@ namespace Mexc.Net.Objects.Models.Futures
         /// </summary>
         [JsonPropertyName("autoAddIm")]
         public bool AutoMargin { get; set; }
+        /// <summary>
+        /// ["<c>version</c>"] Update version
+        /// </summary>
+        [JsonPropertyName("version")]
+        public long Version { get; set; }
+        /// <summary>
+        /// ["<c>profitRatio</c>"] Profit ratio
+        /// </summary>
+        [JsonPropertyName("profitRatio")]
+        public decimal? ProfitRatio { get; set; }
+        /// <summary>
+        /// ["<c>newOpenAvgPrice</c>"] New open average price
+        /// </summary>
+        [JsonPropertyName("newOpenAvgPrice")]
+        public decimal? NewOpenAveragePrice { get; set; }
+        /// <summary>
+        /// ["<c>newCloseAvgPrice</c>"] New close average price
+        /// </summary>
+        [JsonPropertyName("newCloseAvgPrice")]
+        public decimal? NewCloseAveragePrice { get; set; }
+        /// <summary>
+        /// ["<c>closeProfitLoss</c>"] Close profit and loss
+        /// </summary>
+        [JsonPropertyName("closeProfitLoss")]
+        public decimal? CloseProfitAndLoss { get; set; }
+        /// <summary>
+        /// ["<c>fee</c>"] Fee
+        /// </summary>
+        [JsonPropertyName("fee")]
+        public decimal? Fee { get; set; }
+        /// <summary>
+        /// ["<c>totalFee</c>"] Total fee
+        /// </summary>
+        [JsonPropertyName("totalFee")]
+        public decimal? TotalFee { get; set; }
     }
 
 

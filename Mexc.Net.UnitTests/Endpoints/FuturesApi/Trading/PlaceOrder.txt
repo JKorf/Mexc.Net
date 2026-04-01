@@ -1,0 +1,11 @@
+POST
+/api/v1/private/order/create
+true
+{
+  "success": true,
+  "code": 0,
+  "data": {
+    "orderId": "739113577038255616",
+    "ts": 1761888808839
+  }
+}

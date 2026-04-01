@@ -1,0 +1,7 @@
+POST
+/api/v1/private/position/reverse
+true
+{
+  "success": true,
+  "code": 0
+}

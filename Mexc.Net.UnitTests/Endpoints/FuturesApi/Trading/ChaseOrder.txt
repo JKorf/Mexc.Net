@@ -1,0 +1,7 @@
+POST
+/api/v1/private/order/chase_limit_order
+true
+{
+  "success": true,
+  "code": 0
+}

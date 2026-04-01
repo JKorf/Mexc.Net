@@ -1,0 +1,28 @@
+> { "method":"login","param":{"apiKey":"123", "reqTime":"123", "signature":"signature"}}
+< { "channel":"rs.login", "data":"success", "ts":"1587442022003" }
+> { "method":"personal.filter","param":{"filters":[]}}
+< { "channel":"rs.personal.filter", "data":"success", "ts":"1587442022003" }
+= 
+{
+  "channel": "push.personal.order.deal",
+  "data": {
+    "id": 987654321,
+    "symbol": "BTC_USDT",
+    "side": 1,
+    "vol": 10,
+    "price": 45000.5,
+    "feeCurrency": "USDT",
+    "fee": 0.225,
+    "timestamp": 1760942212000,
+    "profit": 0,
+    "isTaker": true,
+    "category": 1,
+    "orderId": 123456789,
+    "isSelf": false,
+    "externalOid": "ext_001",
+    "positionMode": 1,
+    "reduceOnly": false,
+    "opponentUid": 987654321
+  },
+  "ts": 1760942212000
+}

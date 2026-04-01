@@ -67,6 +67,31 @@ namespace Mexc.Net.Objects.Models.Futures
         /// </summary>
         [JsonPropertyName("taker")]
         public bool Taker { get; set; }
+        /// <summary>
+        /// ["<c>opponentOrderId</c>"] Opponent order id
+        /// </summary>
+        [JsonPropertyName("opponentOrderId")]
+        public long OpponentOrderId { get; set; }
+        /// <summary>
+        /// ["<c>positionMode</c>"] Position mode
+        /// </summary>
+        [JsonPropertyName("positionMode")]
+        public PositionMode PositionMode { get; set; }
+        /// <summary>
+        /// ["<c>reduceOnly</c>"] Reduce only
+        /// </summary>
+        [JsonPropertyName("reduceOnly")]
+        public bool ReduceOnly { get; set; }
+        /// <summary>
+        /// ["<c>isSelf</c>"] Is self trade
+        /// </summary>
+        [JsonPropertyName("isSelf")]
+        public bool IsSelf { get; set; }
+        /// <summary>
+        /// ["<c>externalOid</c>"] Client order id
+        /// </summary>
+        [JsonPropertyName("externalOid")]
+        public string? ClientOrderId { get; set; }
     }
 
 

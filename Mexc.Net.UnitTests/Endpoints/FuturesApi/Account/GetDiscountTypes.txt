@@ -1,0 +1,11 @@
+GET
+/api/v1/private/account/discountType
+true
+{
+  "success": true,
+  "code": 0,
+  "data": {
+    "useFeeDiscount": true,
+    "useFeeDeduct": false
+  }
+}
