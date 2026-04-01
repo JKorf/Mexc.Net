@@ -33,11 +33,19 @@ namespace Mexc.Net.Clients.FuturesApi
         #region Get Contracts
 
         /// <inheritdoc />
-        public async Task<WebCallResult<MexcContract[]>> GetSymbolsAsync(string? symbol = null, CancellationToken ct = default)
+        public async Task<WebCallResult<MexcContract>> GetSymbolAsync(string symbol, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection { { "symbol", symbol } };
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/contract/detail", MexcExchange.RateLimiter.FuturesRest, 1, false,
+                limitGuard: new SingleLimitGuard(1, TimeSpan.FromSeconds(5), RateLimitWindowType.Sliding));
+            return await _baseClient.SendAsync<MexcContract>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<MexcContract[]>> GetSymbolsAsync(CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            parameters.AddOptional("symbol", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/contract/detail", MexcExchange.RateLimiter.FuturesRest, 1, false, 
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/contract/detail", MexcExchange.RateLimiter.FuturesRest, 1, false,
                 limitGuard: new SingleLimitGuard(1, TimeSpan.FromSeconds(5), RateLimitWindowType.Sliding));
             return await _baseClient.SendAsync<MexcContract[]>(request, parameters, ct).ConfigureAwait(false);
         }
@@ -109,6 +117,16 @@ namespace Mexc.Net.Clients.FuturesApi
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v1/contract/funding_rate/{symbol}", MexcExchange.RateLimiter.FuturesRest, 1, false,
                 limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<MexcFundingRate>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<MexcFundingRate[]>> GetFundingRatesAsync(CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/contract/funding_rate", MexcExchange.RateLimiter.FuturesRest, 1, false,
+                limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var result = await _baseClient.SendAsync<MexcFundingRate[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 

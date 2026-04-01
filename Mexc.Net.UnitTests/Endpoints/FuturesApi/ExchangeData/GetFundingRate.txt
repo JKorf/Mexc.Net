@@ -1,5 +1,5 @@
 GET
-/api/v1/contract/funding_rate/ETH_USDT
+/api/v1/contract/funding_rate/BTC_USDT
 false
 {
     "success": true,
