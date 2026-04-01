@@ -161,6 +161,16 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 5.0.0 - 01 Apr 2026
+    * Added FuturesApi endpoints
+    * Added FuturesApi SubscribeToSymbolUpdatesAsync websocket stream
+    * Added missing FuturesApi user websocket stream callbacks
+    * Added IFeeRestClient, IFuturesOrderRestClient and IFuturesTriggerOrderRestClient REST Shared implementations
+    * Added IUserTradeSocketClient Socket Shared implementation
+    * Added Futures UserDataTracker implementation
+    * Updated existing FuturesApi endpoints
+    * Fixed some issues in existing FuturesApi implementation
+
 * Version 4.9.0 - 24 Mar 2026
     * Updated CryptoExchange.Net to version 11.0.1, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
     * Updated class for supplying API credentials from ApiCredentials to MexcCredentials
