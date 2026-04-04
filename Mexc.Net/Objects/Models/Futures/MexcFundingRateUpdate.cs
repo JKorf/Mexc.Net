@@ -14,6 +14,11 @@ namespace Mexc.Net.Objects.Models.Futures
         /// ["<c>rate</c>"] Funding rate
         /// </summary>
         [JsonPropertyName("rate")]
-        public decimal FundingRate { get; set; }        
+        public decimal FundingRate { get; set; }
+        /// <summary>
+        /// ["<c>nextSettleTime</c>"] Next settlement time
+        /// </summary>
+        [JsonPropertyName("nextSettleTime")]
+        public DateTime NextSettleTime { get; set; }
     }
 }
