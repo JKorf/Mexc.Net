@@ -232,7 +232,7 @@ namespace Mexc.Net.Clients.SpotApi
             var parameters = new ParameterCollection();
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/symbol/offline", MexcExchange.RateLimiter.SpotRest, 1);
             var response = await _baseClient.SendAsync<MexcResult<MexcOfflineSymbol[]>>(request, parameters, ct).ConfigureAwait(false);
-            return response.As(response.Data.Data ?? []);
+            return response.As(response.Data?.Data ?? []);
         }
         #endregion
     }
