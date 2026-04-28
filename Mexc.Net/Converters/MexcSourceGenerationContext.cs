@@ -104,6 +104,7 @@ namespace Mexc.Net.Converters
     [JsonSerializable(typeof(IDictionary<string, object>))]
     [JsonSerializable(typeof(MexcResult<MexcDeductStatus>))]
     [JsonSerializable(typeof(MexcResult<MexcTradeFee>))]
+    [JsonSerializable(typeof(MexcResult<MexcOfflineSymbol[]>))]
     [JsonSerializable(typeof(MexcStreamTrade[]))]
     [JsonSerializable(typeof(MexcResult[]))]
     [JsonSerializable(typeof(MexcAccountInfo[]))]

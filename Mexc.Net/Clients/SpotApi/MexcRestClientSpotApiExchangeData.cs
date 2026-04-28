@@ -1,8 +1,8 @@
 using System.Diagnostics;
 using Mexc.Net.Enums;
-using Mexc.Net.Objects.Models.Spot;
 using Mexc.Net.Interfaces.Clients.SpotApi;
 using Mexc.Net.Objects.Models;
+using Mexc.Net.Objects.Models.Spot;
 
 namespace Mexc.Net.Clients.SpotApi
 {
@@ -67,7 +67,7 @@ namespace Mexc.Net.Clients.SpotApi
         public async Task<WebCallResult<MexcExchangeInfo>> GetExchangeInfoAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            parameters.AddOptional("symbols", symbols != null ? string.Join(",", symbols): null);
+            parameters.AddOptional("symbols", symbols != null ? string.Join(",", symbols) : null);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/exchangeInfo", MexcExchange.RateLimiter.SpotRest, 1);
             return await _baseClient.SendAsync<MexcExchangeInfo>(request, parameters, ct).ConfigureAwait(false);
         }
@@ -105,7 +105,7 @@ namespace Mexc.Net.Clients.SpotApi
             };
             parameters.AddOptional("limit", limit);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/trades", MexcExchange.RateLimiter.SpotRest, 1);
-            return await _baseClient.SendAsync<MexcTrade[]>(request, parameters, ct).ConfigureAwait(false);            
+            return await _baseClient.SendAsync<MexcTrade[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -222,6 +222,18 @@ namespace Mexc.Net.Clients.SpotApi
             return await _baseClient.SendAsync<MexcBookPrice[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
+        #endregion
+
+        #region Get Offline Symbols
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<MexcOfflineSymbol[]>> GetOfflineSymbolsAsync(CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/symbol/offline", MexcExchange.RateLimiter.SpotRest, 1);
+            var response = await _baseClient.SendAsync<MexcResult<MexcOfflineSymbol[]>>(request, parameters, ct).ConfigureAwait(false);
+            return response.As(response.Data?.Data ?? []);
+        }
         #endregion
     }
 }

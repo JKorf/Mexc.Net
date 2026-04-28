@@ -41,7 +41,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#api-default-symbol" /><br />
         /// Endpoint:<br />
         /// GET /api/v3/defaultSymbols
-        /// </para>
+        /// </para> 
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -207,6 +207,19 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<MexcBookPrice[]>> GetBookPricesAsync(CancellationToken ct = default);
+
+        /// <summary>
+        /// Get offline/paused symbols
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/market-data-endpoints#query-offline-symbols" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v3/symbol/offline
+        /// </para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<MexcOfflineSymbol[]>> GetOfflineSymbolsAsync(CancellationToken ct = default);
 
     }
 }
