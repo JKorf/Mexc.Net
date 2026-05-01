@@ -51,7 +51,7 @@ namespace Mexc.Net.Objects.Models.Futures
         /// ["<c>state</c>"] Status
         /// </summary>
         [JsonPropertyName("state")]
-        public FuturesOrderStatus Status { get; set; }
+        public TpSlStatus Status { get; set; }
         /// <summary>
         /// ["<c>triggerSide</c>"] Trigger side
         /// </summary>

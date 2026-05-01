@@ -964,13 +964,13 @@ namespace Mexc.Net.Clients.FuturesApi
 
         private SharedTriggerOrderStatus ParseTriggerStatus(MexcFuturesTriggerOrder data)
         {
-            if (data.Status == FuturesOrderStatus.Filled)
-                return SharedTriggerOrderStatus.Filled;
+            if (data.Status == TpSlStatus.Executed)
+                return SharedTriggerOrderStatus.Triggered;
 
-            if (data.Status == FuturesOrderStatus.Canceled || data.Status == FuturesOrderStatus.Invalid)
+            if (data.Status == TpSlStatus.Canceled || data.Status == TpSlStatus.Failed)
                 return SharedTriggerOrderStatus.CanceledOrRejected;
 
-            if (data.Status == FuturesOrderStatus.Open)
+            if (data.Status == TpSlStatus.Untriggered)
                 return SharedTriggerOrderStatus.Active;
 
             return SharedTriggerOrderStatus.Unknown;
