@@ -162,6 +162,10 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 5.1.1 - 01 May 2026
+    * Fixed incorrect order status enum in MexcStopOrder and MexcFuturesTriggerOrder models
+    * Fixed incorrect order status enum parameter in GetTriggerOrdersAsync endpoint
+
 * Version 5.1.0 - 01 May 2026
     * Added restClient.SpotApi.ExchangeData.GetOfflineSymbols endpoint
 
