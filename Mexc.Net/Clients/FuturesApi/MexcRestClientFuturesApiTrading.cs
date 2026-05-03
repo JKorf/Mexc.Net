@@ -41,7 +41,7 @@ namespace Mexc.Net.Clients.FuturesApi
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("symbol", symbol);
-            parameters.AddOptional("states", status == null ? null : string.Join(",", status));
+            parameters.AddOptional("states", status == null ? null : string.Join(",", status.Select(x => EnumConverter.GetString(x))));
             parameters.AddOptionalEnum("category", category);
             parameters.AddOptionalEnum("side", side);
             parameters.AddOptionalMilliseconds("start_time", startTime);
@@ -133,7 +133,7 @@ namespace Mexc.Net.Clients.FuturesApi
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("symbol", symbol);
-            parameters.AddOptional("states", status == null ? null : string.Join(",", status));
+            parameters.AddOptional("states", status == null ? null : string.Join(",", status.Select(x => EnumConverter.GetString(x))));
             parameters.AddOptionalMilliseconds("start_time", startTime);
             parameters.AddOptionalMilliseconds("end_time", endTime);
             parameters.Add("page_num", page ?? 1);
