@@ -162,6 +162,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 5.1.3 - 06 May 2026
+    * Improved stability order book starting/resyncing operations
+
 * Version 5.1.2 - 03 May 2026
     * Fixed restClient.FuturesApi.Trading.GetTriggerOrdersAsync status parameter serialization
     * Fixed restClient.FuturesApi.Trading.GetOrderHistoryAsync status parameter serialization
