@@ -82,7 +82,7 @@ namespace Mexc.Net.SymbolOrderBooks
             {
                 // Wait up to 1s until the first update has been received
                 await WaitUntilFirstUpdateBufferedAsync(TimeSpan.FromMilliseconds(500), TimeSpan.FromMilliseconds(1000), ct).ConfigureAwait(false);
-                var bookResult = await _restClient.FuturesApi.ExchangeData.GetOrderBookAsync(Symbol, Levels ?? 1000).ConfigureAwait(false);
+                var bookResult = await _restClient.FuturesApi.ExchangeData.GetOrderBookAsync(Symbol, Levels ?? 1000, ct).ConfigureAwait(false);
                 if (!bookResult)
                 {
                     _logger.Log(LogLevel.Debug, $"{Api} order book {Symbol} failed to retrieve initial order book");
@@ -90,7 +90,8 @@ namespace Mexc.Net.SymbolOrderBooks
                     return new CallResult<UpdateSubscription>(bookResult.Error!);
                 }
 
-                SetSnapshot(bookResult.Data.Version, bookResult.Data.Bids, bookResult.Data.Asks);
+                if (!ct.IsCancellationRequested)
+                    SetSnapshot(bookResult.Data.Version, bookResult.Data.Bids, bookResult.Data.Asks);
             }
             else
             {
@@ -125,11 +126,12 @@ namespace Mexc.Net.SymbolOrderBooks
 
             // Wait up to 1s until the first update has been received
             await WaitUntilFirstUpdateBufferedAsync(TimeSpan.FromMilliseconds(500), TimeSpan.FromMilliseconds(1000), ct).ConfigureAwait(false);
-            var bookResult = await _restClient.FuturesApi.ExchangeData.GetOrderBookAsync(Symbol, Levels ?? 1000).ConfigureAwait(false);
+            var bookResult = await _restClient.FuturesApi.ExchangeData.GetOrderBookAsync(Symbol, Levels ?? 1000, ct).ConfigureAwait(false);
             if (!bookResult)
                 return new CallResult<bool>(bookResult.Error!);
 
-            SetSnapshot(bookResult.Data.Version, bookResult.Data.Bids, bookResult.Data.Asks);
+            if (!ct.IsCancellationRequested)
+                SetSnapshot(bookResult.Data.Version, bookResult.Data.Bids, bookResult.Data.Asks);
             return new CallResult<bool>(true);
         }
 
