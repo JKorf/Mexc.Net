@@ -1,0 +1,115 @@
+---
+description: Conventions for using Mexc.Net library when working with the MEXC cryptocurrency exchange in C#/.NET. Apply when generating code that interacts with the MEXC API.
+globs:
+  - "**/*.cs"
+  - "**/*.csproj"
+alwaysApply: false
+---
+
+# Mexc.Net Conventions
+
+This codebase uses **Mexc.Net** for MEXC cryptocurrency exchange access. Do not write raw `HttpClient` calls to MEXC endpoints.
+
+## Client Setup Pattern
+
+```csharp
+using Mexc.Net;
+using Mexc.Net.Clients;
+
+var restClient = new MexcRestClient(options =>
+{
+    options.ApiCredentials = new MexcCredentials("API_KEY", "API_SECRET");
+});
+```
+
+For public market data only, no credentials are needed: `new MexcRestClient()`.
+
+## Result Pattern
+
+All methods return `WebCallResult<T>` or `WebCallResult` for REST, and `CallResult<T>` for WebSocket subscriptions. Always check `.Success` before reading `.Data`:
+
+```csharp
+var ticker = await restClient.SpotApi.ExchangeData.GetTickerAsync("BTCUSDT");
+if (!ticker.Success) { /* ticker.Error */ return; }
+var price = ticker.Data.LastPrice;
+```
+
+## API Surface
+
+- `restClient.SpotApi.{ExchangeData|Account|Trading|SubAccount}`
+- `restClient.FuturesApi.{ExchangeData|Account|Trading}`
+- `socketClient.SpotApi` for spot WebSocket streams
+- `socketClient.FuturesApi` for futures WebSocket streams
+- `SpotApi.SharedClient` and `FuturesApi.SharedClient` for `CryptoExchange.Net.SharedApis`
+
+## Symbol Formats
+
+- Spot: `BTCUSDT`
+- Futures: `BTC_USDT`
+
+## Order Placement
+
+Let the library omit/generate `clientOrderId`. Do not pass a custom one unless required for an existing operational flow:
+
+```csharp
+var order = await restClient.SpotApi.Trading.PlaceOrderAsync(
+    "BTCUSDT",
+    OrderSide.Buy,
+    OrderType.Limit,
+    quantity: 0.001m,
+    price: 50000m);
+```
+
+## WebSocket Pattern
+
+```csharp
+var socketClient = new MexcSocketClient();
+var sub = await socketClient.SpotApi.SubscribeToMiniTickerUpdatesAsync(
+    "BTCUSDT",
+    update => { /* update.Data.LastPrice */ });
+if (!sub.Success) { /* sub.Error */ return; }
+
+await socketClient.UnsubscribeAsync(sub.Data);
+```
+
+Spot private streams require a listen key:
+
+```csharp
+var listenKey = await restClient.SpotApi.Account.StartUserStreamAsync();
+if (!listenKey.Success) return;
+
+var orderSub = await socketClient.SpotApi.SubscribeToOrderUpdatesAsync(
+    listenKey.Data,
+    update => { /* update.Data.Status */ });
+```
+
+## Multi-Exchange Code
+
+For exchange-agnostic code, use `CryptoExchange.Net.SharedApis`:
+
+```csharp
+using CryptoExchange.Net.SharedApis;
+
+var shared = new MexcRestClient().SpotApi.SharedClient;
+var ticker = await shared.GetSpotTickerAsync(
+    new GetTickerRequest(new SharedSymbol(TradingMode.Spot, "BTC", "USDT")));
+```
+
+## Hard Rules
+
+- Never write raw `HttpClient` calls to MEXC endpoints.
+- Never use `.Result` or `.Wait()`; async-only.
+- Never instantiate clients per request in production; reuse via DI.
+- Never skip checking `WebCallResult.Success`.
+- Never use `MexcClient`; use `MexcRestClient`.
+- Never use generic `ApiCredentials`; use `MexcCredentials`.
+- Never invent `GeneralApi`, `UsdFuturesApi`, or `CoinFuturesApi`.
+- Never invent `MexcEnvironment.Testnet`.
+- Always store WebSocket subscriptions and unsubscribe on shutdown.
+- Always start a spot listen-key stream before private spot socket subscriptions.
+
+## Reference
+
+- Skill: `CLAUDE.md` in repo root has fuller examples.
+- LLM index: `llms.txt` and `llms-full.txt` in repo root.
+- Examples: `Examples/ai-friendly/`.

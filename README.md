@@ -83,6 +83,20 @@ var tickerSubscriptionResult = socketClient.SpotApi.SubscribeToMiniTickerUpdates
 
 For information on the clients, dependency injection, response processing and more see the [Mexc.Net documentation](https://cryptoexchange.jkorf.dev?library=Mexc.Net) or have a look at the examples [here](https://github.com/JKorf/Mexc.Net/tree/main/Examples) or [here](https://github.com/JKorf/CryptoExchange.Net/tree/master/Examples).
 
+## AI / LLM documentation
+
+Mexc.Net includes AI-oriented documentation and examples for code generation tools:
+
+|File|Purpose|
+|--|--|
+|[`CLAUDE.md`](CLAUDE.md)|Claude/Codex-style skill instructions with core usage patterns and pitfalls|
+|[`llms.txt`](llms.txt)|Short LLM index with links to docs, examples, and critical usage rules|
+|[`llms-full.txt`](llms-full.txt)|Detailed LLM context with endpoint routing, code patterns, and anti-hallucination checks|
+|[`docs/ai-api-map.md`](docs/ai-api-map.md)|Intent-to-method map for the actual Mexc.Net REST, WebSocket, and shared API surface|
+|[`Examples/ai-friendly`](Examples/ai-friendly)|Compilable single-file examples for common REST, WebSocket, shared API, and error handling workflows|
+
+GitHub Copilot and Cursor instructions are also provided in `.github/copilot-instructions.md` and `.cursor/rules/mexc-net.mdc`; both point back to the root AI context files.
+
 ## CryptoExchange.Net
 Mexc.Net is based on the [CryptoExchange.Net](https://github.com/JKorf/CryptoExchange.Net) base library. Other exchange API implementations based on the CryptoExchange.Net base library are available and follow the same logic.
 

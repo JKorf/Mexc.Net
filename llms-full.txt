@@ -1,0 +1,655 @@
+# Mexc.Net Full LLM Context
+
+> Detailed AI/LLM reference for generating correct C#/.NET code with Mexc.Net. Use this file when `llms.txt` is too brief and the task needs concrete examples, endpoint routing guidance, or anti-hallucination rules.
+
+Mexc.Net is a strongly typed .NET client library for the MEXC REST and WebSocket APIs. It is part of the CryptoExchange.Net ecosystem and follows the shared result, logging, rate limiting, socket, and dependency injection patterns used by the JKorf exchange libraries.
+
+Current package version in this repository: 5.1.3.
+CryptoExchange.Net dependency: 11.1.0.
+Target frameworks: netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0.
+Native AOT: supported on compatible .NET targets.
+NuGet package id: `JK.Mexc.Net`.
+
+Primary documentation:
+- README.md: overview, installation, feature table, release notes, basic examples
+- docs site: https://cryptoexchange.jkorf.dev/Mexc.Net/
+- API quick map: `docs/ai-api-map.md`
+- source interfaces: `Mexc.Net/Interfaces/Clients/**`
+- AI examples: `Examples/ai-friendly/`
+
+## Golden Rules For AI Code Generation
+
+- Use `MexcRestClient` for REST and `MexcSocketClient` for WebSocket.
+- Do not generate raw `HttpClient` calls to MEXC endpoints.
+- Use `MexcCredentials`, not generic `ApiCredentials`.
+- Include `using Mexc.Net;` when using `MexcCredentials` or `MexcEnvironment`.
+- Always check `.Success` before reading `.Data`.
+- REST methods return `WebCallResult<T>` or `WebCallResult`.
+- WebSocket subscriptions return `CallResult<UpdateSubscription>`.
+- Reuse clients. Do not instantiate a REST or socket client per request in production code.
+- Prefer dependency injection for long-running services.
+- Store WebSocket subscriptions and unsubscribe during shutdown.
+- Do not call `.Result` or `.Wait()` on async methods.
+- Do not invent endpoint names. If unsure, inspect `Mexc.Net/Interfaces/Clients/**`.
+- Do not pass custom client order IDs unless the user explicitly needs external correlation.
+- For multi-exchange code, use `CryptoExchange.Net.SharedApis` interfaces from `.SharedClient`.
+- Spot symbols use `BTCUSDT` style; futures symbols use `BTC_USDT` style.
+- Spot private socket streams require a listen key from `StartUserStreamAsync`.
+- There is no `GeneralApi`, `UsdFuturesApi`, `CoinFuturesApi`, options API, or Binance-style margin root.
+
+## Installation
+
+```bash
+dotnet add package JK.Mexc.Net
+```
+
+## Required Usings
+
+Typical REST/trading code:
+
+```csharp
+using Mexc.Net;
+using Mexc.Net.Clients;
+using Mexc.Net.Enums;
+```
+
+Shared API code:
+
+```csharp
+using CryptoExchange.Net.SharedApis;
+using Mexc.Net.Clients;
+```
+
+Retry/error helper code may also need:
+
+```csharp
+using CryptoExchange.Net.Objects;
+```
+
+Dependency injection setup:
+
+```csharp
+using Mexc.Net;
+using Microsoft.Extensions.DependencyInjection;
+```
+
+Client interfaces:
+
+```csharp
+using Mexc.Net.Interfaces.Clients;
+```
+
+## Client Setup
+
+Public market data does not require credentials:
+
+```csharp
+var client = new MexcRestClient();
+
+var ticker = await client.SpotApi.ExchangeData.GetTickerAsync("BTCUSDT");
+if (!ticker.Success)
+{
+    Console.WriteLine(ticker.Error);
+    return;
+}
+
+Console.WriteLine(ticker.Data.LastPrice);
+```
+
+Private account and trading endpoints require credentials:
+
+```csharp
+var client = new MexcRestClient(options =>
+{
+    options.ApiCredentials = new MexcCredentials("API_KEY", "API_SECRET");
+});
+```
+
+Socket client with credentials:
+
+```csharp
+var socketClient = new MexcSocketClient(options =>
+{
+    options.ApiCredentials = new MexcCredentials("API_KEY", "API_SECRET");
+});
+```
+
+Environments:
+
+```csharp
+var live = new MexcRestClient(options => options.Environment = MexcEnvironment.Live);
+var custom = new MexcRestClient(options =>
+{
+    options.Environment = MexcEnvironment.CreateCustom(
+        "custom",
+        "https://spot-rest.example.com",
+        "wss://spot-socket.example.com/ws",
+        "https://futures-rest.example.com",
+        "wss://futures-socket.example.com/ws");
+});
+```
+
+Mexc.Net exposes `MexcEnvironment.Live` and `MexcEnvironment.CreateCustom(...)`. Do not generate `MexcEnvironment.Testnet`.
+
+## Dependency Injection
+
+Current DI shape:
+
+```csharp
+services.AddMexc(options =>
+{
+    options.Rest.ApiCredentials = new MexcCredentials("API_KEY", "API_SECRET");
+    options.Socket.ApiCredentials = new MexcCredentials("API_KEY", "API_SECRET");
+});
+```
+
+Inject:
+
+```csharp
+public class MyService
+{
+    private readonly IMexcRestClient _restClient;
+    private readonly IMexcSocketClient _socketClient;
+
+    public MyService(IMexcRestClient restClient, IMexcSocketClient socketClient)
+    {
+        _restClient = restClient;
+        _socketClient = socketClient;
+    }
+}
+```
+
+## Result Handling Pattern
+
+Always branch on `.Success`.
+
+```csharp
+var result = await client.SpotApi.ExchangeData.GetTickerAsync("BTCUSDT");
+if (!result.Success)
+{
+    Console.WriteLine($"Code: {result.Error?.Code}");
+    Console.WriteLine($"Message: {result.Error?.Message}");
+    return;
+}
+
+var price = result.Data.LastPrice;
+```
+
+For retry logic, retry only transient errors:
+
+```csharp
+async Task<WebCallResult<T>> WithRetry<T>(Func<Task<WebCallResult<T>>> call, int maxAttempts = 3)
+{
+    WebCallResult<T> last = default!;
+
+    for (var attempt = 1; attempt <= maxAttempts; attempt++)
+    {
+        last = await call();
+        if (last.Success)
+            return last;
+
+        if (last.Error?.IsTransient != true)
+            return last;
+
+        await Task.Delay(TimeSpan.FromMilliseconds(250 * Math.Pow(2, attempt)));
+    }
+
+    return last;
+}
+```
+
+## Main API Surface
+
+REST:
+
+```text
+MexcRestClient
+  .SpotApi
+    .ExchangeData
+    .Account
+    .Trading
+    .SubAccount
+    .SharedClient
+  .FuturesApi
+    .ExchangeData
+    .Account
+    .Trading
+    .SharedClient
+```
+
+WebSocket:
+
+```text
+MexcSocketClient
+  .SpotApi
+    .SharedClient
+    SubscribeToTradeUpdatesAsync
+    SubscribeToKlineUpdatesAsync
+    SubscribeToOrderBookUpdatesAsync
+    SubscribeToPartialOrderBookUpdatesAsync
+    SubscribeToBookTickerUpdatesAsync
+    SubscribeToMiniTickerUpdatesAsync
+    SubscribeToAllMiniTickerUpdatesAsync
+    SubscribeToAccountUpdatesAsync
+    SubscribeToOrderUpdatesAsync
+    SubscribeToUserTradeUpdatesAsync
+  .FuturesApi
+    .SharedClient
+    SubscribeToTickerUpdatesAsync
+    SubscribeToTickersUpdatesAsync
+    SubscribeToTradeUpdatesAsync
+    SubscribeToKlineUpdatesAsync
+    SubscribeToOrderBookUpdatesAsync
+    SubscribeToPartialOrderBookUpdatesAsync
+    SubscribeToFundingRateUpdatesAsync
+    SubscribeToIndexPriceUpdatesAsync
+    SubscribeToMarkPriceUpdatesAsync
+    SubscribeToSymbolUpdatesAsync
+    SubscribeToUserDataUpdatesAsync
+```
+
+## Intent To Method Map
+
+For a broader quick reference, see `docs/ai-api-map.md`.
+
+Common Spot REST tasks:
+
+```text
+Ping -> client.SpotApi.ExchangeData.PingAsync()
+Get server time -> client.SpotApi.ExchangeData.GetServerTimeAsync()
+Get spot exchange info -> client.SpotApi.ExchangeData.GetExchangeInfoAsync()
+Get one spot symbol info -> client.SpotApi.ExchangeData.GetExchangeInfoAsync(new[] { "BTCUSDT" })
+Get spot ticker -> client.SpotApi.ExchangeData.GetTickerAsync("BTCUSDT")
+Get all spot tickers -> client.SpotApi.ExchangeData.GetTickersAsync()
+Get spot price(s) -> client.SpotApi.ExchangeData.GetPricesAsync(...)
+Get spot order book -> client.SpotApi.ExchangeData.GetOrderBookAsync("BTCUSDT")
+Get spot klines -> client.SpotApi.ExchangeData.GetKlinesAsync("BTCUSDT", KlineInterval.OneMinute)
+Get account balances -> client.SpotApi.Account.GetAccountInfoAsync()
+Get user assets -> client.SpotApi.Account.GetUserAssetsAsync()
+Get deposits -> client.SpotApi.Account.GetDepositHistoryAsync(...)
+Get withdrawals -> client.SpotApi.Account.GetWithdrawHistoryAsync(...)
+Withdraw -> client.SpotApi.Account.WithdrawAsync(...)
+Start spot user stream -> client.SpotApi.Account.StartUserStreamAsync()
+Keep alive user stream -> client.SpotApi.Account.KeepAliveUserStreamAsync(listenKey)
+Stop user stream -> client.SpotApi.Account.StopUserStreamAsync(listenKey)
+Place spot order -> client.SpotApi.Trading.PlaceOrderAsync(...)
+Place spot test order -> client.SpotApi.Trading.PlaceTestOrderAsync(...)
+Get spot order -> client.SpotApi.Trading.GetOrderAsync(symbol, orderId: orderId)
+Cancel spot order -> client.SpotApi.Trading.CancelOrderAsync(symbol, orderId: orderId)
+Cancel all spot orders -> client.SpotApi.Trading.CancelAllOrdersAsync(symbol)
+Get user trades -> client.SpotApi.Trading.GetUserTradesAsync(symbol)
+Sub-account list -> client.SpotApi.SubAccount.GetSubUserAccountsAsync()
+Sub-account balances -> client.SpotApi.SubAccount.GetSubAccountBalancesAsync(...)
+```
+
+Common Futures REST tasks:
+
+```text
+Get futures server time -> client.FuturesApi.ExchangeData.GetServerTimeAsync()
+Get futures contract -> client.FuturesApi.ExchangeData.GetSymbolAsync("ETH_USDT")
+Get all futures contracts -> client.FuturesApi.ExchangeData.GetSymbolsAsync()
+Get futures order book -> client.FuturesApi.ExchangeData.GetOrderBookAsync("ETH_USDT")
+Get futures ticker -> client.FuturesApi.ExchangeData.GetTickerAsync("ETH_USDT")
+Get all futures tickers -> client.FuturesApi.ExchangeData.GetTickersAsync()
+Get futures klines -> client.FuturesApi.ExchangeData.GetKlinesAsync("ETH_USDT", FuturesKlineInterval.OneMinute)
+Get funding rate -> client.FuturesApi.ExchangeData.GetFundingRateAsync("ETH_USDT")
+Get futures balances -> client.FuturesApi.Account.GetBalancesAsync()
+Get futures balance -> client.FuturesApi.Account.GetBalanceAsync("USDT")
+Get leverage -> client.FuturesApi.Account.GetLeverageAsync("ETH_USDT")
+Set leverage -> client.FuturesApi.Account.SetLeverageAsync(...)
+Get position mode -> client.FuturesApi.Account.GetPositionModeAsync()
+Set position mode -> client.FuturesApi.Account.SetPositionModeAsync(...)
+Get open positions -> client.FuturesApi.Trading.GetPositionsAsync("ETH_USDT")
+Place futures order -> client.FuturesApi.Trading.PlaceOrderAsync(...)
+Get futures order -> client.FuturesApi.Trading.GetOrderAsync(orderId)
+Cancel futures orders -> client.FuturesApi.Trading.CancelOrdersAsync(orderIds)
+Cancel all futures orders -> client.FuturesApi.Trading.CancelAllOrdersAsync(symbol)
+Place plan order -> client.FuturesApi.Trading.PlacePlanOrderAsync(...)
+Place TP/SL order -> client.FuturesApi.Trading.PlaceTpSlOrderAsync(...)
+Place trailing order -> client.FuturesApi.Trading.PlaceTrailingOrderAsync(...)
+Close all positions -> client.FuturesApi.Trading.CloseAllPositionsAsync()
+```
+
+Common WebSocket tasks:
+
+```text
+Subscribe spot mini ticker -> socketClient.SpotApi.SubscribeToMiniTickerUpdatesAsync(symbol, handler)
+Subscribe all spot mini tickers -> socketClient.SpotApi.SubscribeToAllMiniTickerUpdatesAsync(handler)
+Subscribe spot klines -> socketClient.SpotApi.SubscribeToKlineUpdatesAsync(symbol, interval, handler)
+Subscribe spot order book -> socketClient.SpotApi.SubscribeToOrderBookUpdatesAsync(...)
+Subscribe spot partial order book -> socketClient.SpotApi.SubscribeToPartialOrderBookUpdatesAsync(...)
+Subscribe spot trades -> socketClient.SpotApi.SubscribeToTradeUpdatesAsync(...)
+Subscribe spot account updates -> socketClient.SpotApi.SubscribeToAccountUpdatesAsync(listenKey, handler)
+Subscribe spot order updates -> socketClient.SpotApi.SubscribeToOrderUpdatesAsync(listenKey, handler)
+Subscribe spot user trades -> socketClient.SpotApi.SubscribeToUserTradeUpdatesAsync(listenKey, handler)
+Subscribe futures ticker -> socketClient.FuturesApi.SubscribeToTickerUpdatesAsync(symbol, handler)
+Subscribe futures klines -> socketClient.FuturesApi.SubscribeToKlineUpdatesAsync(symbol, interval, handler)
+Subscribe futures order book -> socketClient.FuturesApi.SubscribeToOrderBookUpdatesAsync(symbol, handler)
+Subscribe futures funding rate -> socketClient.FuturesApi.SubscribeToFundingRateUpdatesAsync(symbol, handler)
+Subscribe futures user data -> socketClient.FuturesApi.SubscribeToUserDataUpdatesAsync(...)
+```
+
+## Spot Order Example
+
+```csharp
+using Mexc.Net;
+using Mexc.Net.Clients;
+using Mexc.Net.Enums;
+
+var client = new MexcRestClient(options =>
+{
+    options.ApiCredentials = new MexcCredentials("API_KEY", "API_SECRET");
+});
+
+var order = await client.SpotApi.Trading.PlaceOrderAsync(
+    symbol: "BTCUSDT",
+    side: OrderSide.Buy,
+    type: OrderType.Limit,
+    quantity: 0.001m,
+    price: 50000m);
+
+if (!order.Success)
+{
+    Console.WriteLine(order.Error);
+    return;
+}
+
+Console.WriteLine(order.Data.OrderId);
+```
+
+For market buy orders that specify quote currency amount, use `quoteQuantity`:
+
+```csharp
+var order = await client.SpotApi.Trading.PlaceOrderAsync(
+    symbol: "BTCUSDT",
+    side: OrderSide.Buy,
+    type: OrderType.Market,
+    quoteQuantity: 100m);
+```
+
+## Futures Order Example
+
+```csharp
+using Mexc.Net;
+using Mexc.Net.Clients;
+using Mexc.Net.Enums;
+
+var client = new MexcRestClient(options =>
+{
+    options.ApiCredentials = new MexcCredentials("API_KEY", "API_SECRET");
+});
+
+var leverage = await client.FuturesApi.Account.SetLeverageAsync(
+    leverage: 5,
+    marginType: MarginType.Isolated,
+    symbol: "ETH_USDT",
+    positionSide: PositionSide.Long);
+if (!leverage.Success)
+{
+    Console.WriteLine(leverage.Error);
+    return;
+}
+
+var order = await client.FuturesApi.Trading.PlaceOrderAsync(
+    symbol: "ETH_USDT",
+    side: FuturesOrderSide.OpenLong,
+    type: FuturesOrderType.Market,
+    quantity: 1m,
+    leverage: 5,
+    marginType: MarginType.Isolated);
+```
+
+Close long positions with `FuturesOrderSide.CloseLong`; close short positions with `FuturesOrderSide.CloseShort`. Futures quantities are contract volumes.
+
+## WebSocket Subscription Example
+
+```csharp
+using Mexc.Net.Clients;
+using Mexc.Net.Enums;
+
+var socketClient = new MexcSocketClient();
+
+var tickerSub = await socketClient.SpotApi.SubscribeToMiniTickerUpdatesAsync(
+    "BTCUSDT",
+    update => Console.WriteLine(update.Data.LastPrice));
+
+if (!tickerSub.Success)
+{
+    Console.WriteLine(tickerSub.Error);
+    return;
+}
+
+var klineSub = await socketClient.SpotApi.SubscribeToKlineUpdatesAsync(
+    "ETHUSDT",
+    KlineInterval.OneMinute,
+    update => Console.WriteLine(update.Data.ClosePrice));
+
+if (!klineSub.Success)
+{
+    await socketClient.UnsubscribeAsync(tickerSub.Data);
+    Console.WriteLine(klineSub.Error);
+    return;
+}
+
+Console.ReadLine();
+await socketClient.UnsubscribeAsync(tickerSub.Data);
+await socketClient.UnsubscribeAsync(klineSub.Data);
+```
+
+Spot private streams:
+
+```csharp
+var listenKey = await restClient.SpotApi.Account.StartUserStreamAsync();
+if (!listenKey.Success)
+    return;
+
+var orderSub = await socketClient.SpotApi.SubscribeToOrderUpdatesAsync(
+    listenKey.Data,
+    update => Console.WriteLine(update.Data.Status));
+```
+
+## SharedApis Multi-Exchange Pattern
+
+```csharp
+using CryptoExchange.Net.SharedApis;
+using Mexc.Net.Clients;
+
+ISpotTickerRestClient tickerClient = new MexcRestClient().SpotApi.SharedClient;
+var symbol = new SharedSymbol(TradingMode.Spot, "BTC", "USDT");
+
+var ticker = await tickerClient.GetSpotTickerAsync(new GetTickerRequest(symbol));
+if (!ticker.Success)
+{
+    Console.WriteLine(ticker.Error);
+    return;
+}
+
+Console.WriteLine(ticker.Data.LastPrice);
+```
+
+Shared WebSocket subscriptions return an `UpdateSubscription` in `.Data`. For shared interface variables, unsubscribe through the concrete socket client:
+
+```csharp
+var socketClient = new MexcSocketClient();
+ITickerSocketClient tickerSocket = socketClient.SpotApi.SharedClient;
+
+var sub = await tickerSocket.SubscribeToTickerUpdatesAsync(
+    new SubscribeTickerRequest(new SharedSymbol(TradingMode.Spot, "BTC", "USDT")),
+    update => Console.WriteLine(update.Data.LastPrice));
+
+if (sub.Success)
+    await socketClient.UnsubscribeAsync(sub.Data);
+```
+
+## Symbol And Filter Handling
+
+For spot order quantities and prices, use exchange info symbol data. Do not manually round with string manipulation.
+
+```csharp
+var exchangeInfo = await client.SpotApi.ExchangeData.GetExchangeInfoAsync(new[] { "BTCUSDT" });
+if (!exchangeInfo.Success || exchangeInfo.Data.Symbols.Length == 0)
+{
+    Console.WriteLine(exchangeInfo.Error);
+    return;
+}
+
+var symbol = exchangeInfo.Data.Symbols.First();
+Console.WriteLine($"{symbol.Name}: status {symbol.Status}");
+```
+
+The library normalizes spot order quantity and price scale internally in current versions, but generated code should still validate user inputs against exchange info before placing real orders.
+
+## Error Handling Notes
+
+Mexc.Net maps common exchange errors to typed `ErrorType` values on `result.Error`. Examples from the repository source:
+
+```text
+Spot:
+401/403/10072/700001 -> Unauthorized
+429 -> RateLimitRequest
+500/503 -> transient SystemError
+700003/10073 -> InvalidTimestamp
+30002/30003/30029/10095/10096/10097/10102 -> InvalidQuantity
+30010 -> InvalidPrice
+10101/30004 -> InsufficientBalance
+-2011/30026 -> UnknownOrder
+30021/730001/-1121 -> UnknownSymbol
+
+Futures:
+510/2037 -> transient RateLimitRequest
+500/501 -> transient SystemError
+2005/2018 -> InsufficientBalance
+1001 -> UnknownSymbol
+1004/2011/2008/2028 -> InvalidQuantity
+2004/2007/2032/2033 -> InvalidPrice
+2009 -> NoPosition
+2036 -> RateLimitOrder
+```
+
+Mexc.Net returns API/network/rate-limit errors through `.Error` on result objects. It generally does not throw for normal API failures. Exceptions are for misconfiguration, disposal, cancellation, or programming errors.
+
+## AI-Friendly Examples
+
+Use these examples when generating code:
+
+```text
+Examples/ai-friendly/01-spot-quickstart.cs
+  Client setup, public ticker, authenticated account balance, limit spot order, order status, cancellation.
+
+Examples/ai-friendly/02-futures.cs
+  Futures symbol format, leverage, market order, position lookup, close order.
+
+Examples/ai-friendly/03-websocket.cs
+  Public spot ticker and kline streams, spot listen-key private streams, futures private stream pattern, teardown.
+
+Examples/ai-friendly/04-multi-exchange.cs
+  CryptoExchange.Net.SharedApis REST and socket patterns.
+
+Examples/ai-friendly/05-error-handling.cs
+  WebCallResult pattern, transient retry, MEXC error examples, exchange info validation.
+```
+
+These files are intended to be copied into a console `Program.cs` after `dotnet add package JK.Mexc.Net`.
+
+## Anti-Hallucination Checklist
+
+Before finalizing generated code:
+
+- Does it compile with the current package?
+- Does it include `using Mexc.Net;` when using credentials or environments?
+- Does every REST/socket result check `.Success` before `.Data`?
+- Does it use the correct API branch: `SpotApi` or `FuturesApi`?
+- Does it avoid raw MEXC URLs and manual signing?
+- Does it avoid legacy/nonexistent `MexcClient`?
+- Does it avoid `.Result` and `.Wait()`?
+- Are WebSocket subscriptions unsubscribed on shutdown?
+- Does spot private socket code create and maintain a listen key?
+- Does futures code use underscore symbols like `ETH_USDT`?
+- Does spot code use compact symbols like `ETHUSDT`?
+- Does it avoid invented `Testnet`, `GeneralApi`, `UsdFuturesApi`, `CoinFuturesApi`, and Binance-specific method names?
+
+## Source Of Truth For Method Names
+
+When unsure, inspect these files instead of guessing:
+
+```text
+Mexc.Net/Interfaces/Clients/IMexcRestClient.cs
+Mexc.Net/Interfaces/Clients/IMexcSocketClient.cs
+Mexc.Net/Interfaces/Clients/SpotApi/IMexcRestClientSpotApi*.cs
+Mexc.Net/Interfaces/Clients/SpotApi/IMexcSocketClientSpotApi*.cs
+Mexc.Net/Interfaces/Clients/FuturesApi/IMexcRestClientFuturesApi*.cs
+Mexc.Net/Interfaces/Clients/FuturesApi/IMexcSocketClientFuturesApi*.cs
+```
+
+Prefer interface files over memory when generating endpoint names, parameters, callback names, and return types.
+
+## Common Wrong Patterns To Avoid
+
+Wrong:
+
+```csharp
+var client = new MexcClient();
+```
+
+Use:
+
+```csharp
+var client = new MexcRestClient();
+```
+
+Wrong:
+
+```csharp
+options.ApiCredentials = new ApiCredentials("key", "secret");
+```
+
+Use:
+
+```csharp
+options.ApiCredentials = new MexcCredentials("key", "secret");
+```
+
+Wrong:
+
+```csharp
+var result = await client.SpotApi.ExchangeData.GetTickerAsync("BTCUSDT");
+Console.WriteLine(result.Data.LastPrice);
+```
+
+Use:
+
+```csharp
+var result = await client.SpotApi.ExchangeData.GetTickerAsync("BTCUSDT");
+if (!result.Success)
+{
+    Console.WriteLine(result.Error);
+    return;
+}
+Console.WriteLine(result.Data.LastPrice);
+```
+
+Wrong:
+
+```csharp
+client.UsdFuturesApi.Trading.PlaceOrderAsync(...);
+```
+
+Use:
+
+```csharp
+client.FuturesApi.Trading.PlaceOrderAsync(...);
+```
+
+Wrong:
+
+```csharp
+socketClient.SpotApi.SubscribeToOrderUpdatesAsync(handler);
+```
+
+Use:
+
+```csharp
+var listenKey = await restClient.SpotApi.Account.StartUserStreamAsync();
+if (listenKey.Success)
+    await socketClient.SpotApi.SubscribeToOrderUpdatesAsync(listenKey.Data, handler);
+```
