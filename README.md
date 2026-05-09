@@ -89,7 +89,7 @@ Mexc.Net includes AI-oriented documentation and examples for code generation too
 
 |File|Purpose|
 |--|--|
-|[`CLAUDE.md`](CLAUDE.md)|Claude/Codex-style skill instructions with core usage patterns and pitfalls|
+|[`AGENTS.md`](AGENTS.md)|Agents skill instructions with core usage patterns and pitfalls|
 |[`llms.txt`](llms.txt)|Short LLM index with links to docs, examples, and critical usage rules|
 |[`llms-full.txt`](llms-full.txt)|Detailed LLM context with endpoint routing, code patterns, and anti-hallucination checks|
 |[`docs/ai-api-map.md`](docs/ai-api-map.md)|Intent-to-method map for the actual Mexc.Net REST, WebSocket, and shared API surface|
