@@ -26,6 +26,16 @@ namespace Mexc.Net.Objects.Models.Futures
         [JsonPropertyName("minFundingRate")]
         public decimal MinFundingRate { get; set; }
         /// <summary>
+        /// ["<c>idxPrice</c>"] Index price
+        /// </summary>
+        [JsonPropertyName("idxPrice")]
+        public decimal IndexPrice { get; set; }
+        /// <summary>
+        /// ["<c>fairPrice</c>"] Fair price
+        /// </summary>
+        [JsonPropertyName("fairPrice")]
+        public decimal FairPrice { get; set; }
+        /// <summary>
         /// ["<c>collectCycle</c>"] Interval in hours
         /// </summary>
         [JsonPropertyName("collectCycle")]
