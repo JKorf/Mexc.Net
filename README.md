@@ -176,6 +176,10 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 5.2.0 - 26 May 2026
+    * Updated CryptoExchange.Net to version 11.2.0
+    * Added IndexPrice, FairPrice to MexFundingRate model
+
 * Version 5.1.3 - 06 May 2026
     * Improved stability order book starting/resyncing operations
 
