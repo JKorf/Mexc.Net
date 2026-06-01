@@ -414,5 +414,20 @@ namespace Mexc.Net.Clients.SpotApi
 
         #endregion
 
+        #region Get Trade Fee
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<MexcPaginated<MexcRebate[]>>> GetRebateHistoryAsync(DateTime? startTime = null, DateTime? endTime = null, int? page = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptionalMilliseconds("startTime", startTime);
+            parameters.AddOptionalMilliseconds("endTime", endTime);
+            parameters.AddOptional("page", page);
+
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/rebate/taxQuery", MexcExchange.RateLimiter.SpotRest, 1, true);
+            return await _baseClient.SendAsync<MexcPaginated<MexcRebate[]>>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
     }
 }

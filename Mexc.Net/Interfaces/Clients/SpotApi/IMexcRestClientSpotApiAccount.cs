@@ -365,7 +365,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// </para>
         /// </summary>
         /// <param name="listenKey">["<c>listenKey</c>"] Listen key</param>
-        /// <param name="ct"></param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult> KeepAliveUserStreamAsync(string listenKey, CancellationToken ct = default);
 
@@ -379,8 +379,24 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// </para>
         /// </summary>
         /// <param name="listenKey">["<c>listenKey</c>"] Listen key</param>
-        /// <param name="ct"></param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult> StopUserStreamAsync(string listenKey, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get rebate history
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/rebate-endpoints/get-rebate-history-records" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v3/rebate/taxQuery
+        /// </para>
+        /// </summary>
+        /// <param name="startTime">["<c>startTime</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>endTime</c>"] Filter by end time</param>
+        /// <param name="page">["<c>page</c>"] Page number</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<MexcPaginated<MexcRebate[]>>> GetRebateHistoryAsync(DateTime? startTime = null, DateTime? endTime = null, int? page = null, CancellationToken ct = default);
     }
 }
