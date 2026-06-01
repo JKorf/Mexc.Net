@@ -398,5 +398,55 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<MexcPaginated<MexcRebate[]>>> GetRebateHistoryAsync(DateTime? startTime = null, DateTime? endTime = null, int? page = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get rebate details
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/rebate-endpoints/get-rebate-records-detail" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v3/rebate/detail
+        /// </para>
+        /// </summary>
+        /// <param name="startTime">["<c>startTime</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>endTime</c>"] Filter by end time</param>
+        /// <param name="page">["<c>page</c>"] Page number</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<MexcPaginated<MexcRebateDetails[]>>> GetRebateDetailsAsync(DateTime? startTime = null, DateTime? endTime = null, int? page = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get rebate kickback info
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/rebate-endpoints/get-self-rebate-records-detail" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v3/rebate/detail/kickback
+        /// </para>
+        /// </summary>
+        /// <param name="startTime">["<c>startTime</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>endTime</c>"] Filter by end time</param>
+        /// <param name="page">["<c>page</c>"] Page number</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<MexcPaginated<MexcRebateDetails[]>>> GetRebateKickbackAsync(DateTime? startTime = null, DateTime? endTime = null, int? page = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get affiliate commission records
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/rebate-endpoints/get-affiliate-commission-record-affiliate-only" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v3/rebate/affiliate/commission
+        /// </para>
+        /// </summary>
+        /// <param name="uid">["<c>uid</c>"] Filter by user id</param>
+        /// <param name="inviteCode">["<c>inviteCode</c>"] Filter by invite code</param>
+        /// <param name="startTime">["<c>startTime</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>endTime</c>"] Filter by end time</param>
+        /// <param name="page">["<c>page</c>"] Page number</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<MexcAffiliateCommissions>> GetAffiliateCommissionAsync(string? uid = null, string? inviteCode = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
     }
 }

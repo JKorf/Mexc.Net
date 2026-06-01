@@ -414,7 +414,7 @@ namespace Mexc.Net.Clients.SpotApi
 
         #endregion
 
-        #region Get Trade Fee
+        #region Get Rebate History
 
         /// <inheritdoc />
         public async Task<WebCallResult<MexcPaginated<MexcRebate[]>>> GetRebateHistoryAsync(DateTime? startTime = null, DateTime? endTime = null, int? page = null, CancellationToken ct = default)
@@ -426,6 +426,59 @@ namespace Mexc.Net.Clients.SpotApi
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/rebate/taxQuery", MexcExchange.RateLimiter.SpotRest, 1, true);
             return await _baseClient.SendAsync<MexcPaginated<MexcRebate[]>>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Get Rebate Details
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<MexcPaginated<MexcRebateDetails[]>>> GetRebateDetailsAsync(DateTime? startTime = null, DateTime? endTime = null, int? page = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptionalMilliseconds("startTime", startTime);
+            parameters.AddOptionalMilliseconds("endTime", endTime);
+            parameters.AddOptional("page", page);
+
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/rebate/detail", MexcExchange.RateLimiter.SpotRest, 1, true);
+            return await _baseClient.SendAsync<MexcPaginated<MexcRebateDetails[]>>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Get Rebate Kickback
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<MexcPaginated<MexcRebateDetails[]>>> GetRebateKickbackAsync(DateTime? startTime = null, DateTime? endTime = null, int? page = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptionalMilliseconds("startTime", startTime);
+            parameters.AddOptionalMilliseconds("endTime", endTime);
+            parameters.AddOptional("page", page);
+
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/rebate/detail/kickback", MexcExchange.RateLimiter.SpotRest, 1, true);
+            return await _baseClient.SendAsync<MexcPaginated<MexcRebateDetails[]>>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Get Affiliate Commission
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<MexcAffiliateCommissions>> GetAffiliateCommissionAsync(string? uid = null, string? inviteCode = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptionalMilliseconds("startTime", startTime);
+            parameters.AddOptionalMilliseconds("endTime", endTime);
+            parameters.AddOptional("page", page);
+            parameters.AddOptional("uid", uid);
+            parameters.AddOptional("inviteCode", inviteCode);
+            parameters.AddOptional("page", page);
+            parameters.AddOptional("pageSize", page);
+
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/rebate/affiliate/commission", MexcExchange.RateLimiter.SpotRest, 1, true);
+            var result = await _baseClient.SendAsync<MexcResult<MexcAffiliateCommissions>>(request, parameters, ct).ConfigureAwait(false);
+            return result.As<MexcAffiliateCommissions>(result.Data?.Data);
         }
 
         #endregion
