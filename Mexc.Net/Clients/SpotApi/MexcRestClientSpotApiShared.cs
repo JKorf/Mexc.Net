@@ -378,7 +378,7 @@ namespace Mexc.Net.Clients.SpotApi
             if (!result)
                 return result.AsExchangeResult<SharedSpotOrder[]>(Exchange, null, default);
 
-            var data = result.Data.Where(x => x.Status == OrderStatus.Filled || x.Status == OrderStatus.Canceled);
+            var data = result.Data.Where(x => x.Status == OrderStatus.Filled || x.Status == OrderStatus.Canceled || x.Status == OrderStatus.PartiallyCanceled);
             var nextPageRequest = Pagination.GetNextPageRequest(
                      () => Pagination.NextPageFromTime(pageParams, result.Data.Min(x => x.Timestamp)),
                      result.Data.Length,
