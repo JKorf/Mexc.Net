@@ -770,7 +770,7 @@ namespace Mexc.Net.Clients.FuturesApi
                             x.Symbol,
                             x.OrderId.ToString(),
                             x.Id.ToString(),
-                            x.Quantity > 0 ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                            x.Side == FuturesOrderSide.OpenLong || x.Side == FuturesOrderSide.CloseShort ? SharedOrderSide.Buy : SharedOrderSide.Sell,
                             Math.Abs(x.Quantity),
                             x.Price,
                             x.Timestamp)
