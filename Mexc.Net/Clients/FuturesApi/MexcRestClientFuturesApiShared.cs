@@ -1004,5 +1004,57 @@ namespace Mexc.Net.Clients.FuturesApi
         }
 
         #endregion
+
+        #region Futures Client Id Order Client
+
+        EndpointOptions<GetOrderRequest> IFuturesOrderClientIdRestClient.GetFuturesOrderByClientOrderIdOptions { get; } = new EndpointOptions<GetOrderRequest>(true);
+        async Task<ExchangeWebResult<SharedFuturesOrder>> IFuturesOrderClientIdRestClient.GetFuturesOrderByClientOrderIdAsync(GetOrderRequest request, CancellationToken ct)
+        {
+            var validationError = ((IFuturesOrderClientIdRestClient)this).GetFuturesOrderByClientOrderIdOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedFuturesOrder>(Exchange, validationError);
+
+            var order = await Trading.GetOrderByClientOrderIdAsync(request.Symbol!.GetSymbol(FormatSymbol), clientOrderId: request.OrderId, ct: ct).ConfigureAwait(false);
+            if (!order)
+                return order.AsExchangeResult<SharedFuturesOrder>(Exchange, null, default);
+
+            return order.AsExchangeResult(Exchange, request.TradingMode, new SharedFuturesOrder(
+                ExchangeSymbolCache.ParseSymbol(_topicId, order.Data.Symbol),
+                order.Data.Symbol,
+                order.Data.OrderId.ToString(),
+                order.Data.OrderType == FuturesOrderType.Market ? SharedOrderType.Market : SharedOrderType.Limit,
+                (order.Data.OrderSide == FuturesOrderSide.CloseShort || order.Data.OrderSide == FuturesOrderSide.OpenLong) ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                ParseOrderStatus(order.Data.Status),
+                order.Data.CreateTime)
+            {
+                ClientOrderId = order.Data.ClientOrderId,
+                AveragePrice = order.Data.AveragePrice == 0 ? null : order.Data.AveragePrice,
+                OrderPrice = order.Data.Price == 0 ? null : order.Data.Price,
+                OrderQuantity = new SharedOrderQuantity(contractQuantity: Math.Abs(order.Data.Quantity)),
+                QuantityFilled = new SharedOrderQuantity(contractQuantity: Math.Abs(order.Data.QuantityFilled)),
+                UpdateTime = order.Data.UpdateTime,
+                PositionSide = order.Data.OrderSide == FuturesOrderSide.OpenLong || order.Data.OrderSide == FuturesOrderSide.CloseLong ? SharedPositionSide.Long : SharedPositionSide.Short,
+                Leverage = order.Data.Leverage,
+                TakeProfitPrice = order.Data.TakeProfitPrice,
+                StopLossPrice = order.Data.StopLossPrice,
+                Fee = order.Data.MakerFee + order.Data.TakerFee,
+                FeeAsset = order.Data.FeeAsset
+            });
+        }
+
+        EndpointOptions<CancelOrderRequest> IFuturesOrderClientIdRestClient.CancelFuturesOrderByClientOrderIdOptions { get; } = new EndpointOptions<CancelOrderRequest>(true);
+        async Task<ExchangeWebResult<SharedId>> IFuturesOrderClientIdRestClient.CancelFuturesOrderByClientOrderIdAsync(CancelOrderRequest request, CancellationToken ct)
+        {
+            var validationError = ((IFuturesOrderRestClient)this).CancelFuturesOrderOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedId>(Exchange, validationError);
+
+            var order = await Trading.CancelOrdersByClientOrderIdsAsync(new[] { new MexcCancelRequest { ClientOrderId = request.OrderId, Symbol = request.Symbol!.GetSymbol(FormatSymbol) } }, ct: ct).ConfigureAwait(false);
+            if (!order)
+                return order.AsExchangeResult<SharedId>(Exchange, null, default);
+
+            return order.AsExchangeResult(Exchange, request.TradingMode, new SharedId(request.OrderId));
+        }
+        #endregion
     }
 }

@@ -18,7 +18,8 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         IPositionHistoryRestClient,
         IFeeRestClient,
         IFuturesOrderRestClient,
-        IFuturesTriggerOrderRestClient
+        IFuturesTriggerOrderRestClient,
+        IFuturesOrderClientIdRestClient
     {
     }
 }
