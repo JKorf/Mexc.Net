@@ -59,11 +59,11 @@ namespace Mexc.Net.Objects.Models.Spot
         /// </summary>
         [JsonPropertyName("netWork")]
         public string Network { get; set; } = string.Empty;
-        [JsonInclude, JsonPropertyName("network")]
-        internal string NetworkInt
-        {
-            set => Network = value;
-        }
+        /// <summary>
+        /// ["<c>network</c>"] Network full name
+        /// </summary>
+        [JsonPropertyName("network")]
+        public string NetworkFullName { get; set; } = string.Empty;
         /// <summary>
         /// ["<c>withdrawEnable</c>"] Is withdrawing enabled
         /// </summary>

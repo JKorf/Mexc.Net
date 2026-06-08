@@ -575,9 +575,9 @@ namespace Mexc.Net.Clients.SpotApi
             return assets.AsExchangeResult<SharedAsset>(Exchange, TradingMode.Spot, new SharedAsset(asset.Asset)
             {
                 FullName = asset.AssetName,
-                Networks = asset.Networks?.Select(x => new SharedAssetNetwork(x.Name)
+                Networks = asset.Networks?.Select(x => new SharedAssetNetwork(x.Network)
                 {
-                    FullName = x.Network,
+                    FullName = x.NetworkFullName,
                     MinConfirmations = x.MinConfirmations,
                     DepositEnabled = x.DepositEnabled,
                     MinWithdrawQuantity = x.WithdrawMin,
@@ -602,9 +602,9 @@ namespace Mexc.Net.Clients.SpotApi
             return assets.AsExchangeResult<SharedAsset[]>(Exchange, TradingMode.Spot, assets.Data.Select(x => new SharedAsset(x.Asset)
             {
                 FullName = x.AssetName,
-                Networks = x.Networks?.Select(x => new SharedAssetNetwork(x.Name)
+                Networks = x.Networks?.Select(x => new SharedAssetNetwork(x.Network)
                 {
-                    FullName = x.Network,
+                    FullName = x.NetworkFullName,
                     MinConfirmations = x.MinConfirmations,
                     DepositEnabled = x.DepositEnabled,
                     MinWithdrawQuantity = x.WithdrawMin,
