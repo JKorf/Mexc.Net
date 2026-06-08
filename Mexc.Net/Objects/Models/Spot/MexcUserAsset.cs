@@ -52,7 +52,7 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// ["<c>Name</c>"] Name
         /// </summary>
-        [JsonPropertyName("Name")]
+        [JsonPropertyName("name")]
         public string Name { get; set; } = string.Empty;
         /// <summary>
         /// ["<c>netWork</c>"] Network name
