@@ -445,6 +445,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="startTime">["<c>startTime</c>"] Filter by start time</param>
         /// <param name="endTime">["<c>endTime</c>"] Filter by end time</param>
         /// <param name="page">["<c>page</c>"] Page number</param>
+        /// <param name="pageSize">["<c>pageSize</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<MexcAffiliateCommissions>> GetAffiliateCommissionAsync(string? uid = null, string? inviteCode = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);

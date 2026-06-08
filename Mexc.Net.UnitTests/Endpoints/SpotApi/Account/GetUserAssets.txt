@@ -11,7 +11,7 @@ true
           "depositDesc": null,
           "depositEnable": true,
           "minConfirm": 0,
-          "Name": "EOS",
+          "name": "EOS",
           "network": "EOS",
           "withdrawEnable": false,
           "withdrawFee": "0.000100000000000000",
@@ -29,7 +29,7 @@ true
           "depositDesc": null,
           "depositEnable": true,
           "minConfirm": 0,
-          "Name": "BTC-BSC",
+          "name": "BTC-BSC",
           "network": "BEP20(BSC)",
           "withdrawEnable": true,
           "withdrawFee": "0.000010000000000000",
@@ -40,7 +40,7 @@ true
           "contract": "0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c",
           "withdrawTips": null,
           "depositTips": null,
-          "network": "BTC"
+          "netWork": "BTC"
       }
     ]
   }
