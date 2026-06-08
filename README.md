@@ -177,6 +177,22 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 5.3.0 - 08 Jun 2026
+    * Updated CryptoExchange.Net to version 11.2.2
+    * Added restClient.SpotApi.Account.GetRebateHistoryAsync endpoint
+    * Added restClient.SpotApi.Account.GetRebateDetailsAsync endpoint
+    * Added restClient.SpotApi.Account.GetRebateKickbackAsync endpoint
+    * Added restClient.SpotApi.Account.GetAffiliateCommissionAsync endpoint
+    * Added Shared IFuturesOrderClientIdRestClient implementation
+    * Fixed Shared GetFuturesUserTradesAsync Side determination
+    * Fixed MexcUserAsset name property deserialization
+    * Fixed incorrect network naming handling in Shared GetAssetsAsync implementation
+    * Fixed partially canceled orders not returned in Shared Spot GetClosedSpotOrdersAsync implementation
+    * Fixed user client provider not caching new client when previous client was disposed
+
+    * Notes for updating:
+        * The Shared GetAsset(s)Async implementation had a fix for Name/FullName mapping, which now resolves to a different value than before.
+
 * Version 5.2.0 - 26 May 2026
     * Updated CryptoExchange.Net to version 11.2.0
     * Added IndexPrice, FairPrice to MexFundingRate model
