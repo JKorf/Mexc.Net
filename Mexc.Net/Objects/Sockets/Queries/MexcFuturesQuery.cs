@@ -15,15 +15,15 @@ namespace Mexc.Net.Objects.Sockets.Queries
         {
             ExpectsResponse = expectsResponse;
 
-            MessageRouter = MessageRouter.CreateWithoutTopicFilter<MexcFuturesUpdate<string>>(["rs." + method, "rs.error"], HandleMessage);
+            MessageRouter = MessageRouter.CreateForEvent<MexcFuturesUpdate<string>>(["rs." + method, "rs.error"], HandleMessage);
         }
 
         public CallResult<MexcFuturesUpdate<string>> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<string> message)
         {
             if (message.Channel.Equals("rs.error", StringComparison.Ordinal))
-                return new CallResult<MexcFuturesUpdate<string>>(new ServerError(ErrorInfo.Unknown with { Message = message.Data }), originalData);
+                return CallResult.Fail<MexcFuturesUpdate<string>>(new ServerError(ErrorInfo.Unknown with { Message = message.Data }), originalData);
 
-            return new CallResult<MexcFuturesUpdate<string>>(message, originalData, null);
+            return CallResult<MexcFuturesUpdate<string>>.Ok(message, originalData);
         }
     }
 }

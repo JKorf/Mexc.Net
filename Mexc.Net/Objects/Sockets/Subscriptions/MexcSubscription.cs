@@ -20,16 +20,16 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
 
             var topicList = topics.ToList();
             topicList.Add("pb");
-            MessageRouter = MessageRouter.CreateWithTopicFilters<T>("pb", topics, DoHandleMessage);
+            MessageRouter = MessageRouter.CreateForEvent<T>("pb", topics, DoHandleMessage);
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, T message)
         {
             if (!_topics.Contains(message.Channel))
-                return CallResult.SuccessResult;    
+                return CallResult.Ok();    
 
             _handler.Invoke(receiveTime, originalData, message);
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
 
         protected override Query? GetSubQuery(SocketConnection connection)

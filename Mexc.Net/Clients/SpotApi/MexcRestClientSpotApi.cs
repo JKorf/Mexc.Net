@@ -36,7 +36,7 @@ namespace Mexc.Net.Clients.SpotApi
 
         #region constructor/destructor
         internal MexcRestClientSpotApi(ILogger logger, HttpClient? httpClient, MexcRestOptions options)
-            : base(logger, httpClient, options.Environment.SpotRestAddress, options, options.SpotOptions)
+            : base(logger, MexcExchange.Metadata.Id, httpClient, options.Environment.SpotRestAddress, options, options.SpotOptions)
         {
             Account = new MexcRestClientSpotApiAccount(this);
             ExchangeData = new MexcRestClientSpotApiExchangeData(this);
@@ -45,7 +45,6 @@ namespace Mexc.Net.Clients.SpotApi
 
             RequestBodyEmptyContent = "";
             RequestBodyFormat = RequestBodyFormat.FormData;
-            ArraySerialization = ArrayParametersSerialization.MultipleValues;
 
             ParameterPositions[HttpMethod.Post] = HttpMethodParameterPosition.InUri;
             ParameterPositions[HttpMethod.Delete] = HttpMethodParameterPosition.InUri;
@@ -62,16 +61,12 @@ namespace Mexc.Net.Clients.SpotApi
         protected override MexcAuthenticationProvider CreateAuthenticationProvider(MexcCredentials credentials)
             => new MexcAuthenticationProvider(credentials);
 
-        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(MexcExchange.SerializerContext));
+        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(MexcExchange._serializerContext));
 
-
-        internal Task<WebCallResult<T>> SendAsync<T>(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null, Dictionary<string, string>? requestHeaders = null) where T : class
-            => SendToAddressAsync<T>(BaseAddress, definition, parameters, cancellationToken, weight, requestHeaders);
-
-        internal async Task<WebCallResult<T>> SendToAddressAsync<T>(string baseAddress, RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null, Dictionary<string, string>? requestHeaders = null) where T : class
+        internal async Task<HttpResult<T>> SendAsync<T>(RequestDefinition definition, Parameters? parameters, CancellationToken cancellationToken, int? weight = null, Dictionary<string, string>? requestHeaders = null) where T : class
         {
-            var result = await base.SendAsync<T>(baseAddress, definition, parameters, cancellationToken, requestHeaders, weight).ConfigureAwait(false);
-            if (!result && result.Error!.ErrorType == ErrorType.InvalidTimestamp && (ApiOptions.AutoTimestamp ?? ClientOptions.AutoTimestamp))
+            var result = await base.SendAsync<T>(definition, parameters, cancellationToken, requestHeaders, weight).ConfigureAwait(false);
+            if (!result.Success && result.Error!.ErrorType == ErrorType.InvalidTimestamp && (ApiOptions.AutoTimestamp ?? ClientOptions.AutoTimestamp))
             {
                 _logger.Log(LogLevel.Debug, "Received Invalid Timestamp error, triggering new time sync");
                 TimeOffsetManager.ResetRestUpdateTime(ClientName);
@@ -85,7 +80,7 @@ namespace Mexc.Net.Clients.SpotApi
             => MexcExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
 
         /// <inheritdoc />
-        protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
+        protected override Task<HttpResult<DateTime>> GetServerTimestampAsync()
             => ExchangeData.GetServerTimeAsync();
     }
 }

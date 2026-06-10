@@ -9,7 +9,7 @@ namespace Mexc.Net.Clients.MessageHandlers
 {
     internal class MexcSocketSpotMessageHandler : JsonSocketMessageHandler
     {
-        public override JsonSerializerOptions Options { get; } = SerializerOptions.WithConverters(MexcExchange.SerializerContext);
+        public override JsonSerializerOptions Options { get; } = SerializerOptions.WithConverters(MexcExchange._serializerContext);
 
         protected override MessageTypeDefinition[] TypeEvaluators { get; } = [
 

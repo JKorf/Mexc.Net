@@ -73,7 +73,7 @@ namespace Mexc.Net.UnitTests
                     return uriParams["signature"].ToString();
                 },
                 "fd3e4e8543c5188531eb7279d68ae7d26a573d0fc5ab0d18eb692451654d837a",
-                new Dictionary<string, object>
+                new Parameters(MexcExchange._spotParameterSerializationSettings)
                 {
                     { "symbol", "BTCUSDT" },
                     { "side", "BUY" },
@@ -82,7 +82,6 @@ namespace Mexc.Net.UnitTests
                     { "price", "11" },
                 },
                 time: DateTimeConverter.ConvertFromMilliseconds(1644489391087),
-                disableOrdering: true,
                 compareCase: false);
         }
 

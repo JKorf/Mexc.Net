@@ -11,7 +11,7 @@ namespace Mexc.Net.Clients.MessageHandlers
     {
         private readonly ErrorMapping _errorMapping;
 
-        public override JsonSerializerOptions Options { get; } = SerializerOptions.WithConverters(MexcExchange.SerializerContext);
+        public override JsonSerializerOptions Options { get; } = SerializerOptions.WithConverters(MexcExchange._serializerContext);
 
         public MexcRestMessageHandler(ErrorMapping errorMapping)
         {

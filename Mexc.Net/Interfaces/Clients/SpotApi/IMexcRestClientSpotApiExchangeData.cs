@@ -19,7 +19,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<long>> PingAsync(CancellationToken ct = default);
+        Task<HttpResult<long>> PingAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get the server time
@@ -32,7 +32,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default);
+        Task<HttpResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get a list of symbols supported by the API
@@ -45,7 +45,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<string[]>> GetApiSymbolsAsync(CancellationToken ct = default);
+        Task<HttpResult<string[]>> GetApiSymbolsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get the exchange info, including symbol info
@@ -59,7 +59,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="symbols">["<c>symbols</c>"] Filter by symbols, for example `BTCUSDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcExchangeInfo>> GetExchangeInfoAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default);
+        Task<HttpResult<MexcExchangeInfo>> GetExchangeInfoAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get the current order book
@@ -74,7 +74,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">["<c>limit</c>"] Number of rows, max 500</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcOrderBook>> GetOrderBookAsync(string symbol, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<MexcOrderBook>> GetOrderBookAsync(string symbol, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get a list of the most recent trades
@@ -89,7 +89,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">["<c>limit</c>"] Number of rows, max 1000</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcTrade[]>> GetRecentTradesAsync(string symbol, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<MexcTrade[]>> GetRecentTradesAsync(string symbol, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get a list of aggregated trades
@@ -106,7 +106,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">["<c>limit</c>"] Number of rows, max 1000</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcAggregatedTrade[]>> GetAggregatedTradeHistoryAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<MexcAggregatedTrade[]>> GetAggregatedTradeHistoryAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get kline/candlestick data
@@ -124,7 +124,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">["<c>limit</c>"] Number of rows, max 1000</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcKline[]>> GetKlinesAsync(string symbol, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<MexcKline[]>> GetKlinesAsync(string symbol, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get average price for a symbol
@@ -138,7 +138,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `BTCUSDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcAveragePrice>> GetAveragePriceAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<MexcAveragePrice>> GetAveragePriceAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get 24h price statistics
@@ -152,7 +152,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `BTCUSDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcTicker>> GetTickerAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<MexcTicker>> GetTickerAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get 24h price statistics
@@ -165,7 +165,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcTicker[]>> GetTickersAsync(CancellationToken ct = default);
+        Task<HttpResult<MexcTicker[]>> GetTickersAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get the last symbol prices
@@ -179,7 +179,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="symbols">["<c>symbols</c>"] Filter by symbol, for example `BTCUSDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcPrice[]>> GetPricesAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default);
+        Task<HttpResult<MexcPrice[]>> GetPricesAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get the best book prices
@@ -193,7 +193,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">["<c>symbol</c>"] Filter by symbol, for example `BTCUSDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcBookPrice>> GetBookPricesAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<MexcBookPrice>> GetBookPricesAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get the best book prices
@@ -206,7 +206,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcBookPrice[]>> GetBookPricesAsync(CancellationToken ct = default);
+        Task<HttpResult<MexcBookPrice[]>> GetBookPricesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get offline/paused symbols
@@ -219,7 +219,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcOfflineSymbol[]>> GetOfflineSymbolsAsync(CancellationToken ct = default);
+        Task<HttpResult<MexcOfflineSymbol[]>> GetOfflineSymbolsAsync(CancellationToken ct = default);
 
     }
 }

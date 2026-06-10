@@ -19,7 +19,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default);
+        Task<HttpResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get contract
@@ -32,7 +32,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] Filter by symbol</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcContract>> GetSymbolAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<MexcContract>> GetSymbolAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get contracts
@@ -44,7 +44,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcContract[]>> GetSymbolsAsync(CancellationToken ct = default);
+        Task<HttpResult<MexcContract[]>> GetSymbolsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get transferable assets
@@ -56,7 +56,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<string[]>> GetTransferableAssetsAsync(CancellationToken ct = default);
+        Task<HttpResult<string[]>> GetTransferableAssetsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get order book
@@ -70,7 +70,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH_USDT`</param>
         /// <param name="limit">["<c>limit</c>"] Limit</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcFuturesOrderBook>> GetOrderBookAsync(string symbol, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<MexcFuturesOrderBook>> GetOrderBookAsync(string symbol, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get index price for a symbol
@@ -83,7 +83,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcIndexPrice>> GetIndexPriceAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<MexcIndexPrice>> GetIndexPriceAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get mark price for a symbol
@@ -96,7 +96,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcMarkPrice>> GetMarkPriceAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<MexcMarkPrice>> GetMarkPriceAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get funding rate info
@@ -109,7 +109,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcFundingRate>> GetFundingRateAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<MexcFundingRate>> GetFundingRateAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get funding rates for all symbols
@@ -121,7 +121,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcFundingRate[]>> GetFundingRatesAsync(CancellationToken ct = default);
+        Task<HttpResult<MexcFundingRate[]>> GetFundingRatesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get klines
@@ -137,7 +137,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="startTime">["<c>start</c>"] Filter by start time</param>
         /// <param name="endTime">["<c>end</c>"] Filter by end time</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcFuturesKline[]>> GetKlinesAsync(string symbol, FuturesKlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
+        Task<HttpResult<MexcFuturesKline[]>> GetKlinesAsync(string symbol, FuturesKlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get index price klines
@@ -153,7 +153,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="startTime">["<c>start</c>"] Filter by start time</param>
         /// <param name="endTime">["<c>end</c>"] Filter by end time</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcFuturesKline[]>> GetIndexPriceKlinesAsync(string symbol, FuturesKlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
+        Task<HttpResult<MexcFuturesKline[]>> GetIndexPriceKlinesAsync(string symbol, FuturesKlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get mark price klines
@@ -169,7 +169,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="startTime">["<c>start</c>"] Filter by start time</param>
         /// <param name="endTime">["<c>end</c>"] Filter by end time</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcFuturesKline[]>> GetMarkPriceKlinesAsync(string symbol, FuturesKlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
+        Task<HttpResult<MexcFuturesKline[]>> GetMarkPriceKlinesAsync(string symbol, FuturesKlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get recent trades
@@ -183,7 +183,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH_USDT`</param>
         /// <param name="limit">["<c>limit</c>"] Number of results, max 100</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcFuturesTrade[]>> GetRecentTradesAsync(string symbol, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<MexcFuturesTrade[]>> GetRecentTradesAsync(string symbol, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get ticker for a symbol
@@ -196,7 +196,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcFuturesTicker>> GetTickerAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<MexcFuturesTicker>> GetTickerAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get tickers
@@ -208,7 +208,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcFuturesTicker[]>> GetTickersAsync(CancellationToken ct = default);
+        Task<HttpResult<MexcFuturesTicker[]>> GetTickersAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get risk fund balances
@@ -220,7 +220,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcRiskFundBalance[]>> GetRiskFundBalancesAsync(CancellationToken ct = default);
+        Task<HttpResult<MexcRiskFundBalance[]>> GetRiskFundBalancesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get risk fund balance history
@@ -235,7 +235,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="page">["<c>page_num</c>"] Page number</param>
         /// <param name="pageSize">["<c>page_size</c>"] Page size, max 100</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcRiskFundBalanceHistoryPage>> GetRiskFundBalanceHistoryAsync(string symbol, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<HttpResult<MexcRiskFundBalanceHistoryPage>> GetRiskFundBalanceHistoryAsync(string symbol, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get funding rate history
@@ -250,7 +250,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="page">["<c>page_num</c>"] Page number</param>
         /// <param name="pageSize">["<c>page_size</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcFundingRateHistoryPage>> GetFundingRateHistoryAsync(string symbol, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<HttpResult<MexcFundingRateHistoryPage>> GetFundingRateHistoryAsync(string symbol, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
     }
 }

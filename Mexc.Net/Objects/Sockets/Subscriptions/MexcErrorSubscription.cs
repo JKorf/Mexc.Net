@@ -8,13 +8,13 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
     {
         public MexcErrorSubscription(ILogger logger) : base(logger, false)
         {
-            MessageRouter = MessageRouter.CreateWithoutTopicFilter<MexcResponse>("0", HandleMessage);
+            MessageRouter = MessageRouter.CreateForEvent<MexcResponse>("0", HandleMessage);
         }
 
         public CallResult HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcResponse message)
         {
             _logger.LogError("Server Error: {Error}", message.Message);
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
     }
 }

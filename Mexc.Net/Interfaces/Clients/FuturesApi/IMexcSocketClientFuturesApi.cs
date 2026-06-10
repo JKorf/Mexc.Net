@@ -27,7 +27,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
-        Task<CallResult<UpdateSubscription>> SubscribeToTickersUpdatesAsync(Action<DataEvent<MexcFuturesTickerUpdate[]>> handler, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToTickersUpdatesAsync(Action<DataEvent<MexcFuturesTickerUpdate[]>> handler, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to ticker updates for a symbol
@@ -41,7 +41,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
-        Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<MexcFuturesTicker>> handler, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<MexcFuturesTicker>> handler, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to trade updates for a symbol
@@ -55,7 +55,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
-        Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<MexcFuturesTrade[]>> handler, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<MexcFuturesTrade[]>> handler, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to kline updates
@@ -70,7 +70,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="interval">Kline interval</param>
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
-        Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, FuturesKlineInterval interval, Action<DataEvent<MexcFuturesStreamKline>> handler, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, FuturesKlineInterval interval, Action<DataEvent<MexcFuturesStreamKline>> handler, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to incremental order book updates
@@ -84,7 +84,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
-        Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, Action<DataEvent<MexcFuturesOrderBook>> handler, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, Action<DataEvent<MexcFuturesOrderBook>> handler, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to full book updates for the first rows of the order book
@@ -99,7 +99,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="limit">Number of rows, 5, 10 or 20</param>
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
-        Task<CallResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdatesAsync(string symbol, int? limit, Action<DataEvent<MexcFuturesOrderBook>> handler, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdatesAsync(string symbol, int? limit, Action<DataEvent<MexcFuturesOrderBook>> handler, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to funding rate updates
@@ -113,7 +113,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
-        Task<CallResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(string symbol, Action<DataEvent<MexcFundingRateUpdate>> handler, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(string symbol, Action<DataEvent<MexcFundingRateUpdate>> handler, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to index price updates for a symbol
@@ -127,7 +127,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
-        Task<CallResult<UpdateSubscription>> SubscribeToIndexPriceUpdatesAsync(string symbol, Action<DataEvent<MexcPriceUpdate>> handler, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToIndexPriceUpdatesAsync(string symbol, Action<DataEvent<MexcPriceUpdate>> handler, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to mark price updates for a symbol
@@ -141,7 +141,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
-        Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceUpdatesAsync(string symbol, Action<DataEvent<MexcPriceUpdate>> handler, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToMarkPriceUpdatesAsync(string symbol, Action<DataEvent<MexcPriceUpdate>> handler, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to contract/symbol updates
@@ -154,7 +154,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
-        Task<CallResult<UpdateSubscription>> SubscribeToSymbolUpdatesAsync(Action<DataEvent<MexcContract>> handler, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToSymbolUpdatesAsync(Action<DataEvent<MexcContract>> handler, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to user data updates
@@ -183,7 +183,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="reversePositionUpdate">Reverse position update</param>
         /// <param name="liquidationUpdate">Liquidation (warning) update</param>
         /// <param name="ct">Cancellation token</param>
-        Task<CallResult<UpdateSubscription>> SubscribeToUserDataUpdatesAsync(
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToUserDataUpdatesAsync(
             Action<DataEvent<MexcFuturesBalanceUpdate>>? balanceUpdateHandler = null,
             Action<DataEvent<MexcFuturesOrder>>? orderUpdateHandler = null,
             Action<DataEvent<MexcPosition>>? positionUpdateHandler = null,

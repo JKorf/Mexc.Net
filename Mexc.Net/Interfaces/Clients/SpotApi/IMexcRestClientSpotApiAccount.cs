@@ -20,7 +20,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcAccountInfo>> GetAccountInfoAsync(CancellationToken ct = default);
+        Task<HttpResult<MexcAccountInfo>> GetAccountInfoAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get KYC status for the account
@@ -33,7 +33,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcKycStatus>> GetKycStatusAsync(CancellationToken ct = default);
+        Task<HttpResult<MexcKycStatus>> GetKycStatusAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get a list of user assets and deposit/withdrawal data
@@ -46,7 +46,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcUserAsset[]>> GetUserAssetsAsync(CancellationToken ct = default);
+        Task<HttpResult<MexcUserAsset[]>> GetUserAssetsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Withdraw funds
@@ -67,7 +67,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="contractAddress">["<c>contractAddress</c>"] Asset contract address</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcId>> WithdrawAsync(string asset, string address, decimal quantity, string? clientOrderId = null, string? network = null, string? memo = null, string? remark = null, string? contractAddress = null, CancellationToken ct = default);
+        Task<HttpResult<MexcId>> WithdrawAsync(string asset, string address, decimal quantity, string? clientOrderId = null, string? network = null, string? memo = null, string? remark = null, string? contractAddress = null, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel a withdrawal
@@ -81,7 +81,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="withdrawId">["<c>id</c>"] The id of the withdrawal to cancel</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcId>> CancelWithdrawAsync(string withdrawId, CancellationToken ct = default);
+        Task<HttpResult<MexcId>> CancelWithdrawAsync(string withdrawId, CancellationToken ct = default);
 
         /// <summary>
         /// Get deposit history
@@ -99,7 +99,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">["<c>limit</c>"] Filter by limit</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcDeposit[]>> GetDepositHistoryAsync(string? asset = null, DepositStatus? status = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<MexcDeposit[]>> GetDepositHistoryAsync(string? asset = null, DepositStatus? status = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get withdrawal history
@@ -117,7 +117,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">["<c>limit</c>"] Filter by limit</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcWithdrawal[]>> GetWithdrawHistoryAsync(string? asset = null, WithdrawStatus? status = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<MexcWithdrawal[]>> GetWithdrawHistoryAsync(string? asset = null, WithdrawStatus? status = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Generate a deposit address
@@ -132,7 +132,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="network">["<c>network</c>"] Network</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcDepositAddress[]>> GenerateDepositAddressAsync(string asset, string network, CancellationToken ct = default);
+        Task<HttpResult<MexcDepositAddress[]>> GenerateDepositAddressAsync(string asset, string network, CancellationToken ct = default);
 
         /// <summary>
         /// Get deposit addresses
@@ -147,7 +147,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="network">["<c>network</c>"] Filter by network</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcDepositAddress[]>> GetDepositAddressesAsync(string asset, string? network = null, CancellationToken ct = default);
+        Task<HttpResult<MexcDepositAddress[]>> GetDepositAddressesAsync(string asset, string? network = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get withdrawal addresses
@@ -163,7 +163,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="pageSize">["<c>limit</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcPaginated<MexcWithdrawAddress[]>>> GetWithdrawAddressesAsync(string? asset = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<HttpResult<MexcPaginated<MexcWithdrawAddress[]>>> GetWithdrawAddressesAsync(string? asset = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Transfer between accounts
@@ -180,7 +180,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="quantity">["<c>amount</c>"] Quantity</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcTransferId>> TransferAsync(string asset, AccountType fromAccountType, AccountType toAccountType, decimal quantity, CancellationToken ct = default);
+        Task<HttpResult<MexcTransferId>> TransferAsync(string asset, AccountType fromAccountType, AccountType toAccountType, decimal quantity, CancellationToken ct = default);
 
         /// <summary>
         /// Get user transfer history
@@ -199,7 +199,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="pageSize">["<c>size</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcRows<MexcTransfer[]>>> GetTransferHistoryAsync(AccountType fromAccount, AccountType toAccount, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<HttpResult<MexcRows<MexcTransfer[]>>> GetTransferHistoryAsync(AccountType fromAccount, AccountType toAccount, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get info on a transfer
@@ -213,7 +213,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="transferId">["<c>tranId</c>"] Transfer id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcTransfer>> GetTransferAsync(string transferId, CancellationToken ct = default);
+        Task<HttpResult<MexcTransfer>> GetTransferAsync(string transferId, CancellationToken ct = default);
 
         /// <summary>
         /// Get dust assets which can be converted
@@ -226,7 +226,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcEligibleDust[]>> GetAssetsForDustTransferAsync(CancellationToken ct = default);
+        Task<HttpResult<MexcEligibleDust[]>> GetAssetsForDustTransferAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Convert small amount (dust) of certain assets to equal value Mx
@@ -240,7 +240,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="assets">["<c>asset</c>"] Assets to convert, for example `BTC`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcDustResult>> DustTransferAsync(IEnumerable<string> assets, CancellationToken ct = default);
+        Task<HttpResult<MexcDustResult>> DustTransferAsync(IEnumerable<string> assets, CancellationToken ct = default);
 
         /// <summary>
         /// Get dust transfer log
@@ -257,7 +257,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="pageSize">["<c>limit</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcPaginated<MexcDustLog[]>>> GetDustLogAsync(DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<HttpResult<MexcPaginated<MexcDustLog[]>>> GetDustLogAsync(DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Transfer an asset to another user on MEXC
@@ -275,7 +275,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="areaCode">["<c>areaCode</c>"] Area code</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcTransferId>> TransferInternalAsync(
+        Task<HttpResult<MexcTransferId>> TransferInternalAsync(
             string asset,
             decimal quantity,
             TransferAccountType toAccountType,
@@ -299,7 +299,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="pageSize">["<c>limit</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcPaginated<MexcInternalTransfer[]>>> GetInternalTransferHistoryAsync(string? transferId = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<HttpResult<MexcPaginated<MexcInternalTransfer[]>>> GetInternalTransferHistoryAsync(string? transferId = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Set MX deduction status
@@ -313,7 +313,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="enabled">["<c>mxDeductEnable</c>"] Enabled</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcDeductStatus>> SetMxDeductionAsync(bool enabled, CancellationToken ct = default);
+        Task<HttpResult<MexcDeductStatus>> SetMxDeductionAsync(bool enabled, CancellationToken ct = default);
 
         /// <summary>
         /// Get MX deduction status
@@ -326,7 +326,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcDeductStatus>> GetMxDeductionStatusAsync(CancellationToken ct = default);
+        Task<HttpResult<MexcDeductStatus>> GetMxDeductionStatusAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get trade fee for a symbol
@@ -340,7 +340,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">["<c>symbol</c>"] Symbol, for example `BTCUSDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcTradeFee>> GetTradeFeeAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<MexcTradeFee>> GetTradeFeeAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Starts a user stream by requesting a listen key. This listen key can be used in a subsequent request to user subscribe methods in the socket client. The stream will close after 60 minutes unless <see cref="KeepAliveUserStreamAsync">KeepAliveUserStreamAsync</see> is called.
@@ -353,7 +353,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<string>> StartUserStreamAsync(CancellationToken ct = default);
+        Task<HttpResult<string>> StartUserStreamAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Sends a keep alive for the current user stream listen key to keep the stream from closing. Stream auto closes after 60 minutes if no keep alive is send. 30 minute interval for keep alive is recommended.
@@ -367,7 +367,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="listenKey">["<c>listenKey</c>"] Listen key</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult> KeepAliveUserStreamAsync(string listenKey, CancellationToken ct = default);
+        Task<HttpResult> KeepAliveUserStreamAsync(string listenKey, CancellationToken ct = default);
 
         /// <summary>
         /// Stops the current user stream
@@ -381,7 +381,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="listenKey">["<c>listenKey</c>"] Listen key</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult> StopUserStreamAsync(string listenKey, CancellationToken ct = default);
+        Task<HttpResult> StopUserStreamAsync(string listenKey, CancellationToken ct = default);
 
         /// <summary>
         /// Get rebate history
@@ -397,7 +397,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="page">["<c>page</c>"] Page number</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcPaginated<MexcRebate[]>>> GetRebateHistoryAsync(DateTime? startTime = null, DateTime? endTime = null, int? page = null, CancellationToken ct = default);
+        Task<HttpResult<MexcPaginated<MexcRebate[]>>> GetRebateHistoryAsync(DateTime? startTime = null, DateTime? endTime = null, int? page = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get rebate details
@@ -413,7 +413,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="page">["<c>page</c>"] Page number</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcPaginated<MexcRebateDetails[]>>> GetRebateDetailsAsync(DateTime? startTime = null, DateTime? endTime = null, int? page = null, CancellationToken ct = default);
+        Task<HttpResult<MexcPaginated<MexcRebateDetails[]>>> GetRebateDetailsAsync(DateTime? startTime = null, DateTime? endTime = null, int? page = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get rebate kickback info
@@ -429,7 +429,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="page">["<c>page</c>"] Page number</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcPaginated<MexcRebateDetails[]>>> GetRebateKickbackAsync(DateTime? startTime = null, DateTime? endTime = null, int? page = null, CancellationToken ct = default);
+        Task<HttpResult<MexcPaginated<MexcRebateDetails[]>>> GetRebateKickbackAsync(DateTime? startTime = null, DateTime? endTime = null, int? page = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get affiliate commission records
@@ -448,6 +448,6 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="pageSize">["<c>pageSize</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcAffiliateCommissions>> GetAffiliateCommissionAsync(string? uid = null, string? inviteCode = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<HttpResult<MexcAffiliateCommissions>> GetAffiliateCommissionAsync(string? uid = null, string? inviteCode = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
     }
 }

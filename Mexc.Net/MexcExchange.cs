@@ -58,8 +58,21 @@ namespace Mexc.Net
         /// </summary>
         public static ExchangeType Type { get; } = ExchangeType.CEX;
 
-        internal static JsonSerializerContext SerializerContext = JsonSerializerContextCache.GetOrCreate<MexcSourceGenerationContext>();
-        
+        internal static JsonSerializerContext _serializerContext = JsonSerializerContextCache.GetOrCreate<MexcSourceGenerationContext>();
+        internal static ParameterSerializationSettings _spotParameterSerializationSettings = new ParameterSerializationSettings
+        {
+            Sort = false,
+            Array = ArrayParametersSerialization.MultipleValues,
+            Decimal = DecimalSerialization.String
+        };
+
+        internal static ParameterSerializationSettings _futuresParameterSerializationSettings = new ParameterSerializationSettings
+        {
+            Sort = false,
+            Array = ArrayParametersSerialization.MultipleValues,
+            Decimal = DecimalSerialization.Number,
+        };
+
         /// <summary>
         /// Aliases for Mexc assets
         /// </summary>

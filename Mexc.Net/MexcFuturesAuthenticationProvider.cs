@@ -8,7 +8,7 @@ namespace Mexc.Net
 {
     internal class MexcFuturesAuthenticationProvider : AuthenticationProvider<MexcCredentials>
     {
-        private static readonly IStringMessageSerializer _serializer = new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(MexcExchange.SerializerContext));
+        private static readonly IStringMessageSerializer _serializer = new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(MexcExchange._serializerContext));
         public override string Key => ApiCredentials.Credential.Key;
 
         public MexcFuturesAuthenticationProvider(MexcCredentials credentials) : base(credentials)
@@ -17,12 +17,12 @@ namespace Mexc.Net
 
         public override void ProcessRequest(RestApiClient apiClient, RestRequestConfiguration request)
         {
-            if (!request.Authenticated)
+            if (!request.RequestDefinition.Authenticated)
                 return;
 
             var timestamp = GetMillisecondTimestamp(apiClient);
             var queryString = request.GetQueryString(true);
-            var body = request.ParameterPosition == HttpMethodParameterPosition.InBody ? GetSerializedBody(_serializer, request.BodyParameters ?? new Dictionary<string, object>()) : string.Empty;
+            var body = request.ParameterPosition == HttpMethodParameterPosition.InBody ? GetSerializedBody(_serializer, request.BodyParameters ?? new Parameters(MexcExchange._futuresParameterSerializationSettings)) : string.Empty;
 
             var signStr = $"{ApiCredentials.Credential.Key}{timestamp}{queryString}{body}";
             var signature = SignHMACSHA256(ApiCredentials.HMAC!, signStr);

@@ -20,7 +20,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="asset">["<c>asset</c>"] Asset name</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcFuturesBalance>> GetBalanceAsync(string asset, CancellationToken ct = default);
+        Task<HttpResult<MexcFuturesBalance>> GetBalanceAsync(string asset, CancellationToken ct = default);
 
         /// <summary>
         /// Get balances
@@ -32,7 +32,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcFuturesBalance[]>> GetBalancesAsync(CancellationToken ct = default);
+        Task<HttpResult<MexcFuturesBalance[]>> GetBalancesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get transfer history
@@ -49,7 +49,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="page">["<c>page_num</c>"] Page number</param>
         /// <param name="pageSize">["<c>page_size</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcFuturesTransferPage>> GetTransferHistoryAsync(string? asset = null, TransferStatus? status = null, TransferDirection? direction = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<HttpResult<MexcFuturesTransferPage>> GetTransferHistoryAsync(string? asset = null, TransferStatus? status = null, TransferDirection? direction = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get funding history
@@ -65,7 +65,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="page">["<c>page_num</c>"] Page number</param>
         /// <param name="pageSize">["<c>page_size</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcFundingRecordPage>> GetFundingHistoryAsync(string? symbol = null, long? positionId = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<HttpResult<MexcFundingRecordPage>> GetFundingHistoryAsync(string? symbol = null, long? positionId = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get current trading fees
@@ -78,7 +78,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcFuturesFee>> GetTradingFeesAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<MexcFuturesFee>> GetTradingFeesAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Change margin
@@ -93,7 +93,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="quantity">["<c>amount</c>"] Quantity to change</param>
         /// <param name="changeType">["<c>type</c>"] Change type</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> ChangeMarginAsync(long positionId, decimal quantity, ChangeType changeType, CancellationToken ct = default);
+        Task<HttpResult> ChangeMarginAsync(long positionId, decimal quantity, ChangeType changeType, CancellationToken ct = default);
 
         /// <summary>
         /// Get the current leverage
@@ -106,7 +106,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcLeverage[]>> GetLeverageAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<MexcLeverage[]>> GetLeverageAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Set leverage
@@ -123,7 +123,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH_USDT`, required when there is no open position</param>
         /// <param name="positionSide">["<c>positionType</c>"] Position side, required when there is no open position</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> SetLeverageAsync(int leverage, long? positionId = null, MarginType? marginType = null, string? symbol = null, PositionSide? positionSide = null, CancellationToken ct = default);
+        Task<HttpResult> SetLeverageAsync(int leverage, long? positionId = null, MarginType? marginType = null, string? symbol = null, PositionSide? positionSide = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get the current position mode
@@ -135,7 +135,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<PositionMode>> GetPositionModeAsync(CancellationToken ct = default);
+        Task<HttpResult<PositionMode>> GetPositionModeAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Set position mode
@@ -148,7 +148,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="positionMode">["<c>positionMode</c>"] Position mode</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> SetPositionModeAsync(PositionMode positionMode, CancellationToken ct = default);
+        Task<HttpResult> SetPositionModeAsync(PositionMode positionMode, CancellationToken ct = default);
 
         /// <summary>
         /// Get profit rate
@@ -161,7 +161,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="period">["<c>type</c>"] Profit period</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcProfitRate>> GetProfitRateAsync(ProfitPeriod period, CancellationToken ct = default);
+        Task<HttpResult<MexcProfitRate>> GetProfitRateAsync(ProfitPeriod period, CancellationToken ct = default);
 
         /// <summary>
         /// Get deduction configuration
@@ -173,7 +173,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcDeductionConfig[]>> GetDeductionConfigAsync(CancellationToken ct = default);
+        Task<HttpResult<MexcDeductionConfig[]>> GetDeductionConfigAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get discount type config
@@ -185,7 +185,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcDiscountTypes>> GetDiscountTypesAsync(CancellationToken ct = default);
+        Task<HttpResult<MexcDiscountTypes>> GetDiscountTypesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get zero fee trading pairs
@@ -198,7 +198,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] Filter by symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcZeroFeeSymbols>> GetZeroFeeSymbolsAsync(string? symbol = null, CancellationToken ct = default);
+        Task<HttpResult<MexcZeroFeeSymbols>> GetZeroFeeSymbolsAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Toggle auto-add margin for a position
@@ -212,7 +212,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="positionId">["<c>positionId</c>"] Position id</param>
         /// <param name="isEnabled">["<c>isEnabled</c>"] Whether auto-add margin is enabled</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> ToggleAutoAddMarginAsync(long positionId,
+        Task<HttpResult> ToggleAutoAddMarginAsync(long positionId,
             bool isEnabled,
             CancellationToken ct = default);
 

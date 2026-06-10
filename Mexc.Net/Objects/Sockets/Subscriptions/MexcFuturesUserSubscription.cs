@@ -73,23 +73,23 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
             _liquidationUpdate = liquidationUpdate;
 
             MessageRouter = MessageRouter.Create([
-                MessageRoute<MexcFuturesUpdate<MexcFuturesOrder>>.CreateWithoutTopicFilter("push.personal.order", DoHandleMessage),
-                MessageRoute<MexcFuturesUpdate<MexcFuturesBalanceUpdate>>.CreateWithoutTopicFilter("push.personal.asset", DoHandleMessage),
-                MessageRoute<MexcFuturesUpdate<MexcPosition>>.CreateWithoutTopicFilter("push.personal.position", DoHandleMessage),
-                MessageRoute<MexcFuturesUpdate<MexcRiskLimit>>.CreateWithoutTopicFilter("push.personal.risk.limit", DoHandleMessage),
-                MessageRoute<MexcFuturesUpdate<MexcAdlUpdate>>.CreateWithoutTopicFilter("push.personal.adl.level", DoHandleMessage),
-                MessageRoute<MexcFuturesUpdate<MexcPositionModeUpdate>>.CreateWithoutTopicFilter("push.personal.position.mode", DoHandleMessage),
-                MessageRoute<MexcFuturesUpdate<MexcStopOrder>>.CreateWithoutTopicFilter("push.personal.plan.order", DoHandleMessage),
-                MessageRoute<MexcFuturesUpdate<MexcTpSlOrder>>.CreateWithoutTopicFilter("push.personal.stop.planorder", DoHandleMessage),
-                MessageRoute<MexcFuturesUpdate<MexcTrailingOrder>>.CreateWithoutTopicFilter("push.personal.track.order", DoHandleMessage),
-                MessageRoute<MexcFuturesUpdate<MexcTpSlPriceUpdate>>.CreateWithoutTopicFilter("push.personal.stop.order", DoHandleMessage),
-                MessageRoute<MexcFuturesUpdate<MexcFuturesUserTradeUpdate>>.CreateWithoutTopicFilter("push.personal.order.deal", DoHandleMessage),
-                MessageRoute<MexcFuturesUpdate<MexcChaseOrderFailure>>.CreateWithoutTopicFilter("push.personal.order.chase", DoHandleMessage),
-                MessageRoute<MexcFuturesUpdate<MexcLiquidationRiskUpdate>>.CreateWithoutTopicFilter("push.personal.liquidate.risk", DoHandleMessage),
-                MessageRoute<MexcFuturesUpdate<MexcLeverageModeUpdate>>.CreateWithoutTopicFilter("push.personal.leverage.mode", DoHandleMessage),
-                MessageRoute<MexcFuturesUpdate<MexcReversePositionUpdate>>.CreateWithoutTopicFilter("push.personal.reverse.position", DoHandleMessage),
-                MessageRoute<MexcFuturesUpdate<object>>.CreateWithoutTopicFilter("push.personal.position.closeall.fail", DoHandleMessage),
-                MessageRoute<MexcFuturesUpdate<MexcLiquidationUpdate>>.CreateWithoutTopicFilter("push.personal.generic.notify", DoHandleMessage),
+                MessageRoute.CreateForEvent<MexcFuturesUpdate<MexcFuturesOrder>>("push.personal.order", DoHandleMessage),
+                MessageRoute.CreateForEvent<MexcFuturesUpdate<MexcFuturesBalanceUpdate>>("push.personal.asset", DoHandleMessage),
+                MessageRoute.CreateForEvent<MexcFuturesUpdate<MexcPosition>>("push.personal.position", DoHandleMessage),
+                MessageRoute.CreateForEvent<MexcFuturesUpdate<MexcRiskLimit>>("push.personal.risk.limit", DoHandleMessage),
+                MessageRoute.CreateForEvent<MexcFuturesUpdate<MexcAdlUpdate>>("push.personal.adl.level", DoHandleMessage),
+                MessageRoute.CreateForEvent<MexcFuturesUpdate<MexcPositionModeUpdate>>("push.personal.position.mode", DoHandleMessage),
+                MessageRoute.CreateForEvent<MexcFuturesUpdate<MexcStopOrder>>("push.personal.plan.order", DoHandleMessage),
+                MessageRoute.CreateForEvent<MexcFuturesUpdate<MexcTpSlOrder>>("push.personal.stop.planorder", DoHandleMessage),
+                MessageRoute.CreateForEvent<MexcFuturesUpdate<MexcTrailingOrder>>("push.personal.track.order", DoHandleMessage),
+                MessageRoute.CreateForEvent<MexcFuturesUpdate<MexcTpSlPriceUpdate>>("push.personal.stop.order", DoHandleMessage),
+                MessageRoute.CreateForEvent<MexcFuturesUpdate<MexcFuturesUserTradeUpdate>>("push.personal.order.deal", DoHandleMessage),
+                MessageRoute.CreateForEvent<MexcFuturesUpdate<MexcChaseOrderFailure>>("push.personal.order.chase", DoHandleMessage),
+                MessageRoute.CreateForEvent<MexcFuturesUpdate<MexcLiquidationRiskUpdate>>("push.personal.liquidate.risk", DoHandleMessage),
+                MessageRoute.CreateForEvent<MexcFuturesUpdate<MexcLeverageModeUpdate>>("push.personal.leverage.mode", DoHandleMessage),
+                MessageRoute.CreateForEvent<MexcFuturesUpdate<MexcReversePositionUpdate>>("push.personal.reverse.position", DoHandleMessage),
+                MessageRoute.CreateForEvent<MexcFuturesUpdate<object>>("push.personal.position.closeall.fail", DoHandleMessage),
+                MessageRoute.CreateForEvent<MexcFuturesUpdate<MexcLiquidationUpdate>>("push.personal.generic.notify", DoHandleMessage),
                 ]);
         }
 
@@ -103,7 +103,7 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
                     .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcFuturesOrder> message)
@@ -116,7 +116,7 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
                     .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcPosition> message)
@@ -129,7 +129,7 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
                     .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcRiskLimit> message)
@@ -142,7 +142,7 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
                     .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcPositionModeUpdate> message)
@@ -155,7 +155,7 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
                     .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcAdlUpdate> message)
@@ -168,7 +168,7 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
                     .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcStopOrder> message)
@@ -181,7 +181,7 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
                     .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcTpSlOrder> message)
@@ -194,7 +194,7 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
                     .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcTrailingOrder> message)
@@ -207,7 +207,7 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
                     .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcTpSlPriceUpdate> message)
@@ -220,7 +220,7 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
                     .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcFuturesUserTradeUpdate> message)
@@ -233,7 +233,7 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
                     .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcChaseOrderFailure> message)
@@ -246,7 +246,7 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
                     .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcLiquidationRiskUpdate> message)
@@ -259,7 +259,7 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
                     .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcLeverageModeUpdate> message)
@@ -272,7 +272,7 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
                     .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate message)
@@ -285,7 +285,7 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
                     .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcReversePositionUpdate> message)
@@ -298,7 +298,7 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
                     .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcLiquidationUpdate> message)
@@ -311,7 +311,7 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
                     .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
 
 
