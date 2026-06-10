@@ -130,9 +130,9 @@ namespace Mexc.Net.Clients.FuturesApi
             var parameters = new Parameters(MexcExchange._futuresParameterSerializationSettings);
             parameters.Add("leverage", leverage);
             parameters.Add("positionId", positionId);
-            parameters.AddAsInt("openType", marginType);
+            parameters.Add("openType", marginType, EnumSerialization.Number);
             parameters.Add("symbol", symbol);
-            parameters.AddAsInt("positionType", positionSide);
+            parameters.Add("positionType", positionSide, EnumSerialization.Number);
             var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "api/v1/private/position/change_leverage", MexcExchange.RateLimiter.FuturesRest, 1, true, limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
             return result;
@@ -159,7 +159,7 @@ namespace Mexc.Net.Clients.FuturesApi
         public async Task<HttpResult> SetPositionModeAsync(PositionMode positionMode, CancellationToken ct = default)
         {
             var parameters = new Parameters(MexcExchange._futuresParameterSerializationSettings);
-            parameters.AddAsInt("positionMode", positionMode);
+            parameters.Add("positionMode", positionMode, EnumSerialization.Number);
             var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "api/v1/private/position/change_position_mode", MexcExchange.RateLimiter.FuturesRest, 1, true, limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
             return result;
