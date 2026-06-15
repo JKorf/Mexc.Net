@@ -24,8 +24,8 @@ namespace Mexc.Net.Clients.FuturesApi
     {
         #region constructor/destructor
 
-        internal MexcSocketClientFuturesApi(ILogger logger, MexcSocketOptions options) :
-            base(logger, MexcExchange.Metadata.Id, options.Environment.FuturesSocketAddress, options, options.FuturesOptions)
+        internal MexcSocketClientFuturesApi(ILoggerFactory? loggerFactory, MexcSocketOptions options) :
+            base(loggerFactory, MexcExchange.Metadata.Id, options.Environment.FuturesSocketAddress, options, options.FuturesOptions)
         {
             AddSystemSubscription(new MexcErrorSubscription(_logger));
             AddSystemSubscription(new MexcPongSubscription(_logger)); // Mexc reacts with 2 pongs on a ping, handler for the second message

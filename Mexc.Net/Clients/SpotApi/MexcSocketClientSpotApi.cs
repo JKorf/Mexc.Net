@@ -31,13 +31,13 @@ namespace Mexc.Net.Clients.SpotApi
 
         #region constructor/destructor
 
-        // Note, this client doens't have HighPerf variant subscriptions for 2 reasons:
+        // Note, this client doesn't have HighPerf variant subscriptions for 2 reasons:
         // 1. The socket sends mixed Text and Binary message
         // 2. The protobuf messages send in Binary format are not (length) delimited, making it impossible to continuously deserialize as is.
         // Implementing a work around for this would not be as performant and defeats the idea of the HighPerf subscription
 
-        internal MexcSocketClientSpotApi(ILogger logger, MexcSocketOptions options) :
-            base(logger, MexcExchange.Metadata.Id, options.Environment.SpotSocketAddress, options, options.SpotOptions)
+        internal MexcSocketClientSpotApi(ILoggerFactory? loggerFactory, MexcSocketOptions options) :
+            base(loggerFactory, MexcExchange.Metadata.Id, options.Environment.SpotSocketAddress, options, options.SpotOptions)
         {
             AddSystemSubscription(new MexcErrorSubscription(_logger));
             RateLimiter = MexcExchange.RateLimiter.SpotSocket;

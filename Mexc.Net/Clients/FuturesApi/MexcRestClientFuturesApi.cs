@@ -31,8 +31,8 @@ namespace Mexc.Net.Clients.FuturesApi
         protected override IRestMessageHandler MessageHandler { get; } = new MexcRestMessageHandler(MexcErrors.FuturesErrors);
 
         #region constructor/destructor
-        internal MexcRestClientFuturesApi(ILogger logger, HttpClient? httpClient, MexcRestOptions options)
-            : base(logger, MexcExchange.Metadata.Id, httpClient, options.Environment.FuturesRestAddress, options, options.FuturesOptions)
+        internal MexcRestClientFuturesApi(ILoggerFactory? loggerFactory, HttpClient? httpClient, MexcRestOptions options)
+            : base(loggerFactory, MexcExchange.Metadata.Id, httpClient, options.Environment.FuturesRestAddress, options, options.FuturesOptions)
         {
             Account = new MexcRestClientFuturesApiAccount(this);
             ExchangeData = new MexcRestClientFuturesApiExchangeData(this);

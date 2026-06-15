@@ -37,8 +37,8 @@ namespace Mexc.Net.Clients
         {
             Initialize(options.Value);
 
-            SpotApi = AddApiClient(new MexcSocketClientSpotApi(_logger, options.Value));
-            FuturesApi = AddApiClient(new MexcSocketClientFuturesApi(_logger, options.Value));
+            SpotApi = AddApiClient(new MexcSocketClientSpotApi(loggerFactory, options.Value));
+            FuturesApi = AddApiClient(new MexcSocketClientFuturesApi(loggerFactory, options.Value));
         }
         #endregion
 

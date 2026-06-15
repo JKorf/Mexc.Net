@@ -35,8 +35,8 @@ namespace Mexc.Net.Clients.SpotApi
         public new MexcRestOptions ClientOptions => (MexcRestOptions)base.ClientOptions;
 
         #region constructor/destructor
-        internal MexcRestClientSpotApi(ILogger logger, HttpClient? httpClient, MexcRestOptions options)
-            : base(logger, MexcExchange.Metadata.Id, httpClient, options.Environment.SpotRestAddress, options, options.SpotOptions)
+        internal MexcRestClientSpotApi(ILoggerFactory? loggerFactory, HttpClient? httpClient, MexcRestOptions options)
+            : base(loggerFactory, MexcExchange.Metadata.Id, httpClient, options.Environment.SpotRestAddress, options, options.SpotOptions)
         {
             Account = new MexcRestClientSpotApiAccount(this);
             ExchangeData = new MexcRestClientSpotApiExchangeData(this);
