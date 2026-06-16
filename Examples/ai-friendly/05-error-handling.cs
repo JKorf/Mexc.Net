@@ -1,6 +1,7 @@
 // 05-error-handling.cs
 //
-// Demonstrates: HttpResult patterns, retry logic, common error scenarios.
+// Demonstrates: HttpResult, WebSocketResult and ExchangeCallResult patterns,
+// retry logic, common error scenarios.
 //
 // Setup: dotnet add package JK.Mexc.Net
 
@@ -16,6 +17,8 @@ var client = new MexcRestClient(options =>
 
 // ---- 1. THE BASIC PATTERN ----
 // Every REST method returns HttpResult<T> or HttpResult.
+// Every socket subscription returns WebSocketResult<UpdateSubscription>.
+// Shared symbol/cache helpers can return ExchangeCallResult<T>.
 // .Success is true/false. .Data is valid only when .Success.
 // .Error contains structured error info when .Success is false.
 // .Error.IsTransient hints whether a retry might succeed.
