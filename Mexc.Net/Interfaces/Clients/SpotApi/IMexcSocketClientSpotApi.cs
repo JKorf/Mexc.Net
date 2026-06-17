@@ -17,7 +17,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         IMexcSocketClientSpotApiShared SharedClient { get; }
 
         /// <summary>
-        /// During reconnection the listenkey which was provided can be renewed by the client. This means the keep-alive mechanism should use this new listen key.
+        /// During reconnection the listenkey which was provided can be renewed by the client. This means the keep-alive mechanism should use this new listen key. Only called when manually providing the listen key
         /// </summary>
         public event Action<ListenKeyRenewedEvent>? ListenkeyRenewed;
 
@@ -250,6 +250,20 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         Task<WebSocketResult<UpdateSubscription>> SubscribeToAllMiniTickerUpdatesAsync(string? timeZone, Action<DataEvent<MexcMiniTickUpdate[]>> handler, CancellationToken ct = default);
 
         /// <summary>
+        /// Subscribe to account balance updates. Listen key is automatically obtained by the client and will be renewed as needed
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#spot-account-update" /><br />
+        /// Endpoint:<br />
+        /// spot@private.account.v3.api.pb
+        /// </para>
+        /// </summary>
+        /// <param name="handler">Data handler</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToAccountUpdatesAsync(Action<DataEvent<MexcAccountUpdate>> handler, CancellationToken ct = default);
+        
+        /// <summary>
         /// Subscribe to account balance updates. Prior to using this, the <see cref="IMexcRestClientSpotApiAccount.StartUserStreamAsync(CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method should be called to start the stream and obtaining a listen key.
         /// <para>
         /// Docs:<br />
@@ -263,6 +277,20 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebSocketResult<UpdateSubscription>> SubscribeToAccountUpdatesAsync(string listenKey, Action<DataEvent<MexcAccountUpdate>> handler, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to account order updates. Listen key is automatically obtained by the client and will be renewed as needed
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#spot-account-orders" /><br />
+        /// Endpoint:<br />
+        /// spot@private.orders.v3.api.pb
+        /// </para>
+        /// </summary>
+        /// <param name="handler">Data handler</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<MexcUserOrderUpdate>> handler, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to account order updates. Prior to using this, the <see cref="IMexcRestClientSpotApiAccount.StartUserStreamAsync(CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method should be called to start the stream and obtaining a listen key.
@@ -280,6 +308,20 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(string listenKey, Action<DataEvent<MexcUserOrderUpdate>> handler, CancellationToken ct = default);
 
         /// <summary>
+        /// Subscribe to account trade updates. Listen key is automatically obtained by the client and will be renewed as needed
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#spot-account-deals" /><br />
+        /// Endpoint:<br />
+        /// spot@private.deals.v3.api.pb
+        /// </para>
+        /// </summary>
+        /// <param name="handler">Data handler</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToUserTradeUpdatesAsync(Action<DataEvent<MexcUserTradeUpdate>> handler, CancellationToken ct = default);
+        
+        /// <summary>
         /// Subscribe to account trade updates. Prior to using this, the <see cref="IMexcRestClientSpotApiAccount.StartUserStreamAsync(CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method should be called to start the stream and obtaining a listen key.
         /// <para>
         /// Docs:<br />
@@ -291,7 +333,6 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="listenKey">Listen key retrieved by the <see cref="IMexcRestClientSpotApiAccount.StartUserStreamAsync(CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method</param>
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
-        /// <returns></returns>
         Task<WebSocketResult<UpdateSubscription>> SubscribeToUserTradeUpdatesAsync(string listenKey, Action<DataEvent<MexcUserTradeUpdate>> handler, CancellationToken ct = default);
     }
 }

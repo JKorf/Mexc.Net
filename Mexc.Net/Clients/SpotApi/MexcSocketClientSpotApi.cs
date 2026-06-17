@@ -8,6 +8,7 @@ using CryptoExchange.Net.Sockets;
 using CryptoExchange.Net.Sockets.Default;
 using CryptoExchange.Net.Sockets.HighPerf.Interfaces;
 using CryptoExchange.Net.Sockets.Interfaces;
+using CryptoExchange.Net.TokenManagement;
 using Mexc.Net.Clients.MessageHandlers;
 using Mexc.Net.Converters;
 using Mexc.Net.Enums;
@@ -18,6 +19,7 @@ using Mexc.Net.Objects.Models.Spot;
 using Mexc.Net.Objects.Options;
 using Mexc.Net.Objects.Sockets.Queries;
 using Mexc.Net.Objects.Sockets.Subscriptions;
+using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Net.WebSockets;
 using System.Reflection;
@@ -27,6 +29,28 @@ namespace Mexc.Net.Clients.SpotApi
     /// <inheritdoc />
     internal partial class MexcSocketClientSpotApi : SocketApiClient<MexcEnvironment, MexcAuthenticationProvider, MexcCredentials>, IMexcSocketClientSpotApi
     {
+        private readonly ILoggerFactory? _loggerFactory;
+        private MexcRestClient? _tokenClient;
+        internal TokenManager TokenManager { get; }
+        private MexcRestClient TokenClient
+        {
+            get
+            {
+                if (_tokenClient == null)
+                {
+                    _tokenClient = new MexcRestClient(null, _loggerFactory, Options.Create(new MexcRestOptions
+                    {
+                        ApiCredentials = ApiCredentials,
+                        Environment = ClientOptions.Environment,
+                        Proxy = ClientOptions.Proxy,
+                        OutputOriginalData = ClientOptions.OutputOriginalData
+                    }));
+                }
+
+                return _tokenClient;
+            }
+        }
+
         public event Action<ListenKeyRenewedEvent>? ListenkeyRenewed;
 
         #region constructor/destructor
@@ -39,6 +63,8 @@ namespace Mexc.Net.Clients.SpotApi
         internal MexcSocketClientSpotApi(ILoggerFactory? loggerFactory, MexcSocketOptions options) :
             base(loggerFactory, MexcExchange.Metadata.Id, options.Environment.SpotSocketAddress, options, options.SpotOptions)
         {
+            _loggerFactory = loggerFactory;
+
             AddSystemSubscription(new MexcErrorSubscription(_logger));
             RateLimiter = MexcExchange.RateLimiter.SpotSocket;
 
@@ -58,6 +84,15 @@ namespace Mexc.Net.Clients.SpotApi
                         _ = connection.TriggerReconnectAsync();
                     }
                 });
+
+            TokenManager = new TokenManager(
+                MexcExchange.Metadata.Id,
+                loggerFactory,
+                TimeSpan.FromMinutes(30),
+                TimeSpan.FromMinutes(60),
+                startToken: StartListenKeyAsync,
+                keepAliveToken: KeepAliveListenKeyAsync,
+                stopToken: StopListenKeyAsync);
         }
 
         #endregion
@@ -279,10 +314,30 @@ namespace Mexc.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToAccountUpdatesAsync(string listenKey, Action<DataEvent<MexcAccountUpdate>> handler, CancellationToken ct = default)
-        {
-            listenKey.ValidateNotNull(nameof(listenKey));
+        public Task<WebSocketResult<UpdateSubscription>> SubscribeToAccountUpdatesAsync(Action<DataEvent<MexcAccountUpdate>> handler, CancellationToken ct = default)
+            => SubscribeToAccountUpdatesAsync(null, handler, ct);
 
+        /// <inheritdoc />
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToAccountUpdatesAsync(string? listenKey, Action<DataEvent<MexcAccountUpdate>> handler, CancellationToken ct = default)
+        {
+            if (listenKey == null && !Authenticated)
+                return WebSocketResult.Fail<UpdateSubscription>(Exchange, new NoApiCredentialsError());
+
+            TokenLease? lease = null;
+            if (listenKey == null)
+            {
+                var leaseResult = await TokenManager.AcquireAsync(new TokenScope(
+                    MexcExchange.Metadata.Id,
+                    EnvironmentName,
+                    "Spot",
+                    ApiCredentials!.Credential!.Key), ct).ConfigureAwait(false);
+                if (!leaseResult.Success)
+                    return WebSocketResult.Fail<UpdateSubscription>(Exchange, leaseResult.Error);
+
+                lease = leaseResult.Data;
+            }
+
+            var lk = listenKey ?? lease!.Token.Token;
             var internalHandler = new Action<DateTime, string?, MexcUpdateAccount>((receiveTime, originalData, data) =>
             {
                 UpdateTimeOffset(DateTimeConverter.ConvertFromMilliseconds(data.SendTime));
@@ -296,15 +351,42 @@ namespace Mexc.Net.Clients.SpotApi
                     );
             });
 
-            var subscription = new MexcSubscription<MexcUpdateAccount>(_logger, new[] { "spot@private.account.v3.api.pb" }, internalHandler, true);
-            return await SubscribeAsync(BaseAddress + "?listenKey=" + listenKey, subscription, ct).ConfigureAwait(false);
+            var subscription = new MexcSubscription<MexcUpdateAccount>(_logger, new[] { "spot@private.account.v3.api.pb" }, internalHandler, true)
+            {
+                TokenLease = lease
+            };
+            var result = await SubscribeAsync(BaseAddress + "?listenKey=" + lk, subscription, ct).ConfigureAwait(false);
+            if (!result.Success && lease != null)
+                await lease.ReleaseAsync().ConfigureAwait(false);
+
+            return result;
         }
 
         /// <inheritdoc />
-        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(string listenKey, Action<DataEvent<MexcUserOrderUpdate>> handler, CancellationToken ct = default)
-        {
-            listenKey.ValidateNotNull(nameof(listenKey));
+        public Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<MexcUserOrderUpdate>> handler, CancellationToken ct = default)
+            => SubscribeToOrderUpdatesAsync(null, handler, ct);
 
+        /// <inheritdoc />
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(string? listenKey, Action<DataEvent<MexcUserOrderUpdate>> handler, CancellationToken ct = default)
+        {
+            if (listenKey == null && !Authenticated)
+                return WebSocketResult.Fail<UpdateSubscription>(Exchange, new NoApiCredentialsError());
+
+            TokenLease? lease = null;
+            if (listenKey == null)
+            {
+                var leaseResult = await TokenManager.AcquireAsync(new TokenScope(
+                    MexcExchange.Metadata.Id,
+                    EnvironmentName,
+                    "Spot",
+                    ApiCredentials!.Credential!.Key), ct).ConfigureAwait(false);
+                if (!leaseResult.Success)
+                    return WebSocketResult.Fail<UpdateSubscription>(Exchange, leaseResult.Error);
+
+                lease = leaseResult.Data;
+            }
+
+            var lk = listenKey ?? lease!.Token.Token;
             var internalHandler = new Action<DateTime, string?, MexcUpdateOrder>((receiveTime, originalData, data) =>
             {
                 UpdateTimeOffset(DateTimeConverter.ConvertFromMilliseconds(data.SendTime));
@@ -318,15 +400,42 @@ namespace Mexc.Net.Clients.SpotApi
                     );
             });
 
-            var subscription = new MexcSubscription<MexcUpdateOrder>(_logger, new[] { "spot@private.orders.v3.api.pb" }, internalHandler, true);
-            return await SubscribeAsync(BaseAddress + "?listenKey=" + listenKey, subscription, ct).ConfigureAwait(false);
+            var subscription = new MexcSubscription<MexcUpdateOrder>(_logger, new[] { "spot@private.orders.v3.api.pb" }, internalHandler, true)
+            {
+                TokenLease = lease
+            };
+            var result = await SubscribeAsync(BaseAddress + "?listenKey=" + lk, subscription, ct).ConfigureAwait(false);
+            if (!result.Success && lease != null)
+                await lease.ReleaseAsync().ConfigureAwait(false);
+
+            return result;
         }
 
         /// <inheritdoc />
-        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToUserTradeUpdatesAsync(string listenKey, Action<DataEvent<MexcUserTradeUpdate>> handler, CancellationToken ct = default)
-        {
-            listenKey.ValidateNotNull(nameof(listenKey));
+        public Task<WebSocketResult<UpdateSubscription>> SubscribeToUserTradeUpdatesAsync(Action<DataEvent<MexcUserTradeUpdate>> handler, CancellationToken ct = default)
+            => SubscribeToUserTradeUpdatesAsync(null, handler, ct);
 
+        /// <inheritdoc />
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToUserTradeUpdatesAsync(string? listenKey, Action<DataEvent<MexcUserTradeUpdate>> handler, CancellationToken ct = default)
+        {
+            if (listenKey == null && !Authenticated)
+                return WebSocketResult.Fail<UpdateSubscription>(Exchange, new NoApiCredentialsError());
+
+            TokenLease? lease = null;
+            if (listenKey == null)
+            {
+                var leaseResult = await TokenManager.AcquireAsync(new TokenScope(
+                    MexcExchange.Metadata.Id,
+                    EnvironmentName,
+                    "Spot",
+                    ApiCredentials!.Credential!.Key), ct).ConfigureAwait(false);
+                if (!leaseResult.Success)
+                    return WebSocketResult.Fail<UpdateSubscription>(Exchange, leaseResult.Error);
+
+                lease = leaseResult.Data;
+            }
+
+            var lk = listenKey ?? lease!.Token.Token;
             var internalHandler = new Action<DateTime, string?, MexcUpdateUserTrade>((receiveTime, originalData, data) =>
             {
                 UpdateTimeOffset(DateTimeConverter.ConvertFromMilliseconds(data.SendTime));
@@ -339,23 +448,27 @@ namespace Mexc.Net.Clients.SpotApi
                         .WithStreamId(data.Channel)
                     );
             });
-            var subscription = new MexcSubscription<MexcUpdateUserTrade>(_logger, new[] { "spot@private.deals.v3.api.pb" }, internalHandler, true);
-            return await SubscribeAsync(BaseAddress + "?listenKey=" + listenKey, subscription, ct).ConfigureAwait(false);
+            var subscription = new MexcSubscription<MexcUpdateUserTrade>(_logger, new[] { "spot@private.deals.v3.api.pb" }, internalHandler, true)
+            {
+                TokenLease = lease
+            };
+            var result = await SubscribeAsync(BaseAddress + "?listenKey=" + lk, subscription, ct).ConfigureAwait(false);
+            if (!result.Success && lease != null)
+                await lease.ReleaseAsync().ConfigureAwait(false);
+
+            return result;
         }
 
-        /// <inheritdoc />
         protected override async Task<Uri?> GetReconnectUriAsync(ISocketConnection connection)
         {
-            if (connection.HasAuthenticatedSubscription)
-            {
-                // If any of the subs on the connection is authenticated we request a new listenkey
-                // to prevent endlessly looping if the listenkey happens to be expired
-                var client = new MexcRestClient(opts =>
-                {
-                    opts.ApiCredentials = ApiCredentials;
-                });
+            if (!connection.HasAuthenticatedSubscription)
+                return await base.GetReconnectUriAsync(connection).ConfigureAwait(false);
 
-                var listenKeyResult = await client.SpotApi.Account.StartUserStreamAsync().ConfigureAwait(false);
+            var subscriptions = ((SocketConnection)connection).Subscriptions.Where(x => x.TokenLease != null).ToList();
+            if (subscriptions.Count == 0)
+            {
+                // We have authenticated subscriptions, but not via the token manager
+                var listenKeyResult = await TokenClient.SpotApi.Account.StartUserStreamAsync().ConfigureAwait(false);
                 if (listenKeyResult.Success)
                 {
                     var oldKey = connection.ConnectionUri.Query.Split('=')[1];
@@ -363,9 +476,49 @@ namespace Mexc.Net.Clients.SpotApi
                         ListenkeyRenewed?.Invoke(new ListenKeyRenewedEvent(oldKey, listenKeyResult.Data));
                     return new Uri(BaseAddress + "?listenKey=" + listenKeyResult.Data);
                 }
+
+                return null;
             }
 
-            return await base.GetReconnectUriAsync(connection).ConfigureAwait(false);
+            // We have authenticated subscription via the token manager
+            var scope = new TokenScope(
+                    MexcExchange.Metadata.Id,
+                    EnvironmentName,
+                    "Spot",
+                    ApiCredentials!.Credential.Key);
+
+            var token = await TokenManager.AcquireAndReplaceAsync(subscriptions[0], scope).ConfigureAwait(false);
+            if (!token.Success)
+                return null;
+
+            return new Uri(BaseAddress + "?listenKey=" + token.Data.Token.Token);
+        }
+
+        private async Task<CallResult<string>> StartListenKeyAsync(TokenScope tokenScope, CancellationToken ct)
+        {
+            var result = await TokenClient.SpotApi.Account.StartUserStreamAsync(ct).ConfigureAwait(false);
+            if (!result.Success)
+                return CallResult.Fail<string>(result.Error);
+
+            return CallResult.Ok(result.Data);
+        }
+
+        private async Task<CallResult> KeepAliveListenKeyAsync(TokenInfo token, CancellationToken ct)
+        {
+            var result = await TokenClient.SpotApi.Account.KeepAliveUserStreamAsync(token.Token, ct).ConfigureAwait(false);
+            if (!result.Success)
+                return CallResult.Fail<string>(result.Error);
+
+            return CallResult.Ok();
+        }
+
+        private async Task<CallResult> StopListenKeyAsync(TokenInfo token, CancellationToken ct)
+        {
+            var result = await TokenClient.SpotApi.Account.StopUserStreamAsync(token.Token, ct).ConfigureAwait(false);
+            if (!result.Success)
+                return CallResult.Fail<string>(result.Error);
+
+            return CallResult.Ok();
         }
 
         private static string GetIntervalString(KlineInterval interval)
