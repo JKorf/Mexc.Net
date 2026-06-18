@@ -1,9 +1,11 @@
-using Mexc.Net.Enums;
 using CryptoExchange.Net;
-using Mexc.Net.Interfaces.Clients.SpotApi;
-using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Errors;
+using CryptoExchange.Net.SharedApis;
+using Mexc.Net.Enums;
+using Mexc.Net.Interfaces.Clients.SpotApi;
+using Mexc.Net.Objects.Models.Spot;
+using System.Linq;
 
 namespace Mexc.Net.Clients.SpotApi
 {
@@ -781,7 +783,13 @@ namespace Mexc.Net.Clients.SpotApi
 
             return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(result.Data, x => x.ApplyTime, request.StartTime, request.EndTime, direction)
                 .Select(x =>
-                    new SharedWithdrawal(x.Asset, x.Address ?? string.Empty, x.Quantity, x.Status == WithdrawStatus.Success, x.ApplyTime)
+                    new SharedWithdrawal(
+                        x.Asset,
+                        x.Address ?? string.Empty,
+                        x.Quantity,
+                        x.Status == WithdrawStatus.Success,
+                        x.ApplyTime,
+                        GetWithdrawalStatus(x))
                     {
                         Id = x.Id,
                         Confirmations = x.Confirmations,
@@ -791,6 +799,31 @@ namespace Mexc.Net.Clients.SpotApi
                         Fee = x.TransactionFee
                     })
                 .ToArray(), nextPageRequest);
+        }
+
+        private SharedTransferStatus GetWithdrawalStatus(MexcWithdrawal x)
+        {
+            if (x.Status == WithdrawStatus.Applied
+                || x.Status == WithdrawStatus.Auditing
+                || x.Status == WithdrawStatus.Manual
+                || x.Status == WithdrawStatus.Processing
+                || x.Status == WithdrawStatus.Waiting
+                || x.Status == WithdrawStatus.WaitConfirmations
+                || x.Status == WithdrawStatus.WaitPackaging)
+            {
+                return SharedTransferStatus.InProgress;
+            }
+
+            if (x.Status == WithdrawStatus.Success)
+                return SharedTransferStatus.Completed;
+
+            if (x.Status == WithdrawStatus.Canceled
+                || x.Status == WithdrawStatus.Failed)
+            {
+                return SharedTransferStatus.Failed;
+            }
+
+            return SharedTransferStatus.Unknown;
         }
 
         #endregion
