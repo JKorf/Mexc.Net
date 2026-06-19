@@ -23,7 +23,8 @@ namespace Mexc.Net
                 "https://www.mexc.com",
                 ["https://mexcdevelop.github.io/apidocs/spot_v3_en/#introduction"],
                 PlatformType.CryptoCurrencyExchange,
-                CentralizationType.Centralized
+                CentralizationType.Centralized,
+                MexcEnvironment.All
                 );
 
         /// <summary>
