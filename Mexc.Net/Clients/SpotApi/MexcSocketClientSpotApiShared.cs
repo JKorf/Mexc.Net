@@ -118,7 +118,12 @@ namespace Mexc.Net.Clients.SpotApi
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
             var result = await SubscribeToAccountUpdatesAsync(
-                update => handler(update.ToType<SharedBalance[]>(new[] { new SharedBalance(update.Data.Asset, update.Data.Free, update.Data.Free + update.Data.Frozen) })),
+                update => handler(update.ToType<SharedBalance[]>(new[] { 
+                    new SharedBalance(
+                        SupportedTradingModes,
+                        update.Data.Asset,
+                        update.Data.Free, 
+                        update.Data.Free + update.Data.Frozen) })),
                 ct: ct).ConfigureAwait(false);
             return result;
         }

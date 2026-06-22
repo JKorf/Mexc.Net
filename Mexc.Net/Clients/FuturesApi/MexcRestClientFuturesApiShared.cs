@@ -307,7 +307,12 @@ namespace Mexc.Net.Clients.FuturesApi
             if (!result.Success)
                 return HttpResult.Fail<SharedBalance[]>(result);
 
-            return HttpResult.Ok(result, result.Data.Select(x => new SharedBalance(x.Asset, x.AvailableBalance, x.AvailableBalance + x.FrozenBalance)).ToArray());
+            return HttpResult.Ok(result, result.Data.Select(x => 
+                new SharedBalance(
+                    SupportedTradingModes, 
+                    x.Asset,
+                    x.AvailableBalance, 
+                    x.AvailableBalance + x.FrozenBalance)).ToArray());
         }
 
         #endregion

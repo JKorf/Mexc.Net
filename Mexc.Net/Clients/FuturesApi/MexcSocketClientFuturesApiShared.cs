@@ -120,7 +120,12 @@ namespace Mexc.Net.Clients.FuturesApi
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
             var result = await SubscribeToUserDataUpdatesAsync(
-                balanceUpdateHandler: update => handler(update.ToType<SharedBalance[]>([new SharedBalance(update.Data.Asset, update.Data.AvailableBalance, update.Data.AvailableBalance + update.Data.FrozenBalance)])),
+                balanceUpdateHandler: update => handler(update.ToType<SharedBalance[]>([
+                    new SharedBalance(
+                        SupportedTradingModes,
+                        update.Data.Asset,
+                        update.Data.AvailableBalance,
+                        update.Data.AvailableBalance + update.Data.FrozenBalance)])),
                 ct: ct).ConfigureAwait(false);
             return result;
         }
