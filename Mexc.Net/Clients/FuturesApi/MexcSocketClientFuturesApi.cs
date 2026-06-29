@@ -24,8 +24,8 @@ namespace Mexc.Net.Clients.FuturesApi
     {
         #region constructor/destructor
 
-        internal MexcSocketClientFuturesApi(ILogger logger, MexcSocketOptions options) :
-            base(logger, options.Environment.FuturesSocketAddress, options, options.FuturesOptions)
+        internal MexcSocketClientFuturesApi(ILoggerFactory? loggerFactory, MexcSocketOptions options) :
+            base(loggerFactory, MexcExchange.Metadata.Id, options.Environment.FuturesSocketAddress, options, options.FuturesOptions)
         {
             AddSystemSubscription(new MexcErrorSubscription(_logger));
             AddSystemSubscription(new MexcPongSubscription(_logger)); // Mexc reacts with 2 pongs on a ping, handler for the second message
@@ -49,7 +49,7 @@ namespace Mexc.Net.Clients.FuturesApi
 
         #endregion
 
-        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(MexcExchange.SerializerContext));
+        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(MexcExchange._serializerContext));
 
         public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new MexcSocketFuturesMessageHandler();
 
@@ -64,7 +64,7 @@ namespace Mexc.Net.Clients.FuturesApi
         public IMexcSocketClientFuturesApiShared SharedClient => this;
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToTickersUpdatesAsync(Action<DataEvent<MexcFuturesTickerUpdate[]>> handler, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTickersUpdatesAsync(Action<DataEvent<MexcFuturesTickerUpdate[]>> handler, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcFuturesTickerUpdate[]>>((receiveTime, originalData, data) =>
             {
@@ -84,7 +84,7 @@ namespace Mexc.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<MexcFuturesTicker>> handler, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<MexcFuturesTicker>> handler, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcFuturesTicker>>((receiveTime, originalData, data) =>
             {
@@ -104,7 +104,7 @@ namespace Mexc.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<MexcFuturesTrade[]>> handler, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<MexcFuturesTrade[]>> handler, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcFuturesTrade[]>>((receiveTime, originalData, data) =>
             {
@@ -124,7 +124,7 @@ namespace Mexc.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, FuturesKlineInterval interval, Action<DataEvent<MexcFuturesStreamKline>> handler, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, FuturesKlineInterval interval, Action<DataEvent<MexcFuturesStreamKline>> handler, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcFuturesStreamKline>>((receiveTime, originalData, data) =>
             {
@@ -144,7 +144,7 @@ namespace Mexc.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, Action<DataEvent<MexcFuturesOrderBook>> handler, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, Action<DataEvent<MexcFuturesOrderBook>> handler, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcFuturesOrderBook>>((receiveTime, originalData, data) =>
             {
@@ -165,7 +165,7 @@ namespace Mexc.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdatesAsync(string symbol, int? limit, Action<DataEvent<MexcFuturesOrderBook>> handler, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdatesAsync(string symbol, int? limit, Action<DataEvent<MexcFuturesOrderBook>> handler, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcFuturesOrderBook>>((receiveTime, originalData, data) =>
             {
@@ -186,7 +186,7 @@ namespace Mexc.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(string symbol, Action<DataEvent<MexcFundingRateUpdate>> handler, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(string symbol, Action<DataEvent<MexcFundingRateUpdate>> handler, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcFundingRateUpdate>>((receiveTime, originalData, data) =>
             {
@@ -206,7 +206,7 @@ namespace Mexc.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToIndexPriceUpdatesAsync(string symbol, Action<DataEvent<MexcPriceUpdate>> handler, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToIndexPriceUpdatesAsync(string symbol, Action<DataEvent<MexcPriceUpdate>> handler, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcPriceUpdate>>((receiveTime, originalData, data) =>
             {
@@ -226,7 +226,7 @@ namespace Mexc.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceUpdatesAsync(string symbol, Action<DataEvent<MexcPriceUpdate>> handler, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToMarkPriceUpdatesAsync(string symbol, Action<DataEvent<MexcPriceUpdate>> handler, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcPriceUpdate>>((receiveTime, originalData, data) =>
             {
@@ -246,7 +246,7 @@ namespace Mexc.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToSymbolUpdatesAsync(Action<DataEvent<MexcContract>> handler, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToSymbolUpdatesAsync(Action<DataEvent<MexcContract>> handler, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcContract>>((receiveTime, originalData, data) =>
             {
@@ -266,7 +266,7 @@ namespace Mexc.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToUserDataUpdatesAsync(
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToUserDataUpdatesAsync(
             Action<DataEvent<MexcFuturesBalanceUpdate>>? balanceUpdateHandler = null,
             Action<DataEvent<MexcFuturesOrder>>? orderUpdateHandler = null,
             Action<DataEvent<MexcPosition>>? positionUpdateHandler = null,

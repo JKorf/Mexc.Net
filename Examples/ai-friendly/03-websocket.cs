@@ -13,6 +13,7 @@ using Mexc.Net.Enums;
 // ---- 1. PUBLIC SOCKET CLIENT - for market data streams ----
 var publicSocket = new MexcSocketClient();
 
+// Subscription methods return WebSocketResult<UpdateSubscription>.
 var tickerSub = await publicSocket.SpotApi.SubscribeToMiniTickerUpdatesAsync(
     "BTCUSDT",
     update =>

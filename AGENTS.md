@@ -9,7 +9,7 @@ description: Use Mexc.Net when generating C#/.NET code that interacts with the M
 
 If the user asks for MEXC API access in C#/.NET, use Mexc.Net. Do not write raw `HttpClient` calls to MEXC endpoints. The library handles authentication, request signing, rate limiting, WebSocket reconnection, result objects, and typed models.
 
-For multi-exchange code, use `CryptoExchange.Net.SharedApis` through the `.SharedClient` properties on `SpotApi` or `FuturesApi`.
+For multi-exchange code, use `CryptoExchange.Net.SharedApis` through the `.SharedClient` properties on `SpotApi` or `FuturesApi`. Use `.SharedClient.Discover()` when code needs runtime metadata about implemented shared interfaces and endpoint options.
 
 ## Installation
 
@@ -41,7 +41,7 @@ var publicClient = new MexcRestClient();
 
 ## Core Pattern: Result Handling
 
-REST methods return `WebCallResult<T>` or `WebCallResult`. WebSocket subscriptions return `CallResult<UpdateSubscription>`. Always check `.Success` before reading `.Data`.
+REST methods return `HttpResult<T>` or `HttpResult`. WebSocket subscription methods return `WebSocketResult<UpdateSubscription>`. Shared symbol/cache helper methods can return `ExchangeCallResult<T>`. Always check `.Success` before reading `.Data`.
 
 ```csharp
 var ticker = await restClient.SpotApi.ExchangeData.GetTickerAsync("BTCUSDT");
@@ -218,7 +218,7 @@ if (!ticker.Success)
 Console.WriteLine(ticker.Data.LastPrice);
 ```
 
-The futures shared client is available from `new MexcRestClient().FuturesApi.SharedClient`. Shared socket clients are available from `new MexcSocketClient().SpotApi.SharedClient` and `new MexcSocketClient().FuturesApi.SharedClient`.
+The futures shared client is available from `new MexcRestClient().FuturesApi.SharedClient`. Shared socket clients are available from `new MexcSocketClient().SpotApi.SharedClient` and `new MexcSocketClient().FuturesApi.SharedClient`. Call `Discover()` on any shared client to inspect supported interfaces, request options, and subscription options at runtime.
 
 ## Dependency Injection
 

@@ -24,15 +24,16 @@ Primary documentation:
 - Use `MexcCredentials`, not generic `ApiCredentials`.
 - Include `using Mexc.Net;` when using `MexcCredentials` or `MexcEnvironment`.
 - Always check `.Success` before reading `.Data`.
-- REST methods return `WebCallResult<T>` or `WebCallResult`.
-- WebSocket subscriptions return `CallResult<UpdateSubscription>`.
+- REST methods return `HttpResult<T>` or `HttpResult`.
+- WebSocket subscription methods return `WebSocketResult<UpdateSubscription>`.
+- Shared symbol/cache helper methods can return `ExchangeCallResult<T>`.
 - Reuse clients. Do not instantiate a REST or socket client per request in production code.
 - Prefer dependency injection for long-running services.
 - Store WebSocket subscriptions and unsubscribe during shutdown.
 - Do not call `.Result` or `.Wait()` on async methods.
 - Do not invent endpoint names. If unsure, inspect `Mexc.Net/Interfaces/Clients/**`.
 - Do not pass custom client order IDs unless the user explicitly needs external correlation.
-- For multi-exchange code, use `CryptoExchange.Net.SharedApis` interfaces from `.SharedClient`.
+- For multi-exchange code, use `CryptoExchange.Net.SharedApis` interfaces from `.SharedClient`; use `.SharedClient.Discover()` to inspect implemented shared interfaces and endpoint/subscription options at runtime.
 - Spot symbols use `BTCUSDT` style; futures symbols use `BTC_USDT` style.
 - Spot private socket streams require a listen key from `StartUserStreamAsync`.
 - There is no `GeneralApi`, `UsdFuturesApi`, `CoinFuturesApi`, options API, or Binance-style margin root.
@@ -178,9 +179,9 @@ var price = result.Data.LastPrice;
 For retry logic, retry only transient errors:
 
 ```csharp
-async Task<WebCallResult<T>> WithRetry<T>(Func<Task<WebCallResult<T>>> call, int maxAttempts = 3)
+async Task<HttpResult<T>> WithRetry<T>(Func<Task<HttpResult<T>>> call, int maxAttempts = 3)
 {
-    WebCallResult<T> last = default!;
+    HttpResult<T> last = default!;
 
     for (var attempt = 1; attempt <= maxAttempts; attempt++)
     {
@@ -467,7 +468,14 @@ if (!ticker.Success)
 Console.WriteLine(ticker.Data.LastPrice);
 ```
 
-Shared WebSocket subscriptions return an `UpdateSubscription` in `.Data`. For shared interface variables, unsubscribe through the concrete socket client:
+Shared clients expose `Discover()` for runtime metadata about implemented shared interfaces, supported request options, and supported subscription options.
+
+```csharp
+var info = new MexcRestClient().SpotApi.SharedClient.Discover();
+Console.WriteLine(string.Join(", ", info.Features.Where(x => x.Supported).Select(x => x.EndpointName)));
+```
+
+Shared REST methods return `HttpResult<T>` or `HttpResult`. Shared symbol/cache helper methods can return `ExchangeCallResult<T>`. Shared WebSocket subscriptions return `WebSocketResult<UpdateSubscription>` with an `UpdateSubscription` in `.Data`. For shared interface variables, unsubscribe through the concrete socket client:
 
 ```csharp
 var socketClient = new MexcSocketClient();
@@ -543,10 +551,10 @@ Examples/ai-friendly/03-websocket.cs
   Public spot ticker and kline streams, spot listen-key private streams, futures private stream pattern, teardown.
 
 Examples/ai-friendly/04-multi-exchange.cs
-  CryptoExchange.Net.SharedApis REST and socket patterns.
+  CryptoExchange.Net.SharedApis REST, socket, and discovery patterns.
 
 Examples/ai-friendly/05-error-handling.cs
-  WebCallResult pattern, transient retry, MEXC error examples, exchange info validation.
+  HttpResult, WebSocketResult, ExchangeCallResult, transient retry, MEXC error examples, exchange info validation.
 ```
 
 These files are intended to be copied into a console `Program.cs` after `dotnet add package JK.Mexc.Net`.

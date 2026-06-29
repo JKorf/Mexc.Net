@@ -1,6 +1,7 @@
 // 05-error-handling.cs
 //
-// Demonstrates: WebCallResult patterns, retry logic, common error scenarios.
+// Demonstrates: HttpResult, WebSocketResult and ExchangeCallResult patterns,
+// retry logic, common error scenarios.
 //
 // Setup: dotnet add package JK.Mexc.Net
 
@@ -15,7 +16,9 @@ var client = new MexcRestClient(options =>
 });
 
 // ---- 1. THE BASIC PATTERN ----
-// Every REST method returns WebCallResult<T> or WebCallResult.
+// Every REST method returns HttpResult<T> or HttpResult.
+// Every socket subscription returns WebSocketResult<UpdateSubscription>.
+// Shared symbol/cache helpers can return ExchangeCallResult<T>.
 // .Success is true/false. .Data is valid only when .Success.
 // .Error contains structured error info when .Success is false.
 // .Error.IsTransient hints whether a retry might succeed.
@@ -38,11 +41,11 @@ else
 // Retry only on transient errors such as network issues, rate limits, or server overload.
 // Do not retry validation errors, unknown symbols, or insufficient balance.
 
-async Task<WebCallResult<T>> WithRetry<T>(
-    Func<Task<WebCallResult<T>>> call,
+async Task<HttpResult<T>> WithRetry<T>(
+    Func<Task<HttpResult<T>>> call,
     int maxAttempts = 3)
 {
-    WebCallResult<T> last = default!;
+    HttpResult<T> last = default!;
     for (var attempt = 1; attempt <= maxAttempts; attempt++)
     {
         last = await call();
@@ -122,7 +125,7 @@ if (!order.Success)
 }
 
 // ---- 5. EXCEPTIONS VS ERROR RESULTS ----
-// Mexc.Net returns API failures through WebCallResult.Error, not thrown exceptions.
+// Mexc.Net returns API failures through HttpResult.Error, not thrown exceptions.
 // Exceptions are normally for:
 //   - Misconfiguration
 //   - Disposed clients

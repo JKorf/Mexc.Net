@@ -20,22 +20,25 @@ namespace Mexc.Net.Clients.SpotApi
         #region Place Test Order
 
         /// <inheritdoc />
-        public async Task<WebCallResult> PlaceTestOrderAsync(string symbol, OrderSide side, OrderType type, decimal? quantity = null, decimal? quoteQuantity = null, decimal? price = null, string? clientOrderId = null, CancellationToken ct = default)
+        public async Task<HttpResult> PlaceTestOrderAsync(string symbol, OrderSide side, OrderType type, decimal? quantity = null, decimal? quoteQuantity = null, decimal? price = null, string? clientOrderId = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection()
+            var parameters = new Parameters(MexcExchange._spotParameterSerializationSettings)
             {
                 { "symbol", symbol }
             };
-            parameters.AddEnum("side", side);
-            parameters.AddEnum("type", type);
-            parameters.AddOptionalString("quantity", quantity?.Normalize());
-            parameters.AddOptionalString("quoteOrderQty", quoteQuantity?.Normalize());
-            parameters.AddOptionalString("price", price?.Normalize());
-            parameters.AddOptional("newClientOrderId", clientOrderId);
+            parameters.Add("side", side);
+            parameters.Add("type", type);
+            parameters.Add("quantity", quantity?.Normalize());
+            parameters.Add("quoteOrderQty", quoteQuantity?.Normalize());
+            parameters.Add("price", price?.Normalize());
+            parameters.Add("newClientOrderId", clientOrderId);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v3/order/test", MexcExchange.RateLimiter.SpotRest, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/api/v3/order/test", MexcExchange.RateLimiter.SpotRest, 1, true);
             var result = await _baseClient.SendAsync<object>(request, parameters, ct).ConfigureAwait(false);
-            return result.AsDataless();
+            if (!result.Success)
+                return HttpResult.Fail(result);
+
+            return HttpResult.Ok(result);
         }
 
         #endregion
@@ -43,20 +46,20 @@ namespace Mexc.Net.Clients.SpotApi
         #region Place Order
 
         /// <inheritdoc />
-        public async Task<WebCallResult<MexcOrder>> PlaceOrderAsync(string symbol, OrderSide side, OrderType type, decimal? quantity = null, decimal? quoteQuantity = null, decimal? price = null, string? clientOrderId = null, CancellationToken ct = default)
+        public async Task<HttpResult<MexcOrder>> PlaceOrderAsync(string symbol, OrderSide side, OrderType type, decimal? quantity = null, decimal? quoteQuantity = null, decimal? price = null, string? clientOrderId = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection()
+            var parameters = new Parameters(MexcExchange._spotParameterSerializationSettings)
             {
                 { "symbol", symbol }
             };
-            parameters.AddEnum("side", side);
-            parameters.AddEnum("type", type);
-            parameters.AddOptionalString("quantity", quantity?.Normalize());
-            parameters.AddOptionalString("quoteOrderQty", quoteQuantity?.Normalize());
-            parameters.AddOptionalString("price", price?.Normalize());
-            parameters.AddOptional("newClientOrderId", clientOrderId);
+            parameters.Add("side", side);
+            parameters.Add("type", type);
+            parameters.Add("quantity", quantity?.Normalize());
+            parameters.Add("quoteOrderQty", quoteQuantity?.Normalize());
+            parameters.Add("price", price?.Normalize());
+            parameters.Add("newClientOrderId", clientOrderId);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v3/order", MexcExchange.RateLimiter.SpotRest, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/api/v3/order", MexcExchange.RateLimiter.SpotRest, 1, true);
             var result = await _baseClient.SendAsync<MexcOrder>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -66,35 +69,35 @@ namespace Mexc.Net.Clients.SpotApi
         #region Place Multiple Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<CallResult<MexcOrderResult>[]>> PlaceMultipleOrdersAsync(IEnumerable<MexcPlaceOrderRequest> requests, CancellationToken ct = default)
+        public async Task<HttpResult<CallResult<MexcOrderResult>[]>> PlaceMultipleOrdersAsync(IEnumerable<MexcPlaceOrderRequest> requests, CancellationToken ct = default)
         {
 #pragma warning disable IL2026 // Members annotated with 'RequiresUnreferencedCodeAttribute' require dynamic access otherwise can break functionality when trimming application code
 #pragma warning disable IL3050 // Calling members annotated with 'RequiresDynamicCodeAttribute' may break functionality when AOT compiling.
-            var parameters = new ParameterCollection()
+            var parameters = new Parameters(MexcExchange._spotParameterSerializationSettings)
             {
-                { "batchOrders", JsonSerializer.Serialize(requests.ToArray(), options: SerializerOptions.WithConverters(MexcExchange.SerializerContext)) }
+                { "batchOrders", JsonSerializer.Serialize(requests.ToArray(), options: SerializerOptions.WithConverters(MexcExchange._serializerContext)) }
             };
 #pragma warning restore IL2026
 #pragma warning restore IL3050
 
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v3/batchOrders", MexcExchange.RateLimiter.SpotRest, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/api/v3/batchOrders", MexcExchange.RateLimiter.SpotRest, 1, true);
             var resultData = await _baseClient.SendAsync<MexcOrderResult[]>(request, parameters, ct).ConfigureAwait(false);
-            if (!resultData)
-                return resultData.As<CallResult<MexcOrderResult>[]>(default);
+            if (!resultData.Success)
+                return HttpResult.Fail<CallResult<MexcOrderResult>[]>(resultData);
 
             var result = new List<CallResult<MexcOrderResult>>();
             foreach (var item in resultData.Data)
             {
                 if (item.ErrorCode != null)
-                    result.Add(new CallResult<MexcOrderResult>(item, null, new ServerError(item.ErrorCode.Value, _baseClient.GetErrorInfo(item.ErrorCode.Value, item.ErrorMessage!))));
+                    result.Add(CallResult.Fail<MexcOrderResult>(new ServerError(item.ErrorCode.Value, _baseClient.GetErrorInfo(item.ErrorCode.Value, item.ErrorMessage!))));
                 else
-                    result.Add(new CallResult<MexcOrderResult>(item));
+                    result.Add(CallResult.Ok(item));
             }
 
             if (result.All(x => !x.Success))
-                return resultData.AsErrorWithData(new ServerError(new ErrorInfo(ErrorType.AllOrdersFailed, "All orders failed")), result.ToArray());
+                return HttpResult.Fail(resultData, new ServerError(new ErrorInfo(ErrorType.AllOrdersFailed, "All orders failed")), result.ToArray());
 
-            return resultData.As(result.ToArray());
+            return HttpResult.Ok(resultData, result.ToArray());
         }
 
         #endregion
@@ -102,17 +105,17 @@ namespace Mexc.Net.Clients.SpotApi
         #region Cancel Order
 
         /// <inheritdoc />
-        public async Task<WebCallResult<MexcOrder>> CancelOrderAsync(string symbol, string? orderId = null, string? clientOrderId = null, string? newClientOrderId = null, CancellationToken ct = default)
+        public async Task<HttpResult<MexcOrder>> CancelOrderAsync(string symbol, string? orderId = null, string? clientOrderId = null, string? newClientOrderId = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection()
+            var parameters = new Parameters(MexcExchange._spotParameterSerializationSettings)
             {
                 { "symbol", symbol }
             };
-            parameters.AddOptional("orderId", orderId);
-            parameters.AddOptional("origClientOrderId", clientOrderId);
-            parameters.AddOptional("newClientOrderId", newClientOrderId);
+            parameters.Add("orderId", orderId);
+            parameters.Add("origClientOrderId", clientOrderId);
+            parameters.Add("newClientOrderId", newClientOrderId);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Delete, "/api/v3/order", MexcExchange.RateLimiter.SpotRest, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Delete, _baseClient.BaseAddress, "/api/v3/order", MexcExchange.RateLimiter.SpotRest, 1, true);
             var result = await _baseClient.SendAsync<MexcOrder>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -122,21 +125,21 @@ namespace Mexc.Net.Clients.SpotApi
         #region Cancel All Orders
 
         /// <inheritdoc />
-        public Task<WebCallResult<MexcOrder[]>> CancelAllOrdersAsync(string symbol, CancellationToken ct = default)
+        public Task<HttpResult<MexcOrder[]>> CancelAllOrdersAsync(string symbol, CancellationToken ct = default)
             => CancelAllOrdersAsync(new[] { symbol });
         #endregion
 
         #region Cancel All Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<MexcOrder[]>> CancelAllOrdersAsync(IEnumerable<string> symbols, CancellationToken ct = default)
+        public async Task<HttpResult<MexcOrder[]>> CancelAllOrdersAsync(IEnumerable<string> symbols, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection()
+            var parameters = new Parameters(MexcExchange._spotParameterSerializationSettings)
             {
                 { "symbol", string.Join(",", symbols) }
             };
 
-            var request = _definitions.GetOrCreate(HttpMethod.Delete, "/api/v3/openOrders", MexcExchange.RateLimiter.SpotRest, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Delete, _baseClient.BaseAddress, "/api/v3/openOrders", MexcExchange.RateLimiter.SpotRest, 1, true);
             var result = await _baseClient.SendAsync<MexcOrder[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -146,16 +149,16 @@ namespace Mexc.Net.Clients.SpotApi
         #region Get Order
 
         /// <inheritdoc />
-        public async Task<WebCallResult<MexcOrder>> GetOrderAsync(string symbol, string? orderId = null, string? clientOrderId = null, CancellationToken ct = default)
+        public async Task<HttpResult<MexcOrder>> GetOrderAsync(string symbol, string? orderId = null, string? clientOrderId = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection()
+            var parameters = new Parameters(MexcExchange._spotParameterSerializationSettings)
             {
                 { "symbol", symbol }
             };
-            parameters.AddOptional("orderId", orderId);
-            parameters.AddOptional("origClientOrderId", clientOrderId);
+            parameters.Add("orderId", orderId);
+            parameters.Add("origClientOrderId", clientOrderId);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/order", MexcExchange.RateLimiter.SpotRest, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/v3/order", MexcExchange.RateLimiter.SpotRest, 1, true);
             return await _baseClient.SendAsync<MexcOrder>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -164,12 +167,12 @@ namespace Mexc.Net.Clients.SpotApi
         #region Get Open Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<MexcOrder[]>> GetOpenOrdersAsync(string? symbol = null, CancellationToken ct = default)
+        public async Task<HttpResult<MexcOrder[]>> GetOpenOrdersAsync(string? symbol = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
-            parameters.AddOptional("symbol", symbol);
+            var parameters = new Parameters(MexcExchange._spotParameterSerializationSettings);
+            parameters.Add("symbol", symbol);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/openOrders", MexcExchange.RateLimiter.SpotRest, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/v3/openOrders", MexcExchange.RateLimiter.SpotRest, 1, true);
             return await _baseClient.SendAsync<MexcOrder[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -178,17 +181,17 @@ namespace Mexc.Net.Clients.SpotApi
         #region Get Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<MexcOrder[]>> GetOrdersAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
+        public async Task<HttpResult<MexcOrder[]>> GetOrdersAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection()
+            var parameters = new Parameters(MexcExchange._spotParameterSerializationSettings)
             {
                 { "symbol", symbol }
             };
-            parameters.AddOptionalMilliseconds("startTime", startTime);
-            parameters.AddOptionalMilliseconds("endTime", endTime);
-            parameters.AddOptional("limit", limit);
+            parameters.Add("startTime", startTime);
+            parameters.Add("endTime", endTime);
+            parameters.Add("limit", limit);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/allOrders", MexcExchange.RateLimiter.SpotRest, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/v3/allOrders", MexcExchange.RateLimiter.SpotRest, 1, true);
             return await _baseClient.SendAsync<MexcOrder[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -197,18 +200,18 @@ namespace Mexc.Net.Clients.SpotApi
         #region Get User Trades
 
         /// <inheritdoc />
-        public async Task<WebCallResult<MexcUserTrade[]>> GetUserTradesAsync(string symbol, string? orderId = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
+        public async Task<HttpResult<MexcUserTrade[]>> GetUserTradesAsync(string symbol, string? orderId = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection()
+            var parameters = new Parameters(MexcExchange._spotParameterSerializationSettings)
             {
                 { "symbol", symbol }
             };
-            parameters.AddOptionalMilliseconds("startTime", startTime);
-            parameters.AddOptionalMilliseconds("endTime", endTime);
-            parameters.AddOptional("limit", limit);
-            parameters.AddOptional("orderId", orderId);
+            parameters.Add("startTime", startTime);
+            parameters.Add("endTime", endTime);
+            parameters.Add("limit", limit);
+            parameters.Add("orderId", orderId);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v3/myTrades", MexcExchange.RateLimiter.SpotRest, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/v3/myTrades", MexcExchange.RateLimiter.SpotRest, 1, true);
             return await _baseClient.SendAsync<MexcUserTrade[]>(request, parameters, ct).ConfigureAwait(false);
         }
 

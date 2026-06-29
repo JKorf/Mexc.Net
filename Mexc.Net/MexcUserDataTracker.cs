@@ -21,7 +21,6 @@ namespace Mexc.Net
                 logger,
                 restClient.SpotApi.SharedClient,
                 restClient.SpotApi.SharedClient,
-                restClient.SpotApi.SharedClient,
                 socketClient.SpotApi.SharedClient,
                 restClient.SpotApi.SharedClient,
                 socketClient.SpotApi.SharedClient,
@@ -49,7 +48,6 @@ namespace Mexc.Net
             FuturesUserDataTrackerConfig? config) : base(
                 logger,
                 restClient.FuturesApi.SharedClient,
-                null,
                 restClient.FuturesApi.SharedClient,
                 socketClient.FuturesApi.SharedClient,
                 restClient.FuturesApi.SharedClient,

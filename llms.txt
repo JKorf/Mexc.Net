@@ -2,7 +2,7 @@
 
 > Strongly typed .NET client library for the MEXC REST and WebSocket APIs. Supports Spot, sub-accounts, wallet/account endpoints, Futures, public market data, private trading, WebSocket streams, and CryptoExchange.Net shared interfaces.
 
-Mexc.Net is a C# client for MEXC built on CryptoExchange.Net. It provides typed models, request signing, client-side rate limiting, WebSocket reconnection, `WebCallResult<T>` / `CallResult<T>` result handling, dependency injection, native AOT support, and shared multi-exchange abstractions. Current package version in this repository: 5.1.3. Targets netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0.
+Mexc.Net is a C# client for MEXC built on CryptoExchange.Net. It provides typed models, request signing, client-side rate limiting, WebSocket reconnection, `HttpResult<T>` / `HttpResult` REST handling, `WebSocketResult<UpdateSubscription>` subscription handling, dependency injection, native AOT support, and shared multi-exchange abstractions. Current package version in this repository: 5.1.3. Targets netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0.
 
 ## Documentation
 
@@ -19,7 +19,7 @@ Mexc.Net is a C# client for MEXC built on CryptoExchange.Net. It provides typed 
 - [Futures Trading](https://github.com/JKorf/Mexc.Net/blob/main/Examples/ai-friendly/02-futures.cs): Futures symbol format, leverage, market order, position retrieval, position close
 - [WebSocket Streams](https://github.com/JKorf/Mexc.Net/blob/main/Examples/ai-friendly/03-websocket.cs): Spot public streams, spot listen-key private streams, futures private stream pattern, teardown
 - [Multi-Exchange Pattern](https://github.com/JKorf/Mexc.Net/blob/main/Examples/ai-friendly/04-multi-exchange.cs): Using CryptoExchange.Net SharedApis for exchange-agnostic code
-- [Error Handling](https://github.com/JKorf/Mexc.Net/blob/main/Examples/ai-friendly/05-error-handling.cs): WebCallResult pattern, retry logic, common errors and filter handling
+- [Error Handling](https://github.com/JKorf/Mexc.Net/blob/main/Examples/ai-friendly/05-error-handling.cs): HttpResult, WebSocketResult, and ExchangeCallResult patterns, retry logic, common errors and filter handling
 - [Full Examples Repository](https://github.com/JKorf/Mexc.Net/tree/main/Examples): Additional examples in this repository
 
 ## Critical Rules
@@ -32,4 +32,6 @@ Mexc.Net is a C# client for MEXC built on CryptoExchange.Net. It provides typed 
 - Spot symbols look like `BTCUSDT`; futures symbols look like `BTC_USDT`.
 - Spot private WebSocket subscriptions need a listen key from `restClient.SpotApi.Account.StartUserStreamAsync()`.
 - MEXC exposes `MexcEnvironment.Live` and `MexcEnvironment.CreateCustom(...)`; do not invent a testnet environment.
-- For multi-exchange code, use `CryptoExchange.Net.SharedApis` through `.SharedClient`.
+- REST calls return `HttpResult<T>` or `HttpResult`; socket subscriptions return `WebSocketResult<UpdateSubscription>`.
+- Shared symbol/cache helper methods can return `ExchangeCallResult<T>`.
+- For multi-exchange code, use `CryptoExchange.Net.SharedApis` through `.SharedClient`; call `SharedClient.Discover()` to inspect implemented shared interfaces and endpoint/subscription options at runtime.

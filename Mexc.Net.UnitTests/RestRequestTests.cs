@@ -200,12 +200,12 @@ namespace Mexc.Net.UnitTests
             await tester.ValidateAsync(client => client.FuturesApi.Trading.EditTrailingOrderAsync("123", 123, TriggerPriceType.IndexPrice, CallbackType.Absolute, 0.1m, 0.1m), "EditTrailingOrder");
         }
 
-        private bool IsAuthenticatedFutures(WebCallResult result)
+        private bool IsAuthenticatedFutures(IHttpResult result)
         {
             return result.RequestHeaders?.Any(x => x.Key == "Signature") == true;
         }
 
-        private bool IsAuthenticated(WebCallResult result)
+        private bool IsAuthenticated(IHttpResult result)
         {
             return result.RequestBody?.Contains("signature") == true || result.RequestUrl.Contains("signature");
         }

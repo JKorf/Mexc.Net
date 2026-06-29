@@ -23,7 +23,8 @@ namespace Mexc.Net
                 "https://www.mexc.com",
                 ["https://mexcdevelop.github.io/apidocs/spot_v3_en/#introduction"],
                 PlatformType.CryptoCurrencyExchange,
-                CentralizationType.Centralized
+                CentralizationType.Centralized,
+                MexcEnvironment.All
                 );
 
         /// <summary>
@@ -58,8 +59,21 @@ namespace Mexc.Net
         /// </summary>
         public static ExchangeType Type { get; } = ExchangeType.CEX;
 
-        internal static JsonSerializerContext SerializerContext = JsonSerializerContextCache.GetOrCreate<MexcSourceGenerationContext>();
-        
+        internal static JsonSerializerContext _serializerContext = JsonSerializerContextCache.GetOrCreate<MexcSourceGenerationContext>();
+        internal static ParameterSerializationSettings _spotParameterSerializationSettings = new ParameterSerializationSettings
+        {
+            Sort = false,
+            Array = ArrayParametersSerialization.MultipleValues,
+            Decimal = DecimalSerialization.String
+        };
+
+        internal static ParameterSerializationSettings _futuresParameterSerializationSettings = new ParameterSerializationSettings
+        {
+            Sort = false,
+            Array = ArrayParametersSerialization.MultipleValues,
+            Decimal = DecimalSerialization.Number,
+        };
+
         /// <summary>
         /// Aliases for Mexc assets
         /// </summary>
@@ -93,7 +107,7 @@ namespace Mexc.Net
         /// <summary>
         /// Rate limiter configuration for the Mexc API
         /// </summary>
-        public static MexcRateLimiters RateLimiter { get; } = new MexcRateLimiters();
+        public static MexcRateLimiters RateLimiter { get; set; } = new MexcRateLimiters();
     }
 
     /// <summary>
@@ -112,13 +126,19 @@ namespace Mexc.Net
         public event Action<RateLimitUpdateEvent> RateLimitUpdated;
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        internal MexcRateLimiters()
+        /// <summary>
+        /// ctor
+        /// </summary>
+        public MexcRateLimiters()
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
             Initialize();
         }
 
-        private void Initialize()
+        /// <summary>
+        /// Initialize the rate limits
+        /// </summary>
+        protected virtual void Initialize()
         {
             SpotSocket = new RateLimitGate("Spot Socket")
                                             .AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, new IGuardFilter[] { new LimitItemTypeFilter(RateLimitItemType.Connection) }, 100, TimeSpan.FromSeconds(1), RateLimitWindowType.Fixed)); // 100 connections per second per host

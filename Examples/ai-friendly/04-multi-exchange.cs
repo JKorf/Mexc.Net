@@ -18,6 +18,8 @@ using Mexc.Net.Clients;
 // IBalanceRestClient, IFuturesOrderRestClient, and others.
 
 ISpotTickerRestClient mexcShared = new MexcRestClient().SpotApi.SharedClient;
+var capabilities = mexcShared.Discover();
+Console.WriteLine($"Shared features: {capabilities.Features.Count(x => x.Supported)}");
 
 // Common symbol type. SharedSymbol handles exchange formatting differences.
 // MEXC spot uses "BTCUSDT"; futures uses "BTC_USDT"; other exchanges differ.

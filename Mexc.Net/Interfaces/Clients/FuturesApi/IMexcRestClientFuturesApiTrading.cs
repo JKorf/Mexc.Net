@@ -22,7 +22,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="page">["<c>page_num</c>"] Page number</param>
         /// <param name="pageSize">["<c>page_size</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcFuturesOrder[]>> GetOpenOrdersAsync(int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<HttpResult<MexcFuturesOrder[]>> GetOpenOrdersAsync(int? page = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get order history
@@ -42,7 +42,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="page">["<c>page_num</c>"] Page number</param>
         /// <param name="pageSize">["<c>page_size</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcFuturesOrder[]>> GetOrderHistoryAsync(string? symbol = null, IEnumerable<FuturesOrderStatus>? status = null, OrderCategory? category = null, FuturesOrderSide? side = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<HttpResult<MexcFuturesOrder[]>> GetOrderHistoryAsync(string? symbol = null, IEnumerable<FuturesOrderStatus>? status = null, OrderCategory? category = null, FuturesOrderSide? side = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get order by client order id
@@ -56,7 +56,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH_USDT`</param>
         /// <param name="clientOrderId">["<c>clientOrderId</c>"] Client order id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcFuturesOrder>> GetOrderByClientOrderIdAsync(string symbol, string clientOrderId, CancellationToken ct = default);
+        Task<HttpResult<MexcFuturesOrder>> GetOrderByClientOrderIdAsync(string symbol, string clientOrderId, CancellationToken ct = default);
 
         /// <summary>
         /// Get order by id
@@ -69,7 +69,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="orderId">["<c>orderId</c>"] The order id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcFuturesOrder>> GetOrderAsync(long orderId, CancellationToken ct = default);
+        Task<HttpResult<MexcFuturesOrder>> GetOrderAsync(long orderId, CancellationToken ct = default);
 
         /// <summary>
         /// Get orders by id
@@ -82,7 +82,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="orderIds">["<c>order_ids</c>"] Ids of the orders to retrieve</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcFuturesOrder[]>> GetOrdersByIdAsync(IEnumerable<long> orderIds, CancellationToken ct = default);
+        Task<HttpResult<MexcFuturesOrder[]>> GetOrdersByIdAsync(IEnumerable<long> orderIds, CancellationToken ct = default);
 
         /// <summary>
         /// Get trades for an order
@@ -95,7 +95,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="orderId">["<c>orderId</c>"] The order id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcFuturesUserTrade[]>> GetOrderTradesAsync(long orderId, CancellationToken ct = default);
+        Task<HttpResult<MexcFuturesUserTrade[]>> GetOrderTradesAsync(long orderId, CancellationToken ct = default);
         
         /// <summary>
         /// Get user trades
@@ -112,7 +112,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="page">["<c>page_num</c>"] Page number</param>
         /// <param name="pageSize">["<c>page_size</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcFuturesUserTrade[]>> GetUserTradesAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<HttpResult<MexcFuturesUserTrade[]>> GetUserTradesAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get trigger orders
@@ -130,7 +130,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="page">["<c>page_num</c>"] Page number</param>
         /// <param name="pageSize">["<c>page_size</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcFuturesTriggerOrder[]>> GetTriggerOrdersAsync(string? symbol = null, IEnumerable<TpSlStatus>? status = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<HttpResult<MexcFuturesTriggerOrder[]>> GetTriggerOrdersAsync(string? symbol = null, IEnumerable<TpSlStatus>? status = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get stop orders
@@ -148,7 +148,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="page">["<c>page_num</c>"] Page number</param>
         /// <param name="pageSize">["<c>page_size</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcStopOrder[]>> GetTpSlOrdersAsync(string? symbol = null, bool? finished = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<HttpResult<MexcStopOrder[]>> GetTpSlOrdersAsync(string? symbol = null, bool? finished = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get risk limits
@@ -161,7 +161,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<Dictionary<string, MexcRiskLimit[]>>> GetRiskLimitsAsync(string? symbol = null, CancellationToken ct = default);
+        Task<HttpResult<Dictionary<string, MexcRiskLimit[]>>> GetRiskLimitsAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get position history
@@ -177,7 +177,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="page">["<c>page_num</c>"] Page number</param>
         /// <param name="pageSize">["<c>page_size</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcPosition[]>> GetPositionHistoryAsync(string? symbol = null, PositionSide? positionSide = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<HttpResult<MexcPosition[]>> GetPositionHistoryAsync(string? symbol = null, PositionSide? positionSide = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get current open positions
@@ -190,7 +190,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcPosition[]>> GetPositionsAsync(string? symbol = null, CancellationToken ct = default);
+        Task<HttpResult<MexcPosition[]>> GetPositionsAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Place a new order
@@ -222,7 +222,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="limitOrderType">["<c>bboTypeNum</c>"] Limit order type</param>
         /// <param name="stpMode">["<c>stpMode</c>"] Self trade prevention mode</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcFuturesOrderResult>> PlaceOrderAsync(
+        Task<HttpResult<MexcFuturesOrderResult>> PlaceOrderAsync(
             string symbol, 
             FuturesOrderSide side,
             FuturesOrderType type, 
@@ -256,7 +256,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="orders">Orders to place</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<CallResult<MexcFuturesBatchOrderResult>[]>> PlaceMultipleOrdersAsync(
+        Task<HttpResult<CallResult<MexcFuturesBatchOrderResult>[]>> PlaceMultipleOrdersAsync(
             IEnumerable<MexcFuturesOrderRequest> orders,
             CancellationToken ct = default);
 
@@ -271,7 +271,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="orderIds">Ids of orders to cancel</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcCancelResult[]>> CancelOrdersAsync(IEnumerable<long> orderIds, CancellationToken ct = default);
+        Task<HttpResult<MexcCancelResult[]>> CancelOrdersAsync(IEnumerable<long> orderIds, CancellationToken ct = default);
 
         /// <summary>
         /// Chase order, set the price to the best current order book offer
@@ -284,7 +284,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="orderId">["<c>orderId</c>"] The order id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> ChaseOrderAsync(long orderId, CancellationToken ct = default);
+        Task<HttpResult> ChaseOrderAsync(long orderId, CancellationToken ct = default);
 
         /// <summary>
         /// Edit an open order
@@ -299,7 +299,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="quantity">["<c>vol</c>"] New quantity</param>
         /// <param name="price">["<c>price</c>"] New price</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> EditOrderAsync(long orderId,
+        Task<HttpResult> EditOrderAsync(long orderId,
             decimal quantity,
             decimal price,
             CancellationToken ct = default);
@@ -315,7 +315,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="orders">["<c>a</c>"] Orders</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcCancelResult[]>> CancelOrdersByClientOrderIdsAsync(IEnumerable<MexcCancelRequest> orders, CancellationToken ct = default);
+        Task<HttpResult<MexcCancelResult[]>> CancelOrdersByClientOrderIdsAsync(IEnumerable<MexcCancelRequest> orders, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel all orders
@@ -328,7 +328,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] Filter by symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> CancelAllOrdersAsync(string? symbol = null, CancellationToken ct = default);
+        Task<HttpResult> CancelAllOrdersAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Reverse a position
@@ -343,7 +343,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="positionId">["<c>positionId</c>"] Position id</param>
         /// <param name="quantity">["<c>vol</c>"] Quantity</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> ReversePositionAsync(
+        Task<HttpResult> ReversePositionAsync(
             string symbol,
             long positionId,
             decimal quantity,
@@ -359,7 +359,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> CloseAllPositionsAsync(CancellationToken ct = default);
+        Task<HttpResult> CloseAllPositionsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get current open order counts
@@ -371,7 +371,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcOrderCount>> GetOpenOrderCountsAsync(CancellationToken ct = default);
+        Task<HttpResult<MexcOrderCount>> GetOpenOrderCountsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Place a new plan order
@@ -401,7 +401,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="takeProfitPrice">["<c>takeProfitPrice</c>"] Take profit price</param>
         /// <param name="reduceOnly">["<c>reduceOnly</c>"] Reduce only</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<long>> PlacePlanOrderAsync(
+        Task<HttpResult<long>> PlacePlanOrderAsync(
             string symbol,
             FuturesOrderSide side,
             FuturesOrderType orderType,
@@ -439,7 +439,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="triggerType">["<c>triggerType</c>"] Trigger type</param>
         /// <param name="triggerPriceType">["<c>trend</c>"] Trigger price type</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> EditPlanOrderAsync(
+        Task<HttpResult> EditPlanOrderAsync(
             string symbol,
             long orderId,
             decimal triggerPrice,
@@ -460,7 +460,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="orders">Orders to cancel</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> CancelPlanOrdersAsync(IEnumerable<MexcCancelRequest> orders, CancellationToken ct = default);
+        Task<HttpResult> CancelPlanOrdersAsync(IEnumerable<MexcCancelRequest> orders, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel all plan orders
@@ -473,7 +473,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> CancelAllPlannedOrdersAsync(string? symbol = null, CancellationToken ct = default);
+        Task<HttpResult> CancelAllPlannedOrdersAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// 
@@ -501,7 +501,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="stopLossType">["<c>stopLossType</c>"] Stop loss type</param>
         /// <param name="stopLossOrderPrice">["<c>stopLossOrderPrice</c>"] Stop loss limit order price</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> PlaceTpSlOrderAsync(
+        Task<HttpResult> PlaceTpSlOrderAsync(
             long positionId,
             decimal quantity,
             TriggerPriceType stopLossPriceType,
@@ -531,7 +531,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="orders">["<c>o</c>"] Orders to cancel</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> CancelTpSlOrdersAsync(IEnumerable<MexcCancelRequest> orders, CancellationToken ct = default);
+        Task<HttpResult> CancelTpSlOrdersAsync(IEnumerable<MexcCancelRequest> orders, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel all take profit/stop loss orders matching the params
@@ -545,7 +545,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="positionId">["<c>positionId</c>"] Filter by position id</param>
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> CancelAllTpSlOrdersAsync(
+        Task<HttpResult> CancelAllTpSlOrdersAsync(
             long? positionId = null,
             string? symbol = null,
             CancellationToken ct = default);
@@ -567,7 +567,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="takeProfitReverse">["<c>takeProfitReverse</c>"] Take profit reverse</param>
         /// <param name="stopLossReverse">["<c>stopLossReverse</c>"] Stop loss reverse</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> EditLimitOrderTpSlAsync(
+        Task<HttpResult> EditLimitOrderTpSlAsync(
             long orderId,
             TriggerPriceType? stopLossPriceType = null,
             TriggerPriceType? takeProfitPriceType = null,
@@ -594,7 +594,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="takeProfitReverse">["<c>takeProfitReverse</c>"] Take profit reverse</param>
         /// <param name="stopLossReverse">["<c>stopLossReverse</c>"] Stop loss reverse</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> EditTpSlOrderAsync(
+        Task<HttpResult> EditTpSlOrderAsync(
             long stopPlanOrderId,
             TriggerPriceType? stopLossPriceType = null,
             TriggerPriceType? takeProfitPriceType = null,
@@ -615,7 +615,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcTpSlOrder[]>> GetOpenTpSlOrdersAsync(string? symbol = null, CancellationToken ct = default);
+        Task<HttpResult<MexcTpSlOrder[]>> GetOpenTpSlOrdersAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Place a new trailing stop order
@@ -638,7 +638,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="reduceOnly">["<c>reduceOnly</c>"] Reduce only</param>
         /// <param name="activationPrice">["<c>activePrice</c>"] Activation price</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<long>> PlaceTrailingOrderAsync(
+        Task<HttpResult<long>> PlaceTrailingOrderAsync(
             string symbol,
             FuturesOrderSide side,
             decimal quantity,
@@ -664,7 +664,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH_USDT`</param>
         /// <param name="orderId">["<c>trackOrderId</c>"] Trailing order id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> CancelTrailingOrderAsync(
+        Task<HttpResult> CancelTrailingOrderAsync(
             string symbol,
             long orderId,
             CancellationToken ct = default);
@@ -686,7 +686,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="quantity">["<c>vol</c>"] Quantity</param>
         /// <param name="activationPrice">["<c>activePrice</c>"] Activation price</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> EditTrailingOrderAsync(
+        Task<HttpResult> EditTrailingOrderAsync(
             string symbol,
             long orderId,
             TriggerPriceType triggerType,
@@ -713,7 +713,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="page">["<c>pageIndex</c>"] Page number</param>
         /// <param name="pageSize">["<c>pageSize</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcTrailingOrder[]>> GetTrailingOrdersAsync(
+        Task<HttpResult<MexcTrailingOrder[]>> GetTrailingOrdersAsync(
             string? symbol = null,
             IEnumerable<TpSlStatus>? status = null,
             FuturesOrderSide? side = null,

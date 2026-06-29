@@ -22,13 +22,13 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
             _limit = limit;
             _handler = handler;
 
-            MessageRouter = MessageRouter.CreateWithOptionalTopicFilter<MexcFuturesUpdate<T>>("push." + _topic, symbol, DoHandleMessage);
+            MessageRouter = MessageRouter.CreateForEvent<MexcFuturesUpdate<T>>("push." + _topic, symbol, DoHandleMessage);
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<T> message)
         {
             _handler.Invoke(receiveTime, originalData, message);
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
 
         protected override Query? GetSubQuery(SocketConnection connection)

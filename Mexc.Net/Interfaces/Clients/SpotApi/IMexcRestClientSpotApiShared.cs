@@ -18,7 +18,6 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         //ITradeHistoryRestClient
         IWithdrawalRestClient,
         IWithdrawRestClient,
-        IListenKeyRestClient,
         IFeeRestClient,
         IBookTickerRestClient,
         ITransferRestClient

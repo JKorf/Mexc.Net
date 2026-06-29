@@ -23,7 +23,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">The number of rows</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcSubUserAccount[]>> GetSubUserAccountsAsync(string? name = null, bool? isFreeze = null, int? page = null, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<MexcSubUserAccount[]>> GetSubUserAccountsAsync(string? name = null, bool? isFreeze = null, int? page = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get API details of a sub-account
@@ -37,7 +37,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="subAccount">The name of the sub-account</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcSubUserAccountApiDetails>> GetSubUserAccountApiDetailsAsync(string subAccount, CancellationToken ct = default);
+        Task<HttpResult<MexcSubUserAccountApiDetails>> GetSubUserAccountApiDetailsAsync(string subAccount, CancellationToken ct = default);
 
         /// <summary>
         /// Perform a universal transfer between accounts
@@ -56,7 +56,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="toAccount">The name of the destination account. Null = Master Account</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcUniversalTransferResult>> UniversalTransferAsync(string asset, decimal amount, AccountType fromAccountType, AccountType toAccountType, string? fromAccount = null, string? toAccount = null, CancellationToken ct = default);
+        Task<HttpResult<MexcUniversalTransferResult>> UniversalTransferAsync(string asset, decimal amount, AccountType fromAccountType, AccountType toAccountType, string? fromAccount = null, string? toAccount = null, CancellationToken ct = default);
 
         /// <summary>
         /// Query the universal transfer history
@@ -77,7 +77,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">The number of rows</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<MexcUniversalTransferPaged>> GetUniversalTransfersAsync(AccountType fromAccountType, AccountType toAccountType, string? fromAccount = null, string? toAccount = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<MexcUniversalTransferPaged>> GetUniversalTransfersAsync(AccountType fromAccountType, AccountType toAccountType, string? fromAccount = null, string? toAccount = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Create a new virtual sub account
@@ -91,7 +91,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="name">Name</param>
         /// <param name="note">Notes</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> CreateSubAccountAsync(string name, string note, CancellationToken ct = default);
+        Task<HttpResult> CreateSubAccountAsync(string name, string note, CancellationToken ct = default);
 
         /// <summary>
         /// Create API key for sub account
@@ -107,7 +107,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="permissions">Permissions</param>
         /// <param name="ipAddresses">IP address whitelist</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcSubAccountApiKey>> CreateSubAccountApiKeyAsync(string subAccount, string note, string[] permissions, string[]? ipAddresses = null, CancellationToken ct = default);
+        Task<HttpResult<MexcSubAccountApiKey>> CreateSubAccountApiKeyAsync(string subAccount, string note, string[] permissions, string[]? ipAddresses = null, CancellationToken ct = default);
 
         /// <summary>
         /// Delete a sub account API key
@@ -121,7 +121,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="subAccount">Sub account</param>
         /// <param name="apiKey">The API key</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> DeleteSubAccountApiKeyAsync(string subAccount, string apiKey, CancellationToken ct = default);
+        Task<HttpResult> DeleteSubAccountApiKeyAsync(string subAccount, string apiKey, CancellationToken ct = default);
 
         /// <summary>
         /// Get sub account balances
@@ -135,7 +135,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="subAccount">Sub account</param>
         /// <param name="accountType">Account type</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<MexcAccountBalance[]>> GetSubAccountBalancesAsync(string subAccount, AccountType accountType, CancellationToken ct = default);
+        Task<HttpResult<MexcAccountBalance[]>> GetSubAccountBalancesAsync(string subAccount, AccountType accountType, CancellationToken ct = default);
     }    
 
 }

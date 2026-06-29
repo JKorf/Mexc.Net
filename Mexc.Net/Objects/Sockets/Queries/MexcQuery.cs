@@ -18,16 +18,16 @@ namespace Mexc.Net.Objects.Sockets.Queries
         {
             _expectedTopics = parameters;
 
-            MessageRouter = MessageRouter.CreateWithoutTopicFilter<MexcResponse>(((MexcRequest)Request).Id.ToString(), HandleMessage);
+            MessageRouter = MessageRouter.CreateForQuery<MexcResponse>(((MexcRequest)Request).Id.ToString(), HandleMessage);
         }
 
         public CallResult<MexcResponse> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcResponse message)
         {
             var topics = message.Message.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
             if (!topics.All(t => _expectedTopics.Contains(t)))
-                return new CallResult<MexcResponse>(new ServerError(ErrorInfo.Unknown with { Message = message.Message }));
+                return CallResult.Fail<MexcResponse>(new ServerError(ErrorInfo.Unknown with { Message = message.Message }), originalData);
 
-            return new CallResult<MexcResponse>(message, originalData, null);
+            return CallResult.Ok(message, originalData);
         }
     }
 }

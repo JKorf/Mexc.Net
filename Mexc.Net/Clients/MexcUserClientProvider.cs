@@ -1,4 +1,5 @@
-﻿using Mexc.Net.Interfaces.Clients;
+﻿using CryptoExchange.Net.Clients;
+using Mexc.Net.Interfaces.Clients;
 using Mexc.Net.Objects.Options;
 using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
@@ -6,18 +7,17 @@ using System.Collections.Concurrent;
 namespace Mexc.Net.Clients
 {
     /// <inheritdoc />
-    public class MexcUserClientProvider : IMexcUserClientProvider
+    public class MexcUserClientProvider : UserClientProvider<
+        IMexcRestClient,
+        IMexcSocketClient, 
+        MexcRestOptions,
+        MexcSocketOptions,
+        MexcCredentials,
+        MexcEnvironment
+        >, IMexcUserClientProvider
     {
-        private ConcurrentDictionary<string, IMexcRestClient> _restClients = new ConcurrentDictionary<string, IMexcRestClient>();
-        private ConcurrentDictionary<string, IMexcSocketClient> _socketClients = new ConcurrentDictionary<string, IMexcSocketClient>();
-
-        private readonly IOptions<MexcRestOptions> _restOptions;
-        private readonly IOptions<MexcSocketOptions> _socketOptions;
-        private readonly HttpClient _httpClient;
-        private readonly ILoggerFactory? _loggerFactory;
-
         /// <inheritdoc />
-        public string ExchangeName => MexcExchange.ExchangeName;
+        public override string ExchangeName => MexcExchange.ExchangeName;
 
         /// <summary>
         /// ctor
@@ -36,97 +36,15 @@ namespace Mexc.Net.Clients
             ILoggerFactory? loggerFactory,
             IOptions<MexcRestOptions> restOptions,
             IOptions<MexcSocketOptions> socketOptions)
+            : base(httpClient, loggerFactory, restOptions, socketOptions)
         {
-            _httpClient = httpClient ?? new HttpClient();
-            _httpClient.Timeout = restOptions.Value.RequestTimeout;
-            _loggerFactory = loggerFactory;
-            _restOptions = restOptions;
-            _socketOptions = socketOptions;
         }
 
         /// <inheritdoc />
-        public void InitializeUserClient(string userIdentifier, MexcCredentials credentials, MexcEnvironment? environment = null)
-        {
-            CreateRestClient(userIdentifier, credentials, environment);
-            CreateSocketClient(userIdentifier, credentials, environment);
-        }
-
+        protected override IMexcRestClient ConstructRestClient(HttpClient client, ILoggerFactory? loggerFactory, IOptions<MexcRestOptions> options)
+            => new MexcRestClient(client, loggerFactory, options);
         /// <inheritdoc />
-        public void ClearUserClients(string userIdentifier)
-        {
-            _restClients.TryRemove(userIdentifier, out _);
-            _socketClients.TryRemove(userIdentifier, out _);
-        }
-
-        /// <inheritdoc />
-        public IMexcRestClient GetRestClient(string userIdentifier, MexcCredentials? credentials = null, MexcEnvironment? environment = null)
-        {
-            if (!_restClients.TryGetValue(userIdentifier, out var client) || client.Disposed)
-                client = CreateRestClient(userIdentifier, credentials, environment);
-
-            return client;
-        }
-
-        /// <inheritdoc />
-        public IMexcSocketClient GetSocketClient(string userIdentifier, MexcCredentials? credentials = null, MexcEnvironment? environment = null)
-        {
-            if (!_socketClients.TryGetValue(userIdentifier, out var client) || client.Disposed)
-                client = CreateSocketClient(userIdentifier, credentials, environment);
-
-            return client;
-        }
-
-        private IMexcRestClient CreateRestClient(string userIdentifier, MexcCredentials? credentials, MexcEnvironment? environment)
-        {
-            var clientRestOptions = SetRestEnvironment(environment);
-            var client = new MexcRestClient(_httpClient, _loggerFactory, clientRestOptions);
-            if (credentials != null)
-            {
-                client.SetApiCredentials(credentials);
-                _restClients[userIdentifier] = client;
-            }
-            return client;
-        }
-
-        private IMexcSocketClient CreateSocketClient(string userIdentifier, MexcCredentials? credentials, MexcEnvironment? environment)
-        {
-            var clientSocketOptions = SetSocketEnvironment(environment);
-            var client = new MexcSocketClient(clientSocketOptions!, _loggerFactory);
-            if (credentials != null)
-            {
-                client.SetApiCredentials(credentials);
-                _socketClients[userIdentifier] = client;
-            }
-            return client;
-        }
-
-        private IOptions<MexcRestOptions> SetRestEnvironment(MexcEnvironment? environment)
-        {
-            if (environment == null)
-                return _restOptions;
-
-            var newRestClientOptions = new MexcRestOptions();
-            var restOptions = _restOptions.Value.Set(newRestClientOptions);
-            newRestClientOptions.Environment = environment;
-            return Options.Create(newRestClientOptions);
-        }
-
-        private IOptions<MexcSocketOptions> SetSocketEnvironment(MexcEnvironment? environment)
-        {
-            if (environment == null)
-                return _socketOptions;
-
-            var newSocketClientOptions = new MexcSocketOptions();
-            var restOptions = _socketOptions.Value.Set(newSocketClientOptions);
-            newSocketClientOptions.Environment = environment;
-            return Options.Create(newSocketClientOptions);
-        }
-
-        private static T ApplyOptionsDelegate<T>(Action<T>? del) where T : new()
-        {
-            var opts = new T();
-            del?.Invoke(opts);
-            return opts;
-        }
+        protected override IMexcSocketClient ConstructSocketClient(ILoggerFactory? loggerFactory, IOptions<MexcSocketOptions> options)
+            => new MexcSocketClient(options, loggerFactory);
     }
 }

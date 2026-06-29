@@ -7,7 +7,7 @@ namespace Mexc.Net.Clients.MessageHandlers
 {
     internal class MexcSocketFuturesMessageHandler : JsonSocketMessageHandler
     {
-        public override JsonSerializerOptions Options { get; } = SerializerOptions.WithConverters(MexcExchange.SerializerContext);
+        public override JsonSerializerOptions Options { get; } = SerializerOptions.WithConverters(MexcExchange._serializerContext);
 
         public MexcSocketFuturesMessageHandler()
         {

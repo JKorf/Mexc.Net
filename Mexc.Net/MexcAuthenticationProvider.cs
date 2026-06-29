@@ -14,7 +14,7 @@ namespace Mexc.Net
 
         public override void ProcessRequest(RestApiClient apiClient, RestRequestConfiguration request)
         {
-            if (!request.Authenticated)
+            if (!request.RequestDefinition.Authenticated)
                 return;
 
             request.Headers ??= new Dictionary<string, string>();
@@ -39,7 +39,7 @@ namespace Mexc.Net
                         .Replace("%5d", "%5D");
 
                     var signature = SignHMACSHA256(hmacCredentials, queryString);
-                    request.QueryParameters ??= new Dictionary<string, object>();
+                    request.QueryParameters ??= new Parameters(MexcExchange._spotParameterSerializationSettings);
                     request.QueryParameters.Add("signature", signature);
                     request.SetQueryString($"{queryString}&signature={signature}");
                 }
@@ -47,7 +47,7 @@ namespace Mexc.Net
                 {
                     var body = parameters.ToFormData();
                     var signature = SignHMACSHA256(hmacCredentials, body);
-                    request.BodyParameters ??= new Dictionary<string, object>();
+                    request.BodyParameters ??= new Parameters(MexcExchange._spotParameterSerializationSettings);
                     request.BodyParameters.Add("signature", signature);
                     request.SetBodyContent($"{body}&signature={signature}");
                 }
