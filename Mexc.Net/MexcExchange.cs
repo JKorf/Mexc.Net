@@ -69,7 +69,7 @@ namespace Mexc.Net
 
         internal static ParameterSerializationSettings _futuresParameterSerializationSettings = new ParameterSerializationSettings
         {
-            Sort = false,
+            Sort = true,
             Array = ArrayParametersSerialization.MultipleValues,
             Decimal = DecimalSerialization.Number,
         };
