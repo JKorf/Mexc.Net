@@ -24,10 +24,15 @@ namespace Mexc.Net.Objects.Models.Spot
         [JsonPropertyName("coin")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// ["<c>network</c>"] Network
+        /// ["<c>network</c>"] Network name
         /// </summary>
         [JsonPropertyName("network")]
         public string Network { get; set; } = string.Empty;
+        /// <summary>
+        /// ["<c>network</c>"] Network id
+        /// </summary>
+        [JsonPropertyName("netWork")]
+        public string NetworkId { get; set; } = string.Empty;
         /// <summary>
         /// ["<c>address</c>"] Withdrawal address
         /// </summary>
@@ -93,5 +98,10 @@ namespace Mexc.Net.Objects.Models.Spot
         /// </summary>
         [JsonPropertyName("vcoinId")]
         public string? CurrencyId { get; set; }
+        /// <summary>
+        /// ["<c>explorerUrl</c>"] Explorer url
+        /// </summary>
+        [JsonPropertyName("explorerUrl")]
+        public string? ExplorerUrl { get; set; }
     }
 }
