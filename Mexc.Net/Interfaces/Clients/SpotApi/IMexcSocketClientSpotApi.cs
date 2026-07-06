@@ -25,7 +25,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Subscribe to trade updates
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#trade-streams" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/websocket-market-streams/trade-streams" /><br />
         /// Endpoint:<br />
         /// spot@public.aggre.deals.v3.api.pb@{interval}ms@{symbol}
         /// </para>
@@ -40,7 +40,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Subscribe to trade updates
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#trade-streams" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/websocket-market-streams/trade-streams" /><br />
         /// Endpoint:<br />
         /// spot@public.aggre.deals.v3.api.pb@{interval}ms@{symbol}
         /// </para>
@@ -56,7 +56,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Subscribe to trade updates
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#trade-streams" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/websocket-market-streams/trade-streams" /><br />
         /// Endpoint:<br />
         /// spot@public.aggre.deals.v3.api.pb@{interval}ms@{symbol}
         /// </para>
@@ -72,7 +72,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Subscribe to kline/candlestick updates
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#kline-streams" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/websocket-market-streams/kline-streams" /><br />
         /// Endpoint:<br />
         /// spot@public.kline.v3.api.pb@{symbol}@{interval}
         /// </para>
@@ -88,7 +88,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Subscribe to kline/candlestick updates
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#kline-streams" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/websocket-market-streams/kline-streams" /><br />
         /// Endpoint:<br />
         /// spot@public.kline.v3.api.pb@{symbol}@{interval}
         /// </para>
@@ -104,7 +104,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Subscribe to orderbook change updates
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#diff-depth-stream" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/websocket-market-streams/diff-depth-stream" /><br />
         /// Endpoint:<br />
         /// spot@public.aggre.depth.v3.api.pb@{interval}ms@{symbol}
         /// </para>
@@ -119,7 +119,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Subscribe to orderbook change updates
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#diff-depth-stream" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/websocket-market-streams/diff-depth-stream" /><br />
         /// Endpoint:<br />
         /// spot@public.aggre.depth.v3.api.pb@{interval}ms@{symbol}
         /// </para>
@@ -135,7 +135,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Subscribe to orderbook change updates
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#diff-depth-stream" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/websocket-market-streams/diff-depth-stream" /><br />
         /// Endpoint:<br />
         /// spot@public.aggre.depth.v3.api.pb@{interval}ms@{symbol}
         /// </para>
@@ -151,7 +151,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Subscribe to full orderbook updates
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#partial-book-depth-streams" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/websocket-market-streams/partial-book-depth-streams" /><br />
         /// Endpoint:<br />
         /// spot@public.limit.depth.v3.api.pb@{symbol}@{depth}
         /// </para>
@@ -167,7 +167,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Subscribe to full orderbook updates
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#partial-book-depth-streams" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/websocket-market-streams/partial-book-depth-streams" /><br />
         /// Endpoint:<br />
         /// spot@public.limit.depth.v3.api.pb@{symbol}@{depth}
         /// </para>
@@ -183,7 +183,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Subscribe to book ticker (best bid/ask) updates
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#individual-symbol-book-ticker-streams" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/websocket-market-streams/individual-symbol-book-ticker-streams" /><br />
         /// Endpoint:<br />
         /// spot@public.bookTicker.batch.v3.api.pb@{symbol}
         /// </para>
@@ -198,7 +198,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Subscribe to book ticker (best bid/ask) updates
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#individual-symbol-book-ticker-streams" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/websocket-market-streams/individual-symbol-book-ticker-streams" /><br />
         /// Endpoint:<br />
         /// spot@public.bookTicker.batch.v3.api.pb@{symbol}
         /// </para>
@@ -253,7 +253,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Subscribe to account balance updates. Listen key is automatically obtained by the client and will be renewed as needed
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#spot-account-update" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/websocket-user-data-streams/spot-account-update" /><br />
         /// Endpoint:<br />
         /// spot@private.account.v3.api.pb
         /// </para>
@@ -267,7 +267,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Subscribe to account balance updates. Prior to using this, the <see cref="IMexcRestClientSpotApiAccount.StartUserStreamAsync(CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method should be called to start the stream and obtaining a listen key.
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#spot-account-update" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/websocket-user-data-streams/spot-account-update" /><br />
         /// Endpoint:<br />
         /// spot@private.account.v3.api.pb
         /// </para>
@@ -282,7 +282,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Subscribe to account order updates. Listen key is automatically obtained by the client and will be renewed as needed
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#spot-account-orders" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/websocket-user-data-streams/spot-account-orders" /><br />
         /// Endpoint:<br />
         /// spot@private.orders.v3.api.pb
         /// </para>
@@ -296,7 +296,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Subscribe to account order updates. Prior to using this, the <see cref="IMexcRestClientSpotApiAccount.StartUserStreamAsync(CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method should be called to start the stream and obtaining a listen key.
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#spot-account-orders" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/websocket-user-data-streams/spot-account-orders" /><br />
         /// Endpoint:<br />
         /// spot@private.orders.v3.api.pb
         /// </para>
@@ -311,7 +311,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Subscribe to account trade updates. Listen key is automatically obtained by the client and will be renewed as needed
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#spot-account-deals" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/websocket-user-data-streams/spot-account-deals" /><br />
         /// Endpoint:<br />
         /// spot@private.deals.v3.api.pb
         /// </para>
@@ -325,7 +325,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Subscribe to account trade updates. Prior to using this, the <see cref="IMexcRestClientSpotApiAccount.StartUserStreamAsync(CancellationToken)">restClient.SpotApi.Account.StartUserStreamAsync</see> method should be called to start the stream and obtaining a listen key.
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#spot-account-deals" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/websocket-user-data-streams/spot-account-deals" /><br />
         /// Endpoint:<br />
         /// spot@private.deals.v3.api.pb
         /// </para>

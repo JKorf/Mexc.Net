@@ -12,7 +12,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get the server time
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#market-endpoints" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/market-endpoints/get-server-time" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/contract/ping
         /// </para>
@@ -25,7 +25,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get contract
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#market-endpoints" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/market-endpoints/get-contract-info" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/contract/detail
         /// </para>
@@ -38,7 +38,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get contracts
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#market-endpoints" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/market-endpoints/get-contract-info" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/contract/detail
         /// </para>
@@ -50,7 +50,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get transferable assets
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-transferable-currencies" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/market-endpoints/get-transferable-currencies" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/contract/support_currencies
         /// </para>
@@ -62,7 +62,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get order book
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-contract-s-depth-information" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/market-endpoints/get-contract-order-book-depth" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/contract/depth/{symbol}
         /// </para>
@@ -76,7 +76,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get index price for a symbol
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-index-price" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/market-endpoints/get-index-price" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/contract/index_price/{symbol}
         /// </para>
@@ -89,7 +89,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get mark price for a symbol
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-fair-price" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/market-endpoints/get-fair-price" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/contract/fair_price/{symbol}
         /// </para>
@@ -102,7 +102,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get funding rate info
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-funding-rate" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/market-endpoints/get-funding-rate" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/contract/funding_rate/{symbol}
         /// </para>
@@ -115,7 +115,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get funding rates for all symbols
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-funding-rate" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/market-endpoints/get-funding-rate" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/contract/funding_rate
         /// </para>
@@ -127,7 +127,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get klines
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#k-line-data" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/market-endpoints/get-candlestick-data" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/contract/kline/{symbol}
         /// </para>
@@ -143,7 +143,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get index price klines
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#k-line-data" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/market-endpoints/get-index-price-candles" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/contract/kline/index_price/{symbol}
         /// </para>
@@ -159,7 +159,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get mark price klines
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#k-line-data" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/market-endpoints/get-fair-price-candles" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/contract/kline/fair_price/{symbol}
         /// </para>
@@ -175,7 +175,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get recent trades
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-transaction-data" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/market-endpoints/get-recent-trades" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/contract/deals/{symbol}
         /// </para>
@@ -189,7 +189,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get ticker for a symbol
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-trend-data" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/market-endpoints/get-ticker-contract-market-data" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/contract/ticker
         /// </para>
@@ -202,7 +202,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get tickers
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-trend-data" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/market-endpoints/get-ticker-contract-market-data" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/contract/ticker
         /// </para>
@@ -214,7 +214,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get risk fund balances
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-all-contract-risk-fund-balance" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/market-endpoints/get-insurance-fund-balance" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/contract/risk_reverse
         /// </para>
@@ -226,7 +226,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get risk fund balance history
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-risk-fund-balance-history" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/market-endpoints/get-insurance-fund-balance-history" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/contract/risk_reverse/history
         /// </para>
@@ -241,7 +241,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get funding rate history
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-contract-funding-rate-history" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/market-endpoints/get-funding-rate-history" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/contract/funding_rate/history
         /// </para>

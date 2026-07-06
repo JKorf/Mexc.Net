@@ -12,7 +12,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Place a new test order. Only validates the rules, doesn't actually place any order
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#test-new-order" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/spot-account-trade/test-new-order" /><br />
         /// Endpoint:<br />
         /// POST /api/v3/order/test
         /// </para>
@@ -32,7 +32,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Place a new order
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#new-order" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/spot-account-trade/new-order" /><br />
         /// Endpoint:<br />
         /// POST /api/v3/order
         /// </para>
@@ -52,7 +52,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Place multiple new orders in a single request
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#batch-orders" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/spot-account-trade/batch-orders" /><br />
         /// Endpoint:<br />
         /// POST /api/v3/batchOrders
         /// </para>
@@ -65,7 +65,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Cancel an order
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#cancel-order" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/spot-account-trade/cancel-order" /><br />
         /// Endpoint:<br />
         /// DELETE /api/v3/order
         /// </para>
@@ -82,7 +82,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Cancel all orders on a symbol
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#cancel-all-open-orders-on-a-symbol" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/spot-account-trade/cancel-all-open-orders-on-a-symbol" /><br />
         /// Endpoint:<br />
         /// DELETE /api/v3/openOrders
         /// </para>
@@ -96,7 +96,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Cancel all orders on a symbol
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#cancel-all-open-orders-on-a-symbol" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/spot-account-trade/cancel-all-open-orders-on-a-symbol" /><br />
         /// Endpoint:<br />
         /// DELETE /api/v3/openOrders
         /// </para>
@@ -110,7 +110,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get an order
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-order" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/spot-account-trade/query-order" /><br />
         /// Endpoint:<br />
         /// GET /api/v3/order
         /// </para>
@@ -126,7 +126,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get all open orders
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#current-open-orders" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/spot-account-trade/current-open-orders" /><br />
         /// Endpoint:<br />
         /// GET /api/v3/openOrders
         /// </para>
@@ -140,7 +140,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get all orders
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#all-orders" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/spot-account-trade/all-orders" /><br />
         /// Endpoint:<br />
         /// GET /api/v3/allOrders
         /// </para>
@@ -157,7 +157,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get user trades
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#account-trade-list" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/spot-account-trade/account-trade-list" /><br />
         /// Endpoint:<br />
         /// GET /api/v3/myTrades
         /// </para>

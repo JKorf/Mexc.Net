@@ -12,7 +12,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Ping the server, returns the response time in milliseconds
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#test-connectivity" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/market-data-endpoints/test-connectivity" /><br />
         /// Endpoint:<br />
         /// GET /api/v3/ping
         /// </para>
@@ -25,7 +25,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get the server time
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#check-server-time" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/market-data-endpoints/check-server-time" /><br />
         /// Endpoint:<br />
         /// GET /api/v3/time
         /// </para>
@@ -38,7 +38,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get a list of symbols supported by the API
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#api-default-symbol" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/market-data-endpoints/api-default-symbol" /><br />
         /// Endpoint:<br />
         /// GET /api/v3/defaultSymbols
         /// </para> 
@@ -51,7 +51,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get the exchange info, including symbol info
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#exchange-information" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/market-data-endpoints/exchange-information" /><br />
         /// Endpoint:<br />
         /// GET /api/v3/exchangeInfo
         /// </para>
@@ -65,7 +65,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get the current order book
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#order-book" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/market-data-endpoints/order-book" /><br />
         /// Endpoint:<br />
         /// GET /api/v3/depth
         /// </para>
@@ -80,7 +80,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get a list of the most recent trades
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#recent-trades-list" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/market-data-endpoints/recent-trades-list" /><br />
         /// Endpoint:<br />
         /// GET /api/v3/trades
         /// </para>
@@ -95,7 +95,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get a list of aggregated trades
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#compressed-aggregate-trades-list" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/market-data-endpoints/compressed-aggregate-trades-list" /><br />
         /// Endpoint:<br />
         /// GET /api/v3/aggTrades
         /// </para>
@@ -112,7 +112,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get kline/candlestick data
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#kline-candlestick-data" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/market-data-endpoints/kline-candlestick-data" /><br />
         /// Endpoint:<br />
         /// GET /api/v3/klines
         /// </para>
@@ -130,7 +130,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get average price for a symbol
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#current-average-price" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/market-data-endpoints/current-average-price" /><br />
         /// Endpoint:<br />
         /// GET /api/v3/avgPrice
         /// </para>
@@ -144,7 +144,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get 24h price statistics
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#24hr-ticker-price-change-statistics" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/market-data-endpoints/24hr-ticker-price-change-statistics" /><br />
         /// Endpoint:<br />
         /// GET /api/v3/ticker/24hr
         /// </para>
@@ -158,7 +158,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get 24h price statistics
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#24hr-ticker-price-change-statistics" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/market-data-endpoints/24hr-ticker-price-change-statistics" /><br />
         /// Endpoint:<br />
         /// GET /api/v3/ticker/24hr
         /// </para>
@@ -171,7 +171,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get the last symbol prices
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#symbol-price-ticker" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/market-data-endpoints/symbol-price-ticker" /><br />
         /// Endpoint:<br />
         /// GET /api/v3/ticker/price
         /// </para>
@@ -185,7 +185,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get the best book prices
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#symbol-order-book-ticker" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/market-data-endpoints/symbol-order-book-ticker" /><br />
         /// Endpoint:<br />
         /// GET /api/v3/ticker/bookTicker
         /// </para>
@@ -199,7 +199,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get the best book prices
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#symbol-order-book-ticker" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/market-data-endpoints/symbol-order-book-ticker" /><br />
         /// Endpoint:<br />
         /// GET /api/v3/ticker/bookTicker
         /// </para>
@@ -212,7 +212,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get offline/paused symbols
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.mexc.com/api-docs/spot-v3/market-data-endpoints#query-offline-symbols" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/market-data-endpoints/query-offline-symbols" /><br />
         /// Endpoint:<br />
         /// GET /api/v3/symbol/offline
         /// </para>

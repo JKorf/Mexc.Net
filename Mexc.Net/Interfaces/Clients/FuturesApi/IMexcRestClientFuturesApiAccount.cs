@@ -13,7 +13,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get balance of an asset
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-user-39-s-single-currency-asset-information" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints/get-single-currency-asset-information" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/private/account/assets/{asset}
         /// </para>
@@ -26,7 +26,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get balances
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-all-informations-of-user-39-s-asset" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints/get-all-account-assets" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/private/account/assets
         /// </para>
@@ -38,7 +38,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get transfer history
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-user-39-s-asset-transfer-records" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints/get-asset-transfer-records" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/private/account/transfer_record
         /// </para>
@@ -55,7 +55,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get funding history
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-details-of-user-s-funding-rate" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints/get-funding-fee-details" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/private/position/funding_records
         /// </para>
@@ -71,7 +71,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get current trading fees
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#gets-the-user-39-s-current-trading-fee-rate" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints/get-fee-details" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/private/account/tiered_fee_rate
         /// </para>
@@ -84,7 +84,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Change margin
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#increase-or-decrease-margin" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints/modify-position-margin" /><br />
         /// Endpoint:<br />
         /// POST /api/v1/private/position/change_margin
         /// </para>
@@ -99,7 +99,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get the current leverage
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-leverage" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints/get-position-leverage-multipliers" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/private/position/leverage
         /// </para>
@@ -112,7 +112,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Set leverage
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#switch-leverage" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints/modify-leverage" /><br />
         /// Endpoint:<br />
         /// POST /api/v1/private/position/change_leverage
         /// </para>
@@ -129,7 +129,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get the current position mode
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-position-mode" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints/get-user-position-mode" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/private/position/position_mode
         /// </para>
@@ -141,7 +141,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Set position mode
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#change-position-mode" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints/modify-user-position-mode" /><br />
         /// Endpoint:<br />
         /// POST /api/v1/private/position/change_position_mode
         /// </para>
@@ -154,7 +154,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get profit rate
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints#view-personal-profit-rate" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints/view-personal-profit-rate" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/private/account/profit_rate/{type}<br />
         /// </para>
@@ -167,7 +167,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get deduction configuration
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints#deduction-configuration" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints/deduction-configuration" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/private/account/feeDeductConfigs<br />
         /// </para>
@@ -179,7 +179,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get discount type config
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints#query-user-discount-usage" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints/query-user-discount-usage" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/private/account/discountType<br />
         /// </para>
@@ -191,7 +191,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get zero fee trading pairs
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints#zero-fee-trading-pairs" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/private/account/contract/zero_fee_rate<br />
         /// </para>
@@ -204,7 +204,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Toggle auto-add margin for a position
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints#enable-or-disable-auto-add-margin" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints/enable-or-disable-auto-add-margin" /><br />
         /// Endpoint:<br />
         /// POST /api/v1/private/position/change_auto_add_im<br />
         /// </para>

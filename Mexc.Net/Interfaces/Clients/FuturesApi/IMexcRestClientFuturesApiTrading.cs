@@ -14,7 +14,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get open orders
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints#get-current-orders" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/trade/get-current-orders" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/private/order/list/open_orders/{symbol}
         /// </para>
@@ -28,7 +28,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get order history
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-all-of-the-user-39-s-historical-orders" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/trade/get-all-historical-orders" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/private/order/list/history_orders
         /// </para>
@@ -48,7 +48,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get order by client order id
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#query-the-order-based-on-the-external-number" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/trade/get-order-by-external-id" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/private/order/external/{symbol}/{clientOrderId}
         /// </para>
@@ -62,7 +62,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get order by id
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#query-the-order-based-on-the-order-number" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/trade/get-order-information-by-order-id" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/private/order/get/{orderId}
         /// </para>
@@ -75,7 +75,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get orders by id
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#query-the-order-in-bulk-based-on-the-order-number" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/trade/batch-query-orders-by-order-id" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/private/order/batch_query
         /// </para>
@@ -88,7 +88,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get trades for an order
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-order-transaction-details-based-on-the-order-id" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/trade/get-trade-records-by-order-id" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/private/order/deal_details/{orderId}
         /// </para>
@@ -101,7 +101,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get user trades
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-all-transaction-details-of-the-user-s-order" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/trade/get-historical-order-deal-details" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/private/order/list/order_deals
         /// </para>
@@ -118,7 +118,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get trigger orders
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-all-of-the-user-39-s-historical-orders" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/trade/get-plan-order-list" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/private/planorder/list/orders
         /// </para>
@@ -136,7 +136,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get stop orders
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-stop-limit-order-list" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/trade/get-current-take-profitstop-loss-order-list" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/private/stoporder/list/orders
         /// </para>
@@ -154,7 +154,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get risk limits
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-risk-limits" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints/get-risk-limits" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/private/account/risk_limit
         /// </para>
@@ -167,7 +167,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get position history
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-user-s-history-position-information" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints/get-historical-positions" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/private/position/list/history_positions
         /// </para>
@@ -183,7 +183,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get current open positions
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#get-the-user-39-s-current-holding-position" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints/get-open-positions" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/private/position/open_positions
         /// </para>
@@ -196,7 +196,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Place a new order
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints#place-order" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/trade/place-order" /><br />
         /// Endpoint:<br />
         /// POST /api/v1/private/order/create<br />
         /// </para>
@@ -249,7 +249,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Place multiple new orders in a single call
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints#batch-place-order" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/trade/batch-place-order" /><br />
         /// Endpoint:<br />
         /// POST /api/v1/private/order/submit_batch<br />
         /// </para>
@@ -264,7 +264,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Cancel orders by id
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints#cancel-orders" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/trade/cancel-orders" /><br />
         /// Endpoint:<br />
         /// POST /api/v1/private/order/cancel<br />
         /// </para>
@@ -277,7 +277,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Chase order, set the price to the best current order book offer
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints#chase-order" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/trade/chase-order" /><br />
         /// Endpoint:<br />
         /// POST /api/v1/private/order/chase_limit_order<br />
         /// </para>
@@ -290,7 +290,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Edit an open order
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints#chase-order" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/trade/chase-order" /><br />
         /// Endpoint:<br />
         /// POST /api/v1/private/order/change_limit_order<br />
         /// </para>
@@ -308,7 +308,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Cancel orders by client order ids
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints#batch-cancel-by-external-order-id" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/trade/batch-cancel-by-external-order-id" /><br />
         /// Endpoint:<br />
         /// POST /api/v1/private/order/batch_cancel_with_external<br />
         /// </para>
@@ -321,7 +321,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Cancel all orders
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints#cancel-all-orders-under-a-contract" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/trade/cancel-all-orders-under-a-contract" /><br />
         /// Endpoint:<br />
         /// POST /api/v1/private/order/cancel_all<br />
         /// </para>
@@ -334,7 +334,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Reverse a position
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints#cancel-all-orders-under-a-contract" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/trade/cancel-all-orders-under-a-contract" /><br />
         /// Endpoint:<br />
         /// POST /api/v1/private/position/reverse<br />
         /// </para>
@@ -353,7 +353,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Close all open positions
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints#close-all" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/trade/close-all" /><br />
         /// Endpoint:<br />
         /// POST /api/v1/private/position/close_all<br />
         /// </para>
@@ -365,7 +365,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get current open order counts
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints#query-in-flight-order-counts" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/trade/query-in-flight-order-counts" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/private/order/open_order_total_count<br />
         /// </para>
@@ -377,7 +377,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Place a new plan order
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints#place-plan-order" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/trade/place-plan-order" /><br />
         /// Endpoint:<br />
         /// POST /api/v1/private/planorder/place/v2<br />
         /// </para>
@@ -426,7 +426,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Edit an active plan order
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints#place-plan-order" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/trade/place-plan-order" /><br />
         /// Endpoint:<br />
         /// POST /api/v1/private/planorder/change_price<br />
         /// </para>
@@ -453,7 +453,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Cancel plan orders by id
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints#cancel-planned-ordersmaintenance" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/trade/cancel-planned-orders" /><br />
         /// Endpoint:<br />
         /// POST /api/v1/private/planorder/cancel<br />
         /// </para>
@@ -466,7 +466,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Cancel all plan orders
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints#cancel-all-planned-ordersmaintenance" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/trade/cancel-all-planned-orders" /><br />
         /// Endpoint:<br />
         /// POST /api/v1/private/planorder/cancel_all<br />
         /// </para>
@@ -479,7 +479,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// 
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints#place-tpsl-order-by-position" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/trade/place-tpsl-order-by-position" /><br />
         /// Endpoint:<br />
         /// POST /api/v1/private/stoporder/place<br />
         /// </para>
@@ -524,7 +524,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Cancel take profit/stop loss orders
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints#cancel-tpsl-planned-ordersmaintenance" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/trade/cancel-tpsl-planned-orders" /><br />
         /// Endpoint:<br />
         /// POST /api/v1/private/stoporder/cancel<br />
         /// </para>
@@ -537,7 +537,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Cancel all take profit/stop loss orders matching the params
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints#cancel-all-tpsl-planned-ordersmaintenance" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/trade/cancel-all-tpsl-planned-orders" /><br />
         /// Endpoint:<br />
         /// POST /api/v1/private/stoporder/cancel_all<br />
         /// </para>
@@ -554,7 +554,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Edit an active take profit/stop loss order
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints#modify-tpsl-prices-on-a-limit-order" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/trade/modify-tpsl-prices-on-a-limit-order" /><br />
         /// Endpoint:<br />
         /// POST /api/v1/private/stoporder/change_price<br />
         /// </para>
@@ -581,7 +581,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// 
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints#modify-tpsl-prices-on-a-tpsl-planned-order" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/trade/modify-tpsl-prices-on-a-tpsl-planned-order" /><br />
         /// Endpoint:<br />
         /// POST /api/v1/private/stoporder/change_plan_price<br />
         /// </para>
@@ -608,7 +608,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get open TP/SL orders
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints#get-current-take-profitstop-loss-order-list" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/trade/get-current-take-profitstop-loss-order-list" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/private/stoporder/open_orders<br />
         /// </para>
@@ -621,7 +621,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Place a new trailing stop order
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints#place-trailing-order" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/trade/place-trailing-order" /><br />
         /// Endpoint:<br />
         /// POST /api/v1/private/trackorder/place<br />
         /// </para>
@@ -656,7 +656,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Cancel active trailing order
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints#cancel-trailing-order" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/trade/cancel-trailing-order" /><br />
         /// Endpoint:<br />
         /// POST /api/v1/private/trackorder/cancel<br />
         /// </para>
@@ -673,7 +673,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Edit an active trailing order
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints#modify-trailing-order" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/trade/modify-trailing-order" /><br />
         /// Endpoint:<br />
         /// POST /api/v1/private/trackorder/change_order<br />
         /// </para>
@@ -700,7 +700,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Get trailing orders
         /// <para>
         /// Docs:<br />
-        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints#query-trailing-orders" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/trade/query-trailing-orders" /><br />
         /// Endpoint:<br />
         /// GET /api/v1/private/trackorder/list/orders<br />
         /// </para>

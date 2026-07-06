@@ -12,7 +12,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get details of the available sub-accounts
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-sub-account-list-for-master-account" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/subaccount-endpoints/query-sub-account-list-for-master-account" /><br />
         /// Endpoint:<br />
         /// GET /api/v3/sub-account/list
         /// </para>
@@ -29,7 +29,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get API details of a sub-account
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-the-apikey-of-a-sub-account-for-master-account" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/subaccount-endpoints/query-the-apikey-of-a-sub-account-for-master-account" /><br />
         /// Endpoint:<br />
         /// GET /api/v3/sub-account/apiKey
         /// </para>
@@ -43,7 +43,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Perform a universal transfer between accounts
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#universal-transfer-for-master-account" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/subaccount-endpoints/universal-transfer-for-master-account" /><br />
         /// Endpoint:<br />
         /// POST /api/v3/capital/sub-account/universalTransfer
         /// </para>
@@ -62,7 +62,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Query the universal transfer history
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-universal-transfer-history-for-master-account" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/subaccount-endpoints/query-universal-transfer-history-for-master-account" /><br />
         /// Endpoint:<br />
         /// GET /api/v3/capital/sub-account/universalTransfer
         /// </para>
@@ -83,7 +83,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Create a new virtual sub account
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#create-a-sub-account-for-master-account" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/subaccount-endpoints/create-a-sub-account-for-master-account" /><br />
         /// Endpoint:<br />
         /// POST /api/v3/sub-account/virtualSubAccount
         /// </para>
@@ -97,7 +97,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Create API key for sub account
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#create-an-apikey-for-a-sub-account-for-master-account" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/subaccount-endpoints/create-an-apikey-for-a-sub-account-for-master-account" /><br />
         /// Endpoint:<br />
         /// POST /api/v3/sub-account/apiKey
         /// </para>
@@ -113,7 +113,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Delete a sub account API key
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#delete-the-apikey-of-a-sub-account-for-master-account" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/subaccount-endpoints/delete-the-apikey-of-a-sub-account-for-master-account" /><br />
         /// Endpoint:<br />
         /// DELETE /api/v3/sub-account/apiKey
         /// </para>
@@ -127,7 +127,7 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// Get sub account balances
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en/#query-sub-account-asset" /><br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/subaccount-endpoints/query-sub-account-asset" /><br />
         /// Endpoint:<br />
         /// GET /api/v3/sub-account/asset
         /// </para>

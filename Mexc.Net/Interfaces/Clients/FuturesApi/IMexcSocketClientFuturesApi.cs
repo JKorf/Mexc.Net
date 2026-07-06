@@ -20,7 +20,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Subscribe to ticker updates for all symbols
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/websocket-api/public-channels" /><br />
         /// Endpoint:<br />
         /// tickers
         /// </para>
@@ -33,7 +33,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Subscribe to ticker updates for a symbol
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/websocket-api/public-channels" /><br />
         /// Endpoint:<br />
         /// ticker
         /// </para>
@@ -47,7 +47,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Subscribe to trade updates for a symbol
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/websocket-api/public-channels" /><br />
         /// Endpoint:<br />
         /// deal
         /// </para>
@@ -61,7 +61,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Subscribe to kline updates
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/websocket-api/public-channels" /><br />
         /// Endpoint:<br />
         /// kline
         /// </para>
@@ -76,7 +76,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Subscribe to incremental order book updates
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/websocket-api/public-channels" /><br />
         /// Endpoint:<br />
         /// depth
         /// </para>
@@ -90,7 +90,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Subscribe to full book updates for the first rows of the order book
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/websocket-api/public-channels" /><br />
         /// Endpoint:<br />
         /// depth.full
         /// </para>
@@ -105,7 +105,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Subscribe to funding rate updates
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/websocket-api/public-channels" /><br />
         /// Endpoint:<br />
         /// funding.rate
         /// </para>
@@ -119,7 +119,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Subscribe to index price updates for a symbol
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/websocket-api/public-channels" /><br />
         /// Endpoint:<br />
         /// index.price
         /// </para>
@@ -133,7 +133,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Subscribe to mark price updates for a symbol
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/websocket-api/public-channels" /><br />
         /// Endpoint:<br />
         /// fair.price
         /// </para>
@@ -147,7 +147,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Subscribe to contract/symbol updates
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#public-channels" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/websocket-api/public-channels" /><br />
         /// Endpoint:<br />
         /// contract
         /// </para>
@@ -160,7 +160,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// Subscribe to user data updates
         /// <para>
         /// Docs:<br />
-        /// <a href="https://mexcdevelop.github.io/apidocs/contract_v1_en/#private-channels" /><br />
+        /// <a href="https://www.mexc.com/api-docs/futures/websocket-api/private-channels" /><br />
         /// Endpoint:<br />
         /// personal.filter
         /// </para>
