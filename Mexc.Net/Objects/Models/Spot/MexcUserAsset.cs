@@ -50,6 +50,11 @@ namespace Mexc.Net.Objects.Models.Spot
         [JsonPropertyName("minConfirm")]
         public int MinConfirmations { get; set; }
         /// <summary>
+        /// ["<c>depositPreConfirms</c>"] Deposit pre confirms
+        /// </summary>
+        [JsonPropertyName("depositPreConfirms")]
+        public int? DepositPreConfirms { get; set; }
+        /// <summary>
         /// ["<c>Name</c>"] Name
         /// </summary>
         [JsonPropertyName("name")]
