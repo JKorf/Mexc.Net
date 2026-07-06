@@ -83,7 +83,6 @@ namespace Mexc.Net.Objects.Models.Spot
         /// </summary>
         [JsonPropertyName("baseSizePrecision")]
         public decimal BaseQuantityPrecision { get; set; }
-
         /// <summary>
         /// ["<c>permissions</c>"] Permissions types
         /// </summary>
@@ -119,5 +118,20 @@ namespace Mexc.Net.Objects.Models.Spot
         /// </summary>
         [JsonPropertyName("tradeSideType")]
         public TradeSidesStatus TradeSidesEnabled { get; set; }
+        /// <summary>
+        /// ["<c>contractAddress</c>"] Contract address
+        /// </summary>
+        [JsonPropertyName("contractAddress")]
+        public string? ContractAddress { get; set; }
+        /// <summary>
+        /// ["<c>firstOpenTime</c>"] First open time
+        /// </summary>
+        [JsonPropertyName("firstOpenTime")]
+        public DateTime? FirstOpenTime { get; set; }
+        /// <summary>
+        /// ["<c>bizType</c>"] Biz type
+        /// </summary>
+        [JsonPropertyName("bizType")]
+        public string? BizType { get; set; }
     }
 }
