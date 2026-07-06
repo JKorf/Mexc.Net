@@ -36,5 +36,10 @@ namespace Mexc.Net.Objects.Models.Spot
         /// </summary>
         [JsonPropertyName("message")]
         public string Message { get; set; } = string.Empty;
+        /// <summary>
+        /// ["<c>currencyId</c>"] Asset id
+        /// </summary>
+        [JsonPropertyName("currencyId")]
+        public string AssetId { get; set; } = string.Empty;
     }
 }
