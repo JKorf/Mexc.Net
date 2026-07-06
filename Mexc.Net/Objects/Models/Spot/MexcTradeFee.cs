@@ -16,5 +16,10 @@ namespace Mexc.Net.Objects.Models.Spot
         /// </summary>
         [JsonPropertyName("takerCommission")]
         public decimal TakerFee { get; set; }
+        /// <summary>
+        /// ["<c>rpiMakerCommission</c>"] RPI maker commission
+        /// </summary>
+        [JsonPropertyName("rpiMakerCommission")]
+        public decimal? RpiMakerCommission { get; set; }
     }
 }
