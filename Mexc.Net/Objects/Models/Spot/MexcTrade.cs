@@ -1,3 +1,5 @@
+using Mexc.Net.Enums;
+
 namespace Mexc.Net.Objects.Models.Spot
 {
     /// <summary>
@@ -36,5 +38,10 @@ namespace Mexc.Net.Objects.Models.Spot
         /// </summary>
         [JsonPropertyName("isBestMatch")]
         public bool IsBestMatch { get; set; }
+        /// <summary>
+        /// ["<c>tradeType</c>"] Trade type
+        /// </summary>
+        [JsonPropertyName("tradeType")]
+        public TradeType TradeType { get; set; }
     }
 }
