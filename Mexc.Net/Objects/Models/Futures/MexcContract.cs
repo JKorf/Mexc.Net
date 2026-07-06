@@ -3,7 +3,7 @@ using Mexc.Net.Enums;
 namespace Mexc.Net.Objects.Models.Futures
 {
     /// <summary>
-    /// 
+    /// Contract info
     /// </summary>
     public record MexcContract
     {
@@ -18,7 +18,7 @@ namespace Mexc.Net.Objects.Models.Futures
         [JsonPropertyName("displayName")]
         public string DisplayName { get; set; } = string.Empty;
         /// <summary>
-        /// ["<c>displayNameEn</c>"] Display name english
+        /// ["<c>displayNameEn</c>"] Display name in  English
         /// </summary>
         [JsonPropertyName("displayNameEn")]
         public string DisplayNameEnglish { get; set; } = string.Empty;
@@ -307,5 +307,127 @@ namespace Mexc.Net.Objects.Models.Futures
         /// </summary>
         [JsonPropertyName("baseCoinId")]
         public string BaseAssetId { get; set; } = string.Empty;
+        /// <summary>
+        /// ["<c>threshold</c>"] Threshold
+        /// </summary>
+        [JsonPropertyName("threshold")]
+        public decimal? ThreshHold { get; set; }
+        /// <summary>
+        /// ["<c>vid</c>"] Vid
+        /// </summary>
+        [JsonPropertyName("vid")]
+        public string? Vid { get; set; }
+        /// <summary>
+        /// ["<c>fn</c>"] Localized name
+        /// </summary>
+        [JsonPropertyName("fn")]
+        public string? LocalName { get; set; }
+        /// <summary>
+        /// ["<c>createTime</c>"] Create time
+        /// </summary>
+        [JsonPropertyName("createTime")]
+        public DateTime CreateTime { get; set; }
+        /// <summary>
+        /// ["<c>showBeforeOpen</c>"] Show before open
+        /// </summary>
+        [JsonPropertyName("showBeforeOpen")]
+        public bool ShowBeforeOpen { get; set; }
+        /// <summary>
+        /// ["<c>isMaxLeverage</c>"] Is max leverage
+        /// </summary>
+        [JsonPropertyName("isMaxLeverage")]
+        public bool IsMaxLeverage { get; set; }
+        /// <summary>
+        /// ["<c>isZeroFeeRate</c>"] Is zero fee rate
+        /// </summary>
+        [JsonPropertyName("isZeroFeeRate")]
+        public bool IsZeroFeeRate { get; set; }
+        /// <summary>
+        /// ["<c>isZeroFeeSymbol</c>"] Is zero fee symbol
+        /// </summary>
+        [JsonPropertyName("isZeroFeeSymbol")]
+        public bool IsZeroFeeSymbol { get; set; }
+        /// <summary>
+        /// ["<c>stopOnlyFair</c>"] Stop only fair
+        /// </summary>
+        [JsonPropertyName("stopOnlyFair")]
+        public bool StopOnlyFair { get; set; }
+        /// <summary>
+        /// ["<c>preMarket</c>"] Pre market
+        /// </summary>
+        [JsonPropertyName("preMarket")]
+        public bool PreMarket { get; set; }
+        /// <summary>
+        /// ["<c>tempMaxLeverageLimited</c>"] Temp max leverage limited
+        /// </summary>
+        [JsonPropertyName("tempMaxLeverageLimited")]
+        public bool TempMaxLeverageLimited { get; set; }
+        /// <summary>
+        /// ["<c>regularMaxLeverage</c>"] Regular max leverage
+        /// </summary>
+        [JsonPropertyName("regularMaxLeverage")]
+        public decimal RegularMaxLeverage { get; set; }
+        /// <summary>
+        /// ["<c>feeRateType</c>"] Fee rate type
+        /// </summary>
+        [JsonPropertyName("feeRateType")]
+        public FeeRateType FeeRateType { get; set; }
+        /// <summary>
+        /// ["<c>openingCountdownOption</c>"] Opening countdown show option
+        /// </summary>
+        [JsonPropertyName("openingCountdownOption")]
+        public int? OpeningCountdownOption { get; set; }
+        /// <summary>
+        /// ["<c>type</c>"] Type, 1 = normal, 2 = suspended
+        /// </summary>
+        [JsonPropertyName("type")]
+        public int Type { get; set; }
+        /// <summary>
+        /// ["<c>riskLimitCustom</c>"] Custom risk limit list in CUSTOM mode
+        /// </summary>
+        [JsonPropertyName("riskLimitCustom")]
+        public MexcCustomRiskLimit[] CustomRiskLimits { get; set; } = [];
+        /// <summary>
+        /// ["<c>tempFeeRateEffectiveStartTime</c>"] Temp fee rate start time
+        /// </summary>
+        [JsonPropertyName("tempFeeRateEffectiveStartTime")]
+        public DateTime? TempFeeRateStartTime { get; set; }
+        /// <summary>
+        /// ["<c>deliveryTime</c>"] Delivery time
+        /// </summary>
+        [JsonPropertyName("deliveryTime")]
+        public DateTime? DeliveryTime { get; set; }
+    }
+
+    /// <summary>
+    /// Custom risk limit
+    /// </summary>
+    public record MexcCustomRiskLimit
+    {
+        /// <summary>
+        /// ["<c>level</c>"] Level
+        /// </summary>
+        [JsonPropertyName("level")]
+        public int Level { get; set; }
+        /// <summary>
+        /// ["<c>maxVol</c>"] Max volume for this level
+        /// </summary>
+        [JsonPropertyName("maxVol")]
+        public decimal MaxVolume { get; set; }
+        /// <summary>
+        /// ["<c>mmr</c>"] Maintenance margin rate
+        /// </summary>
+        [JsonPropertyName("mmr")]
+        public decimal MaintenanceMarginRate { get; set; }
+        /// <summary>
+        /// ["<c>imr</c>"] Initial margin rate
+        /// </summary>
+        [JsonPropertyName("imr")]
+        public decimal InitialMarginRate { get; set; }
+        /// <summary>
+        /// ["<c>maxLeverage</c>"] Max leverage setting
+        /// </summary>
+        [JsonPropertyName("maxLeverage")]
+        public int MaxLeverage { get; set; }
     }
 }
