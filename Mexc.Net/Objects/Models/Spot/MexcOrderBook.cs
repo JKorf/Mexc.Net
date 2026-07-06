@@ -11,6 +11,11 @@ namespace Mexc.Net.Objects.Models.Spot
         /// </summary>
         [JsonPropertyName("lastUpdateId")]
         public long LastUpdateId { get; set; }
+        /// <summary>
+        /// ["<c>timestamp</c>"] Data timestamp
+        /// </summary>
+        [JsonPropertyName("timestamp")]
+        public DateTime Timestamp { get; set; }
 
         /// <summary>
         /// ["<c>bids</c>"] The list of bids
