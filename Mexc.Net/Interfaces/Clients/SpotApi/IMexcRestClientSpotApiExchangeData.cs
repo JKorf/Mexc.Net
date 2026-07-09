@@ -1,4 +1,5 @@
 using Mexc.Net.Enums;
+using Mexc.Net.Objects.Models;
 using Mexc.Net.Objects.Models.Spot;
 
 namespace Mexc.Net.Interfaces.Clients.SpotApi
@@ -221,5 +222,23 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <returns></returns>
         Task<HttpResult<MexcOfflineSymbol[]>> GetOfflineSymbolsAsync(CancellationToken ct = default);
 
+        /// <summary>
+        /// Get Announcements
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/mexc-platform/get-announcements" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v3/announcements<br />
+        /// </para>
+        /// </summary>
+        /// <param name="language">["<c>language</c>"] Language</param>
+        /// <param name="page">["<c>page</c>"] Page</param>
+        /// <param name="pageSize">["<c>limit</c>"] Page size, max 100</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<HttpResult<MexcAnnouncements>> GetAnnouncementsAsync(
+            string? language = null,
+            int? page = null,
+            int? pageSize = null,
+            CancellationToken ct = default);
     }
 }

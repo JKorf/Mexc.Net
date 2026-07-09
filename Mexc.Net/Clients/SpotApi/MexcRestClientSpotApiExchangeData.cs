@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using CryptoExchange.Net.RateLimiting.Guards;
 using Mexc.Net.Enums;
 using Mexc.Net.Interfaces.Clients.SpotApi;
 using Mexc.Net.Objects.Models;
@@ -244,5 +245,30 @@ namespace Mexc.Net.Clients.SpotApi
             return HttpResult.Ok(response, response.Data.Data ?? []);
         }
         #endregion
+
+        #region Get Announcments
+
+        /// <inheritdoc />
+        public async Task<HttpResult<MexcAnnouncements>> GetAnnouncementsAsync(
+            string? language = null,
+            int? page = null,
+            int? pageSize = null,
+            CancellationToken ct = default)
+        {
+            var parameters = new Parameters(MexcExchange._spotParameterSerializationSettings);
+            parameters.Add("language", language);
+            parameters.Add("page", page);
+            parameters.Add("limit", pageSize);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/v3/announcements", MexcExchange.RateLimiter.SpotRest, 1, false, 
+                limitGuard: new SingleLimitGuard(5, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var result = await _baseClient.SendAsync<MexcResult<MexcAnnouncements[]>>(request, parameters, ct).ConfigureAwait(false);
+            if (!result.Success)
+                return HttpResult.Fail<MexcAnnouncements>(result);
+
+            return HttpResult.Ok(result, result.Data.Data!.First());
+        }
+
+        #endregion
+
     }
 }

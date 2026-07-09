@@ -182,5 +182,6 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancelation Token</param>
         /// <returns></returns>
         Task<HttpResult<MexcUserTrade[]>> GetUserTradesAsync(string symbol, string? orderId = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
+
     }
 }

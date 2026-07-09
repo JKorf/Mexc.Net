@@ -1,0 +1,27 @@
+GET
+/api/v3/announcements
+false
+UriParams: {}
+{
+    "code": 0,
+    "data": [
+        {
+            "details": [
+                {
+                    "title": "OKX to list Virtuals Protocol (VIRTUAL) for spot trading",
+                    "url": "https://www.mexc.com/help/okx-to-list-virtuals-protocol-virtual-for-spot-trading",
+                    "language": "CN",
+                    "postTime": 1761620404821
+                },
+                {
+                    "title": "Completion of X Layer Mainnet Upgrade",
+                    "url": "https://www.mexc.com/help/completion-of-x-layer-mainnet-upgrade",
+                    "language": "CN",
+                    "postTime": 1761582756071
+                }
+            ],
+            "totalPage": "123"
+        }
+    ],
+    "msg": ""
+}
