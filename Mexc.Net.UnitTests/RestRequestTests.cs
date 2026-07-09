@@ -67,7 +67,7 @@ namespace Mexc.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetTickersAsync(), "GetTickers", ignoreProperties: ["count"]);
             await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetPricesAsync(), "GetPrices");
             await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetBookPricesAsync(), "GetBookPrices");
-            await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetAnnouncementsAsync(), "GetAnnouncements");
+            await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetAnnouncementsAsync(), "GetAnnouncements", "data.0");
         }
 
         [Test]
