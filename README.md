@@ -178,6 +178,21 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 6.1.0 - 09 Jul 2026
+    * Updated CryptoExchange.Net to v12.1.0
+    * Added NetworkId, ExplorerUrl to MexcWithdrawal model
+    * Added DepositPreConfirms to MexcNetwork model
+    * Added RpiMakerCommission to MexcTradeFee model
+    * Added TradeType to MexcTrade model
+    * Added Timestamp to MexcOrderBook model
+    * Added AssetId to MexcEligibleDust model
+    * Added ContractAddress, FirstOpenTime and BizType to MexcSymbol model
+    * Added restClient.SpotApi.Trading.CancelAllOrdersAsync endpoint
+    * Added restClient.SpotApi.ExchangeData.GetAnnouncementsAsync endpoint
+    * Added Shared ISpotOrderClientIdRestClient implementation
+    * Updated MexcContract with missing properties
+    * Updated doc references
+
 * Version 6.0.1 - 01 Jul 2026
     * Fixed incorrect signature error for FuturesApi signed requests
 
