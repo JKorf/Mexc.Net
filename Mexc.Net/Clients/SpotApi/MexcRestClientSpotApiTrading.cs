@@ -3,6 +3,7 @@ using Mexc.Net.Objects.Models.Spot;
 using Mexc.Net.Interfaces.Clients.SpotApi;
 using System.Text.Json;
 using CryptoExchange.Net.Objects.Errors;
+using Mexc.Net.Objects.Models;
 
 namespace Mexc.Net.Clients.SpotApi
 {
@@ -142,6 +143,24 @@ namespace Mexc.Net.Clients.SpotApi
             var request = _definitions.GetOrCreate(HttpMethod.Delete, _baseClient.BaseAddress, "/api/v3/openOrders", MexcExchange.RateLimiter.SpotRest, 1, true);
             var result = await _baseClient.SendAsync<MexcOrder[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
+        }
+
+        #endregion
+
+        #region Cancel All Orders
+
+        /// <inheritdoc />
+        public async Task<HttpResult> CancelAllOrdersAsync(CancellationToken ct = default)
+        {
+            var request = _definitions.GetOrCreate(HttpMethod.Delete, _baseClient.BaseAddress, "/api/v3/order/all", MexcExchange.RateLimiter.SpotRest, 1, true);
+            var result = await _baseClient.SendAsync<MexcResult>(request, null, ct).ConfigureAwait(false);
+            if (!result.Success)
+                return HttpResult.Fail(result);
+
+            if (result.Data.Code != 0)
+                return HttpResult.Fail(result, new ServerError(result.Data.Code, _baseClient.GetErrorInfo(result.Data.Code, result.Data.Message!)));
+
+            return HttpResult.Ok(result);
         }
 
         #endregion

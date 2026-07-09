@@ -107,6 +107,18 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         Task<HttpResult<MexcOrder[]>> CancelAllOrdersAsync(IEnumerable<string> symbols, CancellationToken ct = default);
 
         /// <summary>
+        /// Cancel all orders on all symbols
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/spot-account-trade/cancel-all-open-orders-on-a-symbol" /><br />
+        /// Endpoint:<br />
+        /// DELETE /api/v3/openOrders
+        /// </para>
+        /// </summary>
+        /// <param name="ct">Cancelation Token</param>
+        Task<HttpResult> CancelAllOrdersAsync(CancellationToken ct = default);
+
+        /// <summary>
         /// Get an order
         /// <para>
         /// Docs:<br />
