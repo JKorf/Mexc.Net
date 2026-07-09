@@ -45,7 +45,7 @@ namespace Mexc.Net
 
 
         /// <inheritdoc />
-        public IKlineTracker CreateKlineTracker(SharedSymbol symbol, SharedKlineInterval interval, int? limit = null, TimeSpan? period = null)
+        public IKlineTracker CreateKlineTracker(SharedSymbol symbol, SharedKlineInterval interval, int? limit = null, TimeSpan? period = null, ExchangeParameters? exchangeParameters = null)
         {
             IKlineRestClient restClient;
             IKlineSocketClient socketClient;
@@ -67,11 +67,12 @@ namespace Mexc.Net
                 symbol,
                 interval,
                 limit,
-                period
+                period,
+                exchangeParameters
                 );
         }
         /// <inheritdoc />
-        public ITradeTracker CreateTradeTracker(SharedSymbol symbol, int? limit = null, TimeSpan? period = null)
+        public ITradeTracker CreateTradeTracker(SharedSymbol symbol, int? limit = null, TimeSpan? period = null, ExchangeParameters? exchangeParameters = null)
         {
             IRecentTradeRestClient restClient;
             ITradeSocketClient socketClient;
@@ -93,7 +94,8 @@ namespace Mexc.Net
                 socketClient,
                 symbol,
                 limit,
-                period
+                period,
+                exchangeParameters
                 );
         }
 
