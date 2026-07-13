@@ -22,8 +22,8 @@ namespace Mexc.Net
 
             var parameters = request.GetPositionParameters();
             var timestamp = GetMillisecondTimestamp(apiClient);
-            parameters.Add("recvWindow", ((MexcRestClientSpotApi)apiClient).ClientOptions.ReceiveWindow.TotalMilliseconds.ToString());
-            parameters.Add("timestamp", timestamp);
+            parameters["recvWindow"] = ((MexcRestClientSpotApi)apiClient).ClientOptions.ReceiveWindow.TotalMilliseconds.ToString();
+            parameters["timestamp"] = timestamp;
 
             if (ApiCredentials.Credential is HMACCredential hmacCredentials)
             {
@@ -40,7 +40,7 @@ namespace Mexc.Net
 
                     var signature = SignHMACSHA256(hmacCredentials, queryString);
                     request.QueryParameters ??= new Parameters(MexcExchange._spotParameterSerializationSettings);
-                    request.QueryParameters.Add("signature", signature);
+                    request.QueryParameters["signature"] = signature;
                     request.SetQueryString($"{queryString}&signature={signature}");
                 }
                 else
@@ -48,7 +48,7 @@ namespace Mexc.Net
                     var body = parameters.ToFormData();
                     var signature = SignHMACSHA256(hmacCredentials, body);
                     request.BodyParameters ??= new Parameters(MexcExchange._spotParameterSerializationSettings);
-                    request.BodyParameters.Add("signature", signature);
+                    request.BodyParameters["signature"] = signature;
                     request.SetBodyContent($"{body}&signature={signature}");
                 }
             }
