@@ -20,6 +20,9 @@ namespace Mexc.Net.Clients.SpotApi
         public void ResetDefaultExchangeParameters() => ExchangeParameters.ResetStaticParameters();
         public SharedClientInfo Discover() => SharedUtils.GetClientInfo(MexcExchange.Metadata, this);
 
+        private static readonly HashSet<string> _knownCommodities = ["GOLD(PAXG)", "GOLD(XAUT)", "SLVON", "KAG", "XU3O8", "COPXON", "PALLON", "IAUON", "GGBR", "XGZ"];
+        private static readonly HashSet<string> _knownFiat = ["EUR", "USD", "BRL"];
+
         #region Kline client
 
         GetKlinesOptions IKlineRestClient.GetKlinesOptions { get; } = new GetKlinesOptions(_exchangeName, true, false, true, 500, false,
@@ -74,6 +77,7 @@ namespace Mexc.Net.Clients.SpotApi
         #endregion
 
         #region Spot Symbol client
+        SharedSymbolCatalog? ISpotSymbolRestClient.SpotSymbolCatalog => ExchangeSymbolCache.GetSymbolCatalog(_topicId, EnvironmentName, null);
         GetSpotSymbolsOptions ISpotSymbolRestClient.GetSpotSymbolsOptions { get; } = new GetSpotSymbolsOptions(_exchangeName, false);
 
         async Task<HttpResult<SharedSpotSymbol[]>> ISpotSymbolRestClient.GetSpotSymbolsAsync(GetSymbolsRequest request, CancellationToken ct)
@@ -86,17 +90,55 @@ namespace Mexc.Net.Clients.SpotApi
             if (!result.Success)
                 return HttpResult.Fail<SharedSpotSymbol[]>(result);
 
-            var response = HttpResult.Ok(result, result.Data.Symbols.Select(s => new SharedSpotSymbol(s.BaseAsset, s.QuoteAsset, s.Name, s.IsSpotTradingAllowed && s.Status == SymbolStatus.Enabled)
+            var resultData =
+                 result.Data.Symbols
+                .Select(x => ParseSymbol(x))
+                .ToArray();
+
+            ExchangeSymbolCache.UpdateSymbolInfo(_topicId, EnvironmentName, null, resultData);
+            return HttpResult.Ok(result, SharedUtils.ApplySymbolFilter(resultData, request));
+        }
+
+        private SharedSpotSymbol ParseSymbol(MexcSymbol s)
+        {
+            var result = new SharedSpotSymbol(s.BaseAsset, s.QuoteAsset, s.Name, s.IsSpotTradingAllowed && s.Status == SymbolStatus.Enabled)
             {
                 PriceDecimals = s.QuoteAssetPrecision,
                 QuantityDecimals = s.BaseAssetPrecision,
                 QuantityStep = s.BaseQuantityPrecision,
                 MinTradeQuantity = s.BaseQuantityPrecision,
-                MinNotionalValue = s.QuoteQuantityPrecision
-            }).ToArray());
+                MinNotionalValue = s.QuoteQuantityPrecision,
+                DisplayName = s.Name
+            };
 
-            ExchangeSymbolCache.UpdateSymbolInfo(_topicId, EnvironmentName, null, response.Data!);
-            return response;
+            if (_knownCommodities.Contains(s.BaseAsset))
+            {
+                result.BaseAssetType = SharedAssetType.TradFi;
+                result.BaseAssetSubType = SharedAssetSubType.Commodity;
+            }
+            else if (s.BaseAssetName.Contains("xStock") || s.BaseAssetName.Contains("(Ondo)"))
+            {
+                result.BaseAssetType = SharedAssetType.TradFi;
+                result.BaseAssetSubType = SharedAssetSubType.Equity;
+            }
+            else
+            {
+                result.BaseAssetType = SharedAssetType.Crypto;
+                if (LibraryHelpers.IsStableCoin(result.BaseAsset))
+                    result.BaseAssetSubType = SharedAssetSubType.StableCoin;
+            }
+
+            if (_knownFiat.Contains(result.QuoteAsset))
+            {
+                result.QuoteAssetType = SharedAssetType.Fiat;
+            }
+            else
+            {
+                result.QuoteAssetType = SharedAssetType.Crypto;
+                result.QuoteAssetSubType = SharedAssetSubType.StableCoin;
+            }
+
+            return result;
         }
 
         async Task<ExchangeCallResult<SharedSymbol[]>> ISpotSymbolRestClient.GetSpotSymbolsForBaseAssetAsync(string baseAsset)
