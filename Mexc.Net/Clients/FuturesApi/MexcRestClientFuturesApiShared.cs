@@ -157,6 +157,7 @@ namespace Mexc.Net.Clients.FuturesApi
 
         #region Futures Symbol client
 
+        SharedSymbolCatalog? IFuturesSymbolRestClient.FuturesSymbolCatalog => ExchangeSymbolCache.GetSymbolCatalog(_exchangeName, _topicId, EnvironmentName, null);
         GetFuturesSymbolsOptions IFuturesSymbolRestClient.GetFuturesSymbolsOptions { get; } = new GetFuturesSymbolsOptions(_exchangeName, false);
         async Task<HttpResult<SharedFuturesSymbol[]>> IFuturesSymbolRestClient.GetFuturesSymbolsAsync(GetSymbolsRequest request, CancellationToken ct)
         {
@@ -168,32 +169,61 @@ namespace Mexc.Net.Clients.FuturesApi
             if (!result.Success)
                 return HttpResult.Fail<SharedFuturesSymbol[]>(result);
 
-            IEnumerable<MexcContract> data = result.Data;
-            if (request.TradingMode.HasValue)
-            {
-                data = data.Where(x =>
-                    request.TradingMode == TradingMode.PerpetualLinear ? (x.BaseAsset == x.SettleAsset):
-                       (x.BaseAsset != x.SettleAsset));
-            }
+            var resultData =
+                 result.Data
+                .Select(x => ParseSymbol(x))
+                .ToArray();
 
-            var response = HttpResult.Ok(result, result.Data.Select(s => new SharedFuturesSymbol(
+            ExchangeSymbolCache.UpdateSymbolInfo(_topicId, EnvironmentName, null, resultData);
+            return HttpResult.Ok(result, SharedUtils.ApplySymbolFilter(resultData, request));
+        }
+
+        private SharedFuturesSymbol ParseSymbol(MexcContract s)
+        {
+            var result = new SharedFuturesSymbol(
                 s.BaseAsset == s.SettleAsset ? TradingMode.PerpetualInverse : TradingMode.PerpetualLinear,
                 s.BaseAsset,
                 s.QuoteAsset,
                 s.Symbol,
                 s.ContractStatus == ContractStatus.Enabled)
-                {
-                    MinTradeQuantity = s.MinQuantity,
-                    MaxTradeQuantity = s.MaxQuantity,
-                    PriceStep = s.PriceUnit,
-                    ContractSize = s.ContractSize,
-                    MaxLongLeverage = s.MaxLeverage,
-                    MaxShortLeverage = s.MaxLeverage,
-                    QuantityStep = s.VolumeUnit
-                }).ToArray());
+            {
+                MinTradeQuantity = s.MinQuantity,
+                MaxTradeQuantity = s.MaxQuantity,
+                PriceStep = s.PriceUnit,
+                ContractSize = s.ContractSize,
+                MaxLongLeverage = s.MaxLeverage,
+                MaxShortLeverage = s.MaxLeverage,
+                QuantityStep = s.VolumeUnit,
+                DisplayName = s.DisplayNameEnglish
+            };
 
-            ExchangeSymbolCache.UpdateSymbolInfo(_topicId, EnvironmentName, null, response.Data!);
-            return response;
+            if (result.TradingMode.IsInverse())
+            {
+                result.QuoteAssetType = SharedAssetType.Fiat;
+            }
+            else
+            {
+                result.QuoteAssetType = SharedAssetType.Crypto;
+                result.QuoteAssetSubType = SharedAssetSubType.StableCoin;
+            }
+
+            if (s.ConceptPlate.Contains("mc-trade-zone-tradfi"))
+            {
+                result.BaseAssetType = SharedAssetType.TradFi;
+                if (s.ConceptPlate.Contains("mc-trade-zone-Stock"))
+                    result.BaseAssetSubType = SharedAssetSubType.Equity;
+                else if (s.ConceptPlate.Contains("mc-trade-zone-Commodities"))
+                    result.BaseAssetSubType = SharedAssetSubType.Commodity;
+                else if (s.ConceptPlate.Contains("mc-trade-zone-OIL"))
+                    result.BaseAssetSubType = SharedAssetSubType.Commodity;
+            }
+            else
+            {
+                result.BaseAssetType = SharedAssetType.Crypto;
+            }
+
+
+            return result;
         }
 
         async Task<ExchangeCallResult<SharedSymbol[]>> IFuturesSymbolRestClient.GetFuturesSymbolsForBaseAssetAsync(string baseAsset)
