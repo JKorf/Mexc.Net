@@ -61,7 +61,7 @@ Spot private streams require a listen key from `restClient.SpotApi.Account.Start
 
 ## Cross-Exchange
 
-For code that needs to work across multiple exchanges, use `CryptoExchange.Net.SharedApis` interfaces accessed via `.SharedClient` properties. Same pattern works for other CryptoExchange.Net based libraries.
+For code that needs to work across multiple exchanges, use `CryptoExchange.Net.SharedApis` interfaces accessed via `.SharedClient` properties. Same pattern works for other CryptoExchange.Net based libraries. Shared Spot/Futures symbol clients expose `SpotSymbolCatalog` / `FuturesSymbolCatalog`; symbol results include display names and base/quote asset type/subtype metadata and honor the corresponding `GetSymbolsRequest` filters.
 
 ## Avoid
 

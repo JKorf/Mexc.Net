@@ -218,7 +218,7 @@ if (!ticker.Success)
 Console.WriteLine(ticker.Data.LastPrice);
 ```
 
-The futures shared client is available from `new MexcRestClient().FuturesApi.SharedClient`. Shared socket clients are available from `new MexcSocketClient().SpotApi.SharedClient` and `new MexcSocketClient().FuturesApi.SharedClient`. Call `Discover()` on any shared client to inspect supported interfaces, request options, and subscription options at runtime.
+The futures shared client is available from `new MexcRestClient().FuturesApi.SharedClient`. Shared socket clients are available from `new MexcSocketClient().SpotApi.SharedClient` and `new MexcSocketClient().FuturesApi.SharedClient`. Call `Discover()` on any shared client to inspect supported interfaces, request options, and subscription options at runtime. Shared Spot and Futures symbol clients expose `SpotSymbolCatalog` and `FuturesSymbolCatalog`; calling `GetSpotSymbolsAsync(...)` or `GetFuturesSymbolsAsync(...)` populates the catalog and returns display names plus base/quote asset type and subtype metadata for filtering and asset-aware multi-exchange code.
 
 ## Dependency Injection
 

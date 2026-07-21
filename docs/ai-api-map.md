@@ -212,6 +212,9 @@ Use SharedApis for exchange-agnostic code across MEXC, Binance, Bybit, OKX, Krak
 | Discover shared capabilities | `client.SpotApi.SharedClient.Discover()` |
 | Shared spot ticker REST | `ISpotTickerRestClient.GetSpotTickerAsync(new GetTickerRequest(symbol))` |
 | Shared spot symbol REST | `ISpotSymbolRestClient.GetSpotSymbolsAsync(...)` |
+| Shared spot symbol catalog | `ISpotSymbolRestClient.SpotSymbolCatalog` |
+| Shared futures symbol REST | `IFuturesSymbolRestClient.GetFuturesSymbolsAsync(...)` |
+| Shared futures symbol catalog | `IFuturesSymbolRestClient.FuturesSymbolCatalog` |
 | Shared spot order REST | `ISpotOrderRestClient.PlaceSpotOrderAsync(...)` |
 | Shared futures order REST | `IFuturesOrderRestClient.PlaceFuturesOrderAsync(...)` |
 | Shared futures trigger order REST | `IFuturesTriggerOrderRestClient.PlaceFuturesTriggerOrderAsync(...)` |
@@ -222,6 +225,8 @@ Use SharedApis for exchange-agnostic code across MEXC, Binance, Bybit, OKX, Krak
 | Shared trades socket | `ITradeSocketClient.SubscribeToTradeUpdatesAsync(...)` |
 | Shared spot order socket | `ISpotOrderSocketClient.SubscribeToSpotOrderUpdatesAsync(...)` |
 | Shared user trade socket | `IUserTradeSocketClient.SubscribeToUserTradeUpdatesAsync(...)` |
+
+Shared symbol calls populate their catalog, apply `GetSymbolsRequest` filters, and return display names plus base/quote asset type and subtype metadata. MEXC classifies supported symbols as crypto/stablecoin, fiat, TradFi equity, or TradFi commodity where exchange metadata permits.
 
 Shared REST methods return `HttpResult<T>` or `HttpResult`. Shared socket subscriptions return `WebSocketResult<UpdateSubscription>`. Shared symbol/cache helper methods can return `ExchangeCallResult<T>`.
 
