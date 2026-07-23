@@ -10,7 +10,7 @@ var provider = collection.BuildServiceProvider();
 
 var trackerFactory = provider.GetRequiredService<IMexcOrderBookFactory>();
 
-// Creat and start the order book
+// Create and start the order book
 var book = trackerFactory.Create(new SharedSymbol(TradingMode.Spot, "ETH", "USDT"));
 var result = await book.StartAsync();
 if (!result.Success)
