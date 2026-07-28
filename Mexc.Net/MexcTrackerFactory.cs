@@ -76,15 +76,18 @@ namespace Mexc.Net
         {
             IRecentTradeRestClient restClient;
             ITradeSocketClient socketClient;
+            TradeQuantityType tradeQuantityType;
             if (symbol.TradingMode == TradingMode.Spot)
             {
                 restClient = (_serviceProvider?.GetRequiredService<IMexcRestClient>() ?? new MexcRestClient()).SpotApi.SharedClient;
                 socketClient = (_serviceProvider?.GetRequiredService<IMexcSocketClient>() ?? new MexcSocketClient()).SpotApi.SharedClient;
+                tradeQuantityType = TradeQuantityType.BaseAsset;
             }
             else
             {
                 restClient = (_serviceProvider?.GetRequiredService<IMexcRestClient>() ?? new MexcRestClient()).FuturesApi.SharedClient;
                 socketClient = (_serviceProvider?.GetRequiredService<IMexcSocketClient>() ?? new MexcSocketClient()).FuturesApi.SharedClient;
+                tradeQuantityType = TradeQuantityType.Contracts;
             }
 
             return new TradeTracker(
@@ -95,6 +98,7 @@ namespace Mexc.Net
                 symbol,
                 limit,
                 period,
+                tradeQuantityType,
                 exchangeParameters
                 );
         }

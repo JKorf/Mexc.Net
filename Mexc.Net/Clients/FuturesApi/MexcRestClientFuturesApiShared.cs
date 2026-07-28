@@ -67,7 +67,15 @@ namespace Mexc.Net.Clients.FuturesApi
 
             return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(result.Data, x => x.OpenTime, request.StartTime, request.EndTime, direction)
                     .Select(x => 
-                        new SharedKline(request.Symbol, symbol, x.OpenTime, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.Volume))
+                        new SharedKline(
+                            request.Symbol, 
+                            symbol, 
+                            x.OpenTime,
+                            x.ClosePrice,
+                            x.HighPrice,
+                            x.LowPrice,
+                            x.OpenPrice,
+                            new SharedOrderQuantity(null, x.QuoteVolume, x.Volume)))
                     .ToArray(), nextPageRequest);
         }
 
@@ -110,7 +118,7 @@ namespace Mexc.Net.Clients.FuturesApi
                 return HttpResult.Fail<SharedTrade[]>(result);
 
             return HttpResult.Ok(result, result.Data.Take(request.Limit ?? 100).Select(x =>
-            new SharedTrade(request.Symbol, symbol, x.Quantity, x.Price, x.Timestamp)
+            new SharedTrade(request.Symbol, symbol, new SharedOrderQuantity(contractQuantity: x.Quantity), x.Price, x.Timestamp)
             {
                 Side = x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell
             }).ToArray());
@@ -285,7 +293,7 @@ namespace Mexc.Net.Clients.FuturesApi
                     result.Data.LastPrice,
                     result.Data.HighPrice,
                     result.Data.LowPrice,
-                    result.Data.Volume24h,
+                    new SharedOrderQuantity(result.Data.Volume24h, result.Data.QuoteVolume24h),
                     result.Data.ChangePercentage)
                 {
                     IndexPrice = result.Data.IndexPrice,
@@ -313,7 +321,14 @@ namespace Mexc.Net.Clients.FuturesApi
             }
 
             return HttpResult.Ok(result, result.Data.Select(x =>
-                new SharedFuturesTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), x.Symbol, x.LastPrice, x.HighPrice, x.LowPrice, x.Volume24h, x.ChangePercentage)
+                new SharedFuturesTicker(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol),
+                    x.Symbol,
+                    x.LastPrice,
+                    x.HighPrice,
+                    x.LowPrice, 
+                    new SharedOrderQuantity(x.Volume24h, x.QuoteVolume24h),
+                    x.ChangePercentage)
                 {
                     IndexPrice = x.IndexPrice,
                     MarkPrice = x.MarkPrice,

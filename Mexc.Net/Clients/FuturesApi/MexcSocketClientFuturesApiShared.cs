@@ -39,7 +39,15 @@ namespace Mexc.Net.Clients.FuturesApi
 
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             var result = await SubscribeToKlineUpdatesAsync(symbol, interval, update => handler(update.ToType(
-                new SharedKline(request.Symbol, symbol, update.Data.OpenTime, update.Data.ClosePrice, update.Data.HighPrice, update.Data.LowPrice, update.Data.OpenPrice, update.Data.Volume))), ct).ConfigureAwait(false);
+                new SharedKline(
+                    request.Symbol,
+                    symbol, 
+                    update.Data.OpenTime,
+                    update.Data.ClosePrice,
+                    update.Data.HighPrice,
+                    update.Data.LowPrice,
+                    update.Data.OpenPrice, 
+                    new SharedOrderQuantity(null, update.Data.Volume, update.Data.QuoteVolume)))), ct).ConfigureAwait(false);
             return result;
         }
         #endregion
@@ -67,9 +75,17 @@ namespace Mexc.Net.Clients.FuturesApi
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
-            var result = await SubscribeToTickerUpdatesAsync(symbol, update => handler(update.ToType(new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, symbol), symbol, update.Data.LastPrice, update.Data.HighPrice, update.Data.LowPrice, update.Data.Volume24h, update.Data.ChangePercentage)
+            var result = await SubscribeToTickerUpdatesAsync(symbol, update => handler(update.ToType(
+                new SharedSpotTicker(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, symbol),
+                    symbol,
+                    update.Data.LastPrice,
+                    update.Data.HighPrice,
+                    update.Data.LowPrice,
+                    new SharedOrderQuantity(null, update.Data.QuoteVolume24h, update.Data.Volume24h),
+                    update.Data.ChangePercentage)
+
             {
-                QuoteVolume = update.Data.QuoteVolume24h
             })), ct).ConfigureAwait(false);
             return result;
         }
@@ -83,9 +99,16 @@ namespace Mexc.Net.Clients.FuturesApi
             if (validationError != null)
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
-            var result = await SubscribeToTickersUpdatesAsync( update => handler(update.ToType(update.Data.Select(x => new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), x.Symbol, x.LastPrice, x.HighPrice, x.LowPrice, x.Volume24h, x.ChangePercentage)
+            var result = await SubscribeToTickersUpdatesAsync( update => handler(update.ToType(update.Data.Select(x => 
+            new SharedSpotTicker(
+                ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol),
+                x.Symbol, 
+                x.LastPrice,
+                x.HighPrice, 
+                x.LowPrice,
+                new SharedOrderQuantity(null, x.QuoteVolume24h, x.Volume24h),
+                x.ChangePercentage)
             {
-                QuoteVolume = x.QuoteVolume24h
             }).ToArray())), ct).ConfigureAwait(false);
             return result;
         }
@@ -102,7 +125,7 @@ namespace Mexc.Net.Clients.FuturesApi
 
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             var result = await SubscribeToTradeUpdatesAsync(symbol, update => handler(update.ToType(update.Data.Select(x =>            
-                new SharedTrade(request.Symbol, symbol, x.Quantity, x.Price, x.Timestamp)
+                new SharedTrade(request.Symbol, symbol, new SharedOrderQuantity(contractQuantity: x.Quantity), x.Price, x.Timestamp)
                 {
                     Side = x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell
                 }
