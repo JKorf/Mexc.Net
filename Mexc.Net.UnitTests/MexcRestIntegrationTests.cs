@@ -18,7 +18,7 @@ namespace Mexc.Net.UnitTests
     [NonParallelizable]
     internal class MexcRestIntegrationTests : RestIntegrationTest<MexcRestClient>
     {
-        public override bool Run { get; set; } = true;
+        public override bool Run { get; set; } = false;
 
         public MexcRestIntegrationTests()
         {

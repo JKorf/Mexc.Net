@@ -363,6 +363,11 @@ namespace Mexc.Net.Objects.Models.Futures
         [JsonPropertyName("tempMaxLeverageLimited")]
         public bool TempMaxLeverageLimited { get; set; }
         /// <summary>
+        /// ["<c>tempMaxLeverage</c>"] Temp max leverage
+        /// </summary>
+        [JsonPropertyName("tempMaxLeverage")]
+        public decimal? TempMaxLeverage { get; set; }
+        /// <summary>
         /// ["<c>regularMaxLeverage</c>"] Regular max leverage
         /// </summary>
         [JsonPropertyName("regularMaxLeverage")]
