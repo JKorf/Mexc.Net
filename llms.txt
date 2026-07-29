@@ -2,7 +2,7 @@
 
 > Strongly typed .NET client library for the MEXC REST and WebSocket APIs. Supports Spot, sub-accounts, wallet/account endpoints, Futures, public market data, private trading, WebSocket streams, and CryptoExchange.Net shared interfaces.
 
-Mexc.Net is a C# client for MEXC built on CryptoExchange.Net. It provides typed models, request signing, client-side rate limiting, WebSocket reconnection, `HttpResult<T>` / `HttpResult` REST handling, `WebSocketResult<UpdateSubscription>` subscription handling, dependency injection, native AOT support, and shared multi-exchange abstractions. Current package version in this repository: 6.2.0. Targets netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0.
+Mexc.Net is a C# client for MEXC built on CryptoExchange.Net. It provides typed models, request signing, client-side rate limiting, WebSocket reconnection, `HttpResult<T>` / `HttpResult` REST handling, `WebSocketResult<UpdateSubscription>` subscription handling, dependency injection, native AOT support, and shared multi-exchange abstractions. Current package version in this repository: 6.3.0. Targets netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0.
 
 ## Documentation
 
