@@ -402,6 +402,11 @@ namespace Mexc.Net.Objects.Models.Futures
         /// </summary>
         [JsonPropertyName("deliveryTime")]
         public DateTime? DeliveryTime { get; set; }
+        /// <summary>
+        /// ["<c>riskLimitRate</c>"] Risk limit rate
+        /// </summary>
+        [JsonPropertyName("riskLimitRate")]
+        public decimal? RiskLimitRate { get; set; }
     }
 
     /// <summary>
