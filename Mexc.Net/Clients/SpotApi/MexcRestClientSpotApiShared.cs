@@ -899,9 +899,6 @@ namespace Mexc.Net.Clients.SpotApi
         #region Withdraw client
 
         WithdrawOptions IWithdrawRestClient.WithdrawOptions { get; } = new WithdrawOptions(_exchangeName);
-
-        public EndpointOptions GetAssetOptions => throw new NotImplementedException();
-
         async Task<HttpResult<SharedId>> IWithdrawRestClient.WithdrawAsync(WithdrawRequest request, CancellationToken ct)
         {
             var validationError = SharedClient.WithdrawOptions.ValidateRequest(request, this);
