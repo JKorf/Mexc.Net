@@ -17,6 +17,11 @@ namespace Mexc.Net.Objects.Models.Spot
         [JsonPropertyName("network")]
         public string Network { get; set; } = string.Empty;
         /// <summary>
+        /// ["<c>netWork</c>"] Exchange-native network code
+        /// </summary>
+        [JsonPropertyName("netWork")]
+        public string NetworkCode { get; set; } = string.Empty;
+        /// <summary>
         /// ["<c>address</c>"] Address
         /// </summary>
         [JsonPropertyName("address")]
