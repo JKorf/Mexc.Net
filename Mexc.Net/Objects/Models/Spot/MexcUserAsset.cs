@@ -82,8 +82,8 @@ namespace Mexc.Net.Objects.Models.Spot
         /// <summary>
         /// ["<c>withdrawIntegerMultiple</c>"] Withdrawal multiple
         /// </summary>
-        [JsonPropertyName("withdrawIntegerMultiple")]
-        public int? WithdrawIntegerMultiple { get; set; }
+        [JsonPropertyName("withdrawIntegerMultiple"), JsonConverter(typeof(BigDecimalConverter))]
+        public decimal? WithdrawIntegerMultiple { get; set; }
         /// <summary>
         /// ["<c>withdrawMax</c>"] Max withdrawal
         /// </summary>

@@ -15,7 +15,7 @@ true
           "network": "EOS",
           "withdrawEnable": false,
           "withdrawFee": "0.000100000000000000",
-          "withdrawIntegerMultiple": null,
+          "withdrawIntegerMultiple": "0.000001",
           "withdrawMax": "10000.000000000000000000",
           "withdrawMin": "0.001000000000000000",
           "sameAddress": false,
