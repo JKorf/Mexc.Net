@@ -81,8 +81,6 @@ namespace Mexc.Net.UnitTests
                 "rateLimits", // Never set, unknown model
                 "exchangeFilters", // Never set, unknown model
                 "quoteAssetPrecision", // Already have 2 quote asset precision properties, unclear what this does
-                "conceptPlateIds", // Unknown what these mean
-                "st" // Unknown value
                 ]);
             await RunAndCheckResult(warnings, client => client.SpotApi.ExchangeData.GetOrderBookAsync("ETHUSDT", default, default), false);
             await RunAndCheckResult(warnings, client => client.SpotApi.ExchangeData.GetRecentTradesAsync("ETHUSDT", default, default), false, ignoreProperties: [

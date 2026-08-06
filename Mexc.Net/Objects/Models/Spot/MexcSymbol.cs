@@ -133,5 +133,15 @@ namespace Mexc.Net.Objects.Models.Spot
         /// </summary>
         [JsonPropertyName("bizType")]
         public string? BizType { get; set; }
+        /// <summary>
+        /// ["<c>st</c>"] St flag
+        /// </summary>
+        [JsonPropertyName("st")]
+        public bool? St { get; set; }
+        /// <summary>
+        /// ["<c>conceptPlateIds</c>"] Concept plate ids
+        /// </summary>
+        [JsonPropertyName("conceptPlateIds")]
+        public int[] ConceptPlateIds { get; set; } = [];
     }
 }
