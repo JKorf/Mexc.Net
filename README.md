@@ -84,19 +84,53 @@ var tickerSubscriptionResult = socketClient.SpotApi.SubscribeToMiniTickerUpdates
 
 For information on the clients, dependency injection, response processing and more see the [Mexc.Net documentation](https://cryptoexchange.jkorf.dev?library=Mexc.Net) or have a look at the examples [here](https://github.com/JKorf/Mexc.Net/tree/main/Examples) or [here](https://github.com/JKorf/CryptoExchange.Net/tree/master/Examples).
 
-## AI / LLM documentation
+## Shared / unified API
 
-Mexc.Net includes AI-oriented documentation and examples for code generation tools:
+The CryptoExchange.Net [Shared APIs](https://cryptoexchange.jkorf.dev/client-libs/shared) provide exchange-agnostic, unified interfaces for common operations such as retrieving tickers, order books and balances, placing orders, and subscribing to market updates.
 
-|File|Purpose|
-|--|--|
-|[`AGENTS.md`](AGENTS.md)|Agents skill instructions with core usage patterns and pitfalls|
-|[`llms.txt`](llms.txt)|Short LLM index with links to docs, examples, and critical usage rules|
-|[`llms-full.txt`](llms-full.txt)|Detailed LLM context with endpoint routing, code patterns, and anti-hallucination checks|
-|[`docs/ai-api-map.md`](docs/ai-api-map.md)|Intent-to-method map for the actual Mexc.Net REST, WebSocket, and shared API surface|
-|[`Examples/ai-friendly`](Examples/ai-friendly)|Compilable single-file examples for common REST, WebSocket, shared API, and error handling workflows|
+This allows the same application code to work with different exchange libraries. The supported MEXC API surfaces expose their shared functionality through a `SharedClient` property. Because support differs between exchanges and API surfaces, call `Discover()` to inspect the available trading modes, environments, endpoints, and subscriptions at runtime.
 
-See [cryptoexchange-skills-hub](https://github.com/JKorf/cryptoexchange-skills-hub) for installable skills.
+### Supported shared interfaces
+
+| API | Type | Supported interfaces |
+|--|--|--|
+| `SpotApi` | REST | `IAssetsRestClient`, `IBalanceRestClient`, `IBookTickerRestClient`, `IDepositRestClient`, `IFeeRestClient`, `IKlineRestClient`, `IOrderBookRestClient`, `IRecentTradeRestClient`, `ISpotOrderClientIdRestClient`, `ISpotOrderRestClient`, `ISpotSymbolRestClient`, `ISpotTickerRestClient`, `ITransferRestClient`, `IWithdrawalRestClient`, `IWithdrawRestClient` |
+| `SpotApi` | WebSocket | `IBalanceSocketClient`, `IBookTickerSocketClient`, `IKlineSocketClient`, `IOrderBookSocketClient`, `ISpotOrderSocketClient`, `ITickerSocketClient`, `ITickersSocketClient`, `ITradeSocketClient`, `IUserTradeSocketClient` |
+| `FuturesApi` | REST | `IBalanceRestClient`, `IFeeRestClient`, `IFundingRateRestClient`, `IFuturesOrderClientIdRestClient`, `IFuturesOrderRestClient`, `IFuturesSymbolRestClient`, `IFuturesTickerRestClient`, `IFuturesTriggerOrderRestClient`, `IKlineRestClient`, `ILeverageRestClient`, `IOrderBookRestClient`, `IPositionHistoryRestClient`, `IPositionModeRestClient`, `IRecentTradeRestClient` |
+| `FuturesApi` | WebSocket | `IBalanceSocketClient`, `IFuturesOrderSocketClient`, `IKlineSocketClient`, `IOrderBookSocketClient`, `IPositionSocketClient`, `ITickerSocketClient`, `ITickersSocketClient`, `ITradeSocketClient`, `IUserTradeSocketClient` |
+
+### Discover supported functionality
+
+```csharp
+var sharedClient = new MexcRestClient().SpotApi.SharedClient;
+var clientInfo = sharedClient.Discover();
+
+Console.WriteLine(clientInfo);
+```
+
+### Example
+
+```csharp
+using Mexc.Net.Clients;
+using CryptoExchange.Net.SharedApis;
+
+var sharedClient = new MexcRestClient().SpotApi.SharedClient;
+ISpotTickerRestClient tickerClient = sharedClient;
+
+var symbol = new SharedSymbol(TradingMode.Spot, "ETH", "USDT");
+var result = await tickerClient.GetSpotTickerAsync(
+    new GetTickerRequest(symbol));
+
+if (!result.Success)
+{
+    Console.WriteLine(result.Error);
+    return;
+}
+
+Console.WriteLine(result.Data.LastPrice);
+```
+
+The request and response models belong to `CryptoExchange.Net.SharedApis`, so the same pattern can be used with another exchange's `SharedClient`.
 
 ## CryptoExchange.Net
 Mexc.Net is based on the [CryptoExchange.Net](https://github.com/JKorf/CryptoExchange.Net) base library. Other exchange API implementations based on the CryptoExchange.Net base library are available and follow the same logic.
@@ -137,6 +171,20 @@ CryptoExchange.Net also allows for [easy access to different exchange API's](htt
 |WhiteBit|[JKorf/WhiteBit.Net](https://github.com/JKorf/WhiteBit.Net)|[![Nuget version](https://img.shields.io/nuget/v/WhiteBit.net.svg?style=flat-square)](https://www.nuget.org/packages/WhiteBit.Net)|
 |XT|[JKorf/XT.Net](https://github.com/JKorf/XT.Net)|[![Nuget version](https://img.shields.io/nuget/v/XT.net.svg?style=flat-square)](https://www.nuget.org/packages/XT.Net)|
 
+## AI / LLM documentation
+
+Mexc.Net includes AI-oriented documentation and examples for code generation tools:
+
+|File|Purpose|
+|--|--|
+|[`AGENTS.md`](AGENTS.md)|Agents skill instructions with core usage patterns and pitfalls|
+|[`llms.txt`](llms.txt)|Short LLM index with links to docs, examples, and critical usage rules|
+|[`llms-full.txt`](llms-full.txt)|Detailed LLM context with endpoint routing, code patterns, and anti-hallucination checks|
+|[`docs/ai-api-map.md`](docs/ai-api-map.md)|Intent-to-method map for the actual Mexc.Net REST, WebSocket, and shared API surface|
+|[`Examples/ai-friendly`](Examples/ai-friendly)|Compilable single-file examples for common REST, WebSocket, shared API, and error handling workflows|
+
+See [cryptoexchange-skills-hub](https://github.com/JKorf/cryptoexchange-skills-hub) for installable skills.
+
 ## Discord
 [![Nuget version](https://img.shields.io/discord/847020490588422145?style=for-the-badge)](https://discord.gg/MSpeEtSY8t)  
 A Discord server is available [here](https://discord.gg/MSpeEtSY8t). Feel free to join for discussion and/or questions around the CryptoExchange.Net and implementation libraries.
@@ -170,10 +218,8 @@ A Discord server is available [here](https://discord.gg/MSpeEtSY8t). Feel free t
 Any support is greatly appreciated.
 
 ### Donate
-Make a one time donation in a crypto currency of your choice. If you prefer to donate a currency not listed here please contact me.
-
-**Btc**:  bc1q277a5n54s2l2mzlu778ef7lpkwhjhyvghuv8qf  
-**Eth**:  0xcb1b63aCF9fef2755eBf4a0506250074496Ad5b7   
+Make a one time donation in a crypto currency of your choice. If you prefer to donate in a different currency or network send me a message.
+   
 **USDT (TRX)**  TKigKeJPXZYyMVDgMyXxMf17MWYia92Rjd
 
 ### Sponsor
