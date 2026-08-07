@@ -4,6 +4,7 @@ true
 [
   {
         "id": "bb17a2d452684f00a523c015d512a341",
+        "withdrawOrderId": "client-withdraw-123",
         "txId": null,
         "coin": "EOS",
         "network": "EOS",

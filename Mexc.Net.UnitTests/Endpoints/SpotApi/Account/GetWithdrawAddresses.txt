@@ -6,6 +6,7 @@ true
         {
             "coin": "USDT",
             "network": "TRC20",
+            "netWork": "TRX",
             "address": "TArGWdTApuuZtiWMjupXqbZqQYsBTy126o",
             "addressTag": "test",
             "memo": null
@@ -13,6 +14,7 @@ true
         {
             "coin": "USDT",
             "network": "BEP20(BSC)",
+            "netWork": "BSC",
             "address": "0xa82898C70BeB5E1b1621fdA62fD17Ba27227BBC5",
             "addressTag": "usdt",
             "memo": null

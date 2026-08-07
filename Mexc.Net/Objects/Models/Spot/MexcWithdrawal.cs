@@ -14,6 +14,11 @@ namespace Mexc.Net.Objects.Models.Spot
         [JsonPropertyName("id")]
         public string Id { get; set; } = string.Empty;
         /// <summary>
+        /// ["<c>withdrawOrderId</c>"] Client withdrawal order id
+        /// </summary>
+        [JsonPropertyName("withdrawOrderId")]
+        public string? WithdrawOrderId { get; set; }
+        /// <summary>
         /// ["<c>txId</c>"] Transaction id
         /// </summary>
         [JsonPropertyName("txId")]
