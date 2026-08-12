@@ -239,6 +239,11 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 6.5.0 - 12 Aug 2026
+    * Added ConceptPlates to MexcSymbol model
+    * Updated Shared ISpotSymbolRestClient asset mapping
+    * Updated MexcWithdrawal and MexcUserAsset model
+
 * Version 6.4.0 - 06 Aug 2026
     * Added RiskLimitRate to MexcContract model
     * Added St and ConceptPlateIds to MexcSymbol model
