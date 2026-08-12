@@ -20,7 +20,7 @@ namespace Mexc.Net.Clients.SpotApi
         public void ResetDefaultExchangeParameters() => ExchangeParameters.ResetStaticParameters();
         public SharedClientInfo Discover() => SharedUtils.GetClientInfo(MexcExchange.Metadata, this);
 
-        private static readonly HashSet<string> _knownCommodities = ["GOLD(PAXG)", "GOLD(XAUT)", "SLVON", "KAG", "XU3O8", "COPXON", "PALLON", "IAUON", "GGBR", "XGZ"];
+        private static readonly HashSet<string> _knownCommodities = ["GOLD(PAXG)", "GOLD(XAUT)", "SLVON", "KAG", "XU3O8", "COPXON", "PALLON", "IAUON", "GGBR", "XGZ", "UNGON"];
         private static readonly HashSet<string> _knownFiat = ["EUR", "USD", "BRL"];
 
         #region Kline client
@@ -119,12 +119,17 @@ namespace Mexc.Net.Clients.SpotApi
                 DisplayName = s.Name
             };
 
-            if (_knownCommodities.Contains(s.BaseAsset))
+
+
+            
+            if (s.ConceptPlates.Contains("mc-trade-zone-metals") 
+                || s.ConceptPlates.Contains("mc-trade-zone-OIL")
+                || _knownCommodities.Contains(s.BaseAsset))
             {
                 result.BaseAssetType = SharedAssetType.TradFi;
                 result.BaseAssetSubType = SharedAssetSubType.Commodity;
             }
-            else if (s.BaseAssetName.Contains("xStock") || s.BaseAssetName.Contains("(Ondo)"))
+            else if (s.ConceptPlates.Contains("mc-trade-zone-xStocks"))
             {
                 result.BaseAssetType = SharedAssetType.TradFi;
                 result.BaseAssetSubType = SharedAssetSubType.Equity;
@@ -143,7 +148,8 @@ namespace Mexc.Net.Clients.SpotApi
             else
             {
                 result.QuoteAssetType = SharedAssetType.Crypto;
-                result.QuoteAssetSubType = SharedAssetSubType.StableCoin;
+                if (LibraryHelpers.IsStableCoin(result.QuoteAsset))
+                    result.QuoteAssetSubType = SharedAssetSubType.StableCoin;
             }
 
             return result;
