@@ -61,7 +61,9 @@ namespace Mexc.Net.Clients.FuturesApi
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
-            var result = await SubscribeToPartialOrderBookUpdatesAsync(symbol, request.Limit ?? 5, update => handler(update.ToType(new SharedOrderBook(update.Data.Asks, update.Data.Bids))), ct).ConfigureAwait(false);
+            var result = await SubscribeToPartialOrderBookUpdatesAsync(symbol, request.Limit ?? 5, update => handler(
+                update.ToType(
+                    new SharedOrderBook(SharedQuantityType.Contracts, update.Data.Asks, update.Data.Bids))), ct).ConfigureAwait(false);
             return result;
         }
         #endregion
@@ -164,16 +166,21 @@ namespace Mexc.Net.Clients.FuturesApi
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
             var result = await SubscribeToUserDataUpdatesAsync(
-                positionUpdateHandler: update => handler(update.ToType<SharedPosition[]>([new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.Symbol), update.Data.Symbol, update.Data.PositionSize, update.Data.UpdateTime)
-                {
-                    Id = update.Data.PositionId.ToString(),
-                    AverageOpenPrice = update.Data.HoldAveragePrice,
-                    PositionMode = SharedPositionMode.HedgeMode,
-                    PositionSide = update.Data.PositionSide == Enums.PositionSide.Short ? SharedPositionSide.Short : SharedPositionSide.Long,
-                    LiquidationPrice = update.Data.LiquidationPrice,
-                    Leverage = update.Data.Leverage,
-                    UnrealizedPnl = update.Data.Pnl
-                }])),
+                positionUpdateHandler: update => handler(update.ToType<SharedPosition[]>([
+                    new SharedPosition(
+                        ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.Symbol),
+                        update.Data.Symbol, 
+                        new SharedOrderQuantity(contractQuantity: update.Data.PositionSize), 
+                        update.Data.UpdateTime)
+                    {
+                        Id = update.Data.PositionId.ToString(),
+                        AverageOpenPrice = update.Data.HoldAveragePrice,
+                        PositionMode = SharedPositionMode.HedgeMode,
+                        PositionSide = update.Data.PositionSide == Enums.PositionSide.Short ? SharedPositionSide.Short : SharedPositionSide.Long,
+                        LiquidationPrice = update.Data.LiquidationPrice,
+                        Leverage = update.Data.Leverage,
+                        UnrealizedPnl = update.Data.Pnl
+                    }])),
                 ct: ct).ConfigureAwait(false);
             return result;
         }
@@ -274,7 +281,7 @@ namespace Mexc.Net.Clients.FuturesApi
                         update.Data.OrderId.ToString(),
                         update.Data.Id.ToString(),
                         (update.Data.Side == FuturesOrderSide.OpenLong || update.Data.Side == FuturesOrderSide.CloseShort) ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                        update.Data.Quantity,
+                        new SharedOrderQuantity(contractQuantity: update.Data.Quantity),
                         update.Data.Price,
                         update.Data.Timestamp)
                     {

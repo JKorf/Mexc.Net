@@ -116,11 +116,10 @@ namespace Mexc.Net.Clients.SpotApi
                 QuantityStep = s.BaseQuantityPrecision,
                 MinTradeQuantity = s.BaseQuantityPrecision,
                 MinNotionalValue = s.QuoteQuantityPrecision,
-                DisplayName = s.Name
+                DisplayName = s.Name,
+                MakerFeePercentage = s.MakerFee * 100,
+                TakerFeePercentage = s.TakerFee * 100,
             };
-
-
-
             
             if (s.ConceptPlates.Contains("mc-trade-zone-metals") 
                 || s.ConceptPlates.Contains("mc-trade-zone-OIL")
@@ -265,9 +264,9 @@ namespace Mexc.Net.Clients.SpotApi
                 ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, ticker.Symbol),
                 ticker.Symbol,
                 ticker.BestAskPrice ?? 0,
-                ticker.BestAskQuantity ?? 0,
+                new SharedOrderQuantity(ticker.BestAskQuantity),
                 ticker.BestBidPrice ?? 0,
-                ticker.BestBidQuantity ?? 0));
+                new SharedOrderQuantity(ticker.BestBidQuantity)));
         }
 
         #endregion
@@ -495,7 +494,7 @@ namespace Mexc.Net.Clients.SpotApi
                 x.OrderId.ToString(),
                 x.Id.ToString(),
                 x.IsBuyer ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                x.Quantity,
+                new SharedOrderQuantity(x.Quantity, x.QuoteQuantity),
                 x.Price,
                 x.Timestamp)
             {
@@ -549,7 +548,7 @@ namespace Mexc.Net.Clients.SpotApi
                         x.OrderId.ToString(),
                         x.Id.ToString(),
                         x.IsBuyer ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                        x.Quantity,
+                        new SharedOrderQuantity(x.Quantity, x.QuoteQuantity),
                         x.Price,
                         x.Timestamp)
                     {
@@ -784,7 +783,7 @@ namespace Mexc.Net.Clients.SpotApi
             if (!result.Success)
                 return HttpResult.Fail<SharedOrderBook>(result);
 
-            return HttpResult.Ok(result, new SharedOrderBook(result.Data.Asks, result.Data.Bids));
+            return HttpResult.Ok(result, new SharedOrderBook(SharedQuantityType.BaseAsset, result.Data.Asks, result.Data.Bids));
         }
 
         #endregion

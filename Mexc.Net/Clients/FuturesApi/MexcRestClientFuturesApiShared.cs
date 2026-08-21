@@ -96,7 +96,7 @@ namespace Mexc.Net.Clients.FuturesApi
             if (!result.Success)
                 return HttpResult.Fail<SharedOrderBook>(result);
 
-            return HttpResult.Ok(result, new SharedOrderBook(result.Data.Asks, result.Data.Bids));
+            return HttpResult.Ok(result, new SharedOrderBook(SharedQuantityType.Contracts, result.Data.Asks, result.Data.Bids));
         }
 
         #endregion
@@ -202,7 +202,11 @@ namespace Mexc.Net.Clients.FuturesApi
                 MaxLongLeverage = s.MaxLeverage,
                 MaxShortLeverage = s.MaxLeverage,
                 QuantityStep = s.VolumeUnit,
-                DisplayName = s.DisplayNameEnglish
+                DisplayName = s.DisplayNameEnglish,
+                UpperPriceLimitPercentage = s.AskLimitPriceRate * 100,
+                LowerPriceLimitPercentage = -s.BidLimitPriceRate * 100,
+                TakerFeePercentage = s.TakerFeeRate * 100,
+                MakerFeePercentage = s.MakerFeeRate * 100                
             };
 
             if (result.TradingMode.IsInverse())
@@ -293,7 +297,7 @@ namespace Mexc.Net.Clients.FuturesApi
                     result.Data.LastPrice,
                     result.Data.HighPrice,
                     result.Data.LowPrice,
-                    new SharedOrderQuantity(result.Data.Volume24h, result.Data.QuoteVolume24h),
+                    new SharedOrderQuantity(null, result.Data.QuoteVolume24h, result.Data.Volume24h),
                     result.Data.ChangePercentage)
                 {
                     IndexPrice = result.Data.IndexPrice,
@@ -327,7 +331,7 @@ namespace Mexc.Net.Clients.FuturesApi
                     x.LastPrice,
                     x.HighPrice,
                     x.LowPrice, 
-                    new SharedOrderQuantity(x.Volume24h, x.QuoteVolume24h),
+                    new SharedOrderQuantity(null, x.QuoteVolume24h, x.Volume24h),
                     x.ChangePercentage)
                 {
                     IndexPrice = x.IndexPrice,
@@ -506,7 +510,7 @@ namespace Mexc.Net.Clients.FuturesApi
                             x.PositionSide == PositionSide.Long ? SharedPositionSide.Long : SharedPositionSide.Short,
                             x.OpenAveragePrice,
                             x.CloseAveragePrice,
-                            x.CloseVolume,
+                            new SharedOrderQuantity(contractQuantity: x.CloseVolume),
                             x.RealisedPnl,
                             x.CreateTime)
                         {
@@ -745,7 +749,7 @@ namespace Mexc.Net.Clients.FuturesApi
                 x.OrderId.ToString(),
                 x.Id.ToString(),
                 x.Quantity > 0 ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                Math.Abs(x.Quantity),
+                new SharedOrderQuantity(contractQuantity: Math.Abs(x.Quantity)),
                 x.Price,
                 x.Timestamp)
             {
@@ -794,7 +798,7 @@ namespace Mexc.Net.Clients.FuturesApi
                             x.OrderId.ToString(),
                             x.Id.ToString(),
                             x.Side == FuturesOrderSide.OpenLong || x.Side == FuturesOrderSide.CloseShort ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                            Math.Abs(x.Quantity),
+                            new SharedOrderQuantity(contractQuantity: Math.Abs(x.Quantity)),
                             x.Price,
                             x.Timestamp)
                         {
@@ -837,7 +841,7 @@ namespace Mexc.Net.Clients.FuturesApi
             new SharedPosition(
                 ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol),
                 x.Symbol, 
-                Math.Abs(x.PositionSize),
+                new SharedOrderQuantity(contractQuantity: Math.Abs(x.PositionSize)),
                 x.UpdateTime)
             {
                 Id = x.PositionId.ToString(),

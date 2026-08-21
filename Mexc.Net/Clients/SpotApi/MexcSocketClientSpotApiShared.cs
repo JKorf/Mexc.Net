@@ -60,7 +60,14 @@ namespace Mexc.Net.Clients.SpotApi
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
             var symbols = request.Symbols?.Length > 0 ? request.Symbols.Select(x => x.GetSymbol(FormatSymbol)).ToArray() : [request.Symbol!.GetSymbol(FormatSymbol)];
-            var result = await SubscribeToBookTickerUpdatesAsync(symbols, update => handler(update.ToType(new SharedBookTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Symbol), update.Symbol!, update.Data.BestAskPrice, update.Data.BestAskQuantity, update.Data.BestBidPrice, update.Data.BestBidQuantity))), ct).ConfigureAwait(false);
+            var result = await SubscribeToBookTickerUpdatesAsync(symbols, update => handler(update.ToType(
+                new SharedBookTicker(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Symbol), 
+                    update.Symbol!,
+                    update.Data.BestAskPrice,
+                    new SharedOrderQuantity(update.Data.BestAskQuantity), 
+                    update.Data.BestBidPrice,
+                    new SharedOrderQuantity(update.Data.BestBidQuantity)))), ct).ConfigureAwait(false);
             return result;
         }
         #endregion
@@ -117,7 +124,9 @@ namespace Mexc.Net.Clients.SpotApi
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
             var symbols = request.Symbols?.Length > 0 ? request.Symbols.Select(x => x.GetSymbol(FormatSymbol)).ToArray() : [request.Symbol!.GetSymbol(FormatSymbol)];
-            var result = await SubscribeToPartialOrderBookUpdatesAsync(symbols, request.Limit ?? 20, update => handler(update.ToType(new SharedOrderBook(update.Data.Asks, update.Data.Bids))), ct).ConfigureAwait(false);
+            var result = await SubscribeToPartialOrderBookUpdatesAsync(symbols, request.Limit ?? 20, update => handler(
+                update.ToType(
+                    new SharedOrderBook(SharedQuantityType.BaseAsset, update.Data.Asks, update.Data.Bids))), ct).ConfigureAwait(false);
             return result;
         }
         #endregion
@@ -205,7 +214,7 @@ namespace Mexc.Net.Clients.SpotApi
                             update.Data.OrderId,
                             update.Data.TradeId.ToString(),
                             update.Data.TradeSide == Enums.OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                            update.Data.Quantity,
+                            new SharedOrderQuantity(update.Data.Quantity, update.Data.QuoteQuantity),
                             update.Data.Price,
                             update.Data.TradeTime)
                         {
