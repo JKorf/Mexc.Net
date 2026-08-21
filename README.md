@@ -239,6 +239,12 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 6.6.0 - 21 Aug 2026
+    * Updated to CryptoExchange.Net v12.5.0
+    * Added MakerFeePercentage, TakerFeePercentage, LowerPriceLimitPercentage, UpperPriceLimitPercentage to SharedFuturesSymbol mapping
+    * Added MakerFeePercentage, TakerFeePercentage to SharedSpotSymbol mapping
+    * Fixed Shared quantity/volume mapping in incorrect quantity type for GetFuturesTickerAsync, GetFuturesTickersAsync
+
 * Version 6.5.0 - 12 Aug 2026
     * Added ConceptPlates to MexcSymbol model
     * Updated Shared ISpotSymbolRestClient asset mapping
