@@ -12,9 +12,15 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
     public interface IMexcSocketClientSpotApi: ISocketApiClient<MexcCredentials>
     {
         /// <summary>
-        /// Get the shared socket subscription client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
+        /// Get the shared socket subscription client. For new implementations prefer <see cref="SharedApi"/>
         /// </summary>
         IMexcSocketClientSpotApiShared SharedClient { get; }
+        /// <summary>
+        /// Gets the aggregate Shared API interface. Shared APIs provide a common,
+        /// exchange-independent contract for accessing functionality across different
+        /// exchange client libraries.
+        /// </summary>
+        IMexcSocketClientSpotSharedApi SharedApi { get; }
 
         /// <summary>
         /// During reconnection the listenkey which was provided can be renewed by the client. This means the keep-alive mechanism should use this new listen key. Only called when manually providing the listen key

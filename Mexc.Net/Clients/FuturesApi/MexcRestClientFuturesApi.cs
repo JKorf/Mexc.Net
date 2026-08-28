@@ -15,6 +15,8 @@ namespace Mexc.Net.Clients.FuturesApi
     /// <inheritdoc />
     internal partial class MexcRestClientFuturesApi : RestApiClient<MexcEnvironment, MexcFuturesAuthenticationProvider, MexcCredentials>, IMexcRestClientFuturesApi
     {
+        private readonly MexcRestClientFuturesSharedApi _sharedApi;
+
         protected override ErrorMapping ErrorMapping => MexcErrors.FuturesErrors;
         /// <inheritdoc />
         public IMexcRestClientFuturesApiAccount Account { get; }
@@ -24,7 +26,9 @@ namespace Mexc.Net.Clients.FuturesApi
         public IMexcRestClientFuturesApiTrading Trading { get; }
 
         /// <inheritdoc />
-        public IMexcRestClientFuturesApiShared SharedClient => this;
+        public IMexcRestClientFuturesApiShared SharedClient => _sharedApi;
+        /// <inheritdoc />
+        public IMexcRestClientFuturesSharedApi SharedApi => _sharedApi;
 
         public new MexcRestOptions ClientOptions => (MexcRestOptions)base.ClientOptions;
 
@@ -37,6 +41,8 @@ namespace Mexc.Net.Clients.FuturesApi
             Account = new MexcRestClientFuturesApiAccount(this);
             ExchangeData = new MexcRestClientFuturesApiExchangeData(this);
             Trading = new MexcRestClientFuturesApiTrading(this);
+
+            _sharedApi = new MexcRestClientFuturesSharedApi(this);
 
             RequestBodyEmptyContent = "";
 

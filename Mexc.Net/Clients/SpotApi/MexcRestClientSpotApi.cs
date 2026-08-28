@@ -14,6 +14,8 @@ namespace Mexc.Net.Clients.SpotApi
     /// <inheritdoc />
     internal partial class MexcRestClientSpotApi : RestApiClient<MexcEnvironment, MexcAuthenticationProvider, MexcCredentials>, IMexcRestClientSpotApi
     {
+        private readonly MexcRestClientSpotSharedApi _sharedApi;
+
         protected override IRestMessageHandler MessageHandler { get; } = new MexcRestMessageHandler(MexcErrors.SpotErrors);
         protected override ErrorMapping ErrorMapping => MexcErrors.SpotErrors;
 
@@ -27,7 +29,9 @@ namespace Mexc.Net.Clients.SpotApi
         public IMexcRestClientSpotApiSubAccount SubAccount { get; }
 
         /// <inheritdoc />
-        public IMexcRestClientSpotApiShared SharedClient => this;
+        public IMexcRestClientSpotApiShared SharedClient => _sharedApi;
+        /// <inheritdoc />
+        public IMexcRestClientSpotSharedApi SharedApi => _sharedApi;
 
         /// <inheritdoc />
         public string ExchangeName => "Mexc";
@@ -42,6 +46,8 @@ namespace Mexc.Net.Clients.SpotApi
             ExchangeData = new MexcRestClientSpotApiExchangeData(this);
             Trading = new MexcRestClientSpotApiTrading(this);
             SubAccount = new MexcRestClientSpotApiSubAccount(this);
+
+            _sharedApi = new MexcRestClientSpotSharedApi(this);
 
             RequestBodyEmptyContent = "";
             RequestBodyFormat = RequestBodyFormat.FormData;

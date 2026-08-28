@@ -9,6 +9,7 @@ using CryptoExchange.Net.Sockets.Default;
 using CryptoExchange.Net.Sockets.HighPerf.Interfaces;
 using CryptoExchange.Net.Sockets.Interfaces;
 using CryptoExchange.Net.TokenManagement;
+using Mexc.Net.Clients.FuturesApi;
 using Mexc.Net.Clients.MessageHandlers;
 using Mexc.Net.Converters;
 using Mexc.Net.Enums;
@@ -29,6 +30,8 @@ namespace Mexc.Net.Clients.SpotApi
     /// <inheritdoc />
     internal partial class MexcSocketClientSpotApi : SocketApiClient<MexcEnvironment, MexcAuthenticationProvider, MexcCredentials>, IMexcSocketClientSpotApi
     {
+        private readonly MexcSocketClientSpotSharedApi _sharedApi;
+
         private readonly ILoggerFactory? _loggerFactory;
         private MexcRestClient? _tokenClient;
         internal TokenManager TokenManager { get; }
@@ -64,6 +67,8 @@ namespace Mexc.Net.Clients.SpotApi
             base(loggerFactory, MexcExchange.Metadata.Id, options.Environment.SpotSocketAddress, options, options.SpotOptions)
         {
             _loggerFactory = loggerFactory;
+
+            _sharedApi = new MexcSocketClientSpotSharedApi(this);
 
             AddSystemSubscription(new MexcErrorSubscription(_logger));
             RateLimiter = MexcExchange.RateLimiter.SpotSocket;
@@ -115,7 +120,8 @@ namespace Mexc.Net.Clients.SpotApi
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
             => MexcExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
 
-        public IMexcSocketClientSpotApiShared SharedClient => this;
+        public IMexcSocketClientSpotApiShared SharedClient => _sharedApi;
+        public IMexcSocketClientSpotSharedApi SharedApi => _sharedApi;
 
         /// <inheritdoc />
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<MexcStreamTrade[]>> handler, CancellationToken ct = default)

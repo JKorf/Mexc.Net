@@ -12,9 +12,15 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
     public interface IMexcSocketClientFuturesApi : ISocketApiClient<MexcCredentials>
     {
         /// <summary>
-        /// Get the shared socket subscription client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
+        /// Get the shared socket subscription client. For new implementations prefer <see cref="SharedApi"/>
         /// </summary>
         IMexcSocketClientFuturesApiShared SharedClient { get; }
+        /// <summary>
+        /// Gets the aggregate Shared API interface. Shared APIs provide a common,
+        /// exchange-independent contract for accessing functionality across different
+        /// exchange client libraries.
+        /// </summary>
+        IMexcSocketClientFuturesSharedApi SharedApi { get; }
 
         /// <summary>
         /// Subscribe to ticker updates for all symbols
