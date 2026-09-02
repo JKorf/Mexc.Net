@@ -1,4 +1,4 @@
-﻿using Mexc.Net.Objects.Options;
+using Mexc.Net.Objects.Options;
 using Mexc.Net.Interfaces.Clients.FuturesApi;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.MessageParsing;

@@ -1,0 +1,39 @@
+using CryptoExchange.Net;
+using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Objects.Errors;
+using CryptoExchange.Net.SharedApis;
+using Mexc.Net.Clients.SpotApi;
+using Mexc.Net.Enums;
+using Mexc.Net.Interfaces.Clients.FuturesApi;
+using Mexc.Net.Objects.Models.Futures;
+
+namespace Mexc.Net.Clients.FuturesApi
+{
+    internal partial class MexcRestClientFuturesSharedApi
+    {
+        #region Recent Trade client
+
+        public GetRecentTradesOptions GetRecentTradesOptions { get; } = new GetRecentTradesOptions(_exchangeName, 100, false);
+        public async Task<HttpResult<SharedTrade[]>> GetRecentTradesAsync(GetRecentTradesRequest request, CancellationToken ct)
+        {
+            var validationError = GetRecentTradesOptions.ValidateRequest(request, this);
+            if (validationError != null)
+                return HttpResult.Fail<SharedTrade[]>(Exchange, validationError);
+
+            var symbol = request.Symbol!.GetSymbol(FormatSymbol);
+            var result = await _api.ExchangeData.GetRecentTradesAsync(
+                symbol,
+                ct: ct).ConfigureAwait(false);
+            if (!result.Success)
+                return HttpResult.Fail<SharedTrade[]>(result);
+
+            return HttpResult.Ok(result, result.Data.Take(request.Limit ?? 100).Select(x =>
+            new SharedTrade(request.Symbol, symbol, new SharedOrderQuantity(contractQuantity: x.Quantity), x.Price, x.Timestamp)
+            {
+                Side = x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell
+            }).ToArray());
+        }
+
+        #endregion
+    }
+}
