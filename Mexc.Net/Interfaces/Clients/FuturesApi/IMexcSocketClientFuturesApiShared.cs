@@ -24,15 +24,15 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
     /// exchange client libraries.
     /// </summary>
     public interface IMexcSocketClientFuturesSharedApi :
-        ISubscribeKlinesOperation,
-        ISubscribeOrderBookOperation,
-        ISubscribeTickerOperation,
-        ISubscribeAllTickersOperation,
-        ISubscribeTradesOperation,
-        ISubscribeBalancesOperation,
-        ISubscribeFuturesOrdersOperation,
-        ISubscribePositionsOperation,
-        ISubscribeUserTradesOperation
+        ISubscribeKlinesSocket,
+        ISubscribeOrderBookSocket,
+        ISubscribeTickerSocket,
+        ISubscribeAllTickersSocket,
+        ISubscribeTradesSocket,
+        ISubscribeBalancesSocket,
+        ISubscribeFuturesOrdersSocket,
+        ISubscribePositionsSocket,
+        ISubscribeUserTradesSocket
     {
     }
 }

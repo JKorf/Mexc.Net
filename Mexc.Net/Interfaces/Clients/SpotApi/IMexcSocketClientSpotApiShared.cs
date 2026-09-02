@@ -24,15 +24,15 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
     /// exchange client libraries.
     /// </summary>
     public interface IMexcSocketClientSpotSharedApi :
-        ISubscribeTradesOperation,
-        ISubscribeTickerOperation,
-        ISubscribeAllTickersOperation,
-        ISubscribeBookTickerOperation,
-        ISubscribeKlinesOperation,
-        ISubscribeOrderBookOperation,
-        ISubscribeBalancesOperation,
-        ISubscribeSpotOrdersOperation,
-        ISubscribeUserTradesOperation
+        ISubscribeTradesSocket,
+        ISubscribeTickerSocket,
+        ISubscribeAllTickersSocket,
+        ISubscribeBookTickerSocket,
+        ISubscribeKlinesSocket,
+        ISubscribeOrderBookSocket,
+        ISubscribeBalancesSocket,
+        ISubscribeSpotOrdersSocket,
+        ISubscribeUserTradesSocket
     {
     }
 }
