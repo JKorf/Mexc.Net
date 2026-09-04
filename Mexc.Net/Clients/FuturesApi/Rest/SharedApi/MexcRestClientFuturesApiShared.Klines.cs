@@ -11,7 +11,11 @@ namespace Mexc.Net.Clients.FuturesApi
 {
     internal partial class MexcRestClientFuturesSharedApi
     {
-        #region Klines client
+
+        #region Get Klines
+
+        async Task<ICallResult<SharedKline[]>> IGetKlines.GetKlinesAsync(GetKlinesRequest request, PageRequest? pageRequest, CancellationToken ct)
+            => await GetKlinesAsync(request, pageRequest, ct).ConfigureAwait(false);
 
         public GetKlinesOptions GetKlinesOptions { get; } = new GetKlinesOptions(_exchangeName, true, false, true, 2000, false,
             SharedKlineInterval.OneMinute,
@@ -72,5 +76,6 @@ namespace Mexc.Net.Clients.FuturesApi
         }
 
         #endregion
+
     }
 }

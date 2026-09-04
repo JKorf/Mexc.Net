@@ -9,7 +9,8 @@ namespace Mexc.Net.Clients.FuturesApi
 {
     internal partial class MexcSocketClientFuturesSharedApi
     {
-        #region Balance client
+        #region Subscribe Balances
+
         public SubscribeBalanceOptions SubscribeBalanceOptions { get; } = new SubscribeBalanceOptions(_exchangeName, false);
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(SubscribeBalancesRequest request, Action<DataEvent<SharedBalance[]>> handler, CancellationToken ct)
         {
@@ -29,5 +30,6 @@ namespace Mexc.Net.Clients.FuturesApi
         }
 
         #endregion
+
     }
 }

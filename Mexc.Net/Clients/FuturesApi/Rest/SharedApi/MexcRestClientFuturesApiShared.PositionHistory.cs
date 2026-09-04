@@ -11,7 +11,11 @@ namespace Mexc.Net.Clients.FuturesApi
 {
     internal partial class MexcRestClientFuturesSharedApi
     {
-        #region Position History client
+
+        #region Get Position History
+
+        async Task<ICallResult<SharedPositionHistory[]>> IGetPositionHistory.GetPositionHistoryAsync(GetPositionHistoryRequest request, PageRequest? pageRequest, CancellationToken ct)
+            => await GetPositionHistoryAsync(request, pageRequest, ct).ConfigureAwait(false);
 
         public GetPositionHistoryOptions GetPositionHistoryOptions { get; } = new GetPositionHistoryOptions(_exchangeName, false, true, false, 100);
         public async Task<HttpResult<SharedPositionHistory[]>> GetPositionHistoryAsync(GetPositionHistoryRequest request, PageRequest? pageRequest, CancellationToken ct)
@@ -60,6 +64,7 @@ namespace Mexc.Net.Clients.FuturesApi
                         })
                     .ToArray(), nextPageRequest);
         }
+
         #endregion
     }
 }

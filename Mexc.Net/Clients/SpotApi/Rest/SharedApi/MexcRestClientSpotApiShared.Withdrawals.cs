@@ -11,8 +11,11 @@ namespace Mexc.Net.Clients.SpotApi
 {
     internal partial class MexcRestClientSpotSharedApi
     {
-        #region Withdrawal client
 
+        #region Get Withdrawal History
+
+        async Task<ICallResult<SharedWithdrawal[]>> IGetWithdrawalHistory.GetWithdrawalHistoryAsync(GetWithdrawalsRequest request, PageRequest? pageRequest, CancellationToken ct)
+            => await GetWithdrawalHistoryAsync(request, pageRequest, ct).ConfigureAwait(false);
 
         Task<HttpResult<SharedWithdrawal[]>> IWithdrawalRestClient.GetWithdrawalsAsync(GetWithdrawalsRequest request, PageRequest? pageRequest, CancellationToken ct)
             => GetWithdrawalHistoryAsync(request, pageRequest, ct);
@@ -73,6 +76,8 @@ namespace Mexc.Net.Clients.SpotApi
                 .ToArray(), nextPageRequest);
         }
 
+        #endregion
+
         private SharedTransferStatus GetWithdrawalStatus(MexcWithdrawal x)
         {
             if (x.Status == WithdrawStatus.Applied
@@ -98,9 +103,10 @@ namespace Mexc.Net.Clients.SpotApi
             return SharedTransferStatus.Unknown;
         }
 
-        #endregion
+        #region Withdraw
 
-        #region Withdraw client
+        async Task<ICallResult<SharedId>> IWithdraw.WithdrawAsync(WithdrawRequest request, CancellationToken ct)
+            => await WithdrawAsync(request, ct).ConfigureAwait(false);
 
         public WithdrawOptions WithdrawOptions { get; } = new WithdrawOptions(_exchangeName);
         public async Task<HttpResult<SharedId>> WithdrawAsync(WithdrawRequest request, CancellationToken ct)
@@ -123,5 +129,6 @@ namespace Mexc.Net.Clients.SpotApi
         }
 
         #endregion
+
     }
 }

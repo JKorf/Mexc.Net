@@ -21,6 +21,7 @@ namespace Mexc.Net.Clients.FuturesApi
 
         public MexcSocketClientFuturesSharedApi(MexcSocketClientFuturesApi api)
             : base(
+                  SharedTransport.Socket,
                   api.Exchange,
                   [TradingMode.PerpetualLinear, TradingMode.PerpetualInverse],
                   () => api.Authenticated,

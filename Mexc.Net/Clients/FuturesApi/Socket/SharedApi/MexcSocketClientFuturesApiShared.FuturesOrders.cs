@@ -9,7 +9,8 @@ namespace Mexc.Net.Clients.FuturesApi
 {
     internal partial class MexcSocketClientFuturesSharedApi
     {
-        #region Futures Order client
+
+        #region Subscribe Futures Orders
 
         async Task<WebSocketResult<UpdateSubscription>> IFuturesOrderSocketClient.SubscribeToFuturesOrderUpdatesAsync(SubscribeFuturesOrderRequest request, Action<DataEvent<SharedFuturesOrder[]>> handler, CancellationToken ct)
             => await SubscribeToFuturesOrderUpdatesAsync(request, x => handler(x.ToType<SharedFuturesOrder[]>(x.Data)), ct).ConfigureAwait(false);
@@ -52,6 +53,8 @@ namespace Mexc.Net.Clients.FuturesApi
             return result;
         }
 
+        #endregion
+
         private SharedOrderStatus ParseOrderStatus(FuturesOrderStatus status)
         {
             if (status == FuturesOrderStatus.Open)
@@ -90,6 +93,5 @@ namespace Mexc.Net.Clients.FuturesApi
 
             return SharedOrderType.Other;
         }
-        #endregion
     }
 }

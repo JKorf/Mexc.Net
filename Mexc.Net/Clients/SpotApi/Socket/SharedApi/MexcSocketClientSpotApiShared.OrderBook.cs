@@ -9,7 +9,8 @@ namespace Mexc.Net.Clients.SpotApi
 {
     internal partial class MexcSocketClientSpotSharedApi
     {
-        #region Order Book client
+        #region Subscribe Order Book
+
         public SubscribeOrderBookOptions SubscribeOrderBookOptions { get; } = new SubscribeOrderBookOptions(_exchangeName, false, new[] { 5, 10, 20 })
         {
             SupportsMultipleSymbols = true,
@@ -27,6 +28,7 @@ namespace Mexc.Net.Clients.SpotApi
                     new SharedOrderBook(SharedQuantityType.BaseAsset, update.Data.SequenceEnd, update.Data.Asks, update.Data.Bids))), ct).ConfigureAwait(false);
             return result;
         }
+
         #endregion
     }
 }

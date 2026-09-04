@@ -9,7 +9,8 @@ namespace Mexc.Net.Clients.FuturesApi
 {
     internal partial class MexcSocketClientFuturesSharedApi
     {
-        #region User Trade client
+        #region Subscribe User Trades
+
         public SubscribeUserTradeOptions SubscribeUserTradeOptions { get; } = new SubscribeUserTradeOptions(_exchangeName, false);
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToUserTradeUpdatesAsync(SubscribeUserTradeRequest request, Action<DataEvent<SharedUserTrade[]>> handler, CancellationToken ct)
         {
@@ -37,6 +38,7 @@ namespace Mexc.Net.Clients.FuturesApi
                 ct: ct).ConfigureAwait(false);
             return result;
         }
+
         #endregion
     }
 }

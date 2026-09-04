@@ -11,7 +11,11 @@ namespace Mexc.Net.Clients.FuturesApi
 {
     internal partial class MexcRestClientFuturesSharedApi
     {
-        #region Position Mode client
+        #region Get Position Mode
+
+        async Task<ICallResult<SharedPositionModeResult>> IGetPositionMode.GetPositionModeAsync(GetPositionModeRequest request, CancellationToken ct)
+            => await GetPositionModeAsync(request, ct).ConfigureAwait(false);
+
         public SharedPositionModeSelection PositionModeSettingType => SharedPositionModeSelection.PerAccount;
 
         public GetPositionModeOptions GetPositionModeOptions { get; } = new GetPositionModeOptions(_exchangeName);
@@ -28,6 +32,13 @@ namespace Mexc.Net.Clients.FuturesApi
             return HttpResult.Ok(result, new SharedPositionModeResult(result.Data == PositionMode.Hedge ? SharedPositionMode.HedgeMode : SharedPositionMode.OneWay));
         }
 
+        #endregion
+
+        #region Set Position Mode
+
+        async Task<ICallResult<SharedPositionModeResult>> ISetPositionMode.SetPositionModeAsync(SetPositionModeRequest request, CancellationToken ct)
+            => await SetPositionModeAsync(request, ct).ConfigureAwait(false);
+
         public SetPositionModeOptions SetPositionModeOptions { get; } = new SetPositionModeOptions(_exchangeName);
         public async Task<HttpResult<SharedPositionModeResult>> SetPositionModeAsync(SetPositionModeRequest request, CancellationToken ct)
         {
@@ -41,6 +52,7 @@ namespace Mexc.Net.Clients.FuturesApi
 
             return HttpResult.Ok(result, new SharedPositionModeResult(request.PositionMode));
         }
+
         #endregion
     }
 }

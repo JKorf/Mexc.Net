@@ -113,6 +113,13 @@ namespace Microsoft.Extensions.DependencyInjection
                 x.GetRequiredService<IOptions<MexcRestOptions>>(),
                 x.GetRequiredService<IOptions<MexcSocketOptions>>()));
 
+            services.AddTransient<IMexcSharedApiClient, MexcSharedApiClient>();
+
+            services.RegisterSharedApi(x => x.GetRequiredService<IMexcRestClient>().SpotApi.SharedApi);
+            services.RegisterSharedApi(x => x.GetRequiredService<IMexcRestClient>().FuturesApi.SharedApi);
+            services.RegisterSharedApi(x => x.GetRequiredService<IMexcSocketClient>().SpotApi.SharedApi);
+            services.RegisterSharedApi(x => x.GetRequiredService<IMexcSocketClient>().FuturesApi.SharedApi);
+
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IMexcRestClient>().SpotApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IMexcSocketClient>().SpotApi.SharedClient);
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IMexcRestClient>().FuturesApi.SharedClient);

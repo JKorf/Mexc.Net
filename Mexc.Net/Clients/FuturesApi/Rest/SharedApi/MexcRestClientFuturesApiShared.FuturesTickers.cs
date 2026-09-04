@@ -11,7 +11,11 @@ namespace Mexc.Net.Clients.FuturesApi
 {
     internal partial class MexcRestClientFuturesSharedApi
     {
-        #region Futures Ticker client
+
+        #region Get Futures Ticker
+
+        async Task<ICallResult<SharedFuturesTicker>> IGetFuturesTicker.GetFuturesTickerAsync(GetTickerRequest request, CancellationToken ct)
+            => await GetFuturesTickerAsync(request, ct).ConfigureAwait(false);
 
         public GetFuturesTickerOptions GetFuturesTickerOptions { get; } = new GetFuturesTickerOptions(_exchangeName);
         public async Task<HttpResult<SharedFuturesTicker>> GetFuturesTickerAsync(GetTickerRequest request, CancellationToken ct)
@@ -38,6 +42,13 @@ namespace Mexc.Net.Clients.FuturesApi
                     FundingRate = result.Data.FundingRate
                 });
         }
+
+        #endregion
+
+        #region Get All Futures Tickers
+
+        async Task<ICallResult<SharedFuturesTicker[]>> IGetAllFuturesTickers.GetAllFuturesTickersAsync(GetTickersRequest request, CancellationToken ct)
+            => await GetAllFuturesTickersAsync(request, ct).ConfigureAwait(false);
 
         Task<HttpResult<SharedFuturesTicker[]>> IFuturesTickerRestClient.GetFuturesTickersAsync(GetTickersRequest request, CancellationToken ct)
             => GetAllFuturesTickersAsync(request, ct);
@@ -79,5 +90,6 @@ namespace Mexc.Net.Clients.FuturesApi
         }
 
         #endregion
+
     }
 }

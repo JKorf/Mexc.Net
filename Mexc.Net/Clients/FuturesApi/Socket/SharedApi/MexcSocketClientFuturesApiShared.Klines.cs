@@ -9,7 +9,8 @@ namespace Mexc.Net.Clients.FuturesApi
 {
     internal partial class MexcSocketClientFuturesSharedApi
     {
-        #region Kline client
+        #region Subscribe Klines
+
         public SubscribeKlineOptions SubscribeKlineOptions { get; } = new SubscribeKlineOptions(_exchangeName, false, SharedKlineInterval.OneMinute,
             SharedKlineInterval.FiveMinutes,
             SharedKlineInterval.FifteenMinutes,
@@ -41,6 +42,7 @@ namespace Mexc.Net.Clients.FuturesApi
                     new SharedOrderQuantity(null, update.Data.Volume, update.Data.QuoteVolume)))), ct).ConfigureAwait(false);
             return result;
         }
+
         #endregion
     }
 }

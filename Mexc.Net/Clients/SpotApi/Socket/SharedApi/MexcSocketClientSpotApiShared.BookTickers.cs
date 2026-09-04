@@ -9,7 +9,8 @@ namespace Mexc.Net.Clients.SpotApi
 {
     internal partial class MexcSocketClientSpotSharedApi
     {
-        #region Book Ticker client
+
+        #region Subscribe Book Ticker
 
         public SubscribeBookTickerOptions SubscribeBookTickerOptions { get; } = new SubscribeBookTickerOptions(_exchangeName, false)
         {
@@ -33,6 +34,7 @@ namespace Mexc.Net.Clients.SpotApi
                     new SharedOrderQuantity(update.Data.BestBidQuantity)))), ct).ConfigureAwait(false);
             return result;
         }
+
         #endregion
     }
 }

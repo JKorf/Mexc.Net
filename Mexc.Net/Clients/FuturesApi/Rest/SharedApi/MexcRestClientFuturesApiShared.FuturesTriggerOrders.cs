@@ -11,7 +11,11 @@ namespace Mexc.Net.Clients.FuturesApi
 {
     internal partial class MexcRestClientFuturesSharedApi
     {
-        #region Trigger Order Client
+        #region Place Futures Trigger Order
+
+        async Task<ICallResult<SharedId>> IPlaceFuturesTriggerOrder.PlaceFuturesTriggerOrderAsync(PlaceFuturesTriggerOrderRequest request, CancellationToken ct)
+            => await PlaceFuturesTriggerOrderAsync(request, ct).ConfigureAwait(false);
+
         public PlaceFuturesTriggerOrderOptions PlaceFuturesTriggerOrderOptions { get; } = new PlaceFuturesTriggerOrderOptions(_exchangeName, false)
         {
             RequiredRequestParameters = new List<ParameterDescription>
@@ -46,6 +50,8 @@ namespace Mexc.Net.Clients.FuturesApi
             return HttpResult.Ok(result, new SharedId(result.Data.ToString()));
         }
 
+        #endregion
+
         private TriggerPriceType GetWorkingType(PlaceFuturesTriggerOrderRequest request)
         {
             if (request.TriggerPriceType == null)
@@ -59,6 +65,11 @@ namespace Mexc.Net.Clients.FuturesApi
 
             return TriggerPriceType.IndexPrice;
         }
+
+        #region Get Futures Trigger Order
+
+        async Task<ICallResult<SharedFuturesTriggerOrder>> IGetFuturesTriggerOrder.GetFuturesTriggerOrderAsync(GetOrderRequest request, CancellationToken ct)
+            => await GetFuturesTriggerOrderAsync(request, ct).ConfigureAwait(false);
 
         public GetFuturesTriggerOrderOptions GetFuturesTriggerOrderOptions { get; } = new GetFuturesTriggerOrderOptions(_exchangeName, true);
         public async Task<HttpResult<SharedFuturesTriggerOrder>> GetFuturesTriggerOrderAsync(GetOrderRequest request, CancellationToken ct)
@@ -112,6 +123,8 @@ namespace Mexc.Net.Clients.FuturesApi
             });
         }
 
+        #endregion
+
         private SharedTriggerOrderStatus ParseTriggerStatus(MexcFuturesTriggerOrder data)
         {
             if (data.Status == TpSlStatus.Executed)
@@ -125,6 +138,11 @@ namespace Mexc.Net.Clients.FuturesApi
 
             return SharedTriggerOrderStatus.Unknown;
         }
+
+        #region Cancel Futures Trigger Order
+
+        async Task<ICallResult<SharedId>> ICancelFuturesTriggerOrder.CancelFuturesTriggerOrderAsync(CancelOrderRequest request, CancellationToken ct)
+            => await CancelFuturesTriggerOrderAsync(request, ct).ConfigureAwait(false);
 
         public CancelFuturesTriggerOrderOptions CancelFuturesTriggerOrderOptions { get; } = new CancelFuturesTriggerOrderOptions(_exchangeName, true);
         public async Task<HttpResult<SharedId>> CancelFuturesTriggerOrderAsync(CancelOrderRequest request, CancellationToken ct)
@@ -143,6 +161,7 @@ namespace Mexc.Net.Clients.FuturesApi
             return HttpResult.Ok(order, new SharedId(orderId.ToString()));
         }
 
+        #endregion
 
         private FuturesOrderSide GetTriggerOrderParameters(SharedPositionSide positionSide, SharedTriggerOrderDirection orderDirection)
         {
@@ -153,6 +172,5 @@ namespace Mexc.Net.Clients.FuturesApi
                 return positionSide == SharedPositionSide.Long ? FuturesOrderSide.CloseLong : FuturesOrderSide.CloseShort;
         }
 
-        #endregion
     }
 }

@@ -9,7 +9,8 @@ namespace Mexc.Net.Clients.SpotApi
 {
     internal partial class MexcSocketClientSpotSharedApi
     {
-        #region Trade client
+
+        #region Subscribe Trades
 
         public SubscribeTradeOptions SubscribeTradeOptions { get; } = new SubscribeTradeOptions(_exchangeName, false)
         {
@@ -35,6 +36,7 @@ namespace Mexc.Net.Clients.SpotApi
             }).ToArray())), ct).ConfigureAwait(false);
             return result;
         }
+
         #endregion
     }
 }

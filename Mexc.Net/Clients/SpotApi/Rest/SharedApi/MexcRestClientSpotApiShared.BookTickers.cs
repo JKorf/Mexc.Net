@@ -11,7 +11,11 @@ namespace Mexc.Net.Clients.SpotApi
 {
     internal partial class MexcRestClientSpotSharedApi
     {
-        #region Book Ticker client
+
+        #region Get Book Ticker
+
+        async Task<ICallResult<SharedBookTicker>> IGetBookTicker.GetBookTickerAsync(GetBookTickerRequest request, CancellationToken ct)
+            => await GetBookTickerAsync(request, ct).ConfigureAwait(false);
 
         public GetBookTickerOptions GetBookTickerOptions { get; } = new GetBookTickerOptions(_exchangeName, false);
         public async Task<HttpResult<SharedBookTicker>> GetBookTickerAsync(GetBookTickerRequest request, CancellationToken ct)
@@ -35,5 +39,6 @@ namespace Mexc.Net.Clients.SpotApi
         }
 
         #endregion
+
     }
 }

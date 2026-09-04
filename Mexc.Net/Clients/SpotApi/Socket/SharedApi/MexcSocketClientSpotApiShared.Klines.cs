@@ -9,7 +9,8 @@ namespace Mexc.Net.Clients.SpotApi
 {
     internal partial class MexcSocketClientSpotSharedApi
     {
-        #region Kline client
+        #region Subscribe Klines
+
         public SubscribeKlineOptions SubscribeKlineOptions { get; } = new SubscribeKlineOptions(_exchangeName, false,
             SharedKlineInterval.OneMinute,
             SharedKlineInterval.ThreeMinutes,
@@ -46,6 +47,7 @@ namespace Mexc.Net.Clients.SpotApi
                     new SharedOrderQuantity(update.Data.Volume, update.Data.QuoteVolume)))), ct).ConfigureAwait(false);
             return result;
         }
+
         #endregion
     }
 }

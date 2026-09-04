@@ -21,6 +21,7 @@ namespace Mexc.Net.Clients.SpotApi
 
         public MexcSocketClientSpotSharedApi(MexcSocketClientSpotApi api)
             : base(
+                  SharedTransport.Socket,
                   api.Exchange,
                   [TradingMode.Spot],
                   () => api.Authenticated,

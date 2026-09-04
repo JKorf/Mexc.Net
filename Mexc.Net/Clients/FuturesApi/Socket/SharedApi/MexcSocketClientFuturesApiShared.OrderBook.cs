@@ -9,7 +9,8 @@ namespace Mexc.Net.Clients.FuturesApi
 {
     internal partial class MexcSocketClientFuturesSharedApi
     {
-        #region Order Book client
+        #region Subscribe Order Book
+
         public SubscribeOrderBookOptions SubscribeOrderBookOptions { get; } = new SubscribeOrderBookOptions(_exchangeName, false, new[] { 5, 10, 20 });
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(SubscribeOrderBookRequest request, Action<DataEvent<SharedOrderBook>> handler, CancellationToken ct)
         {
@@ -23,6 +24,7 @@ namespace Mexc.Net.Clients.FuturesApi
                     new SharedOrderBook(SharedQuantityType.Contracts, update.Data.SequenceEnd, update.Data.Asks, update.Data.Bids))), ct).ConfigureAwait(false);
             return result;
         }
+
         #endregion
     }
 }
