@@ -1,16 +1,17 @@
 ﻿using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Interfaces.Clients;
+using CryptoExchange.Net.Objects;
 using Mexc.Net.Clients;
+using Mexc.Net.Clients.SpotApi;
+using Mexc.Net.Interfaces.Clients;
 using Mexc.Net.Objects.Models;
 using Mexc.Net.UnitTests.Helpers;
-using System.Text.Json;
-using NUnit.Framework.Legacy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Mexc.Net.Interfaces.Clients;
-using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.Converters.SystemTextJson;
-using Mexc.Net.Clients.SpotApi;
+using NUnit.Framework.Legacy;
+using System.Text.Json;
 
 namespace Mexc.Net.UnitTests
 {
@@ -226,6 +227,38 @@ namespace Mexc.Net.UnitTests
 
             Assert.That(missingOptions, Is.Empty);
             Assert.That(missingInterfaces, Is.Empty);
+        }
+
+        [Test]
+        public void TestSpotRestSharedApiDoesntHaveUnsupportedCapabilities()
+        {
+            var unsupported = CryptoExchange.Net.Testing.TestHelpers.ValidateUnsupportedCapabilities(new MexcRestClient().SpotApi.SharedApi);
+
+            Assert.That(unsupported, Is.Empty);
+        }
+
+        [Test]
+        public void TestSpotSocketSharedApiDoesntHaveUnsupportedCapabilities()
+        {
+            var unsupported = CryptoExchange.Net.Testing.TestHelpers.ValidateUnsupportedCapabilities(new MexcSocketClient().SpotApi.SharedApi);
+
+            Assert.That(unsupported, Is.Empty);
+        }
+
+        [Test]
+        public void TestFuturesRestSharedApiDoesntHaveUnsupportedCapabilities()
+        {
+            var unsupported = CryptoExchange.Net.Testing.TestHelpers.ValidateUnsupportedCapabilities(new MexcRestClient().FuturesApi.SharedApi);
+
+            Assert.That(unsupported, Is.Empty);
+        }
+
+        [Test]
+        public void TestFuturesSocketSharedApiDoesntHaveUnsupportedCapabilities()
+        {
+            var unsupported = CryptoExchange.Net.Testing.TestHelpers.ValidateUnsupportedCapabilities(new MexcSocketClient().FuturesApi.SharedApi);
+
+            Assert.That(unsupported, Is.Empty);
         }
     }
 }

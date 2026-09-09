@@ -23,7 +23,13 @@ namespace Mexc.Net.Clients.SpotApi
             SharedAccountType.DeliveryLinearFutures,
             SharedAccountType.DeliveryInverseFutures,
             SharedAccountType.Spot
-            ]);
+            ])
+        {
+            ParameterRuleOverwrites = [
+                RequestParameterRuleOverride<TransferRequest>.NotSupported(x => x.FromSymbol),
+                RequestParameterRuleOverride<TransferRequest>.NotSupported(x => x.ToSymbol),
+                ]
+        };
         public async Task<HttpResult<SharedId>> TransferAsync(TransferRequest request, CancellationToken ct)
         {
             var validationError = TransferOptions.ValidateRequest(request, this);

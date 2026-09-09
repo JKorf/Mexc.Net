@@ -17,7 +17,13 @@ namespace Mexc.Net.Clients.FuturesApi
         async Task<ICallResult<SharedPositionHistory[]>> IGetPositionHistory.GetPositionHistoryAsync(GetPositionHistoryRequest request, PageRequest? pageRequest, CancellationToken ct)
             => await GetPositionHistoryAsync(request, pageRequest, ct).ConfigureAwait(false);
 
-        public GetPositionHistoryOptions GetPositionHistoryOptions { get; } = new GetPositionHistoryOptions(_exchangeName, false, true, false, 100);
+        public GetPositionHistoryOptions GetPositionHistoryOptions { get; } = new GetPositionHistoryOptions(_exchangeName, false, true, false, 100)
+        {
+            ParameterRuleOverwrites = [
+                RequestParameterRuleOverride<GetPositionHistoryRequest>.NotSupported(x => x.StartTime),
+                RequestParameterRuleOverride<GetPositionHistoryRequest>.NotSupported(x => x.EndTime),
+                ]
+        };
         public async Task<HttpResult<SharedPositionHistory[]>> GetPositionHistoryAsync(GetPositionHistoryRequest request, PageRequest? pageRequest, CancellationToken ct)
         {
             var validationError = GetPositionHistoryOptions.ValidateRequest(request, this);

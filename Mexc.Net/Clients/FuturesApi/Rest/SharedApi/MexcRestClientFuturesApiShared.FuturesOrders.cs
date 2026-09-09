@@ -29,10 +29,10 @@ namespace Mexc.Net.Clients.FuturesApi
 
         public string GenerateClientOrderId() => ExchangeHelpers.RandomString(20);
 
-        public PlaceFuturesOrderOptions PlaceFuturesOrderOptions { get; } = new PlaceFuturesOrderOptions(_exchangeName, false)
+        public PlaceFuturesOrderOptions PlaceFuturesOrderOptions { get; } = new PlaceFuturesOrderOptions(_exchangeName, true)
         {
             ParameterRuleOverwrites = [
-                RequestParameterRuleOverride<PlaceFuturesOrderRequest>.Required(x => x.PositionSide),
+                RequestParameterRuleOverride<PlaceFuturesOrderRequest>.Required(x => x.PositionSide)
             ]
         };
         public async Task<HttpResult<SharedId>> PlaceFuturesOrderAsync(PlaceFuturesOrderRequest request, CancellationToken ct)
@@ -48,7 +48,7 @@ namespace Mexc.Net.Clients.FuturesApi
                     quantity: request.Quantity?.QuantityInContracts ?? 0,
                     price: request.Price,
                     leverage: (int?)request.Leverage,
-                    marginType: request.MarginMode == SharedMarginMode.Isolated ? MarginType.Isolated : MarginType.Cross,
+                    marginType: request.MarginMode == null ? null : request.MarginMode == SharedMarginMode.Isolated ? MarginType.Isolated : MarginType.Cross,
                     reduceOnly: request.ReduceOnly,
                     clientOrderId: request.ClientOrderId,
                     stopLossPrice: request.StopLossPrice,
@@ -141,7 +141,12 @@ namespace Mexc.Net.Clients.FuturesApi
         async Task<ICallResult<SharedFuturesOrder[]>> IGetOpenFuturesOrders.GetOpenFuturesOrdersAsync(GetOpenOrdersRequest request, CancellationToken ct)
             => await GetOpenFuturesOrdersAsync(request, ct).ConfigureAwait(false);
 
-        public GetOpenFuturesOrdersOptions GetOpenFuturesOrdersOptions { get; } = new GetOpenFuturesOrdersOptions(_exchangeName, true);
+        public GetOpenFuturesOrdersOptions GetOpenFuturesOrdersOptions { get; } = new GetOpenFuturesOrdersOptions(_exchangeName, true)
+        {
+            ParameterRuleOverwrites = [
+                RequestParameterRuleOverride<GetOpenOrdersRequest>.NotSupported(x => x.Symbol),
+                ]
+        };
         public async Task<HttpResult<SharedFuturesOrder[]>> GetOpenFuturesOrdersAsync(GetOpenOrdersRequest request, CancellationToken ct)
         {
             var validationError = GetOpenFuturesOrdersOptions.ValidateRequest(request, this);
