@@ -19,7 +19,7 @@ namespace Mexc.Net.Clients.FuturesApi
 
         public GetPositionHistoryOptions GetPositionHistoryOptions { get; } = new GetPositionHistoryOptions(_exchangeName, false, true, false, 100)
         {
-            ParameterRuleOverwrites = [
+            ParameterRuleOverrides = [
                 RequestParameterRuleOverride<GetPositionHistoryRequest>.NotSupported(x => x.StartTime),
                 RequestParameterRuleOverride<GetPositionHistoryRequest>.NotSupported(x => x.EndTime),
                 ]

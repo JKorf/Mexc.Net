@@ -18,7 +18,7 @@ namespace Mexc.Net.Clients.FuturesApi
 
         public GetFundingRateHistoryOptions GetFundingRateHistoryOptions { get; } = new GetFundingRateHistoryOptions(_exchangeName, false, true, false, 1000, false)
         {
-            ParameterRuleOverwrites = [
+            ParameterRuleOverrides = [
                 RequestParameterRuleOverride<GetFundingRateHistoryRequest>.NotSupported(x => x.StartTime),
                 RequestParameterRuleOverride<GetFundingRateHistoryRequest>.NotSupported(x => x.EndTime)
                 ]
