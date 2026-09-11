@@ -52,9 +52,9 @@ namespace Microsoft.Extensions.DependencyInjection
             options.Socket.Environment = MexcEnvironment.GetEnvironmentByName(socketEnvName) ?? options.Socket.Environment!;
             options.Socket.ApiCredentials = options.Socket.ApiCredentials ?? options.ApiCredentials;
 
-
-            services.AddSingleton(x => Options.Options.Create(options.Rest));
-            services.AddSingleton(x => Options.Options.Create(options.Socket));
+            services.AddSingleton(Options.Options.Create(options.Rest));
+            services.AddSingleton(Options.Options.Create(options.Socket));
+            services.AddSingleton(Options.Options.Create(options));
 
             return AddMexcCore(services, options.SocketClientLifeTime);
         }
@@ -82,8 +82,9 @@ namespace Microsoft.Extensions.DependencyInjection
             options.Socket.Environment = options.Socket.Environment ?? options.Environment ?? MexcEnvironment.Live;
             options.Socket.ApiCredentials = options.Socket.ApiCredentials ?? options.ApiCredentials;
 
-            services.AddSingleton(x => Options.Options.Create(options.Rest));
-            services.AddSingleton(x => Options.Options.Create(options.Socket));
+            services.AddSingleton(Options.Options.Create(options.Rest));
+            services.AddSingleton(Options.Options.Create(options.Socket));
+            services.AddSingleton(Options.Options.Create(options));
 
             return AddMexcCore(services, options.SocketClientLifeTime);
         }
@@ -119,6 +120,8 @@ namespace Microsoft.Extensions.DependencyInjection
             services.RegisterSharedApi(x => x.GetRequiredService<IMexcRestClient>().FuturesApi.SharedApi);
             services.RegisterSharedApi(x => x.GetRequiredService<IMexcSocketClient>().SpotApi.SharedApi);
             services.RegisterSharedApi(x => x.GetRequiredService<IMexcSocketClient>().FuturesApi.SharedApi);
+
+            services.RegisterSharedApiClientCapabilities<IMexcSharedApiClient>();
 
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IMexcRestClient>().SpotApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IMexcSocketClient>().SpotApi.SharedClient);

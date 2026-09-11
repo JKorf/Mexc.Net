@@ -1,11 +1,14 @@
-﻿using Mexc.Net.Interfaces.Clients;
+﻿using CryptoExchange.Net.SharedApis;
+using Mexc.Net.Interfaces.Clients;
 using Mexc.Net.Interfaces.Clients.FuturesApi;
 using Mexc.Net.Interfaces.Clients.SpotApi;
+using Mexc.Net.Objects.Options;
+using Microsoft.Extensions.Options;
 
 namespace Mexc.Net.Clients
 {
     /// <inheritdoc />
-    public class MexcSharedApiClient : IMexcSharedApiClient
+    public class MexcSharedApiClient : SharedApiClientBase, IMexcSharedApiClient
     {
         /// <inheritdoc />
         public IMexcRestClientSpotSharedApi SpotRest { get; }
@@ -21,7 +24,14 @@ namespace Mexc.Net.Clients
         /// </summary>
         public MexcSharedApiClient(
             IMexcRestClient restClient,
-            IMexcSocketClient socketClient)
+            IMexcSocketClient socketClient,
+            IOptions<MexcOptions> options)
+            : base(options.Value.SharedApi.PreferredTransport,
+                  restClient.SpotApi.SharedApi,
+                  restClient.FuturesApi.SharedApi,
+                  socketClient.SpotApi.SharedApi,
+                  socketClient.FuturesApi.SharedApi
+                  )
         {
             SpotRest = restClient.SpotApi.SharedApi;
             FuturesRest = restClient.FuturesApi.SharedApi;

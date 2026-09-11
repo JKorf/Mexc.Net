@@ -1,4 +1,5 @@
-﻿using Mexc.Net.Interfaces.Clients.FuturesApi;
+﻿using CryptoExchange.Net.SharedApis;
+using Mexc.Net.Interfaces.Clients.FuturesApi;
 using Mexc.Net.Interfaces.Clients.SpotApi;
 
 namespace Mexc.Net.Interfaces.Clients
@@ -6,7 +7,7 @@ namespace Mexc.Net.Interfaces.Clients
     /// <summary>
     /// Client for the shared REST and WebSocket API implementations of Mexc
     /// </summary>
-    public interface IMexcSharedApiClient
+    public interface IMexcSharedApiClient : ISharedApiClientBase
     {
         /// <summary>
         /// Spot REST shared API implementations
