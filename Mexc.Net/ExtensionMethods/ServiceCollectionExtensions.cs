@@ -1,5 +1,6 @@
 ﻿using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Interfaces.Clients;
+using CryptoExchange.Net.SharedApis;
 using Mexc.Net;
 using Mexc.Net.Clients;
 using Mexc.Net.Interfaces;
@@ -114,19 +115,20 @@ namespace Microsoft.Extensions.DependencyInjection
                 x.GetRequiredService<IOptions<MexcRestOptions>>(),
                 x.GetRequiredService<IOptions<MexcSocketOptions>>()));
 
-            services.AddTransient<IMexcSharedApiClient, MexcSharedApiClient>();
-
-            services.RegisterSharedApi(x => x.GetRequiredService<IMexcRestClient>().SpotApi.SharedApi);
-            services.RegisterSharedApi(x => x.GetRequiredService<IMexcRestClient>().FuturesApi.SharedApi);
-            services.RegisterSharedApi(x => x.GetRequiredService<IMexcSocketClient>().SpotApi.SharedApi);
-            services.RegisterSharedApi(x => x.GetRequiredService<IMexcSocketClient>().FuturesApi.SharedApi);
-
-            services.RegisterSharedApiClientCapabilities<IMexcSharedApiClient>();
-
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IMexcRestClient>().SpotApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IMexcSocketClient>().SpotApi.SharedClient);
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IMexcRestClient>().FuturesApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IMexcSocketClient>().FuturesApi.SharedClient);
+
+            services.RegisterSharedApiClient<
+                IMexcSharedApiClient,
+                MexcSharedApiClient>(sharedApis => sharedApis
+                    .Add(client => client.SpotRest)
+                    .Add(client => client.SpotSocket)
+                    .Add(client => client.FuturesRest)
+                    .Add(client => client.FuturesSocket)
+                    );
+
             return services;
         }
     }
