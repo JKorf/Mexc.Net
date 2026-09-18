@@ -13,7 +13,7 @@ namespace Mexc.Net.Clients.FuturesApi
     {
         #region Get Position Mode
 
-        async Task<ICallResult<SharedPositionModeResult>> IGetPositionMode.GetPositionModeAsync(GetPositionModeRequest request, CancellationToken ct)
+        async Task<IExchangeCallResult<SharedPositionModeResult>> IGetPositionMode.GetPositionModeAsync(GetPositionModeRequest request, CancellationToken ct)
             => await GetPositionModeAsync(request, ct).ConfigureAwait(false);
 
         public SharedPositionModeSelection PositionModeSettingType => SharedPositionModeSelection.PerAccount;
@@ -36,7 +36,7 @@ namespace Mexc.Net.Clients.FuturesApi
 
         #region Set Position Mode
 
-        async Task<ICallResult<SharedPositionModeResult>> ISetPositionMode.SetPositionModeAsync(SetPositionModeRequest request, CancellationToken ct)
+        async Task<IExchangeCallResult<SharedPositionModeResult>> ISetPositionMode.SetPositionModeAsync(SetPositionModeRequest request, CancellationToken ct)
             => await SetPositionModeAsync(request, ct).ConfigureAwait(false);
 
         public SetPositionModeOptions SetPositionModeOptions { get; } = new SetPositionModeOptions(_exchangeName);

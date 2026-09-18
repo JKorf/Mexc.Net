@@ -22,7 +22,7 @@ namespace Mexc.Net.Clients.SpotApi
         public MexcSocketClientSpotSharedApi(MexcSocketClientSpotApi api)
             : base(
                   SharedTransport.Socket,
-                  api.Exchange,
+                  api,
                   [TradingMode.Spot],
                   () => api.Authenticated,
                   api.FormatSymbol)

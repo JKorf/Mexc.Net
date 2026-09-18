@@ -24,7 +24,7 @@ namespace Mexc.Net.Clients.FuturesApi
         public MexcRestClientFuturesSharedApi(MexcRestClientFuturesApi api)
             : base(
                   SharedTransport.Rest,
-                  api.Exchange,
+                  api,
                   [TradingMode.PerpetualLinear, TradingMode.PerpetualInverse],
                   () => api.Authenticated,
                   api.FormatSymbol)

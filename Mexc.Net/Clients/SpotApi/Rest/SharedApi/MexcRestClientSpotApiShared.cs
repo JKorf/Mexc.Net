@@ -26,7 +26,7 @@ namespace Mexc.Net.Clients.SpotApi
         public MexcRestClientSpotSharedApi(MexcRestClientSpotApi api)
             : base(
                   SharedTransport.Rest,
-                  api.Exchange,
+                  api,
                   [TradingMode.Spot],
                   () => api.Authenticated,
                   api.FormatSymbol)
