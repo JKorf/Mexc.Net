@@ -22,4 +22,41 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         IFuturesOrderClientIdRestClient
     {
     }
+
+    /// <summary>
+    /// Shared API interface. Shared APIs provide a common,
+    /// exchange-independent contract for accessing functionality across different
+    /// exchange client libraries.
+    /// </summary>
+    public interface IMexcRestClientFuturesSharedApi :
+        IGetKlinesRest,
+        IGetOrderBookRest,
+        IGetRecentTradesRest,
+        IGetFundingRateHistoryRest,
+        IGetFuturesSymbolsRest,
+        IGetTickerRest,
+        IGetAllTickersRest,
+        IGetBalancesRest,
+        IGetLeverageRest,
+        ISetLeverageRest,
+        IGetPositionModeRest,
+        ISetPositionModeRest,
+        IGetPositionHistoryRest,
+        IGetFeesRest,
+        IPlaceFuturesOrderRest,
+        IGetFuturesOrderRest,
+        IGetOpenFuturesOrdersRest,
+        IGetClosedFuturesOrdersRest,
+        IGetFuturesOrderTradesRest,
+        IGetFuturesUserTradeHistoryRest,
+        ICancelFuturesOrderRest,
+        IGetPositionsRest,
+        ICloseFullPositionRest,
+        IPlaceFuturesTriggerOrderRest,
+        IGetFuturesTriggerOrderRest,
+        ICancelFuturesTriggerOrderRest,
+        IGetFuturesOrderByClientOrderIdRest,
+        ICancelFuturesOrderByClientOrderIdRest
+    {
+    }
 }

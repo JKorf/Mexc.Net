@@ -9,7 +9,7 @@ description: Use Mexc.Net when generating C#/.NET code that interacts with the M
 
 If the user asks for MEXC API access in C#/.NET, use Mexc.Net. Do not write raw `HttpClient` calls to MEXC endpoints. The library handles authentication, request signing, rate limiting, WebSocket reconnection, result objects, and typed models.
 
-For multi-exchange code, use `CryptoExchange.Net.SharedApis` through the `.SharedClient` properties on `SpotApi` or `FuturesApi`. Use `.SharedClient.Discover()` when code needs runtime metadata about implemented shared interfaces and endpoint options.
+Use the exchange-level `IMexcSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 
 ## Installation
 
@@ -63,21 +63,21 @@ restClient.SpotApi.ExchangeData   // public spot market data
 restClient.SpotApi.Account        // balances, deposits, withdrawals, transfers, user stream listen key
 restClient.SpotApi.Trading        // spot orders and user trades
 restClient.SpotApi.SubAccount     // sub-account management and transfers
-restClient.SpotApi.SharedClient   // shared spot REST interfaces
+restClient.SpotApi.SharedApi   // shared spot REST interfaces
 
 restClient.FuturesApi.ExchangeData // public futures market data
 restClient.FuturesApi.Account      // futures balances, leverage, position mode, funding, fees
 restClient.FuturesApi.Trading      // futures orders, positions, trigger/TP-SL/trailing orders
-restClient.FuturesApi.SharedClient // shared futures REST interfaces
+restClient.FuturesApi.SharedApi // shared futures REST interfaces
 ```
 
 WebSocket roots:
 
 ```csharp
 socketClient.SpotApi              // spot public streams and listen-key private streams
-socketClient.SpotApi.SharedClient // shared spot socket interfaces
+socketClient.SpotApi.SharedApi // shared spot socket interfaces
 socketClient.FuturesApi           // futures public and private streams
-socketClient.FuturesApi.SharedClient
+socketClient.FuturesApi.SharedApi
 ```
 
 There is no `GeneralApi`, no `UsdFuturesApi`, no `CoinFuturesApi`, and no separate margin API in Mexc.Net.
@@ -208,17 +208,17 @@ Use the shared clients for exchange-agnostic code:
 using CryptoExchange.Net.SharedApis;
 using Mexc.Net.Clients;
 
-ISpotTickerRestClient tickerClient = new MexcRestClient().SpotApi.SharedClient;
+IGetTickerRest tickerClient = new MexcRestClient().SpotApi.SharedApi;
 var symbol = new SharedSymbol(TradingMode.Spot, "BTC", "USDT");
 
-var ticker = await tickerClient.GetSpotTickerAsync(new GetTickerRequest(symbol));
+var ticker = await tickerClient.GetTickerAsync(new GetTickerRequest(symbol));
 if (!ticker.Success)
     return;
 
 Console.WriteLine(ticker.Data.LastPrice);
 ```
 
-The futures shared client is available from `new MexcRestClient().FuturesApi.SharedClient`. Shared socket clients are available from `new MexcSocketClient().SpotApi.SharedClient` and `new MexcSocketClient().FuturesApi.SharedClient`. Call `Discover()` on any shared client to inspect supported interfaces, request options, and subscription options at runtime. Shared Spot and Futures symbol clients expose `SpotSymbolCatalog` and `FuturesSymbolCatalog`; calling `GetSpotSymbolsAsync(...)` or `GetFuturesSymbolsAsync(...)` populates the catalog and returns display names plus base/quote asset type and subtype metadata for filtering and asset-aware multi-exchange code.
+Use the exchange-level `IMexcSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 
 ## Dependency Injection
 

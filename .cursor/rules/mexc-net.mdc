@@ -40,7 +40,7 @@ var price = ticker.Data.LastPrice;
 - `restClient.FuturesApi.{ExchangeData|Account|Trading}`
 - `socketClient.SpotApi` for spot WebSocket streams
 - `socketClient.FuturesApi` for futures WebSocket streams
-- `SpotApi.SharedClient` and `FuturesApi.SharedClient` for `CryptoExchange.Net.SharedApis`
+- `SpotApi.SharedApi` and `FuturesApi.SharedApi` for `CryptoExchange.Net.SharedApis`
 
 ## Symbol Formats
 
@@ -90,8 +90,8 @@ For exchange-agnostic code, use `CryptoExchange.Net.SharedApis`:
 ```csharp
 using CryptoExchange.Net.SharedApis;
 
-var shared = new MexcRestClient().SpotApi.SharedClient;
-var ticker = await shared.GetSpotTickerAsync(
+var shared = new MexcRestClient().SpotApi.SharedApi;
+var ticker = await shared.GetTickerAsync(
     new GetTickerRequest(new SharedSymbol(TradingMode.Spot, "BTC", "USDT")));
 ```
 

@@ -22,6 +22,8 @@ namespace Mexc.Net.Clients.FuturesApi
     /// <inheritdoc />
     internal partial class MexcSocketClientFuturesApi : SocketApiClient<MexcEnvironment, MexcFuturesAuthenticationProvider, MexcCredentials>, IMexcSocketClientFuturesApi
     {
+        private readonly MexcSocketClientFuturesSharedApi _sharedApi;
+
         #region constructor/destructor
 
         internal MexcSocketClientFuturesApi(ILoggerFactory? loggerFactory, MexcSocketOptions options) :
@@ -29,6 +31,8 @@ namespace Mexc.Net.Clients.FuturesApi
         {
             AddSystemSubscription(new MexcErrorSubscription(_logger));
             AddSystemSubscription(new MexcPongSubscription(_logger)); // Mexc reacts with 2 pongs on a ping, handler for the second message
+
+            _sharedApi = new MexcSocketClientFuturesSharedApi(this);
 
             MaxIndividualSubscriptionsPerConnection = 30;
 
@@ -61,7 +65,8 @@ namespace Mexc.Net.Clients.FuturesApi
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
             => MexcExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
 
-        public IMexcSocketClientFuturesApiShared SharedClient => this;
+        public IMexcSocketClientFuturesApiShared SharedClient => _sharedApi;
+        public IMexcSocketClientFuturesSharedApi SharedApi => _sharedApi;
 
         /// <inheritdoc />
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTickersUpdatesAsync(Action<DataEvent<MexcFuturesTickerUpdate[]>> handler, CancellationToken ct = default)
