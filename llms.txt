@@ -34,5 +34,5 @@ Mexc.Net is a C# client for MEXC built on CryptoExchange.Net. It provides typed 
 - MEXC exposes `MexcEnvironment.Live` and `MexcEnvironment.CreateCustom(...)`; do not invent a testnet environment.
 - REST calls return `HttpResult<T>` or `HttpResult`; socket subscriptions return `WebSocketResult<UpdateSubscription>`.
 - Shared symbol/cache helper methods can return `ExchangeCallResult<T>`.
-- For multi-exchange code, use `CryptoExchange.Net.SharedApis` through `.SharedClient`; call `SharedClient.Discover()` to inspect implemented shared interfaces and endpoint/subscription options at runtime.
+- Use the exchange-level `IMexcSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 - Shared symbol clients expose `SpotSymbolCatalog` / `FuturesSymbolCatalog`; their symbol methods return display names and base/quote asset type/subtype metadata and support the corresponding `GetSymbolsRequest` filters.

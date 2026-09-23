@@ -205,26 +205,26 @@ Use SharedApis for exchange-agnostic code across MEXC, Binance, Bybit, OKX, Krak
 
 | User intent | Mexc.Net member or interface |
 |---|---|
-| Shared spot REST client | `new MexcRestClient().SpotApi.SharedClient` |
-| Shared futures REST client | `new MexcRestClient().FuturesApi.SharedClient` |
-| Shared spot socket client | `new MexcSocketClient().SpotApi.SharedClient` |
-| Shared futures socket client | `new MexcSocketClient().FuturesApi.SharedClient` |
-| Discover shared capabilities | `client.SpotApi.SharedClient.Discover()` |
-| Shared spot ticker REST | `ISpotTickerRestClient.GetSpotTickerAsync(new GetTickerRequest(symbol))` |
-| Shared spot symbol REST | `ISpotSymbolRestClient.GetSpotSymbolsAsync(...)` |
-| Shared spot symbol catalog | `ISpotSymbolRestClient.SpotSymbolCatalog` |
-| Shared futures symbol REST | `IFuturesSymbolRestClient.GetFuturesSymbolsAsync(...)` |
-| Shared futures symbol catalog | `IFuturesSymbolRestClient.FuturesSymbolCatalog` |
-| Shared spot order REST | `ISpotOrderRestClient.PlaceSpotOrderAsync(...)` |
-| Shared futures order REST | `IFuturesOrderRestClient.PlaceFuturesOrderAsync(...)` |
-| Shared futures trigger order REST | `IFuturesTriggerOrderRestClient.PlaceFuturesTriggerOrderAsync(...)` |
-| Shared balances REST | `IBalanceRestClient.GetBalancesAsync(...)` |
-| Shared fees REST | `IFeeRestClient.GetFeeAsync(...)` |
-| Shared ticker socket | `ITickerSocketClient.SubscribeToTickerUpdatesAsync(...)` |
-| Shared order book socket | `IOrderBookSocketClient.SubscribeToOrderBookUpdatesAsync(...)` |
-| Shared trades socket | `ITradeSocketClient.SubscribeToTradeUpdatesAsync(...)` |
-| Shared spot order socket | `ISpotOrderSocketClient.SubscribeToSpotOrderUpdatesAsync(...)` |
-| Shared user trade socket | `IUserTradeSocketClient.SubscribeToUserTradeUpdatesAsync(...)` |
+| Shared spot REST client | `new MexcRestClient().SpotApi.SharedApi` |
+| Shared futures REST client | `new MexcRestClient().FuturesApi.SharedApi` |
+| Shared spot socket client | `new MexcSocketClient().SpotApi.SharedApi` |
+| Shared futures socket client | `new MexcSocketClient().FuturesApi.SharedApi` |
+| Resolve a runtime-selected Shared API capability | `IMexcSharedApiClient.GetCapability(...)` |
+| Shared spot ticker REST | `IGetTickerRest.GetTickerAsync(new GetTickerRequest(symbol))` |
+| Shared spot symbol REST | `IGetSpotSymbolsRest.GetSpotSymbolsAsync(...)` |
+| Shared spot symbol catalog | `IGetSpotSymbolsRest.SpotSymbolCatalog` |
+| Shared futures symbol REST | `IGetFuturesSymbolsRest.GetFuturesSymbolsAsync(...)` |
+| Shared futures symbol catalog | `IGetFuturesSymbolsRest.FuturesSymbolCatalog` |
+| Shared spot order REST | `IPlaceSpotOrderRest.PlaceSpotOrderAsync(...)` |
+| Shared futures order REST | `IPlaceFuturesOrderRest.PlaceFuturesOrderAsync(...)` |
+| Shared futures trigger order REST | `IPlaceFuturesTriggerOrderRest.PlaceFuturesTriggerOrderAsync(...)` |
+| Shared balances REST | `IGetBalancesRest.GetBalancesAsync(...)` |
+| Shared fees REST | `IGetFeesRest.GetFeesAsync(...)` |
+| Shared ticker socket | `ISubscribeTickerSocket.SubscribeToTickerUpdatesAsync(...)` |
+| Shared order book socket | `ISubscribeOrderBookSocket.SubscribeToOrderBookUpdatesAsync(...)` |
+| Shared trades socket | `ISubscribeTradesSocket.SubscribeToTradeUpdatesAsync(...)` |
+| Shared spot order socket | `ISubscribeSpotOrdersSocket.SubscribeToSpotOrderUpdatesAsync(...)` |
+| Shared user trade socket | `ISubscribeUserTradesSocket.SubscribeToUserTradeUpdatesAsync(...)` |
 
 Shared symbol calls populate their catalog, apply `GetSymbolsRequest` filters, and return display names plus base/quote asset type and subtype metadata. MEXC classifies supported symbols as crypto/stablecoin, fiat, TradFi equity, or TradFi commodity where exchange metadata permits.
 
@@ -257,5 +257,5 @@ For shared socket subscriptions, keep the concrete socket client and unsubscribe
 | Futures symbol `ETHUSDT` | Futures symbol `ETH_USDT` |
 | Spot private socket without listen key | `StartUserStreamAsync()` then pass the listen key |
 | `.Data` without `.Success` check | Check `.Success` first |
-| `ITickerSocketClient.UnsubscribeAsync(...)` | Keep the concrete socket client and call `socketClient.UnsubscribeAsync(subscription.Data)` |
+| Unsubscribe from a shared subscription | Keep the concrete socket client and call `socketClient.UnsubscribeAsync(subscription.Data)` |
 | Custom `clientOrderId` by default | Let Mexc.Net omit/generate it unless external correlation is required |

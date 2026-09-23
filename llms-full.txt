@@ -33,7 +33,7 @@ Primary documentation:
 - Do not call `.Result` or `.Wait()` on async methods.
 - Do not invent endpoint names. If unsure, inspect `Mexc.Net/Interfaces/Clients/**`.
 - Do not pass custom client order IDs unless the user explicitly needs external correlation.
-- For multi-exchange code, use `CryptoExchange.Net.SharedApis` interfaces from `.SharedClient`; use `.SharedClient.Discover()` to inspect implemented shared interfaces and endpoint/subscription options at runtime.
+- Use the exchange-level `IMexcSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 - Spot symbols use `BTCUSDT` style; futures symbols use `BTC_USDT` style.
 - Spot private socket streams require a listen key from `StartUserStreamAsync`.
 - There is no `GeneralApi`, `UsdFuturesApi`, `CoinFuturesApi`, options API, or Binance-style margin root.
@@ -210,12 +210,12 @@ MexcRestClient
     .Account
     .Trading
     .SubAccount
-    .SharedClient
+    .SharedApi
   .FuturesApi
     .ExchangeData
     .Account
     .Trading
-    .SharedClient
+    .SharedApi
 ```
 
 WebSocket:
@@ -223,7 +223,7 @@ WebSocket:
 ```text
 MexcSocketClient
   .SpotApi
-    .SharedClient
+    .SharedApi
     SubscribeToTradeUpdatesAsync
     SubscribeToKlineUpdatesAsync
     SubscribeToOrderBookUpdatesAsync
@@ -235,7 +235,7 @@ MexcSocketClient
     SubscribeToOrderUpdatesAsync
     SubscribeToUserTradeUpdatesAsync
   .FuturesApi
-    .SharedClient
+    .SharedApi
     SubscribeToTickerUpdatesAsync
     SubscribeToTickersUpdatesAsync
     SubscribeToTradeUpdatesAsync
@@ -455,10 +455,10 @@ var orderSub = await socketClient.SpotApi.SubscribeToOrderUpdatesAsync(
 using CryptoExchange.Net.SharedApis;
 using Mexc.Net.Clients;
 
-ISpotTickerRestClient tickerClient = new MexcRestClient().SpotApi.SharedClient;
+IGetTickerRest tickerClient = new MexcRestClient().SpotApi.SharedApi;
 var symbol = new SharedSymbol(TradingMode.Spot, "BTC", "USDT");
 
-var ticker = await tickerClient.GetSpotTickerAsync(new GetTickerRequest(symbol));
+var ticker = await tickerClient.GetTickerAsync(new GetTickerRequest(symbol));
 if (!ticker.Success)
 {
     Console.WriteLine(ticker.Error);
@@ -468,11 +468,10 @@ if (!ticker.Success)
 Console.WriteLine(ticker.Data.LastPrice);
 ```
 
-Shared clients expose `Discover()` for runtime metadata about implemented shared interfaces, supported request options, and supported subscription options.
+Use the exchange-level `IMexcSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 
 ```csharp
-var info = new MexcRestClient().SpotApi.SharedClient.Discover();
-Console.WriteLine(string.Join(", ", info.Features.Where(x => x.Supported).Select(x => x.EndpointName)));
+// Use the exchange-level `IMexcSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 ```
 
 The shared Spot and Futures symbol clients expose `SpotSymbolCatalog` and `FuturesSymbolCatalog`. `GetSpotSymbolsAsync(...)` and `GetFuturesSymbolsAsync(...)` populate these catalogs, apply the filters in `GetSymbolsRequest`, and return `DisplayName`, `BaseAssetType`, `BaseAssetSubType`, `QuoteAssetType`, and `QuoteAssetSubType` metadata. Spot symbols classify known precious-metal/commodity tokens as TradFi commodities, xStock/Ondo assets as TradFi equities, EUR/USD/BRL quotes as fiat, recognized stablecoins with the stablecoin subtype, and remaining assets as crypto. Futures symbols use MEXC concept-plate metadata to classify TradFi equities/commodities; other bases are crypto, inverse quotes are fiat, and linear quotes are crypto stablecoins.
@@ -483,7 +482,7 @@ Shared REST methods return `HttpResult<T>` or `HttpResult`. Shared symbol/cache 
 
 ```csharp
 var socketClient = new MexcSocketClient();
-ITickerSocketClient tickerSocket = socketClient.SpotApi.SharedClient;
+ISubscribeTickerSocket tickerSocket = socketClient.SpotApi.SharedApi;
 
 var sub = await tickerSocket.SubscribeToTickerUpdatesAsync(
     new SubscribeTickerRequest(new SharedSymbol(TradingMode.Spot, "BTC", "USDT")),
