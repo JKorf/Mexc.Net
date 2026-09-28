@@ -6,6 +6,7 @@ using Mexc.Net.Objects.Sockets.Models;
 
 namespace Mexc.Net.Converters
 {
+    [JsonSerializable(typeof(MexcApiKey))]
     [JsonSerializable(typeof(MexcPaginated<MexcRebate[]>))]
     [JsonSerializable(typeof(MexcPaginated<MexcRebateDetails[]>))]
     [JsonSerializable(typeof(MexcResult<MexcAffiliateCommissions>))]
