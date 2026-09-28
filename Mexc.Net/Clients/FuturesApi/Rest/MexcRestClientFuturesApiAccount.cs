@@ -23,7 +23,7 @@ namespace Mexc.Net.Clients.FuturesApi
         public async Task<HttpResult<MexcFuturesBalance>> GetBalanceAsync(string asset, CancellationToken ct = default)
         {
             var parameters = new Parameters(MexcExchange._futuresParameterSerializationSettings);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, $"api/v1/private/account/asset/{asset}", MexcExchange.RateLimiter.FuturesRest, 1, true, limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, $"api/v1/private/account/asset/{asset}", MexcExchange.RateLimiter.FuturesRest, 1, true);
             var result = await _baseClient.SendAsync<MexcFuturesBalance>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -133,7 +133,7 @@ namespace Mexc.Net.Clients.FuturesApi
             parameters.Add("openType", marginType, EnumSerialization.Number);
             parameters.Add("symbol", symbol);
             parameters.Add("positionType", positionSide, EnumSerialization.Number);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "api/v1/private/position/change_leverage", MexcExchange.RateLimiter.FuturesRest, 1, true, limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "api/v1/private/position/change_leverage", MexcExchange.RateLimiter.FuturesRest, 1, true, limitGuard: new SingleLimitGuard(10, TimeSpan.FromSeconds(10), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -173,7 +173,7 @@ namespace Mexc.Net.Clients.FuturesApi
         public async Task<HttpResult<MexcProfitRate>> GetProfitRateAsync(ProfitPeriod period, CancellationToken ct = default)
         {
             var parameters = new Parameters(MexcExchange._futuresParameterSerializationSettings);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, $"/api/v1/private/account/profit_rate/{(period == ProfitPeriod.Day ? 1 : 2)}", MexcExchange.RateLimiter.FuturesRest, 1, true, limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, $"/api/v1/private/account/profit_rate/{(period == ProfitPeriod.Day ? 1 : 2)}", MexcExchange.RateLimiter.FuturesRest, 1, true);
             var result = await _baseClient.SendAsync<MexcProfitRate>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
