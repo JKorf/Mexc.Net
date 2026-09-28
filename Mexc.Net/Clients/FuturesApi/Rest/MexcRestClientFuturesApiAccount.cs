@@ -167,6 +167,20 @@ namespace Mexc.Net.Clients.FuturesApi
 
         #endregion
 
+        #region Set Multi Asset Mode
+
+        /// <inheritdoc />
+        public async Task<HttpResult> SetMultiAssetModeAsync(bool multiAssetMode, CancellationToken ct = default)
+        {
+            var parameters = new Parameters(MexcExchange._futuresParameterSerializationSettings);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/api/v1/private/multiAssets/changeMultiAssetMode/" + multiAssetMode.ToString().ToLowerInvariant(),
+                MexcExchange.RateLimiter.FuturesRest, 1, true, limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
         #region Get Profit Rate
 
         /// <inheritdoc />
