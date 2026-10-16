@@ -36,6 +36,18 @@ namespace Mexc.Net.Interfaces.Clients.SpotApi
         Task<HttpResult<MexcKycStatus>> GetKycStatusAsync(CancellationToken ct = default);
 
         /// <summary>
+        /// Get API key info
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.mexc.com/api-docs/spot-v3/spot-account-trade/query-api-key-info" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v3/apiKeyInfo
+        /// </para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        Task<HttpResult<MexcApiKey>> GetApiKeyInfoAsync(CancellationToken ct = default);
+
+        /// <summary>
         /// Get a list of user assets and deposit/withdrawal data
         /// <para>
         /// Docs:<br />

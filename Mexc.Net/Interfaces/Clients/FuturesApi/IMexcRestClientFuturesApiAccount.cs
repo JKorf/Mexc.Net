@@ -151,6 +151,19 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         Task<HttpResult> SetPositionModeAsync(PositionMode positionMode, CancellationToken ct = default);
 
         /// <summary>
+        /// Set multi-asset mode
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.mexc.com/api-docs/futures/account-and-trading-endpoints/change-multi-asset-mode" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/private/multiAssets/changeMultiAssetMode/{multiAssetMode}
+        /// </para>
+        /// </summary>
+        /// <param name="multiAssetMode">Multi asset mode enabled</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<HttpResult> SetMultiAssetModeAsync(bool multiAssetMode, CancellationToken ct = default);
+
+        /// <summary>
         /// Get profit rate
         /// <para>
         /// Docs:<br />

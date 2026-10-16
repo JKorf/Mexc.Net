@@ -38,6 +38,19 @@ namespace Mexc.Net.Clients.SpotApi
 
         #endregion
 
+        #region Get API Key Info
+
+        /// <inheritdoc />
+        public async Task<HttpResult<MexcApiKey>> GetApiKeyInfoAsync(CancellationToken ct = default)
+        {
+            var parameters = new Parameters(MexcExchange._spotParameterSerializationSettings);
+            parameters.Add("accessKey", _baseClient.ApiCredentials?.Credential.Key);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/v3/apiKeyInfo", MexcExchange.RateLimiter.SpotRest, 1, true);
+            return await _baseClient.SendAsync<MexcApiKey>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
         #region Get User Assets
 
         /// <inheritdoc />
