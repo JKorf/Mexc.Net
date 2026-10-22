@@ -61,7 +61,7 @@ namespace Mexc.Net.Clients.FuturesApi
         public async Task<HttpResult<MexcFuturesOrder>> GetOrderByClientOrderIdAsync(string symbol, string clientOrderId, CancellationToken ct = default)
         {
             var parameters = new Parameters(MexcExchange._futuresParameterSerializationSettings);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, $"api/v1/private/order/external/{symbol}/{clientOrderId}", MexcExchange.RateLimiter.FuturesRest, 1, true, limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, $"api/v1/private/order/external/{symbol}/{clientOrderId}", MexcExchange.RateLimiter.FuturesRest, 1, true);
             var result = await _baseClient.SendAsync<MexcFuturesOrder>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -74,7 +74,7 @@ namespace Mexc.Net.Clients.FuturesApi
         public async Task<HttpResult<MexcFuturesOrder>> GetOrderAsync(long orderId, CancellationToken ct = default)
         {
             var parameters = new Parameters(MexcExchange._futuresParameterSerializationSettings);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, $"api/v1/private/order/get/{orderId}", MexcExchange.RateLimiter.FuturesRest, 1, true, limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, $"api/v1/private/order/get/{orderId}", MexcExchange.RateLimiter.FuturesRest, 1, true);
             var result = await _baseClient.SendAsync<MexcFuturesOrder>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -101,7 +101,7 @@ namespace Mexc.Net.Clients.FuturesApi
         public async Task<HttpResult<MexcFuturesUserTrade[]>> GetOrderTradesAsync(long orderId, CancellationToken ct = default)
         {
             var parameters = new Parameters(MexcExchange._futuresParameterSerializationSettings);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, $"api/v1/private/order/deal_details/{orderId}", MexcExchange.RateLimiter.FuturesRest, 1, true, limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, $"api/v1/private/order/deal_details/{orderId}", MexcExchange.RateLimiter.FuturesRest, 1, true);
             var result = await _baseClient.SendAsync<MexcFuturesUserTrade[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }

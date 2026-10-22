@@ -1,4 +1,5 @@
 ﻿using CryptoExchange.Net.Converters;
+using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.RateLimiting;
 using CryptoExchange.Net.RateLimiting.Filters;
 using CryptoExchange.Net.RateLimiting.Guards;
@@ -147,7 +148,21 @@ namespace Mexc.Net
                                             // Although the documentation mentions 500 per 10 seconds the API support says to ignore that and instead limit to 20 requests per second
                                             .AddGuard(new RateLimitGuard(RateLimitGuard.PerEndpoint, [], 20, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
 
-            FuturesRest = new RateLimitGate("Futures Rest");
+            FuturesRest = new RateLimitGate("Futures Rest")
+                .AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, new PathStartFilter("api/v1/contract/depth/"), 10, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding))
+                .AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, new PathStartFilter("api/v1/contract/index_price/"), 20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding))
+                .AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, new PathStartFilter("api/v1/contract/fair_price/"), 20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding))
+                .AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, [new PathStartFilter("api/v1/contract/funding_rate/"), new ExcludePathStartFilter("/api/v1/contract/funding_rate/history")], 20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding))
+                .AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, new ExactPathFilter("/api/v1/contract/funding_rate/history"), 20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding))
+                .AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, [new PathStartFilter("api/v1/contract/kline/"), new ExcludePathStartFilter("/api/v1/contract/kline/index_price/", "/api/v1/contract/kline/fair_price/")], 20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding))
+                .AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, new PathStartFilter("api/v1/contract/kline/index_price/"), 20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding))
+                .AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, new PathStartFilter("api/v1/contract/kline/fair_price/"), 20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding))
+                .AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, new PathStartFilter("api/v1/contract/deals/"), 20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding))
+                .AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, new PathStartFilter("api/v1/private/account/asset/"), 20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding))
+                .AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, new PathStartFilter("api/v1/private/account/profit_rate/"), 20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding))
+                .AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, new PathStartFilter("api/v1/private/order/external/"), 20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding))
+                .AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, new PathStartFilter("api/v1/private/order/get/"), 20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding))
+                .AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, new PathStartFilter("api/v1/private/order/deal_details/"), 20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
 
             SpotSocket.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
             SpotSocket.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
@@ -160,5 +175,19 @@ namespace Mexc.Net
         internal IRateLimitGate SpotSocket { get; private set; }
         internal IRateLimitGate SpotRest { get; private set; }
         internal IRateLimitGate FuturesRest { get; private set; }
+
+        // Prefix filters also match nested endpoints; exclude those to prevent charging two independent budgets.
+        private sealed class ExcludePathStartFilter(params string[] paths) : IGuardFilter
+        {
+            /// <inheritdoc />
+            public bool Passes(RateLimitItemType type, RequestDefinition definition, string? apiKey)
+            {
+                foreach (var path in paths)
+                    if (definition.Path.StartsWith(path, StringComparison.OrdinalIgnoreCase))
+                        return false;
+
+                return true;
+            }
+        }
     }
 }

@@ -21,7 +21,7 @@ namespace Mexc.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<HttpResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/v1/contract/ping", MexcExchange.RateLimiter.SpotRest, 1, false,
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/v1/contract/ping", MexcExchange.RateLimiter.FuturesRest, 1, false,
                 limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<long>(request, null, ct).ConfigureAwait(false);
             if (!result.Success)
@@ -74,8 +74,7 @@ namespace Mexc.Net.Clients.FuturesApi
         {
             var parameters = new Parameters(MexcExchange._futuresParameterSerializationSettings);
             parameters.Add("limit", limit);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, $"api/v1/contract/depth/{symbol}", MexcExchange.RateLimiter.FuturesRest, 1, false,
-                limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, $"api/v1/contract/depth/{symbol}", MexcExchange.RateLimiter.FuturesRest, 1, false);
             var result = await _baseClient.SendAsync<MexcFuturesOrderBook>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -88,8 +87,7 @@ namespace Mexc.Net.Clients.FuturesApi
         public async Task<HttpResult<MexcIndexPrice>> GetIndexPriceAsync(string symbol, CancellationToken ct = default)
         {
             var parameters = new Parameters(MexcExchange._futuresParameterSerializationSettings);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, $"api/v1/contract/index_price/{symbol}", MexcExchange.RateLimiter.FuturesRest, 1, false,
-                limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, $"api/v1/contract/index_price/{symbol}", MexcExchange.RateLimiter.FuturesRest, 1, false);
             var result = await _baseClient.SendAsync<MexcIndexPrice>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -102,8 +100,7 @@ namespace Mexc.Net.Clients.FuturesApi
         public async Task<HttpResult<MexcMarkPrice>> GetMarkPriceAsync(string symbol, CancellationToken ct = default)
         {
             var parameters = new Parameters(MexcExchange._futuresParameterSerializationSettings);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, $"api/v1/contract/fair_price/{symbol}", MexcExchange.RateLimiter.FuturesRest, 1, false,
-                limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, $"api/v1/contract/fair_price/{symbol}", MexcExchange.RateLimiter.FuturesRest, 1, false);
             var result = await _baseClient.SendAsync<MexcMarkPrice>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -116,8 +113,7 @@ namespace Mexc.Net.Clients.FuturesApi
         public async Task<HttpResult<MexcFundingRate>> GetFundingRateAsync(string symbol, CancellationToken ct = default)
         {
             var parameters = new Parameters(MexcExchange._futuresParameterSerializationSettings);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, $"api/v1/contract/funding_rate/{symbol}", MexcExchange.RateLimiter.FuturesRest, 1, false,
-                limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, $"api/v1/contract/funding_rate/{symbol}", MexcExchange.RateLimiter.FuturesRest, 1, false);
             var result = await _baseClient.SendAsync<MexcFundingRate>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -143,7 +139,7 @@ namespace Mexc.Net.Clients.FuturesApi
             parameters.Add("interval", interval);
             parameters.Add("start", startTime, DateTimeSerialization.SecondsString);
             parameters.Add("end", endTime, DateTimeSerialization.SecondsString);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, $"api/v1/contract/kline/{symbol}", MexcExchange.RateLimiter.FuturesRest, 1, false, limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, $"api/v1/contract/kline/{symbol}", MexcExchange.RateLimiter.FuturesRest, 1, false);
             var result = await _baseClient.SendAsync<MexcFuturesKlines>(request, parameters, ct).ConfigureAwait(false);
             if (!result.Success)
                 return HttpResult.Fail<MexcFuturesKline[]>(result);
@@ -177,7 +173,7 @@ namespace Mexc.Net.Clients.FuturesApi
             parameters.Add("interval", interval);
             parameters.Add("start", startTime, DateTimeSerialization.SecondsString);
             parameters.Add("end", endTime, DateTimeSerialization.SecondsString);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, $"api/v1/contract/kline/index_price/{symbol}", MexcExchange.RateLimiter.FuturesRest, 1, false, limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, $"api/v1/contract/kline/index_price/{symbol}", MexcExchange.RateLimiter.FuturesRest, 1, false);
             var result = await _baseClient.SendAsync<MexcFuturesKlines>(request, parameters, ct).ConfigureAwait(false);
             if (!result.Success)
                 return HttpResult.Fail<MexcFuturesKline[]>(result);
@@ -211,7 +207,7 @@ namespace Mexc.Net.Clients.FuturesApi
             parameters.Add("interval", interval);
             parameters.Add("start", startTime, DateTimeSerialization.SecondsString);
             parameters.Add("end", endTime, DateTimeSerialization.SecondsString);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, $"api/v1/contract/kline/fair_price/{symbol}", MexcExchange.RateLimiter.FuturesRest, 1, false, limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, $"api/v1/contract/kline/fair_price/{symbol}", MexcExchange.RateLimiter.FuturesRest, 1, false);
             var result = await _baseClient.SendAsync<MexcFuturesKlines>(request, parameters, ct).ConfigureAwait(false);
             if (!result.Success)
                 return HttpResult.Fail<MexcFuturesKline[]>(result);
@@ -243,7 +239,7 @@ namespace Mexc.Net.Clients.FuturesApi
         {
             var parameters = new Parameters(MexcExchange._futuresParameterSerializationSettings);
             parameters.Add("limit", limit);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, $"api/v1/contract/deals/{symbol}", MexcExchange.RateLimiter.FuturesRest, 1, false, limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, $"api/v1/contract/deals/{symbol}", MexcExchange.RateLimiter.FuturesRest, 1, false);
             var result = await _baseClient.SendAsync<MexcFuturesTrade[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -257,7 +253,7 @@ namespace Mexc.Net.Clients.FuturesApi
         {
             var parameters = new Parameters(MexcExchange._futuresParameterSerializationSettings);
             parameters.Add("symbol", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/contract/ticker", MexcExchange.RateLimiter.FuturesRest, 1, false, limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/contract/ticker", MexcExchange.RateLimiter.FuturesRest, 1, false, limitGuard: new SingleLimitGuard(10, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<MexcFuturesTicker>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -270,7 +266,7 @@ namespace Mexc.Net.Clients.FuturesApi
         public async Task<HttpResult<MexcFuturesTicker[]>> GetTickersAsync(CancellationToken ct = default)
         {
             var parameters = new Parameters(MexcExchange._futuresParameterSerializationSettings);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/contract/ticker", MexcExchange.RateLimiter.FuturesRest, 1, false, limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/contract/ticker", MexcExchange.RateLimiter.FuturesRest, 1, false, limitGuard: new SingleLimitGuard(10, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<MexcFuturesTicker[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -315,7 +311,7 @@ namespace Mexc.Net.Clients.FuturesApi
             parameters.Add("symbol", symbol);
             parameters.Add("page_num", page ?? 1);
             parameters.Add("page_size", pageSize ?? 20);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/contract/funding_rate/history", MexcExchange.RateLimiter.FuturesRest, 1, false, limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/contract/funding_rate/history", MexcExchange.RateLimiter.FuturesRest, 1, false);
             var result = await _baseClient.SendAsync<MexcFundingRateHistoryPage>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
