@@ -220,6 +220,10 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 6.9.0 - 23 Oct 2026
+    * Updated CryptoExchange.Net to v13.2.2
+    * Fixed some rate limiting issues
+
 * Version 6.8.0 - 30 Sep 2026
     * Updated CryptoExchange.Net to V13.1.0
     * Added restClient.FuturesApi.Account.SetMultiAssetModeAsync endpoint
