@@ -10,7 +10,7 @@ using Mexc.Net;
 using Mexc.Net.Clients;
 using Mexc.Net.Enums;
 
-var client = new MexcRestClient(options =>
+using var client = new MexcRestClient(options =>
 {
     options.ApiCredentials = new MexcCredentials("API_KEY", "API_SECRET");
 });
@@ -41,6 +41,7 @@ else
 // Retry only on transient errors such as network issues, rate limits, or server overload.
 // Do not retry validation errors, unknown symbols, or insufficient balance.
 
+// Public reads only: reconcile uncertain account changes before deciding to resubmit.
 async Task<HttpResult<T>> WithRetry<T>(
     Func<Task<HttpResult<T>>> call,
     int maxAttempts = 3)
@@ -118,7 +119,7 @@ var order = await client.SpotApi.Trading.PlaceOrderAsync(
 if (!order.Success)
 {
     var category = order.Error?.IsTransient == true
-        ? "Transient - retry may be useful"
+        ? "Transient result - reconcile acceptance before deciding whether to repeat an account change"
         : "Permanent - surface to user or fix inputs";
 
     Console.WriteLine($"{category}: {order.Error?.Code} {order.Error?.Message}");

@@ -16,7 +16,7 @@ using Mexc.Net.Enums;
 
 // ---- 1. PUBLIC CLIENT (no credentials needed for market data) ----
 // Reuse this client across the application; do not create per-request.
-var publicClient = new MexcRestClient();
+using var publicClient = new MexcRestClient();
 
 var ticker = await publicClient.SpotApi.ExchangeData.GetTickerAsync("BTCUSDT");
 if (!ticker.Success)
@@ -30,7 +30,7 @@ Console.WriteLine($"BTC/USDT last price: {ticker.Data.LastPrice}");
 Console.WriteLine($"24h volume: {ticker.Data.Volume} BTC");
 
 // ---- 2. AUTHENTICATED CLIENT (for account / trading) ----
-var tradingClient = new MexcRestClient(options =>
+using var tradingClient = new MexcRestClient(options =>
 {
     options.ApiCredentials = new MexcCredentials("API_KEY", "API_SECRET");
 });
@@ -48,16 +48,17 @@ foreach (var balance in account.Data.Balances.Where(b => b.Total > 0))
 }
 
 // ---- 3. PLACE A LIMIT BUY ORDER ----
-// Limit buy 0.001 BTC at a price 5% below current. This is likely not filled immediately.
+// Executable limit buy: this can fill before cancellation even below the last observed price.
 // Let Mexc.Net omit/generate the clientOrderId unless you need external correlation.
-var safePrice = Math.Round(ticker.Data.LastPrice * 0.95m, 2);
+// Example price only; apply current exchange price/quantity filters for real trading.
+var limitPrice = Math.Round(ticker.Data.LastPrice * 0.95m, 2);
 
 var order = await tradingClient.SpotApi.Trading.PlaceOrderAsync(
     symbol: "BTCUSDT",
     side: OrderSide.Buy,
     type: OrderType.Limit,
     quantity: 0.001m,
-    price: safePrice);
+    price: limitPrice);
 
 if (!order.Success)
 {
@@ -65,7 +66,7 @@ if (!order.Success)
     return;
 }
 
-Console.WriteLine($"Placed order {order.Data.OrderId} at {safePrice}, status: {order.Data.Status}");
+Console.WriteLine($"Placed order {order.Data.OrderId} at {limitPrice}, status: {order.Data.Status}");
 
 // ---- 4. CHECK ORDER STATUS ----
 var status = await tradingClient.SpotApi.Trading.GetOrderAsync("BTCUSDT", orderId: order.Data.OrderId);

@@ -11,7 +11,7 @@ using Mexc.Net.Clients;
 using Mexc.Net.Enums;
 
 // ---- 1. PUBLIC SOCKET CLIENT - for market data streams ----
-var publicSocket = new MexcSocketClient();
+using var publicSocket = new MexcSocketClient();
 
 // Subscription methods return WebSocketResult<UpdateSubscription>.
 var tickerSub = await publicSocket.SpotApi.SubscribeToMiniTickerUpdatesAsync(
@@ -44,7 +44,7 @@ if (!klineSub.Success)
 }
 
 // ---- 2. AUTHENTICATED SPOT STREAMS - listen key required ----
-var restClient = new MexcRestClient(options =>
+using var restClient = new MexcRestClient(options =>
 {
     options.ApiCredentials = new MexcCredentials("API_KEY", "API_SECRET");
 });
@@ -58,7 +58,7 @@ if (!listenKey.Success)
     return;
 }
 
-var authSocket = new MexcSocketClient(options =>
+using var authSocket = new MexcSocketClient(options =>
 {
     options.ApiCredentials = new MexcCredentials("API_KEY", "API_SECRET");
 });

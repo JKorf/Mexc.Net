@@ -10,13 +10,26 @@ using Mexc.Net;
 using Mexc.Net.Clients;
 using Mexc.Net.Enums;
 
-var client = new MexcRestClient(options =>
+using var client = new MexcRestClient(options =>
 {
     options.ApiCredentials = new MexcCredentials("API_KEY", "API_SECRET");
 });
 
 // MEXC spot symbols use ETHUSDT; futures symbols use ETH_USDT.
 const string symbol = "ETH_USDT";
+
+// This example assumes one-way mode; do not change account mode automatically.
+var mode = await client.FuturesApi.Account.GetPositionModeAsync();
+if (!mode.Success)
+{
+    Console.WriteLine(mode.Error);
+    return;
+}
+if (mode.Data != PositionMode.OneWay)
+{
+    Console.WriteLine("This example requires one-way position mode");
+    return;
+}
 
 // ---- 1. SET LEVERAGE ----
 // When there is no open position, MEXC requires symbol, margin type, and position side.
@@ -51,7 +64,7 @@ if (!openOrder.Success)
     return;
 }
 
-Console.WriteLine($"Opened position via order {openOrder.Data.OrderId}");
+Console.WriteLine($"Submitted opening order {openOrder.Data.OrderId}; verify fills.");
 
 // ---- 3. GET CURRENT POSITION ----
 var positions = await client.FuturesApi.Trading.GetPositionsAsync(symbol);
@@ -76,7 +89,7 @@ Console.WriteLine($"Liquidation price: {position.LiquidationPrice}");
 // CloseLong closes a long; CloseShort closes a short. reduceOnly helps prevent a flip.
 var closeOrder = await client.FuturesApi.Trading.PlaceOrderAsync(
     symbol: symbol,
-    side: FuturesOrderSide.CloseLong,
+    side: position.PositionSide == PositionSide.Long ? FuturesOrderSide.CloseLong : FuturesOrderSide.CloseShort,
     type: FuturesOrderType.Market,
     quantity: Math.Abs(position.PositionSize),
     leverage: position.Leverage,
@@ -85,7 +98,7 @@ var closeOrder = await client.FuturesApi.Trading.PlaceOrderAsync(
 
 if (closeOrder.Success)
 {
-    Console.WriteLine($"Closed position via order {closeOrder.Data.OrderId}");
+    Console.WriteLine($"Submitted close order {closeOrder.Data.OrderId}; verify remaining exposure.");
 }
 
 // Common variations:

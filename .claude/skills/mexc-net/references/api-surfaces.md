@@ -1,21 +1,8 @@
-# Mexc.Net AI API Quick Map
+# Mexc.Net API surfaces
 
-Use this file to route common user intents to the correct Mexc.Net client member. If a method name or parameter is not listed here, inspect `Mexc.Net/Interfaces/Clients/**` before generating code.
+## Client roots
 
-## Client Roots
-
-| Intent | Use |
-|---|---|
-| REST calls | `new MexcRestClient()` |
-| WebSocket streams | `new MexcSocketClient()` |
-| API key authentication | `options.ApiCredentials = new MexcCredentials("key", "secret")` |
-| Live environment | `MexcEnvironment.Live` |
-| Custom environment | `MexcEnvironment.CreateCustom(...)` |
-| Dependency injection | `services.AddMexc(options => { ... })` |
-| Spot REST root | `client.SpotApi` |
-| Futures REST root | `client.FuturesApi` |
-| Spot socket root | `socketClient.SpotApi` |
-| Futures socket root | `socketClient.FuturesApi` |
+`MexcRestClient` / `IMexcRestClient` expose `SpotApi` with `ExchangeData`, `Account`, `Trading`, and `SubAccount`, and `FuturesApi` with `ExchangeData`, `Account`, and `Trading`. `MexcSocketClient` / `IMexcSocketClient` exposes subscriptions directly on `SpotApi` and `FuturesApi`.
 
 ## Spot REST
 
@@ -199,63 +186,37 @@ MEXC futures symbols use underscore format, for example `ETH_USDT`.
 | Subscribe futures contract updates | `socketClient.FuturesApi.SubscribeToSymbolUpdatesAsync(handler)` |
 | Subscribe futures user data | `socketClient.FuturesApi.SubscribeToUserDataUpdatesAsync(...)` |
 
-## SharedApis
+## Shared API V2
 
-Use SharedApis for exchange-agnostic code across MEXC, Binance, Bybit, OKX, Kraken, and other CryptoExchange.Net libraries.
+`IMexcSharedApiClient` groups these aggregate properties. Each corresponding native surface exposes `.SharedApi`.
 
-| User intent | Mexc.Net member or interface |
-|---|---|
-| Shared spot REST client | `new MexcRestClient().SpotApi.SharedApi` |
-| Shared futures REST client | `new MexcRestClient().FuturesApi.SharedApi` |
-| Shared spot socket client | `new MexcSocketClient().SpotApi.SharedApi` |
-| Shared futures socket client | `new MexcSocketClient().FuturesApi.SharedApi` |
-| Resolve a runtime-selected Shared API capability | `IMexcSharedApiClient.GetCapability(...)` |
-| Shared spot ticker REST | `IGetTickerRest.GetTickerAsync(new GetTickerRequest(symbol))` |
-| Shared spot symbol REST | `IGetSpotSymbolsRest.GetSpotSymbolsAsync(...)` |
-| Shared spot symbol catalog | `IGetSpotSymbolsRest.SpotSymbolCatalog` |
-| Shared futures symbol REST | `IGetFuturesSymbolsRest.GetFuturesSymbolsAsync(...)` |
-| Shared futures symbol catalog | `IGetFuturesSymbolsRest.FuturesSymbolCatalog` |
-| Shared spot order REST | `IPlaceSpotOrderRest.PlaceSpotOrderAsync(...)` |
-| Shared futures order REST | `IPlaceFuturesOrderRest.PlaceFuturesOrderAsync(...)` |
-| Shared futures trigger order REST | `IPlaceFuturesTriggerOrderRest.PlaceFuturesTriggerOrderAsync(...)` |
-| Shared balances REST | `IGetBalancesRest.GetBalancesAsync(...)` |
-| Shared fees REST | `IGetFeesRest.GetFeesAsync(...)` |
-| Shared ticker socket | `ISubscribeTickerSocket.SubscribeToTickerUpdatesAsync(...)` |
-| Shared order book socket | `ISubscribeOrderBookSocket.SubscribeToOrderBookUpdatesAsync(...)` |
-| Shared trades socket | `ISubscribeTradesSocket.SubscribeToTradeUpdatesAsync(...)` |
-| Shared spot order socket | `ISubscribeSpotOrdersSocket.SubscribeToSpotOrderUpdatesAsync(...)` |
-| Shared user trade socket | `ISubscribeUserTradesSocket.SubscribeToUserTradeUpdatesAsync(...)` |
+- `SpotRest` (`IMexcRestClientSpotSharedApi`): `IGetAssetRest`, `IGetAllAssetsRest`, `IGetBalancesRest`, `IGetDepositAddressesRest`, `IGetDepositHistoryRest`, `IGetKlinesRest`, `IGetRecentTradesRest`, `IGetOrderBookRest`, `IPlaceSpotOrderRest`, `IGetSpotOrderRest`, `IGetOpenSpotOrdersRest`, `IGetClosedSpotOrdersRest`, `IGetSpotOrderTradesRest`, `ICancelSpotOrderRest`, `IGetSpotUserTradeHistoryRest`, `IGetSpotSymbolsRest`, `IGetTickerRest`, `IGetAllTickersRest`, `IGetWithdrawalHistoryRest`, `IWithdrawRest`, `IGetFeesRest`, `IGetBookTickerRest`, `ITransferRest`, `IGetSpotOrderByClientOrderIdRest`, `ICancelSpotOrderByClientOrderIdRest`.
+- `SpotSocket` (`IMexcSocketClientSpotSharedApi`): `ISubscribeTradesSocket`, `ISubscribeTickerSocket`, `ISubscribeAllTickersSocket`, `ISubscribeBookTickerSocket`, `ISubscribeKlinesSocket`, `ISubscribeOrderBookSocket`, `ISubscribeBalancesSocket`, `ISubscribeSpotOrdersSocket`, `ISubscribeUserTradesSocket`.
+- `FuturesRest` (`IMexcRestClientFuturesSharedApi`): `IGetKlinesRest`, `IGetOrderBookRest`, `IGetRecentTradesRest`, `IGetFundingRateHistoryRest`, `IGetFuturesSymbolsRest`, `IGetTickerRest`, `IGetAllTickersRest`, `IGetBalancesRest`, `IGetLeverageRest`, `ISetLeverageRest`, `IGetPositionModeRest`, `ISetPositionModeRest`, `IGetPositionHistoryRest`, `IGetFeesRest`, `IPlaceFuturesOrderRest`, `IGetFuturesOrderRest`, `IGetOpenFuturesOrdersRest`, `IGetClosedFuturesOrdersRest`, `IGetFuturesOrderTradesRest`, `IGetFuturesUserTradeHistoryRest`, `ICancelFuturesOrderRest`, `IGetPositionsRest`, `ICloseFullPositionRest`, `IPlaceFuturesTriggerOrderRest`, `IGetFuturesTriggerOrderRest`, `ICancelFuturesTriggerOrderRest`, `IGetFuturesOrderByClientOrderIdRest`, `ICancelFuturesOrderByClientOrderIdRest`.
+- `FuturesSocket` (`IMexcSocketClientFuturesSharedApi`): `ISubscribeKlinesSocket`, `ISubscribeOrderBookSocket`, `ISubscribeTickerSocket`, `ISubscribeAllTickersSocket`, `ISubscribeTradesSocket`, `ISubscribeBalancesSocket`, `ISubscribeFuturesOrdersSocket`, `ISubscribePositionsSocket`, `ISubscribeUserTradesSocket`.
 
-Shared symbol calls populate their catalog, apply `GetSymbolsRequest` filters, and return display names plus base/quote asset type and subtype metadata. MEXC classifies supported symbols as crypto/stablecoin, fiat, TradFi equity, or TradFi commodity where exchange metadata permits.
+Use aggregate properties or inject narrow capabilities for known workflows. For dynamic selection call `aggregate.GetCapability(SharedCapabilities.Tickers.GetTicker.Rest, tradingMode: TradingMode.Spot)` and check for null before using `Capability` and `Options`. Descriptors identify operations, not guarantees of support. `GetCapabilities` enumerates matches and `Discover` summarizes metadata. With several exchanges registered, inject `IEnumerable<TCapability>` and select by exchange, supported mode, and options.
 
-Shared REST methods return `HttpResult<T>` or `HttpResult`. Shared socket subscriptions return `WebSocketResult<UpdateSubscription>`. Shared symbol/cache helper methods can return `ExchangeCallResult<T>`.
+## Symbols, catalogs, and quantities
 
-For shared socket subscriptions, keep the concrete socket client and unsubscribe with `await socketClient.UnsubscribeAsync(subscription.Data)`.
+Spot symbols use `BTCUSDT`; Futures use `ETH_USDT`. `SharedSymbol` and `MexcExchange.FormatSymbol` support reusable formatting. Native symbol discovery and API-supported Spot symbol discovery are distinct: do not assume every listed market accepts API orders.
 
-## Result Handling
+Call `IGetSpotSymbolsRest.GetSpotSymbolsAsync(new GetSymbolsRequest())` or `IGetFuturesSymbolsRest.GetFuturesSymbolsAsync(new GetSymbolsRequest())`, check success, then read `SpotSymbolCatalog` or `FuturesSymbolCatalog`. Requests honor base/quote asset type/subtype filters. Returned metadata includes display names and crypto/stablecoin/fiat/TradFi equity/commodity classifications where populated. Inspect availability, precision, min/max quantity and contract-size metadata rather than assuming all products share rules.
 
-| Situation | Pattern |
-|---|---|
-| REST success check | REST methods return `HttpResult<T>` or `HttpResult`; use `if (!result.Success) { Console.WriteLine(result.Error); return; }` |
-| Socket subscription success check | Socket subscriptions return `WebSocketResult<UpdateSubscription>`; use `if (!sub.Success) { Console.WriteLine(sub.Error); return; }` |
-| Read result data | Read `result.Data` or `sub.Data` only after `.Success` |
-| Shared helper success check | Shared symbol/cache helpers can return `ExchangeCallResult<T>`; use the same `.Success` and `.Error` pattern |
-| Retry decision | Retry only when `result.Error?.IsTransient == true` |
-| Cancellation | Pass `ct: cancellationToken` |
+Native Futures order `quantity` is decimal contract volume. Shared Futures requests use `SharedOrderQuantity.QuantityInContracts`; Futures books identify `SharedQuantityType.Contracts`. Use contract size and volume constraints for conversions rather than sending base-asset quantity as contracts. Spot books use base quantities; Spot market orders may use base `quantity` or quote `quoteQuantity` as supported by that operation.
 
-## Common Routing Pitfalls
+## Additional native workflows and prerequisites
 
-| Do not use | Use instead |
-|---|---|
-| `MexcClient` | `MexcRestClient` |
-| `ApiCredentials` | `MexcCredentials` |
-| `dotnet add package Mexc.Net` | `dotnet add package JK.Mexc.Net` |
-| `GeneralApi` | `SpotApi.SubAccount` or spot/futures account roots |
-| `UsdFuturesApi` / `CoinFuturesApi` | `FuturesApi` |
-| `MexcEnvironment.Testnet` | `MexcEnvironment.Live` or `MexcEnvironment.CreateCustom(...)` |
-| Spot symbol `ETH_USDT` | Spot symbol `ETHUSDT` |
-| Futures symbol `ETHUSDT` | Futures symbol `ETH_USDT` |
-| Spot private socket without listen key | `StartUserStreamAsync()` then pass the listen key |
-| `.Data` without `.Success` check | Check `.Success` first |
-| Unsubscribe from a shared subscription | Keep the concrete socket client and call `socketClient.UnsubscribeAsync(subscription.Data)` |
-| Custom `clientOrderId` by default | Let Mexc.Net omit/generate it unless external correlation is required |
+Spot batch orders return item results that must be inspected after outer success. Subaccount creation, key administration, and universal transfers are under `SpotApi.SubAccount`. Spot account methods include transfers, dust conversion, fee deduction, deposit/withdrawal history and addresses.
+
+Futures exposes separate ordinary, plan/trigger, TP/SL, and trailing-order workflows, plus reverse-position and close-all operations. Use the matching query/cancel path; cancelling an ordinary order is not equivalent to removing every conditional order. Read current position and margin mode before changing leverage or closing exposure.
+
+Private Spot credential-based socket overloads manage listen keys. Explicit listen-key overloads require application-owned start/keepalive/stop handling, including renewed keys where applicable. Futures user-data subscriptions authenticate directly. Spot socket payloads use protobuf, which the library decodes; consumers should use the typed subscriptions.
+
+Only `MexcEnvironment.Live` is built in; `CreateCustom(...)` selects explicit addresses and does not imply an official testnet. `IMexcOrderBookFactory`, `IMexcTrackerFactory`, and `IMexcUserClientProvider` support managed books, trackers, and cached user clients.
+
+## Checkout-only sources
+
+- [Public interfaces](../../../../Mexc.Net/Interfaces/Clients/): exact signatures, order sides, mode parameters, and cancellation tokens.
+- [Implementations](../../../../Mexc.Net/Clients/): Shared options, conversions, and protobuf subscription behavior.
+- [Complete examples](../../../../Examples/ai-friendly/): independent consumer programs.

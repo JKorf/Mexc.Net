@@ -1,38 +1,13 @@
 # Mexc.Net
 
-> Strongly typed .NET client library for the MEXC REST and WebSocket APIs. Supports Spot, sub-accounts, wallet/account endpoints, Futures, public market data, private trading, WebSocket streams, and CryptoExchange.Net shared interfaces.
+A .NET client for MEXC Spot and Futures REST/WebSocket APIs, account operations, orders, and subaccounts.
 
-Mexc.Net is a C# client for MEXC built on CryptoExchange.Net. It provides typed models, request signing, client-side rate limiting, WebSocket reconnection, `HttpResult<T>` / `HttpResult` REST handling, `WebSocketResult<UpdateSubscription>` subscription handling, dependency injection, native AOT support, and shared multi-exchange abstractions. Current package version in this repository: 6.9.0. Targets netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0.
-
-## Documentation
-
-- [README](https://github.com/JKorf/Mexc.Net/blob/main/README.md): Overview, installation, supported features, usage examples, release notes
-- [Documentation Site](https://cryptoexchange.jkorf.dev/Mexc.Net/): Full documentation hub including client reference, WebSocket subscriptions, dependency injection, and shared interfaces
-- [AI API Quick Map](https://github.com/JKorf/Mexc.Net/blob/main/docs/ai-api-map.md): Quick intent-to-method map for routing common user requests to the correct client member
-- [Full LLM Context](https://github.com/JKorf/Mexc.Net/blob/main/llms-full.txt): Detailed AI/LLM guide with code patterns, endpoint map, common mistakes, and anti-hallucination rules
-- [Claude/Codex Skill](https://github.com/JKorf/Mexc.Net/blob/main/CLAUDE.md): Compact generation rules for assistants
-
-## Examples
-
-- [AI-friendly examples directory](https://github.com/JKorf/Mexc.Net/tree/main/Examples/ai-friendly): Compact, fully runnable examples optimized for AI assistants and quick onboarding
-- [Spot Quickstart](https://github.com/JKorf/Mexc.Net/blob/main/Examples/ai-friendly/01-spot-quickstart.cs): Client setup, ticker, account balance, limit order placement, order status check
-- [Futures Trading](https://github.com/JKorf/Mexc.Net/blob/main/Examples/ai-friendly/02-futures.cs): Futures symbol format, leverage, market order, position retrieval, position close
-- [WebSocket Streams](https://github.com/JKorf/Mexc.Net/blob/main/Examples/ai-friendly/03-websocket.cs): Spot public streams, spot listen-key private streams, futures private stream pattern, teardown
-- [Multi-Exchange Pattern](https://github.com/JKorf/Mexc.Net/blob/main/Examples/ai-friendly/04-multi-exchange.cs): Using CryptoExchange.Net SharedApis for exchange-agnostic code
-- [Error Handling](https://github.com/JKorf/Mexc.Net/blob/main/Examples/ai-friendly/05-error-handling.cs): HttpResult, WebSocketResult, and ExchangeCallResult patterns, retry logic, common errors and filter handling
-- [Full Examples Repository](https://github.com/JKorf/Mexc.Net/tree/main/Examples): Additional examples in this repository
-
-## Critical Rules
-
-- Use `MexcRestClient` for REST and `MexcSocketClient` for WebSocket.
-- Install package `JK.Mexc.Net`, not `Mexc.Net`.
-- Use `MexcCredentials`, not generic `ApiCredentials`.
-- Always check `.Success` before reading `.Data`.
-- REST roots are `SpotApi` and `FuturesApi`; WebSocket roots are `SpotApi` and `FuturesApi`.
-- Spot symbols look like `BTCUSDT`; futures symbols look like `BTC_USDT`.
-- Spot private WebSocket subscriptions need a listen key from `restClient.SpotApi.Account.StartUserStreamAsync()`.
-- MEXC exposes `MexcEnvironment.Live` and `MexcEnvironment.CreateCustom(...)`; do not invent a testnet environment.
-- REST calls return `HttpResult<T>` or `HttpResult`; socket subscriptions return `WebSocketResult<UpdateSubscription>`.
-- Shared symbol/cache helper methods can return `ExchangeCallResult<T>`.
-- Use the exchange-level `IMexcSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
-- Shared symbol clients expose `SpotSymbolCatalog` / `FuturesSymbolCatalog`; their symbol methods return display names and base/quote asset type/subtype metadata and support the corresponding `GetSymbolsRequest` filters.
+- [Consumer skill](.claude/skills/mexc-net/SKILL.md)
+- [API routing](.claude/skills/mexc-net/references/api-surfaces.md)
+- [Usage snippets](.claude/skills/mexc-net/references/usage.md)
+- [Operational considerations](.claude/skills/mexc-net/references/safety.md)
+- [README](README.md)
+- [Repository development](AGENTS.md)
+- [Public client interfaces](Mexc.Net/Interfaces/Clients/)
+- [Library project](Mexc.Net/Mexc.Net.csproj)
+- [Complete examples](Examples/ai-friendly/)

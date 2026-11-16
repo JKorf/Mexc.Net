@@ -167,17 +167,10 @@ CryptoExchange.Net also provides [shared access to different exchange APIs](http
 
 ## AI / LLM documentation
 
-Mexc.Net includes AI-oriented documentation and examples for code generation tools:
-
-|File|Purpose|
-|--|--|
-|[`AGENTS.md`](AGENTS.md)|Agents skill instructions with core usage patterns and pitfalls|
-|[`llms.txt`](llms.txt)|Short LLM index with links to docs, examples, and critical usage rules|
-|[`llms-full.txt`](llms-full.txt)|Detailed LLM context with endpoint routing, code patterns, and anti-hallucination checks|
-|[`docs/ai-api-map.md`](docs/ai-api-map.md)|Intent-to-method map for the actual Mexc.Net REST, WebSocket, and shared API surface|
-|[`Examples/ai-friendly`](Examples/ai-friendly)|Compilable single-file examples for common REST, WebSocket, shared API, and error handling workflows|
-
-See [cryptoexchange-skills-hub](https://github.com/JKorf/cryptoexchange-skills-hub) for installable skills.
+- [Consumer skill](.claude/skills/mexc-net/SKILL.md): library usage and API references.
+- [Repository development](AGENTS.md): implementation and validation instructions.
+- [Documentation index](llms.txt): local discovery links.
+- [Compilable examples](Examples/ai-friendly/): complete consumer programs.
 
 ## Discord
 [![Nuget version](https://img.shields.io/discord/847020490588422145?style=for-the-badge)](https://discord.gg/MSpeEtSY8t)  

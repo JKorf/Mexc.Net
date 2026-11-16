@@ -1,0 +1,4 @@
+interface:
+  display_name: "Mexc.Net"
+  short_description: "Build C# MEXC spot and futures integrations."
+  default_prompt: "Use $mexc-net to implement a Mexc.Net REST, websocket, account, or trading workflow."

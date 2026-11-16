@@ -1,29 +1,15 @@
-# AI-Friendly Examples
+# Mexc.Net examples
 
-These examples are optimized for AI coding assistants and quick onboarding. Each file is:
+Each file is an independent console program. Install `JK.Mexc.Net` in a console project and copy one program to `Program.cs`.
 
-- **Compilable** - drop into a console project with `dotnet add package JK.Mexc.Net` and it builds.
-- **Self-contained** - single file, no external setup, no shared helpers.
-- **Heavily commented** - explains why the pattern matters, not just what it does.
-- **Idiomatic** - follows current Mexc.Net 5.x patterns.
-
-## Files
-
-| File | What it shows |
+| Program | Workflow |
 |---|---|
-| `01-spot-quickstart.cs` | Client setup, public ticker, authenticated account balance, place limit order, query order status |
-| `02-futures.cs` | Futures symbols, leverage, market order, get position, close position |
-| `03-websocket.cs` | Spot ticker and klines, spot listen-key private streams, futures private stream pattern, teardown |
-| `04-multi-exchange.cs` | `CryptoExchange.Net.SharedApis` pattern and discovery metadata for exchange-agnostic code |
-| `05-error-handling.cs` | `HttpResult`, `WebSocketResult`, and `ExchangeCallResult` patterns, retry, common error scenarios |
+| [01-spot-quickstart.cs](01-spot-quickstart.cs) | Public ticker, balances, live limit order, query/cancellation |
+| [02-futures.cs](02-futures.cs) | Leverage, live order, positions and close workflow |
+| [03-websocket.cs](03-websocket.cs) | Public/private streams and cleanup |
+| [04-multi-exchange.cs](04-multi-exchange.cs) | Shared API V2 ticker, symbol catalog, and subscription |
+| [05-error-handling.cs](05-error-handling.cs) | Results, public-read retries and metadata-based order handling |
 
-## Running
+Replace key/secret placeholders for intended private operations. Spot/Futures examples change account state when executed; cancellation can race with fills. Read [operational considerations](../../.claude/skills/mexc-net/references/safety.md) first. See [usage snippets](../../.claude/skills/mexc-net/references/usage.md) for focused patterns.
 
-```bash
-dotnet new console -n MyMexcApp
-cd MyMexcApp
-dotnet add package JK.Mexc.Net
-# Copy the example .cs file content into Program.cs
-# Replace API_KEY / API_SECRET placeholders with your own
-dotnet run
-```
+`AiExampleCompileTests` compiles these programs without executing exchange operations.
