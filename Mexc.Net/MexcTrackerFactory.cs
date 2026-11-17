@@ -47,17 +47,17 @@ namespace Mexc.Net
         /// <inheritdoc />
         public IKlineTracker CreateKlineTracker(SharedSymbol symbol, SharedKlineInterval interval, int? limit = null, TimeSpan? period = null, ExchangeParameters? exchangeParameters = null)
         {
-            IKlineRestClient restClient;
-            IKlineSocketClient socketClient;
+            IGetKlinesRest restClient;
+            ISubscribeKlinesSocket socketClient;
             if (symbol.TradingMode == TradingMode.Spot)
             {
-                restClient = (_serviceProvider?.GetRequiredService<IMexcRestClient>() ?? new MexcRestClient()).SpotApi.SharedClient;
-                socketClient = (_serviceProvider?.GetRequiredService<IMexcSocketClient>() ?? new MexcSocketClient()).SpotApi.SharedClient;
+                restClient = (_serviceProvider?.GetRequiredService<IMexcRestClient>() ?? new MexcRestClient()).SpotApi.SharedApi;
+                socketClient = (_serviceProvider?.GetRequiredService<IMexcSocketClient>() ?? new MexcSocketClient()).SpotApi.SharedApi;
             }
             else
             {
-                restClient = (_serviceProvider?.GetRequiredService<IMexcRestClient>() ?? new MexcRestClient()).FuturesApi.SharedClient;
-                socketClient = (_serviceProvider?.GetRequiredService<IMexcSocketClient>() ?? new MexcSocketClient()).FuturesApi.SharedClient;
+                restClient = (_serviceProvider?.GetRequiredService<IMexcRestClient>() ?? new MexcRestClient()).FuturesApi.SharedApi;
+                socketClient = (_serviceProvider?.GetRequiredService<IMexcSocketClient>() ?? new MexcSocketClient()).FuturesApi.SharedApi;
             }
 
             return new KlineTracker(
@@ -74,19 +74,19 @@ namespace Mexc.Net
         /// <inheritdoc />
         public ITradeTracker CreateTradeTracker(SharedSymbol symbol, int? limit = null, TimeSpan? period = null, ExchangeParameters? exchangeParameters = null)
         {
-            IRecentTradeRestClient restClient;
-            ITradeSocketClient socketClient;
+            IGetRecentTradesRest restClient;
+            ISubscribeTradesSocket socketClient;
             TradeQuantityType tradeQuantityType;
             if (symbol.TradingMode == TradingMode.Spot)
             {
-                restClient = (_serviceProvider?.GetRequiredService<IMexcRestClient>() ?? new MexcRestClient()).SpotApi.SharedClient;
-                socketClient = (_serviceProvider?.GetRequiredService<IMexcSocketClient>() ?? new MexcSocketClient()).SpotApi.SharedClient;
+                restClient = (_serviceProvider?.GetRequiredService<IMexcRestClient>() ?? new MexcRestClient()).SpotApi.SharedApi;
+                socketClient = (_serviceProvider?.GetRequiredService<IMexcSocketClient>() ?? new MexcSocketClient()).SpotApi.SharedApi;
                 tradeQuantityType = TradeQuantityType.BaseAsset;
             }
             else
             {
-                restClient = (_serviceProvider?.GetRequiredService<IMexcRestClient>() ?? new MexcRestClient()).FuturesApi.SharedClient;
-                socketClient = (_serviceProvider?.GetRequiredService<IMexcSocketClient>() ?? new MexcSocketClient()).FuturesApi.SharedClient;
+                restClient = (_serviceProvider?.GetRequiredService<IMexcRestClient>() ?? new MexcRestClient()).FuturesApi.SharedApi;
+                socketClient = (_serviceProvider?.GetRequiredService<IMexcSocketClient>() ?? new MexcSocketClient()).FuturesApi.SharedApi;
                 tradeQuantityType = TradeQuantityType.Contracts;
             }
 
