@@ -403,6 +403,11 @@ namespace Mexc.Net.Objects.Models.Futures
         [JsonPropertyName("tempFeeRateEffectiveStartTime")]
         public DateTime? TempFeeRateStartTime { get; set; }
         /// <summary>
+        /// ["<c>tempFeeRateEffectiveEndTime</c>"] Temp fee rate end time
+        /// </summary>
+        [JsonPropertyName("tempFeeRateEffectiveEndTime")]
+        public DateTime? TempFeeRateEndTime { get; set; }
+        /// <summary>
         /// ["<c>deliveryTime</c>"] Delivery time
         /// </summary>
         [JsonPropertyName("deliveryTime")]

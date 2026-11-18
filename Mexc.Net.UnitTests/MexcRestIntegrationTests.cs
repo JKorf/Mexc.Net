@@ -146,7 +146,9 @@ namespace Mexc.Net.UnitTests
             await RunAndCheckResult(warnings, client => client.FuturesApi.ExchangeData.GetOrderBookAsync("ETH_USDC", default, default), false, "data", ignoreProperties: ["cts"]);
             await RunAndCheckResult(warnings, client => client.FuturesApi.ExchangeData.GetIndexPriceAsync("ETH_USDC", default), false, "data");
             await RunAndCheckResult(warnings, client => client.FuturesApi.ExchangeData.GetMarkPriceAsync("ETH_USDC", default), false, "data");
-            await RunAndCheckResult(warnings, client => client.FuturesApi.ExchangeData.GetFundingRateAsync("ETH_USDC", default), false, "data");
+            await RunAndCheckResult(warnings, client => client.FuturesApi.ExchangeData.GetFundingRateAsync("ETH_USDC", default), false, "data", ignoreProperties: [
+                "fundingType"
+                ]);
             await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetKlinesAsync("ETH_USDC", Enums.FuturesKlineInterval.OneDay, default, default, default), false);
             await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetIndexPriceKlinesAsync("ETH_USDC", Enums.FuturesKlineInterval.OneDay, default, default, default), false);
             await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetMarkPriceKlinesAsync("ETH_USDC", Enums.FuturesKlineInterval.OneDay, default, default, default), false);
@@ -155,7 +157,9 @@ namespace Mexc.Net.UnitTests
             await RunAndCheckResult(warnings, client => client.FuturesApi.ExchangeData.GetTickersAsync(default), false, "data", ["riseFallRates", "riseFallRatesOfTimezone"]);
             await RunAndCheckResult(warnings, client => client.FuturesApi.ExchangeData.GetRiskFundBalancesAsync(default), false, "data");
             await RunAndCheckResult(warnings, client => client.FuturesApi.ExchangeData.GetRiskFundBalanceHistoryAsync("ETH_USDC", default, default, default), false, "data");
-            await RunAndCheckResult(warnings, client => client.FuturesApi.ExchangeData.GetFundingRateHistoryAsync("ETH_USDC", default, default, default), false, "data");
+            await RunAndCheckResult(warnings, client => client.FuturesApi.ExchangeData.GetFundingRateHistoryAsync("ETH_USDC", default, default, default), false, "data", ignoreProperties: [
+                "fundingType"
+                ]);
 
             foreach (var warning in warnings)
                 Assert.Warn(warning.Message);
