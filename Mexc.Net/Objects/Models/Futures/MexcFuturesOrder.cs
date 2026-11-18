@@ -136,7 +136,7 @@ namespace Mexc.Net.Objects.Models.Futures
         /// ["<c>version</c>"] Version
         /// </summary>
         [JsonPropertyName("version")]
-        public int? Version { get; set; }
+        public long? Version { get; set; }
         /// <summary>
         /// ["<c>positionMode</c>"] Version
         /// </summary>

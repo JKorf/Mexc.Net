@@ -12,9 +12,9 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
         private string? _symbol;
         private FuturesKlineInterval? _interval;
         private int? _limit;
-        private readonly Action<DateTime, string?, MexcFuturesUpdate<T>> _handler;
+        private readonly Action<DateTime, string?, T> _handler;
 
-        public MexcFuturesSubscription(ILogger logger, string topic, string? symbol, FuturesKlineInterval? interval, int? limit, Action<DateTime, string?, MexcFuturesUpdate<T>> handler, bool authenticated) : base(logger, authenticated)
+        public MexcFuturesSubscription(ILogger logger, string topic, string? symbol, FuturesKlineInterval? interval, int? limit, Action<DateTime, string?, T> handler, bool authenticated) : base(logger, authenticated)
         {
             _topic = topic;
             _symbol = symbol;
@@ -22,10 +22,11 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
             _limit = limit;
             _handler = handler;
 
-            MessageRouter = MessageRouter.CreateForEvent<MexcFuturesUpdate<T>>("push." + _topic, symbol, DoHandleMessage);
+            var pushTopic = $"push.{_topic}.{symbol}";
+            MessageRouter = MessageRouter.CreateForEvent<T>("pb", [pushTopic], DoHandleMessage);
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<T> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, T message)
         {
             _handler.Invoke(receiveTime, originalData, message);
             return CallResult.Ok();

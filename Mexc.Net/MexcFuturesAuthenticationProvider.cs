@@ -45,8 +45,7 @@ namespace Mexc.Net
             {
                 { "apiKey", ApiCredentials.Credential.Key },
                 { "reqTime", timestamp },
-                { "signature", sign },
-                { "subscribe", false }
+                { "signature", sign }
             };
             return new MexcFuturesQuery("login", parameters, false);
         }
