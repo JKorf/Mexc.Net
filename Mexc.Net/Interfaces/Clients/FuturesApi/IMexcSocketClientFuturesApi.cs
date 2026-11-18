@@ -175,7 +175,6 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="orderUpdateHandler">Order update handler</param>
         /// <param name="positionUpdateHandler">Position update handler</param>
         /// <param name="riskLimitUpdateHandler">Risk limit update handler</param>
-        /// <param name="adlUpdateHandler">Adl update handler</param>
         /// <param name="positionModeUpdateHandler">Position update handler</param>
         /// <param name="planOrderHandler">Plan order update handler</param>
         /// <param name="tpSlOrderHandler">Take profit/stop loss order update handler</param>
@@ -194,7 +193,6 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
             Action<DataEvent<MexcFuturesOrder>>? orderUpdateHandler = null,
             Action<DataEvent<MexcPosition>>? positionUpdateHandler = null,
             Action<DataEvent<MexcRiskLimit>>? riskLimitUpdateHandler = null,
-            Action<DataEvent<MexcAdlUpdate>>? adlUpdateHandler = null,
             Action<DataEvent<MexcPositionModeUpdate>>? positionModeUpdateHandler = null,
             Action<DataEvent<MexcStopOrder>>? planOrderHandler = null,
             Action<DataEvent<MexcTpSlOrder>>? tpSlOrderHandler = null,

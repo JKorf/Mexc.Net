@@ -14,6 +14,18 @@
     [LightProto.ProtoInclude(1002, typeof(MexcUpdateFuturesBalance))]    
     [LightProto.ProtoInclude(1001, typeof(MexcUpdateFuturesOrder))]
     [LightProto.ProtoInclude(1011, typeof(MexcUpdateFuturesPosition))]
+    [LightProto.ProtoInclude(1004, typeof(MexcUpdateFuturesLeverageMode))]
+    [LightProto.ProtoInclude(1005, typeof(MexcUpdateFuturesLiquidation))]
+    [LightProto.ProtoInclude(1006, typeof(MexcUpdateFuturesLiquidationRisk))]
+    [LightProto.ProtoInclude(1008, typeof(MexcUpdateFuturesUserTrade))]
+    [LightProto.ProtoInclude(1009, typeof(MexcUpdateFuturesPlanOrder))]
+    [LightProto.ProtoInclude(1010, typeof(MexcUpdateFuturesPositionMode))]
+    [LightProto.ProtoInclude(1012, typeof(MexcUpdateFuturesReversePosition))]
+    [LightProto.ProtoInclude(1014, typeof(MexcUpdateFuturesTpSlPrice))]
+    [LightProto.ProtoInclude(1015, typeof(MexcUpdateFuturesUserRiskLimit))]
+    [LightProto.ProtoInclude(1016, typeof(MexcUpdateFuturesTpSlOrder))]
+    [LightProto.ProtoInclude(1017, typeof(MexcUpdateFuturesTrailingOrder))]
+    [LightProto.ProtoInclude(1018, typeof(MexcUpdateFuturesChaseOrderFailure))]
     internal partial class MexcFuturesUpdate
     {
         [LightProto.ProtoMember(1)]
