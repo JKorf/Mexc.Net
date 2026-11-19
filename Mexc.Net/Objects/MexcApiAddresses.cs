@@ -30,7 +30,7 @@
             SpotRestAddress = "https://api.mexc.com",
             SpotSocketAddress = "ws://wbs-api.mexc.com/ws",
             FuturesRestAddress = "https://contract.mexc.com",
-            FuturesSocketAddress = "wss://contract.mexc.com/edge"
+            FuturesSocketAddress = "wss://contract.mexc.com"
         };
     }
 }

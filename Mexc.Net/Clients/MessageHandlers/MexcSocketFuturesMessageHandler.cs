@@ -1,7 +1,11 @@
 ﻿using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
 using CryptoExchange.Net.Converters.SystemTextJson.MessageHandlers;
+using LightProto;
+using Mexc.Net.Objects.Models.Protobuf;
 using Mexc.Net.Objects.Sockets.Models;
+using System.Net.WebSockets;
 using System.Text.Json;
+using MexcFuturesUpdate = Mexc.Net.Objects.Models.Protobuf.Futures.MexcFuturesUpdate;
 
 namespace Mexc.Net.Clients.MessageHandlers
 {
@@ -24,5 +28,27 @@ namespace Mexc.Net.Clients.MessageHandlers
                 TypeIdentifierCallback = x => x.FieldValue("channel")!
             }
         ];
+    }
+
+    internal class MexcFuturesProtobufMessageHandler : ISocketMessageHandler
+    {
+        public object Deserialize(ReadOnlySpan<byte> data, Type type)
+        {
+            return Serializer.Deserialize<MexcFuturesUpdate>(data, MexcFuturesUpdate.ProtoReader);
+        }
+
+        public string? GetTopicFilter(object deserializedObject)
+        {
+            var update = (MexcFuturesUpdate)deserializedObject;
+            // These subscriptions receive updates for every symbol on the channel.
+            if (string.IsNullOrEmpty(update.Symbol)
+                || update.Channel is "push.contract" or "push.tickers"
+                || update.Channel.StartsWith("push.personal.", StringComparison.Ordinal))
+                return update.Channel;
+
+            return $"{update.Channel}.{update.Symbol}";
+        }
+
+        public string? GetTypeIdentifier(ReadOnlySpan<byte> data, WebSocketMessageType? webSocketMessageType) => "pb";
     }
 }

@@ -43,8 +43,6 @@ namespace Mexc.Net.Clients.FuturesApi
                         FeeAsset = update.Data.FeeAsset,
 #pragma warning restore CS0618 // Type or member is obsolete
                         Leverage = update.Data.Leverage,
-                        StopLossPrice = update.Data.StopLossPrice,
-                        TakeProfitPrice = update.Data.TakeProfitPrice,
                         AveragePrice = update.Data.AveragePrice == 0 ? null : update.Data.AveragePrice,
                         PositionSide = (update.Data.OrderSide == FuturesOrderSide.OpenLong || update.Data.OrderSide == FuturesOrderSide.CloseLong) ? SharedPositionSide.Long : SharedPositionSide.Short                        
                     }

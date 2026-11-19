@@ -4,9 +4,9 @@ using CryptoExchange.Net.Sockets.Default;
 using Mexc.Net.Clients.FuturesApi;
 using Mexc.Net.Objects.Models;
 using Mexc.Net.Objects.Models.Futures;
-using Mexc.Net.Objects.Models.Spot;
+using Mexc.Net.Objects.Models.Protobuf.Futures;
 using Mexc.Net.Objects.Sockets.Models;
-using Mexc.Net.Objects.Sockets.Queries;
+using MexcFuturesUpdate = Mexc.Net.Objects.Models.Protobuf.Futures.MexcFuturesUpdate;
 
 namespace Mexc.Net.Objects.Sockets.Subscriptions
 {
@@ -15,13 +15,12 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
         private readonly MexcSocketClientFuturesApi _client;
 
         private readonly Action<DataEvent<MexcFuturesBalanceUpdate>>? _balanceHandler;
-        private readonly Action<DataEvent<MexcFuturesOrder>>? _orderHandler;
-        private readonly Action<DataEvent<MexcPosition>>? _positionHandler;
+        private readonly Action<DataEvent<MexcFuturesOrderUpdate>>? _orderHandler;
+        private readonly Action<DataEvent<MexcPositionUpdate>>? _positionHandler;
         private readonly Action<DataEvent<MexcRiskLimit>>? _riskLimitHandler;
-        private readonly Action<DataEvent<MexcAdlUpdate>>? _adlHandler;
         private readonly Action<DataEvent<MexcPositionModeUpdate>>? _positionModeHandler;
-        private readonly Action<DataEvent<MexcStopOrder>>? _planOrderHandler;
-        private readonly Action<DataEvent<MexcTpSlOrder>>? _tpSlOrderHandler;
+        private readonly Action<DataEvent<MexcPlanOrderUpdate>>? _planOrderHandler;
+        private readonly Action<DataEvent<MexcTpSlOrderUpdate>>? _tpSlOrderHandler;
         private readonly Action<DataEvent<MexcTrailingOrder>>? _trailingOrderHandler;
         private readonly Action<DataEvent<MexcTpSlPriceUpdate>>? _tpSlPriceUpdate;
         private readonly Action<DataEvent<MexcFuturesUserTradeUpdate>>? _userTradeUpdate;
@@ -35,13 +34,12 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
         public MexcFuturesUserSubscription(ILogger logger,
             MexcSocketClientFuturesApi client,
             Action<DataEvent<MexcFuturesBalanceUpdate>>? balanceHandler,
-            Action<DataEvent<MexcFuturesOrder>>? orderHandler,
-            Action<DataEvent<MexcPosition>>? positionHandler,
+            Action<DataEvent<MexcFuturesOrderUpdate>>? orderHandler,
+            Action<DataEvent<MexcPositionUpdate>>? positionHandler,
             Action<DataEvent<MexcRiskLimit>>? riskLimitHandler,
-            Action<DataEvent<MexcAdlUpdate>>? adlHandler,
             Action<DataEvent<MexcPositionModeUpdate>>? positionModeHandler,
-            Action<DataEvent<MexcStopOrder>>? planOrderHandler,
-            Action<DataEvent<MexcTpSlOrder>>? tpSlOrderHandler,
+            Action<DataEvent<MexcPlanOrderUpdate>>? planOrderHandler,
+            Action<DataEvent<MexcTpSlOrderUpdate>>? tpSlOrderHandler,
             Action<DataEvent<MexcTrailingOrder>>? trailingOrderHandler,
             Action<DataEvent<MexcTpSlPriceUpdate>>? tpSlPriceUpdate,
             Action<DataEvent<MexcFuturesUserTradeUpdate>>? userTradeUpdate,
@@ -58,7 +56,6 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
             _orderHandler = orderHandler;
             _positionHandler = positionHandler;
             _riskLimitHandler = riskLimitHandler;
-            _adlHandler = adlHandler;
             _positionModeHandler = positionModeHandler;
             _planOrderHandler = planOrderHandler;
             _tpSlOrderHandler = tpSlOrderHandler;
@@ -72,264 +69,261 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
             _closeAllFailUpdate = closeAllFailUpdate;
             _liquidationUpdate = liquidationUpdate;
 
+            // Force this subscription to always be on it's own connection as there is no unsubscribe
+            IndividualSubscriptionCount = client.ClientOptions.SocketIndividualSubscriptionCombineTarget;
+
             MessageRouter = MessageRouter.Create([
-                MessageRoute.CreateForEvent<MexcFuturesUpdate<MexcFuturesOrder>>("push.personal.order", DoHandleMessage),
-                MessageRoute.CreateForEvent<MexcFuturesUpdate<MexcFuturesBalanceUpdate>>("push.personal.asset", DoHandleMessage),
-                MessageRoute.CreateForEvent<MexcFuturesUpdate<MexcPosition>>("push.personal.position", DoHandleMessage),
-                MessageRoute.CreateForEvent<MexcFuturesUpdate<MexcRiskLimit>>("push.personal.risk.limit", DoHandleMessage),
-                MessageRoute.CreateForEvent<MexcFuturesUpdate<MexcAdlUpdate>>("push.personal.adl.level", DoHandleMessage),
-                MessageRoute.CreateForEvent<MexcFuturesUpdate<MexcPositionModeUpdate>>("push.personal.position.mode", DoHandleMessage),
-                MessageRoute.CreateForEvent<MexcFuturesUpdate<MexcStopOrder>>("push.personal.plan.order", DoHandleMessage),
-                MessageRoute.CreateForEvent<MexcFuturesUpdate<MexcTpSlOrder>>("push.personal.stop.planorder", DoHandleMessage),
-                MessageRoute.CreateForEvent<MexcFuturesUpdate<MexcTrailingOrder>>("push.personal.track.order", DoHandleMessage),
-                MessageRoute.CreateForEvent<MexcFuturesUpdate<MexcTpSlPriceUpdate>>("push.personal.stop.order", DoHandleMessage),
-                MessageRoute.CreateForEvent<MexcFuturesUpdate<MexcFuturesUserTradeUpdate>>("push.personal.order.deal", DoHandleMessage),
-                MessageRoute.CreateForEvent<MexcFuturesUpdate<MexcChaseOrderFailure>>("push.personal.order.chase", DoHandleMessage),
-                MessageRoute.CreateForEvent<MexcFuturesUpdate<MexcLiquidationRiskUpdate>>("push.personal.liquidate.risk", DoHandleMessage),
-                MessageRoute.CreateForEvent<MexcFuturesUpdate<MexcLeverageModeUpdate>>("push.personal.leverage.mode", DoHandleMessage),
-                MessageRoute.CreateForEvent<MexcFuturesUpdate<MexcReversePositionUpdate>>("push.personal.reverse.position", DoHandleMessage),
-                MessageRoute.CreateForEvent<MexcFuturesUpdate<object>>("push.personal.position.closeall.fail", DoHandleMessage),
-                MessageRoute.CreateForEvent<MexcFuturesUpdate<MexcLiquidationUpdate>>("push.personal.generic.notify", DoHandleMessage),
-                ]);
+                MessageRoute.CreateForEvent<MexcUpdateFuturesOrder>("pb", "push.personal.order", DoHandleMessage),
+                MessageRoute.CreateForEvent<MexcUpdateFuturesBalance>("pb", "push.personal.asset", DoHandleMessage),
+                MessageRoute.CreateForEvent<MexcUpdateFuturesPosition>("pb", "push.personal.position", DoHandleMessage),
+                MessageRoute.CreateForEvent<MexcUpdateFuturesUserRiskLimit>("pb", "push.personal.risk.limit", DoHandleMessage),
+                MessageRoute.CreateForEvent<MexcUpdateFuturesPositionMode>("pb", "push.personal.position.mode", DoHandleMessage),
+                MessageRoute.CreateForEvent<MexcUpdateFuturesPlanOrder>("pb", "push.personal.plan.order", DoHandleMessage),
+                MessageRoute.CreateForEvent<MexcUpdateFuturesTpSlOrder>("pb", "push.personal.stop.planorder", DoHandleMessage),
+                MessageRoute.CreateForEvent<MexcUpdateFuturesTrailingOrder>("pb", "push.personal.track.order", DoHandleMessage),
+                MessageRoute.CreateForEvent<MexcUpdateFuturesTpSlPrice>("pb", "push.personal.stop.order", DoHandleMessage),
+                MessageRoute.CreateForEvent<MexcUpdateFuturesUserTrade>("pb", "push.personal.order.deal", DoHandleMessage),
+                MessageRoute.CreateForEvent<MexcUpdateFuturesChaseOrderFailure>("pb", "push.personal.order.chase", DoHandleMessage),
+                MessageRoute.CreateForEvent<MexcUpdateFuturesLiquidationRisk>("pb", "push.personal.liquidate.risk", DoHandleMessage),
+                MessageRoute.CreateForEvent<MexcUpdateFuturesLeverageMode>("pb", "push.personal.leverage.mode", DoHandleMessage),
+                MessageRoute.CreateForEvent<MexcUpdateFuturesReversePosition>("pb", "push.personal.reverse.position", DoHandleMessage),
+                MessageRoute.CreateForEvent<MexcFuturesUpdate>("pb", "push.personal.position.closeall.fail", DoHandleMessage),
+                MessageRoute.CreateForEvent<MexcUpdateFuturesLiquidation>("pb", "push.personal.generic.notify", DoHandleMessage),
+            ]);
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcFuturesBalanceUpdate> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcUpdateFuturesBalance message)
         {
-            _client.UpdateTimeOffset(message.Timestamp);
+            var timestamp = DateTimeConverter.ParseFromDecimal(message.CreateTime);
+            _client.UpdateTimeOffset(timestamp);
 
             _balanceHandler?.Invoke(
-                new DataEvent<MexcFuturesBalanceUpdate>(MexcExchange.ExchangeName, message.Data, receiveTime, originalData)
+                new DataEvent<MexcFuturesBalanceUpdate>(MexcExchange.ExchangeName, message.ToModel(), receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
-                    .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
+                    .WithDataTimestamp(timestamp, _client.GetTimeOffset()));
             return CallResult.Ok();
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcFuturesOrder> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcUpdateFuturesOrder message)
         {
-            _client.UpdateTimeOffset(message.Timestamp);
+            var timestamp = DateTimeConverter.ParseFromDecimal(message.CreateTime);
+            _client.UpdateTimeOffset(timestamp);
 
             _orderHandler?.Invoke(
-                new DataEvent<MexcFuturesOrder>(MexcExchange.ExchangeName, message.Data, receiveTime, originalData)
+                new DataEvent<MexcFuturesOrderUpdate>(MexcExchange.ExchangeName, message.ToModel(), receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
-                    .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
+                    .WithDataTimestamp(timestamp, _client.GetTimeOffset()));
             return CallResult.Ok();
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcPosition> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcUpdateFuturesPosition message)
         {
-            _client.UpdateTimeOffset(message.Timestamp);
+            var timestamp = DateTimeConverter.ParseFromDecimal(message.CreateTime);
+            _client.UpdateTimeOffset(timestamp);
 
             _positionHandler?.Invoke(
-                new DataEvent<MexcPosition>(MexcExchange.ExchangeName, message.Data, receiveTime, originalData)
+                new DataEvent<MexcPositionUpdate>(MexcExchange.ExchangeName, message.ToModel(), receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
-                    .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
+                    .WithDataTimestamp(timestamp, _client.GetTimeOffset()));
             return CallResult.Ok();
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcRiskLimit> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcUpdateFuturesUserRiskLimit message)
         {
-            _client.UpdateTimeOffset(message.Timestamp);
+            var timestamp = DateTimeConverter.ParseFromDecimal(message.CreateTime);
+            _client.UpdateTimeOffset(timestamp);
 
             _riskLimitHandler?.Invoke(
-                new DataEvent<MexcRiskLimit>(MexcExchange.ExchangeName, message.Data, receiveTime, originalData)
+                new DataEvent<MexcRiskLimit>(MexcExchange.ExchangeName, message.ToModel(), receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
-                    .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
+                    .WithDataTimestamp(timestamp, _client.GetTimeOffset()));
             return CallResult.Ok();
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcPositionModeUpdate> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcUpdateFuturesPositionMode message)
         {
-            _client.UpdateTimeOffset(message.Timestamp);
+            var timestamp = DateTimeConverter.ParseFromDecimal(message.CreateTime);
+            _client.UpdateTimeOffset(timestamp);
 
             _positionModeHandler?.Invoke(
-                new DataEvent<MexcPositionModeUpdate>(MexcExchange.ExchangeName, message.Data, receiveTime, originalData)
+                new DataEvent<MexcPositionModeUpdate>(MexcExchange.ExchangeName, message.ToModel(), receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
-                    .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
+                    .WithDataTimestamp(timestamp, _client.GetTimeOffset()));
             return CallResult.Ok();
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcAdlUpdate> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcUpdateFuturesPlanOrder message)
         {
-            _client.UpdateTimeOffset(message.Timestamp);
-
-            _adlHandler?.Invoke(
-                new DataEvent<MexcAdlUpdate>(MexcExchange.ExchangeName, message.Data, receiveTime, originalData)
-                    .WithStreamId(message.Channel)
-                    .WithSymbol(message.Symbol)
-                    .WithUpdateType(SocketUpdateType.Update)
-                    .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
-            return CallResult.Ok();
-        }
-
-        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcStopOrder> message)
-        {
-            _client.UpdateTimeOffset(message.Timestamp);
+            var timestamp = DateTimeConverter.ParseFromDecimal(message.CreateTime);
+            _client.UpdateTimeOffset(timestamp);
 
             _planOrderHandler?.Invoke(
-                new DataEvent<MexcStopOrder>(MexcExchange.ExchangeName, message.Data, receiveTime, originalData)
+                new DataEvent<MexcPlanOrderUpdate>(MexcExchange.ExchangeName, message.ToModel(), receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
-                    .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
+                    .WithDataTimestamp(timestamp, _client.GetTimeOffset()));
             return CallResult.Ok();
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcTpSlOrder> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcUpdateFuturesTpSlOrder message)
         {
-            _client.UpdateTimeOffset(message.Timestamp);
+            var timestamp = DateTimeConverter.ParseFromDecimal(message.CreateTime);
+            _client.UpdateTimeOffset(timestamp);
 
             _tpSlOrderHandler?.Invoke(
-                new DataEvent<MexcTpSlOrder>(MexcExchange.ExchangeName, message.Data, receiveTime, originalData)
+                new DataEvent<MexcTpSlOrderUpdate>(MexcExchange.ExchangeName, message.ToModel(), receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
-                    .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
+                    .WithDataTimestamp(timestamp, _client.GetTimeOffset()));
             return CallResult.Ok();
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcTrailingOrder> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcUpdateFuturesTrailingOrder message)
         {
-            _client.UpdateTimeOffset(message.Timestamp);
+            var timestamp = DateTimeConverter.ParseFromDecimal(message.CreateTime);
+            _client.UpdateTimeOffset(timestamp);
 
             _trailingOrderHandler?.Invoke(
-                new DataEvent<MexcTrailingOrder>(MexcExchange.ExchangeName, message.Data, receiveTime, originalData)
+                new DataEvent<MexcTrailingOrder>(MexcExchange.ExchangeName, message.ToModel(), receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
-                    .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
+                    .WithDataTimestamp(timestamp, _client.GetTimeOffset()));
             return CallResult.Ok();
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcTpSlPriceUpdate> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcUpdateFuturesTpSlPrice message)
         {
-            _client.UpdateTimeOffset(message.Timestamp);
+            var timestamp = DateTimeConverter.ParseFromDecimal(message.CreateTime);
+            _client.UpdateTimeOffset(timestamp);
 
             _tpSlPriceUpdate?.Invoke(
-                new DataEvent<MexcTpSlPriceUpdate>(MexcExchange.ExchangeName, message.Data, receiveTime, originalData)
+                new DataEvent<MexcTpSlPriceUpdate>(MexcExchange.ExchangeName, message.ToModel(), receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
-                    .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
+                    .WithDataTimestamp(timestamp, _client.GetTimeOffset()));
             return CallResult.Ok();
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcFuturesUserTradeUpdate> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcUpdateFuturesUserTrade message)
         {
-            _client.UpdateTimeOffset(message.Timestamp);
+            var timestamp = DateTimeConverter.ParseFromDecimal(message.CreateTime);
+            _client.UpdateTimeOffset(timestamp);
 
             _userTradeUpdate?.Invoke(
-                new DataEvent<MexcFuturesUserTradeUpdate>(MexcExchange.ExchangeName, message.Data, receiveTime, originalData)
+                new DataEvent<MexcFuturesUserTradeUpdate>(MexcExchange.ExchangeName, message.ToModel(), receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
-                    .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
+                    .WithDataTimestamp(timestamp, _client.GetTimeOffset()));
             return CallResult.Ok();
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcChaseOrderFailure> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcUpdateFuturesChaseOrderFailure message)
         {
-            _client.UpdateTimeOffset(message.Timestamp);
+            var timestamp = DateTimeConverter.ParseFromDecimal(message.CreateTime);
+            _client.UpdateTimeOffset(timestamp);
 
             _chaseOrderFailUpdate?.Invoke(
-                new DataEvent<MexcChaseOrderFailure>(MexcExchange.ExchangeName, message.Data, receiveTime, originalData)
+                new DataEvent<MexcChaseOrderFailure>(MexcExchange.ExchangeName, message.ToModel(), receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
-                    .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
+                    .WithDataTimestamp(timestamp, _client.GetTimeOffset()));
             return CallResult.Ok();
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcLiquidationRiskUpdate> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcUpdateFuturesLiquidationRisk message)
         {
-            _client.UpdateTimeOffset(message.Timestamp);
+            var timestamp = DateTimeConverter.ParseFromDecimal(message.CreateTime);
+            _client.UpdateTimeOffset(timestamp);
 
             _liquidationRiskUpdate?.Invoke(
-                new DataEvent<MexcLiquidationRiskUpdate>(MexcExchange.ExchangeName, message.Data, receiveTime, originalData)
+                new DataEvent<MexcLiquidationRiskUpdate>(MexcExchange.ExchangeName, message.ToModel(), receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
-                    .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
+                    .WithDataTimestamp(timestamp, _client.GetTimeOffset()));
             return CallResult.Ok();
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcLeverageModeUpdate> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcUpdateFuturesLeverageMode message)
         {
-            _client.UpdateTimeOffset(message.Timestamp);
+            var timestamp = DateTimeConverter.ParseFromDecimal(message.CreateTime);
+            _client.UpdateTimeOffset(timestamp);
 
             _leverageModeUpdate?.Invoke(
-                new DataEvent<MexcLeverageModeUpdate>(MexcExchange.ExchangeName, message.Data, receiveTime, originalData)
+                new DataEvent<MexcLeverageModeUpdate>(MexcExchange.ExchangeName, message.ToModel(), receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
-                    .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
+                    .WithDataTimestamp(timestamp, _client.GetTimeOffset()));
             return CallResult.Ok();
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate message)
         {
-            _client.UpdateTimeOffset(message.Timestamp);
+            var timestamp = DateTimeConverter.ParseFromDecimal(message.CreateTime);
+            _client.UpdateTimeOffset(timestamp);
 
             _closeAllFailUpdate?.Invoke(
                 new DataEvent<object>(MexcExchange.ExchangeName, new object(), receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
-                    .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
+                    .WithDataTimestamp(timestamp, _client.GetTimeOffset()));
             return CallResult.Ok();
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcReversePositionUpdate> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcUpdateFuturesReversePosition message)
         {
-            _client.UpdateTimeOffset(message.Timestamp);
+            var timestamp = DateTimeConverter.ParseFromDecimal(message.CreateTime);
+            _client.UpdateTimeOffset(timestamp);
 
             _reversePositionUpdate?.Invoke(
-                new DataEvent<MexcReversePositionUpdate>(MexcExchange.ExchangeName, message.Data, receiveTime, originalData)
+                new DataEvent<MexcReversePositionUpdate>(MexcExchange.ExchangeName, message.ToModel(), receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
-                    .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
+                    .WithDataTimestamp(timestamp, _client.GetTimeOffset()));
             return CallResult.Ok();
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcFuturesUpdate<MexcLiquidationUpdate> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, MexcUpdateFuturesLiquidation message)
         {
-            _client.UpdateTimeOffset(message.Timestamp);
+            var timestamp = DateTimeConverter.ParseFromDecimal(message.CreateTime);
+            _client.UpdateTimeOffset(timestamp);
+
+            if (message.Type != 1 || message.Param == null)
+                return CallResult.Ok();
 
             _liquidationUpdate?.Invoke(
-                new DataEvent<MexcLiquidationUpdate>(MexcExchange.ExchangeName, message.Data, receiveTime, originalData)
+                new DataEvent<MexcLiquidationUpdate>(MexcExchange.ExchangeName, message.ToModel(), receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
-                    .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset()));
+                    .WithDataTimestamp(timestamp, _client.GetTimeOffset()));
             return CallResult.Ok();
         }
 
+        // Subscription is done by authenication/login query
+        protected override Query? GetSubQuery(SocketConnection connection) => null;
 
-        protected override Query? GetSubQuery(SocketConnection connection)
-        {
-            return new MexcFuturesQuery("personal.filter", new Dictionary<string, object>() { { "filters", new SubFilter[0] } }, Authenticated);
-        }
-
-        protected override Query? GetUnsubQuery(SocketConnection connection)
-        {
-            // There doesn't seem to be a way to unsubscribe from all user updates
-            // Work around is to filter all message except a single one which shouldn't trigger too often
-            var filters = new[] { "adl.level" };
-            return new MexcFuturesQuery("personal.filter", new Dictionary<string, object>()
-            {
-                { "filters", filters.Select(x => new SubFilter{ Filter = x }).ToArray() }
-            }, Authenticated);
-        }
+        // No unsubscribe available, workaround is that this is always on a separate connection and the connection is closed to unsubscribe
+        protected override Query? GetUnsubQuery(SocketConnection connection) => null;
 
         internal record SubFilter
         {

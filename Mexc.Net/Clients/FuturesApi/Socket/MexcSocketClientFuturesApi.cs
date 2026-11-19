@@ -11,6 +11,7 @@ using Mexc.Net.Enums;
 using Mexc.Net.Interfaces.Clients.FuturesApi;
 using Mexc.Net.Objects.Models;
 using Mexc.Net.Objects.Models.Futures;
+using Mexc.Net.Objects.Models.Protobuf.Futures;
 using Mexc.Net.Objects.Options;
 using Mexc.Net.Objects.Sockets.Models;
 using Mexc.Net.Objects.Sockets.Queries;
@@ -24,13 +25,14 @@ namespace Mexc.Net.Clients.FuturesApi
     {
         private readonly MexcSocketClientFuturesSharedApi _sharedApi;
 
+        private readonly string _address;
+
         #region constructor/destructor
 
         internal MexcSocketClientFuturesApi(ILoggerFactory? loggerFactory, MexcSocketOptions options) :
             base(loggerFactory, MexcExchange.Metadata.Id, options.Environment.FuturesSocketAddress, options, options.FuturesOptions)
         {
             AddSystemSubscription(new MexcErrorSubscription(_logger));
-            AddSystemSubscription(new MexcPongSubscription(_logger)); // Mexc reacts with 2 pongs on a ping, handler for the second message
 
             _sharedApi = new MexcSocketClientFuturesSharedApi(this);
 
@@ -49,13 +51,21 @@ namespace Mexc.Net.Clients.FuturesApi
                         _ = connection.TriggerReconnectAsync();
                     }
                 });
+
+            _address = options.Environment.FuturesSocketAddress.AppendPath("/edge?Trans-Protocol=Protobuf");
         }
 
         #endregion
 
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(MexcExchange._serializerContext));
 
-        public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new MexcSocketFuturesMessageHandler();
+        public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType)
+        {
+            if (messageType == WebSocketMessageType.Text)
+                return new MexcSocketFuturesMessageHandler();
+
+            return new MexcFuturesProtobufMessageHandler();
+        }
 
         /// <inheritdoc />
         protected override MexcFuturesAuthenticationProvider CreateAuthenticationProvider(MexcCredentials credentials)
@@ -71,215 +81,225 @@ namespace Mexc.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTickersUpdatesAsync(Action<DataEvent<MexcFuturesTickerUpdate[]>> handler, CancellationToken ct = default)
         {
-            var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcFuturesTickerUpdate[]>>((receiveTime, originalData, data) =>
+            var internalHandler = new Action<DateTime, string?, MexcUpdateFuturesTickers>((receiveTime, originalData, data) =>
             {
-                UpdateTimeOffset(data.Timestamp);
+                var timestamp = DateTimeConverter.ConvertFromMilliseconds(data.CreateTime);
+                UpdateTimeOffset(timestamp);
 
                 handler(
-                    new DataEvent<MexcFuturesTickerUpdate[]>(MexcExchange.ExchangeName, data.Data, receiveTime, originalData)
+                    new DataEvent<MexcFuturesTickerUpdate[]>(MexcExchange.ExchangeName, data.Tickers.Select(x => x.ToModel()).ToArray(), receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
+                        .WithDataTimestamp(timestamp, GetTimeOffset())
                         .WithSymbol(data.Symbol)
                         .WithStreamId(data.Channel)
                     );
             });
 
-            var subscription = new MexcFuturesSubscription<MexcFuturesTickerUpdate[]>(_logger, "tickers", null, null, null, internalHandler, false);
-            return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
+            var subscription = new MexcFuturesSubscription<MexcUpdateFuturesTickers>(_logger, "tickers", null, null, null, internalHandler, false);
+            return await SubscribeAsync(_address, subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<MexcFuturesTicker>> handler, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<MexcFuturesDetailTickerUpdate>> handler, CancellationToken ct = default)
         {
-            var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcFuturesTicker>>((receiveTime, originalData, data) =>
+            var internalHandler = new Action<DateTime, string?, MexcUpdateFuturesDetailTicker>((receiveTime, originalData, data) =>
             {
-                UpdateTimeOffset(data.Timestamp);
+                var timestamp = DateTimeConverter.ConvertFromMilliseconds(data.CreateTime);
+                UpdateTimeOffset(timestamp);
 
                 handler(
-                    new DataEvent<MexcFuturesTicker>(MexcExchange.ExchangeName, data.Data, receiveTime, originalData)
+                    new DataEvent<MexcFuturesDetailTickerUpdate>(MexcExchange.ExchangeName, data.ToModel(), receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
+                        .WithDataTimestamp(timestamp, GetTimeOffset())
                         .WithSymbol(data.Symbol)
                         .WithStreamId(data.Channel)
                     );
             });
 
-            var subscription = new MexcFuturesSubscription<MexcFuturesTicker>(_logger, "ticker", symbol, null, null, internalHandler, false);
-            return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
+            var subscription = new MexcFuturesSubscription<MexcUpdateFuturesDetailTicker>(_logger, "ticker", symbol, null, null, internalHandler, false);
+            return await SubscribeAsync(_address, subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<MexcFuturesTrade[]>> handler, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<MexcFuturesTradeUpdate[]>> handler, CancellationToken ct = default)
         {
-            var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcFuturesTrade[]>>((receiveTime, originalData, data) =>
+            var internalHandler = new Action<DateTime, string?, MexcUpdateFuturesTrade>((receiveTime, originalData, data) =>
             {
-                UpdateTimeOffset(data.Timestamp);
+                var timestamp = DateTimeConverter.ConvertFromMilliseconds(data.CreateTime);
+                UpdateTimeOffset(timestamp);
 
                 handler(
-                    new DataEvent<MexcFuturesTrade[]>(MexcExchange.ExchangeName, data.Data, receiveTime, originalData)
+                    new DataEvent<MexcFuturesTradeUpdate[]>(MexcExchange.ExchangeName, [data.ToModel()], receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
+                        .WithDataTimestamp(timestamp, GetTimeOffset())
                         .WithSymbol(data.Symbol)
                         .WithStreamId(data.Channel)
                     );
             });
 
-            var subscription = new MexcFuturesSubscription<MexcFuturesTrade[]>(_logger, "deal", symbol, null, null, internalHandler, false);
-            return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
+            var subscription = new MexcFuturesSubscription<MexcUpdateFuturesTrade>(_logger, "deal", symbol, null, null, internalHandler, false);
+            return await SubscribeAsync(_address, subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, FuturesKlineInterval interval, Action<DataEvent<MexcFuturesStreamKline>> handler, CancellationToken ct = default)
         {
-            var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcFuturesStreamKline>>((receiveTime, originalData, data) =>
+            var internalHandler = new Action<DateTime, string?, MexcUpdateFuturesKline>((receiveTime, originalData, data) =>
             {
-                UpdateTimeOffset(data.Timestamp);
+                var timestamp = DateTimeConverter.ConvertFromMilliseconds(data.CreateTime);
+                UpdateTimeOffset(timestamp);
 
                 handler(
-                    new DataEvent<MexcFuturesStreamKline>(MexcExchange.ExchangeName, data.Data, receiveTime, originalData)
+                    new DataEvent<MexcFuturesStreamKline>(MexcExchange.ExchangeName, data.ToModel(), receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
+                        .WithDataTimestamp(timestamp, GetTimeOffset())
                         .WithSymbol(data.Symbol)
                         .WithStreamId(data.Channel)
                     );
             });
 
-            var subscription = new MexcFuturesSubscription<MexcFuturesStreamKline>(_logger, "kline", symbol, interval, null, internalHandler, false);
-            return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
+            var subscription = new MexcFuturesSubscription<MexcUpdateFuturesKline>(_logger, "kline", symbol, interval, null, internalHandler, false);
+            return await SubscribeAsync(_address, subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, Action<DataEvent<MexcFuturesOrderBook>> handler, CancellationToken ct = default)
         {
-            var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcFuturesOrderBook>>((receiveTime, originalData, data) =>
+            var internalHandler = new Action<DateTime, string?, MexcUpdateFuturesOrderBook>((receiveTime, originalData, data) =>
             {
-                UpdateTimeOffset(data.Timestamp);
+                var model = data.ToModel();
+                UpdateTimeOffset(model.Timestamp!.Value);
 
                 handler(
-                    new DataEvent<MexcFuturesOrderBook>(MexcExchange.ExchangeName, data.Data, receiveTime, originalData)
+                    new DataEvent<MexcFuturesOrderBook>(MexcExchange.ExchangeName, model, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
+                        .WithDataTimestamp(model.Timestamp, GetTimeOffset())
                         .WithSymbol(data.Symbol)
                         .WithStreamId(data.Channel)
-                        .WithSequenceNumber(data.Data.SequenceEnd)
+                        .WithSequenceNumber(model.SequenceEnd)
                     );
             });
 
-            var subscription = new MexcFuturesSubscription<MexcFuturesOrderBook>(_logger, "depth", symbol, null, null, internalHandler, false);
-            return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
+            var subscription = new MexcFuturesSubscription<MexcUpdateFuturesOrderBook>(_logger, "depth", symbol, null, null, internalHandler, false);
+            return await SubscribeAsync(_address, subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdatesAsync(string symbol, int? limit, Action<DataEvent<MexcFuturesOrderBook>> handler, CancellationToken ct = default)
         {
-            var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcFuturesOrderBook>>((receiveTime, originalData, data) =>
+            var internalHandler = new Action<DateTime, string?, MexcUpdateFuturesOrderBook>((receiveTime, originalData, data) =>
             {
-                UpdateTimeOffset(data.Timestamp);
+                var model = data.ToModel();
+                UpdateTimeOffset(model.Timestamp!.Value);
 
                 handler(
-                    new DataEvent<MexcFuturesOrderBook>(MexcExchange.ExchangeName, data.Data, receiveTime, originalData)
+                    new DataEvent<MexcFuturesOrderBook>(MexcExchange.ExchangeName, model, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
+                        .WithDataTimestamp(model.Timestamp, GetTimeOffset())
                         .WithSymbol(data.Symbol)
                         .WithStreamId(data.Channel)
-                        .WithSequenceNumber(data.Data.SequenceEnd)
+                        .WithSequenceNumber(model.SequenceEnd)
                     );
             });
 
-            var subscription = new MexcFuturesSubscription<MexcFuturesOrderBook>(_logger, "depth.full", symbol, null, limit, internalHandler, false);
-            return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
+            var subscription = new MexcFuturesSubscription<MexcUpdateFuturesOrderBook>(_logger, "depth.full", symbol, null, limit, internalHandler, false);
+            return await SubscribeAsync(_address, subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(string symbol, Action<DataEvent<MexcFundingRateUpdate>> handler, CancellationToken ct = default)
         {
-            var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcFundingRateUpdate>>((receiveTime, originalData, data) =>
+            var internalHandler = new Action<DateTime, string?, MexcUpdateFuturesFundingRate>((receiveTime, originalData, data) =>
             {
-                UpdateTimeOffset(data.Timestamp);
+                var timestamp = DateTimeConverter.ConvertFromMilliseconds(data.CreateTime);
+                UpdateTimeOffset(timestamp);
 
                 handler(
-                    new DataEvent<MexcFundingRateUpdate>(MexcExchange.ExchangeName, data.Data, receiveTime, originalData)
+                    new DataEvent<MexcFundingRateUpdate>(MexcExchange.ExchangeName, data.ToModel(), receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
+                        .WithDataTimestamp(timestamp, GetTimeOffset())
                         .WithSymbol(data.Symbol)
                         .WithStreamId(data.Channel)
                     );
             });
 
-            var subscription = new MexcFuturesSubscription<MexcFundingRateUpdate>(_logger, "funding.rate", symbol, null, null, internalHandler, false);
-            return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
+            var subscription = new MexcFuturesSubscription<MexcUpdateFuturesFundingRate>(_logger, "funding.rate", symbol, null, null, internalHandler, false);
+            return await SubscribeAsync(_address, subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToIndexPriceUpdatesAsync(string symbol, Action<DataEvent<MexcPriceUpdate>> handler, CancellationToken ct = default)
         {
-            var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcPriceUpdate>>((receiveTime, originalData, data) =>
+            var internalHandler = new Action<DateTime, string?, MexcUpdateFuturesIndexPrice>((receiveTime, originalData, data) =>
             {
-                UpdateTimeOffset(data.Timestamp);
+                var timestamp = DateTimeConverter.ConvertFromMilliseconds(data.CreateTime);
+                UpdateTimeOffset(timestamp);
 
                 handler(
-                    new DataEvent<MexcPriceUpdate>(MexcExchange.ExchangeName, data.Data, receiveTime, originalData)
+                    new DataEvent<MexcPriceUpdate>(MexcExchange.ExchangeName, data.ToModel(), receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
+                        .WithDataTimestamp(timestamp, GetTimeOffset())
                         .WithSymbol(data.Symbol)
                         .WithStreamId(data.Channel)
                     );
             });
 
-            var subscription = new MexcFuturesSubscription<MexcPriceUpdate>(_logger, "index.price", symbol, null, null, internalHandler, false);
-            return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
+            var subscription = new MexcFuturesSubscription<MexcUpdateFuturesIndexPrice>(_logger, "index.price", symbol, null, null, internalHandler, false);
+            return await SubscribeAsync(_address, subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToMarkPriceUpdatesAsync(string symbol, Action<DataEvent<MexcPriceUpdate>> handler, CancellationToken ct = default)
         {
-            var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcPriceUpdate>>((receiveTime, originalData, data) =>
+            var internalHandler = new Action<DateTime, string?, MexcUpdateFuturesMarkPrice>((receiveTime, originalData, data) =>
             {
-                UpdateTimeOffset(data.Timestamp);
+                var timestamp = DateTimeConverter.ConvertFromMilliseconds(data.CreateTime);
+                UpdateTimeOffset(timestamp);
 
                 handler(
-                    new DataEvent<MexcPriceUpdate>(MexcExchange.ExchangeName, data.Data, receiveTime, originalData)
+                    new DataEvent<MexcPriceUpdate>(MexcExchange.ExchangeName, data.ToModel(), receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
+                        .WithDataTimestamp(timestamp, GetTimeOffset())
                         .WithSymbol(data.Symbol)
                         .WithStreamId(data.Channel)
                     );
             });
 
-            var subscription = new MexcFuturesSubscription<MexcPriceUpdate>(_logger, "fair.price", symbol, null, null, internalHandler, false);
-            return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
+            var subscription = new MexcFuturesSubscription<MexcUpdateFuturesMarkPrice>(_logger, "fair.price", symbol, null, null, internalHandler, false);
+            return await SubscribeAsync(_address, subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToSymbolUpdatesAsync(Action<DataEvent<MexcContract>> handler, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToSymbolUpdatesAsync(Action<DataEvent<MexcContractUpdate>> handler, CancellationToken ct = default)
         {
-            var internalHandler = new Action<DateTime, string?, MexcFuturesUpdate<MexcContract>>((receiveTime, originalData, data) =>
+            var internalHandler = new Action<DateTime, string?, MexcUpdateFuturesContract>((receiveTime, originalData, data) =>
             {
-                UpdateTimeOffset(data.Timestamp);
+                var timestamp = DateTimeConverter.ConvertFromMilliseconds(data.CreateTime);
+                UpdateTimeOffset(timestamp);
+                var model = data.ToModel();
 
                 handler(
-                    new DataEvent<MexcContract>(MexcExchange.ExchangeName, data.Data, receiveTime, originalData)
+                    new DataEvent<MexcContractUpdate>(MexcExchange.ExchangeName, model, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
-                        .WithSymbol(data.Symbol)
+                        .WithDataTimestamp(timestamp, GetTimeOffset())
+                        .WithSymbol(model.Symbol)
                         .WithStreamId(data.Channel)
                     );
             });
 
-            var subscription = new MexcFuturesSubscription<MexcContract>(_logger, "contract", null, null, null, internalHandler, false);
-            return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
+            var subscription = new MexcFuturesSubscription<MexcUpdateFuturesContract>(_logger, "contract", null, null, null, internalHandler, false);
+            return await SubscribeAsync(_address, subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToUserDataUpdatesAsync(
             Action<DataEvent<MexcFuturesBalanceUpdate>>? balanceUpdateHandler = null,
-            Action<DataEvent<MexcFuturesOrder>>? orderUpdateHandler = null,
-            Action<DataEvent<MexcPosition>>? positionUpdateHandler = null,
+            Action<DataEvent<MexcFuturesOrderUpdate>>? orderUpdateHandler = null,
+            Action<DataEvent<MexcPositionUpdate>>? positionUpdateHandler = null,
             Action<DataEvent<MexcRiskLimit>>? riskLimitUpdateHandler = null,
-            Action<DataEvent<MexcAdlUpdate>>? adlUpdateHandler = null,
             Action<DataEvent<MexcPositionModeUpdate>>? positionModeUpdateHandler = null,
-            Action<DataEvent<MexcStopOrder>>? planOrderHandler = null,
-            Action<DataEvent<MexcTpSlOrder>>? tpSlOrderHandler = null,
+            Action<DataEvent<MexcPlanOrderUpdate>>? planOrderHandler = null,
+            Action<DataEvent<MexcTpSlOrderUpdate>>? tpSlOrderHandler = null,
             Action<DataEvent<MexcTrailingOrder>>? trailingOrderHandler = null,
             Action<DataEvent<MexcTpSlPriceUpdate>>? tpSlPriceUpdate = null,
             Action<DataEvent<MexcFuturesUserTradeUpdate>>? userTradeUpdate = null,
@@ -298,7 +318,6 @@ namespace Mexc.Net.Clients.FuturesApi
                 orderUpdateHandler,
                 positionUpdateHandler,
                 riskLimitUpdateHandler,
-                adlUpdateHandler,
                 positionModeUpdateHandler,
                 planOrderHandler,
                 tpSlOrderHandler,
@@ -311,7 +330,7 @@ namespace Mexc.Net.Clients.FuturesApi
                 closeAllFailUpdate,
                 reversePositionUpdate,
                 liquidationUpdate);
-            return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
+            return await SubscribeAsync(_address, subscription, ct).ConfigureAwait(false);
         }
     }
 }

@@ -43,5 +43,10 @@ namespace Mexc.Net.Objects.Models.Spot
         /// </summary>
         [JsonPropertyName("tradeType")]
         public TradeType TradeType { get; set; }
+        /// <summary>
+        /// ["<c>isRpi</c>"] Is RPI
+        /// </summary>
+        [JsonPropertyName("isRpi")]
+        public bool? IsRpi { get; set; }
     }
 }

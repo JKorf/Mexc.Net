@@ -47,7 +47,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebSocketResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<MexcFuturesTicker>> handler, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<MexcFuturesDetailTickerUpdate>> handler, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to trade updates for a symbol
@@ -61,7 +61,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebSocketResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<MexcFuturesTrade[]>> handler, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<MexcFuturesTradeUpdate[]>> handler, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to kline updates
@@ -160,7 +160,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="handler">Data handler</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebSocketResult<UpdateSubscription>> SubscribeToSymbolUpdatesAsync(Action<DataEvent<MexcContract>> handler, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToSymbolUpdatesAsync(Action<DataEvent<MexcContractUpdate>> handler, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to user data updates
@@ -175,8 +175,7 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="orderUpdateHandler">Order update handler</param>
         /// <param name="positionUpdateHandler">Position update handler</param>
         /// <param name="riskLimitUpdateHandler">Risk limit update handler</param>
-        /// <param name="adlUpdateHandler">Adl update handler</param>
-        /// <param name="positionModeUpdateHandler">Position update handler</param>
+        /// <param name="positionModeUpdateHandler">Position mode update handler</param>
         /// <param name="planOrderHandler">Plan order update handler</param>
         /// <param name="tpSlOrderHandler">Take profit/stop loss order update handler</param>
         /// <param name="trailingOrderHandler">Trailing order update handler</param>
@@ -191,13 +190,12 @@ namespace Mexc.Net.Interfaces.Clients.FuturesApi
         /// <param name="ct">Cancellation token</param>
         Task<WebSocketResult<UpdateSubscription>> SubscribeToUserDataUpdatesAsync(
             Action<DataEvent<MexcFuturesBalanceUpdate>>? balanceUpdateHandler = null,
-            Action<DataEvent<MexcFuturesOrder>>? orderUpdateHandler = null,
-            Action<DataEvent<MexcPosition>>? positionUpdateHandler = null,
+            Action<DataEvent<MexcFuturesOrderUpdate>>? orderUpdateHandler = null,
+            Action<DataEvent<MexcPositionUpdate>>? positionUpdateHandler = null,
             Action<DataEvent<MexcRiskLimit>>? riskLimitUpdateHandler = null,
-            Action<DataEvent<MexcAdlUpdate>>? adlUpdateHandler = null,
             Action<DataEvent<MexcPositionModeUpdate>>? positionModeUpdateHandler = null,
-            Action<DataEvent<MexcStopOrder>>? planOrderHandler = null,
-            Action<DataEvent<MexcTpSlOrder>>? tpSlOrderHandler = null,
+            Action<DataEvent<MexcPlanOrderUpdate>>? planOrderHandler = null,
+            Action<DataEvent<MexcTpSlOrderUpdate>>? tpSlOrderHandler = null,
             Action<DataEvent<MexcTrailingOrder>>? trailingOrderHandler = null,
             Action<DataEvent<MexcTpSlPriceUpdate>>? tpSlPriceUpdate = null,
             Action<DataEvent<MexcFuturesUserTradeUpdate>>? userTradeUpdate = null,
