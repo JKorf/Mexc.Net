@@ -31,7 +31,9 @@ namespace Mexc.Net.Objects.Models.Protobuf.Futures
                 StopLossPriceType = LossTrend.HasValue ? EnumConverter.ParseString<TriggerPriceType>(LossTrend.Value.ToString())!.Value : default,
                 TakeProfitPriceType = ProfitTrend.HasValue ? EnumConverter.ParseString<TriggerPriceType>(ProfitTrend.Value.ToString())!.Value : default,
                 StopLossPrice = ExchangeHelpers.ParseDecimal(StopLossPrice) ?? 0,
-                TakeProfitPrice = ExchangeHelpers.ParseDecimal(TakeProfitPrice) ?? 0
+                TakeProfitPrice = ExchangeHelpers.ParseDecimal(TakeProfitPrice) ?? 0,
+                EnsureStopLoss = EnsureStopLoss switch { 0 => false, 1 => true, _ => null },
+                ExtraTakerFeeRate = ExchangeHelpers.ParseDecimal(ExtraTakerFeeRate)
             };
         }
     }

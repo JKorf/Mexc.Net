@@ -22,8 +22,8 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
             _limit = limit;
             _handler = handler;
 
-            var pushTopic = $"push.{_topic}.{symbol}";
-            MessageRouter = MessageRouter.CreateForEvent<T>("pb", [pushTopic], DoHandleMessage);
+            var pushTopic = symbol == null ? $"push.{topic}" : $"push.{topic}.{symbol}";
+            MessageRouter = MessageRouter.CreateForEvent<T>("pb", pushTopic, DoHandleMessage);
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, T message)

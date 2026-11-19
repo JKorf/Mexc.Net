@@ -76,21 +76,21 @@ namespace Mexc.Net.Objects.Models.Protobuf.Futures
         public string? PositionType { get; set; }
 
 
-        public MexcFuturesOrder ToModel()
+        public MexcFuturesOrderUpdate ToModel()
         {
-            return new MexcFuturesOrder
+            return new MexcFuturesOrderUpdate
             {
                 AveragePrice = ExchangeHelpers.ParseDecimal(AvgPrice),
                 Category = EnumConverter.ParseString<OrderCategory>(Category.ToString())!.Value,
                 CreateTime = CreateTimeOrder == null ? default : DateTimeConverter.ParseFromDecimal(CreateTimeOrder.Value),
                 ClientOrderId = ClientOrderId,
-                ErrorCode = (int)ErrorCode,
+                ErrorCode = ErrorCode,
                 FeeAsset = FeeAsset,
                 Leverage = Leverage ?? 0,
                 LimitOrderType = EnumConverter.ParseString<LimitOrderType>(BboTypeNum.ToString())!.Value,
                 MakerFee = ExchangeHelpers.ParseDecimal(MakerFee) ?? 0,
                 MarginType = EnumConverter.ParseString<MarginType>(OpenType.ToString())!.Value,
-                OrderId = long.Parse(OrderId),
+                OrderId = long.Parse(OrderId, CultureInfo.InvariantCulture),
                 OrderMargin = ExchangeHelpers.ParseDecimal(OrderMargin) ?? 0,
                 OrderSide = EnumConverter.ParseString<FuturesOrderSide>(Side.ToString())!.Value,
                 OrderType = EnumConverter.ParseString<FuturesOrderType>(OrderType.ToString())!.Value,
@@ -107,7 +107,24 @@ namespace Mexc.Net.Objects.Models.Protobuf.Futures
                 TotalFee = ExchangeHelpers.ParseDecimal(TakerFee) + ExchangeHelpers.ParseDecimal(MakerFee),
                 UpdateTime = UpdateTime == null ? default : DateTimeConverter.ParseFromDecimal(UpdateTime.Value),
                 UsedMargin = ExchangeHelpers.ParseDecimal(UsedMargin) ?? 0,
-                Version = Version
+                Version = Version,
+                RemainingQuantity = ExchangeHelpers.ParseDecimal(RemainingQuantity) ?? 0,
+                MarketOrderLevel = MarketOrderLevel,
+                MakerFeeRate = ExchangeHelpers.ParseDecimal(MakerFeeRate),
+                TakerFeeRate = ExchangeHelpers.ParseDecimal(TakerFeeRate),
+                BusinessSource = BizSource,
+                SideType = SideType?.ToUpperInvariant() switch
+                {
+                    "BUY" or "1" => Enums.OrderSide.Buy,
+                    "SELL" or "2" => Enums.OrderSide.Sell,
+                    _ => null
+                },
+                PositionType = PositionType?.ToUpperInvariant() switch
+                {
+                    "LONG" or "1" => PositionSide.Long,
+                    "SHORT" or "2" => PositionSide.Short,
+                    _ => null
+                }
             };
         }
     }

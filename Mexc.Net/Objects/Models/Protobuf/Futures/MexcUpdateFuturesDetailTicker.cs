@@ -47,9 +47,9 @@ namespace Mexc.Net.Objects.Models.Protobuf.Futures
         [LightProto.ProtoMember(20)]
         public string[] ChangePercentagesTimeZones { get; set; } = [];
 
-        public MexcFuturesTicker ToModel()
+        public MexcFuturesDetailTickerUpdate ToModel()
         {
-            return new MexcFuturesTicker
+            return new MexcFuturesDetailTickerUpdate
             {
                 Symbol = SymbolTicker,
                 LastPrice = ExchangeHelpers.ParseDecimal(LastPrice) ?? 0,
@@ -68,6 +68,9 @@ namespace Mexc.Net.Objects.Models.Protobuf.Futures
                 ChangeValue = ExchangeHelpers.ParseDecimal(ChangeValue) ?? 0,
                 FundingRate = ExchangeHelpers.ParseDecimal(FundingRate) ?? 0,
                 OpenInterest = ExchangeHelpers.ParseDecimal(OpenInterest) ?? 0,
+                TimeZone = TimeZone,
+                ChangeRates = ChangePercentages.Select(x => ExchangeHelpers.ParseDecimal(x)).ToArray(),
+                ChangeRatesTimeZones = ChangePercentagesTimeZones
             };
         }
     }

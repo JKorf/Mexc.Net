@@ -1,4 +1,5 @@
 using Mexc.Net.Enums;
+using Mexc.Net.Objects.Models.Futures;
 
 namespace Mexc.Net.Objects.Models.Protobuf.Futures
 {
@@ -70,16 +71,16 @@ namespace Mexc.Net.Objects.Models.Protobuf.Futures
         [LightProto.ProtoMember(32)]
         public string? ExtraTakerFeeRate { get; set; }
 
-        public MexcTpSlOrder ToModel()
+        public MexcTpSlOrderUpdate ToModel()
         {
-            return new MexcTpSlOrder
+            return new MexcTpSlOrderUpdate
             {
                 Id = Id,
                 OrderId = long.TryParse(OrderId, NumberStyles.Integer, CultureInfo.InvariantCulture, out var orderId) ? orderId : 0,
                 Symbol = SymbolOrder,
                 PositionId = long.TryParse(PositionId, NumberStyles.Integer, CultureInfo.InvariantCulture, out var positionId) ? positionId : 0,
-                StopLossPriceType = LossTrend.HasValue ? EnumConverter.ParseString<TriggerPriceType>(LossTrend.Value.ToString())!.Value : default,
-                TakeProfitPriceType = ProfitTrend.HasValue ? EnumConverter.ParseString<TriggerPriceType>(ProfitTrend.Value.ToString())!.Value : default,
+                StopLossPriceType = LossTrend.HasValue ? EnumConverter.ParseString<TriggerPriceType>(LossTrend.Value.ToString()) : null,
+                TakeProfitPriceType = ProfitTrend.HasValue ? EnumConverter.ParseString<TriggerPriceType>(ProfitTrend.Value.ToString()) : null,
                 StopLossPrice = ExchangeHelpers.ParseDecimal(StopLossPrice),
                 TakeProfitPrice = ExchangeHelpers.ParseDecimal(TakeProfitPrice),
                 Status = EnumConverter.ParseString<TpSlStatus>(State.ToString())!.Value,
@@ -97,14 +98,23 @@ namespace Mexc.Net.Objects.Models.Protobuf.Futures
                 CreateTime = CreateTimeOrder.HasValue ? DateTimeConverter.ParseFromDecimal(CreateTimeOrder.Value) : default,
                 UpdateTime = UpdateTime.HasValue ? DateTimeConverter.ParseFromDecimal(UpdateTime.Value) : null,
                 VolumeType = VolumeType.HasValue ? EnumConverter.ParseString<VolumeType>(VolumeType.Value.ToString()) : null,
-                TakeProfitReverse = TakeProfitReverse ?? 0,
-                StopLossReverse = StopLossReverse ?? 0,
+                TakeProfitReverse = ParseReverseType(TakeProfitReverse),
+                StopLossReverse = ParseReverseType(StopLossReverse),
                 CloseTryTimes = CloseTryTimes,
                 ReverseTryTimes = ReverseTryTimes,
                 ReverseErrorCode = ReverseErrorCode ?? 0,
                 StopLossType = StopLossType.HasValue ? EnumConverter.ParseString<TpSlType>(StopLossType.Value.ToString()) : null,
-                StopLossOrderPrice = ExchangeHelpers.ParseDecimal(StopLossOrderPrice)
+                StopLossOrderPrice = ExchangeHelpers.ParseDecimal(StopLossOrderPrice),
+                EnsureStopLoss = EnsureStopLoss switch { 0 => false, 1 => true, _ => null },
+                ExtraTakerFeeRate = ExchangeHelpers.ParseDecimal(ExtraTakerFeeRate)
             };
         }
+
+        private static FuturesBool? ParseReverseType(int? value) => value switch
+        {
+            1 => FuturesBool.Yes,
+            2 => FuturesBool.No,
+            _ => null
+        };
     }
 }

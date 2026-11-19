@@ -69,15 +69,15 @@ namespace Mexc.Net.Objects.Models.Protobuf.Futures
         [LightProto.ProtoMember(31)]
         public string? Fee { get; set; }
         [LightProto.ProtoMember(32)]
-        public MexcPositionDeductFee[] DeductFeeList { get; set; } = [];
+        public MexcPositionUpdateDeductFee[] DeductFeeList { get; set; } = [];
         [LightProto.ProtoMember(33)]
         public string MakerFeeRate { get; set; } = string.Empty;
         [LightProto.ProtoMember(34)]
         public string TakerFeeRate { get; set; } = string.Empty;
 
-        public MexcPosition ToModel()
+        public MexcPositionUpdate ToModel()
         {
-            return new MexcPosition
+            return new MexcPositionUpdate
             {
                 PositionId = PositionId,
                 Symbol = SymbolPosition,
@@ -106,13 +106,24 @@ namespace Mexc.Net.Objects.Models.Protobuf.Futures
                 NewOpenAveragePrice = ExchangeHelpers.ParseDecimal(NewOpenAveragePrice),
                 NewCloseAveragePrice = ExchangeHelpers.ParseDecimal(NewCloseAveragePrice),
                 CloseProfitAndLoss = ExchangeHelpers.ParseDecimal(CloseProfitAndLoss),
-                Fee = ExchangeHelpers.ParseDecimal(Fee)
+                Fee = ExchangeHelpers.ParseDecimal(Fee),
+                HoldAveragePriceFullyScale = ExchangeHelpers.ParseDecimal(HoldAveragePriceFullyScale),
+                OpenAveragePriceFullyScale = ExchangeHelpers.ParseDecimal(OpenAveragePriceFullyScale),
+                MaintenanceMargin = ExchangeHelpers.ParseDecimal(MaintenanceMargin),
+                FeeDeductions = DeductFeeList.Select(x => new MexcPositionFeeDeduction
+                {
+                    Asset = x.Currency,
+                    DeductedFee = ExchangeHelpers.ParseDecimal(x.DeductFee) ?? 0,
+                    SettlementFee = ExchangeHelpers.ParseDecimal(x.ConvertSettleFee) ?? 0
+                }).ToArray(),
+                MakerFeeRate = ExchangeHelpers.ParseDecimal(MakerFeeRate),
+                TakerFeeRate = ExchangeHelpers.ParseDecimal(TakerFeeRate)
             };
         }
     }
 
     [LightProto.ProtoContract]
-    internal partial class MexcPositionDeductFee
+    internal partial class MexcPositionUpdateDeductFee
     {
         [LightProto.ProtoMember(1)]
         public string Currency { get; set; } = string.Empty;

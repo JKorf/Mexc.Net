@@ -15,12 +15,12 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
         private readonly MexcSocketClientFuturesApi _client;
 
         private readonly Action<DataEvent<MexcFuturesBalanceUpdate>>? _balanceHandler;
-        private readonly Action<DataEvent<MexcFuturesOrder>>? _orderHandler;
-        private readonly Action<DataEvent<MexcPosition>>? _positionHandler;
+        private readonly Action<DataEvent<MexcFuturesOrderUpdate>>? _orderHandler;
+        private readonly Action<DataEvent<MexcPositionUpdate>>? _positionHandler;
         private readonly Action<DataEvent<MexcRiskLimit>>? _riskLimitHandler;
         private readonly Action<DataEvent<MexcPositionModeUpdate>>? _positionModeHandler;
-        private readonly Action<DataEvent<MexcStopOrder>>? _planOrderHandler;
-        private readonly Action<DataEvent<MexcTpSlOrder>>? _tpSlOrderHandler;
+        private readonly Action<DataEvent<MexcPlanOrderUpdate>>? _planOrderHandler;
+        private readonly Action<DataEvent<MexcTpSlOrderUpdate>>? _tpSlOrderHandler;
         private readonly Action<DataEvent<MexcTrailingOrder>>? _trailingOrderHandler;
         private readonly Action<DataEvent<MexcTpSlPriceUpdate>>? _tpSlPriceUpdate;
         private readonly Action<DataEvent<MexcFuturesUserTradeUpdate>>? _userTradeUpdate;
@@ -34,12 +34,12 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
         public MexcFuturesUserSubscription(ILogger logger,
             MexcSocketClientFuturesApi client,
             Action<DataEvent<MexcFuturesBalanceUpdate>>? balanceHandler,
-            Action<DataEvent<MexcFuturesOrder>>? orderHandler,
-            Action<DataEvent<MexcPosition>>? positionHandler,
+            Action<DataEvent<MexcFuturesOrderUpdate>>? orderHandler,
+            Action<DataEvent<MexcPositionUpdate>>? positionHandler,
             Action<DataEvent<MexcRiskLimit>>? riskLimitHandler,
             Action<DataEvent<MexcPositionModeUpdate>>? positionModeHandler,
-            Action<DataEvent<MexcStopOrder>>? planOrderHandler,
-            Action<DataEvent<MexcTpSlOrder>>? tpSlOrderHandler,
+            Action<DataEvent<MexcPlanOrderUpdate>>? planOrderHandler,
+            Action<DataEvent<MexcTpSlOrderUpdate>>? tpSlOrderHandler,
             Action<DataEvent<MexcTrailingOrder>>? trailingOrderHandler,
             Action<DataEvent<MexcTpSlPriceUpdate>>? tpSlPriceUpdate,
             Action<DataEvent<MexcFuturesUserTradeUpdate>>? userTradeUpdate,
@@ -109,7 +109,7 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
             _client.UpdateTimeOffset(timestamp);
 
             _orderHandler?.Invoke(
-                new DataEvent<MexcFuturesOrder>(MexcExchange.ExchangeName, message.ToModel(), receiveTime, originalData)
+                new DataEvent<MexcFuturesOrderUpdate>(MexcExchange.ExchangeName, message.ToModel(), receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
@@ -123,7 +123,7 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
             _client.UpdateTimeOffset(timestamp);
 
             _positionHandler?.Invoke(
-                new DataEvent<MexcPosition>(MexcExchange.ExchangeName, message.ToModel(), receiveTime, originalData)
+                new DataEvent<MexcPositionUpdate>(MexcExchange.ExchangeName, message.ToModel(), receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
@@ -165,7 +165,7 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
             _client.UpdateTimeOffset(timestamp);
 
             _planOrderHandler?.Invoke(
-                new DataEvent<MexcStopOrder>(MexcExchange.ExchangeName, message.ToModel(), receiveTime, originalData)
+                new DataEvent<MexcPlanOrderUpdate>(MexcExchange.ExchangeName, message.ToModel(), receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
@@ -179,7 +179,7 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
             _client.UpdateTimeOffset(timestamp);
 
             _tpSlOrderHandler?.Invoke(
-                new DataEvent<MexcTpSlOrder>(MexcExchange.ExchangeName, message.ToModel(), receiveTime, originalData)
+                new DataEvent<MexcTpSlOrderUpdate>(MexcExchange.ExchangeName, message.ToModel(), receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)

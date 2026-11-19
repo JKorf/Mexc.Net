@@ -59,9 +59,9 @@ namespace Mexc.Net.Objects.Models.Protobuf.Futures
         [LightProto.ProtoMember(26)]
         public string? ExtraTakerFeeRate { get; set; }
 
-        public MexcStopOrder ToModel()
+        public MexcPlanOrderUpdate ToModel()
         {
-            return new MexcStopOrder
+            return new MexcPlanOrderUpdate
             {
                 Id = long.TryParse(Id, NumberStyles.Integer, CultureInfo.InvariantCulture, out var id) ? id : 0,
                 Symbol = SymbolOrder,
@@ -70,10 +70,15 @@ namespace Mexc.Net.Objects.Models.Protobuf.Futures
                 TriggerPrice = ExchangeHelpers.ParseDecimal(TriggerPrice),
                 Price = ExchangeHelpers.ParseDecimal(Price),
                 Quantity = ExchangeHelpers.ParseDecimal(Quantity) ?? 0,
-                MarginType = OpenType.HasValue ? EnumConverter.ParseString<MarginType>(OpenType.Value.ToString())!.Value : default,
+                MarginType = OpenType.HasValue ? EnumConverter.ParseString<MarginType>(OpenType.Value.ToString()) : null,
                 TriggerType = EnumConverter.ParseString<TriggerType>(TriggerType.ToString())!.Value,
                 Status = EnumConverter.ParseString<TpSlStatus>(State.ToString())!.Value,
-                ExecuteCycle = ExecuteCycle ?? 0,
+                ExecuteCycle = ExecuteCycle switch
+                {
+                    24 => Enums.ExecuteCycle.OneDay,
+                    168 => Enums.ExecuteCycle.OneWeek,
+                    _ => null
+                },
                 TriggerPriceType = EnumConverter.ParseString<TriggerPriceType>(Trend.ToString())!.Value,
                 OrderType = EnumConverter.ParseString<FuturesOrderType>(OrderType.ToString())!.Value,
                 OrderId = long.TryParse(OrderId, NumberStyles.Integer, CultureInfo.InvariantCulture, out var orderId) ? orderId : 0,
@@ -81,12 +86,14 @@ namespace Mexc.Net.Objects.Models.Protobuf.Futures
                 MarketOrderLevel = MarketOrderLevel ?? 0,
                 CreateTime = DateTimeConverter.ParseFromDecimal(CreateTimeOrder),
                 UpdateTime = DateTimeConverter.ParseFromDecimal(UpdateTime),
-                PositionMode = PositionMode.HasValue ? EnumConverter.ParseString<PositionMode>(PositionMode.Value.ToString())!.Value : default,
-                StopLossPriceType = LossTrend.HasValue ? EnumConverter.ParseString<TriggerPriceType>(LossTrend.Value.ToString())!.Value : default,
-                TakeProfitPriceType = ProfitTrend.HasValue ? EnumConverter.ParseString<TriggerPriceType>(ProfitTrend.Value.ToString())!.Value : default,
+                PositionMode = PositionMode.HasValue ? EnumConverter.ParseString<PositionMode>(PositionMode.Value.ToString()) : null,
+                StopLossPriceType = LossTrend.HasValue ? EnumConverter.ParseString<TriggerPriceType>(LossTrend.Value.ToString()) : null,
+                TakeProfitPriceType = ProfitTrend.HasValue ? EnumConverter.ParseString<TriggerPriceType>(ProfitTrend.Value.ToString()) : null,
                 StopLossPrice = ExchangeHelpers.ParseDecimal(StopLossPrice),
                 TakeProfitPrice = ExchangeHelpers.ParseDecimal(TakeProfitPrice),
-                ReduceOnly = ReduceOnly
+                ReduceOnly = ReduceOnly,
+                EnsureStopLoss = EnsureStopLoss switch { 0 => false, 1 => true, _ => null },
+                ExtraTakerFeeRate = ExchangeHelpers.ParseDecimal(ExtraTakerFeeRate)
             };
         }
     }

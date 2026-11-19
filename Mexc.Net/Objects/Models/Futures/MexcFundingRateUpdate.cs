@@ -20,5 +20,11 @@ namespace Mexc.Net.Objects.Models.Futures
         /// </summary>
         [JsonPropertyName("nextSettleTime")]
         public DateTime NextSettleTime { get; set; }
+
+        /// <summary>
+        /// Funding type code
+        /// </summary>
+        [JsonPropertyName("fundingType")]
+        public long FundingType { get; set; }
     }
 }

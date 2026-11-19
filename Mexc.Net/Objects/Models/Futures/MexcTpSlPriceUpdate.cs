@@ -39,5 +39,18 @@ public record MexcTpSlPriceUpdate
     /// </summary>
     [JsonPropertyName("takeProfitPrice")]
     public decimal TakeProfitPrice { get; set; }
+
+    /// <summary>
+    /// Whether guaranteed stop loss is enabled
+    /// </summary>
+    [JsonPropertyName("ensureStopLoss")]
+    [JsonConverter(typeof(BoolConverter))]
+    public bool? EnsureStopLoss { get; set; }
+
+    /// <summary>
+    /// Additional taker fee rate
+    /// </summary>
+    [JsonPropertyName("extraTakerFeeRate")]
+    public decimal? ExtraTakerFeeRate { get; set; }
 }
 

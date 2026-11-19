@@ -110,11 +110,11 @@ namespace Mexc.Net.Objects.Models.Protobuf.Futures
         [LightProto.ProtoMember(55)]
         public int FeeRateMode { get; set; }
 
-        public MexcContract ToModel()
+        public MexcContractUpdate ToModel()
         {
-            return new MexcContract
+            return new MexcContractUpdate
             {
-                Symbol = SymbolTicker,
+                Symbol = string.IsNullOrEmpty(SymbolTicker) ? Symbol : SymbolTicker,
                 AskLimitPriceRate = ExchangeHelpers.ParseDecimal(AskLimitPriceRate) ?? 0,
                 BaseAsset = BaseAsset,
                 BaseAssetName = BaseAssetName,
@@ -146,8 +146,13 @@ namespace Mexc.Net.Objects.Models.Protobuf.Futures
                 RiskIncreaseMmr = ExchangeHelpers.ParseDecimal(RiskIncreaseMmr) ?? 0,
                 RiskIncreaseVolume = ExchangeHelpers.ParseDecimal(RiskIncreaseVolume) ?? 0,
                 RiskLevelLimit = ExchangeHelpers.ParseDecimal(RiskLevelLimit) ?? 0,
-                RiskLimitRate = ExchangeHelpers.ParseDecimal(RiskLimitRate) ?? 0,
-                RiskLimitType = EnumConverter.ParseString<RiskLimitType>(RiskLimitType.ToString())!.Value,
+                RiskLimitRate = ExchangeHelpers.ParseDecimal(RiskLimitRate),
+                RiskLimitType = RiskLimitType switch
+                {
+                    1 => Enums.RiskLimitType.ByVolume,
+                    2 => Enums.RiskLimitType.ByValue,
+                    _ => null
+                },
                 RiskLongShortSwitch = RiskLongShortSwitch == 1,
                 SettleAsset = SettleAsset,
                 TakerFeeRate = ExchangeHelpers.ParseDecimal(TakerFeeRate) ?? 0,
@@ -160,18 +165,18 @@ namespace Mexc.Net.Objects.Models.Protobuf.Futures
                 {
                     Level = x.Level,
                     InitialMarginRate = ExchangeHelpers.ParseDecimal(x.Imr) ?? 0,
-                    MaxLeverage = int.Parse(x.MaxLeverage),
+                    MaxLeverage = int.TryParse(x.MaxLeverage, NumberStyles.Integer, CultureInfo.InvariantCulture, out var maxLeverage) ? maxLeverage : 0,
                     MaxVolume = ExchangeHelpers.ParseDecimal(x.MaxVolume) ?? 0,
                     MaintenanceMarginRate = ExchangeHelpers.ParseDecimal(x.Mmr) ?? 0,
                 }).ToArray(),
                 OpenTime = OpenTime.HasValue ? DateTimeConverter.ConvertFromMilliseconds(OpenTime.Value) : null,
                 OpeningCountdownOption = OpeningCountdownOption,
                 DepthStepList = DepthStepList,
-                //FeeRateMode = FeeRateMode,
                 LiquidationFeeRate = ExchangeHelpers.ParseDecimal(LiquidationFeeRate) ?? 0,
                 MaxNumberOfOrders = MaxNumberOfOrders,
-                QuantityScale = ExchangeHelpers.ParseDecimal(QuantityScale) ??0,
-                //RiskLimitMode = RiskLimitType,
+                QuantityScale = ExchangeHelpers.ParseDecimal(QuantityScale) ?? 0,
+                TriggerProtect = ExchangeHelpers.ParseDecimal(TriggerProtect) ?? 0,
+                FeeRateMode = FeeRateMode
             };
         }
     }

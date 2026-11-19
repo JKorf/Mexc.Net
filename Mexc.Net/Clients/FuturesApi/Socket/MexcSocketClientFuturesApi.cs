@@ -100,7 +100,7 @@ namespace Mexc.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<MexcFuturesTicker>> handler, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<MexcFuturesDetailTickerUpdate>> handler, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, MexcUpdateFuturesDetailTicker>((receiveTime, originalData, data) =>
             {
@@ -108,7 +108,7 @@ namespace Mexc.Net.Clients.FuturesApi
                 UpdateTimeOffset(timestamp);
 
                 handler(
-                    new DataEvent<MexcFuturesTicker>(MexcExchange.ExchangeName, data.ToModel(), receiveTime, originalData)
+                    new DataEvent<MexcFuturesDetailTickerUpdate>(MexcExchange.ExchangeName, data.ToModel(), receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(timestamp, GetTimeOffset())
                         .WithSymbol(data.Symbol)
@@ -121,7 +121,7 @@ namespace Mexc.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<MexcFuturesTrade[]>> handler, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<MexcFuturesTradeUpdate[]>> handler, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, MexcUpdateFuturesTrade>((receiveTime, originalData, data) =>
             {
@@ -129,7 +129,7 @@ namespace Mexc.Net.Clients.FuturesApi
                 UpdateTimeOffset(timestamp);
 
                 handler(
-                    new DataEvent<MexcFuturesTrade[]>(MexcExchange.ExchangeName, [data.ToModel()], receiveTime, originalData)
+                    new DataEvent<MexcFuturesTradeUpdate[]>(MexcExchange.ExchangeName, [data.ToModel()], receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(timestamp, GetTimeOffset())
                         .WithSymbol(data.Symbol)
@@ -270,18 +270,19 @@ namespace Mexc.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToSymbolUpdatesAsync(Action<DataEvent<MexcContract>> handler, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToSymbolUpdatesAsync(Action<DataEvent<MexcContractUpdate>> handler, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, MexcUpdateFuturesContract>((receiveTime, originalData, data) =>
             {
                 var timestamp = DateTimeConverter.ConvertFromMilliseconds(data.CreateTime);
                 UpdateTimeOffset(timestamp);
+                var model = data.ToModel();
 
                 handler(
-                    new DataEvent<MexcContract>(MexcExchange.ExchangeName, data.ToModel(), receiveTime, originalData)
+                    new DataEvent<MexcContractUpdate>(MexcExchange.ExchangeName, model, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(timestamp, GetTimeOffset())
-                        .WithSymbol(data.Symbol)
+                        .WithSymbol(model.Symbol)
                         .WithStreamId(data.Channel)
                     );
             });
@@ -293,12 +294,12 @@ namespace Mexc.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToUserDataUpdatesAsync(
             Action<DataEvent<MexcFuturesBalanceUpdate>>? balanceUpdateHandler = null,
-            Action<DataEvent<MexcFuturesOrder>>? orderUpdateHandler = null,
-            Action<DataEvent<MexcPosition>>? positionUpdateHandler = null,
+            Action<DataEvent<MexcFuturesOrderUpdate>>? orderUpdateHandler = null,
+            Action<DataEvent<MexcPositionUpdate>>? positionUpdateHandler = null,
             Action<DataEvent<MexcRiskLimit>>? riskLimitUpdateHandler = null,
             Action<DataEvent<MexcPositionModeUpdate>>? positionModeUpdateHandler = null,
-            Action<DataEvent<MexcStopOrder>>? planOrderHandler = null,
-            Action<DataEvent<MexcTpSlOrder>>? tpSlOrderHandler = null,
+            Action<DataEvent<MexcPlanOrderUpdate>>? planOrderHandler = null,
+            Action<DataEvent<MexcTpSlOrderUpdate>>? tpSlOrderHandler = null,
             Action<DataEvent<MexcTrailingOrder>>? trailingOrderHandler = null,
             Action<DataEvent<MexcTpSlPriceUpdate>>? tpSlPriceUpdate = null,
             Action<DataEvent<MexcFuturesUserTradeUpdate>>? userTradeUpdate = null,

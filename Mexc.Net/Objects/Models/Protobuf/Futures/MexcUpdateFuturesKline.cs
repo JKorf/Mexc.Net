@@ -29,7 +29,7 @@ namespace Mexc.Net.Objects.Models.Protobuf.Futures
         {
             return new MexcFuturesStreamKline
             {
-                Symbol = Symbol,
+                Symbol = string.IsNullOrEmpty(SymbolKline) ? Symbol : SymbolKline,
                 OpenPrice = ExchangeHelpers.ParseDecimal(OpenPrice) ?? 0,
                 LowPrice = ExchangeHelpers.ParseDecimal(LowPrice) ?? 0,
                 HighPrice = ExchangeHelpers.ParseDecimal(HighPrice) ?? 0,

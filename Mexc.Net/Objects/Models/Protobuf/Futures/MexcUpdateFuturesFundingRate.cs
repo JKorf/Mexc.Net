@@ -22,6 +22,7 @@ namespace Mexc.Net.Objects.Models.Protobuf.Futures
                 Symbol = SymbolRate,
                 FundingRate = ExchangeHelpers.ParseDecimal(FundingRate) ?? 0,
                 NextSettleTime = DateTimeConverter.ParseFromDouble(NextSettleTime),
+                FundingType = FundingType,
             };
         }
     }

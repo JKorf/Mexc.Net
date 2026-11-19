@@ -45,7 +45,8 @@ namespace Mexc.Net.Objects.Models.Protobuf.Futures
                 RiskSource = RiskSource,
                 Leverage = Leverage ?? 0,
                 MarginType = EnumConverter.ParseString<MarginType>(OpenType.ToString())!.Value,
-                LimitBySystem = LimitBySystem ?? false
+                LimitBySystem = LimitBySystem ?? false,
+                MaxQuantityView = ExchangeHelpers.ParseDecimal(MaxQuantityView)
             };
         }
     }

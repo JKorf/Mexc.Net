@@ -62,6 +62,12 @@ namespace Mexc.Net.Objects.Models.Futures
         /// </summary>
         [JsonPropertyName("limitBySys")]
         public bool LimitBySystem { get; set; }
+
+        /// <summary>
+        /// Maximum quantity displayed by the exchange
+        /// </summary>
+        [JsonPropertyName("maxVolView")]
+        public decimal? MaxQuantityView { get; set; }
     }
 
 

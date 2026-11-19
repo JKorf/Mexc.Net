@@ -40,8 +40,10 @@ namespace Mexc.Net.Clients.MessageHandlers
         public string? GetTopicFilter(object deserializedObject)
         {
             var update = (MexcFuturesUpdate)deserializedObject;
-            // Private subscriptions receive updates for every symbol on the channel.
-            if (string.IsNullOrEmpty(update.Symbol) || update.Channel.StartsWith("push.personal.", StringComparison.Ordinal))
+            // These subscriptions receive updates for every symbol on the channel.
+            if (string.IsNullOrEmpty(update.Symbol)
+                || update.Channel is "push.contract" or "push.tickers"
+                || update.Channel.StartsWith("push.personal.", StringComparison.Ordinal))
                 return update.Channel;
 
             return $"{update.Channel}.{update.Symbol}";
