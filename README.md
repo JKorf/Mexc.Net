@@ -214,7 +214,7 @@ Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/s
 
 ## Release notes
 * Version 6.11.0 - 19 Nov 2026
-    * Updated futures websocket to use protobuf API
+    * Updated futures websocket to use protobuf API (json support ends on December 1)
       * Updated event models
       * User data subscription now always runs on it's own connection due to lack of unsubscribe support in the API
       * Removed adlUpdateHandler in SubscribeToUserDataUpdatesAsync
