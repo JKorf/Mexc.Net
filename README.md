@@ -213,6 +213,15 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 6.11.0 - 19 Nov 2026
+    * Updated futures websocket to use protobuf API
+      * Updated event models
+      * User data subscription now always runs on it's own connection due to lack of unsubscribe support in the API
+      * Removed adlUpdateHandler in SubscribeToUserDataUpdatesAsync
+    * Added TempFeeRateEndTime to MexcContract model
+    * Added IsRpi to MexcTrade model
+    * Updated MexcFuturesOrder.Version type to long
+
 * Version 6.10.0 - 17 Nov 2026
     * Updated CryptoExchange.Net to v13.3.0
 
