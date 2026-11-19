@@ -69,6 +69,9 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
             _closeAllFailUpdate = closeAllFailUpdate;
             _liquidationUpdate = liquidationUpdate;
 
+            // Force this subscription to always be on it's own connection as there is no unsubscribe
+            IndividualSubscriptionCount = client.ClientOptions.SocketIndividualSubscriptionCombineTarget;
+
             MessageRouter = MessageRouter.Create([
                 MessageRoute.CreateForEvent<MexcUpdateFuturesOrder>("pb", "push.personal.order", DoHandleMessage),
                 MessageRoute.CreateForEvent<MexcUpdateFuturesBalance>("pb", "push.personal.asset", DoHandleMessage),
@@ -316,24 +319,11 @@ namespace Mexc.Net.Objects.Sockets.Subscriptions
             return CallResult.Ok();
         }
 
+        // Subscription is done by authenication/login query
+        protected override Query? GetSubQuery(SocketConnection connection) => null;
 
-        protected override Query? GetSubQuery(SocketConnection connection)
-        {
-            return null;
-            //return new MexcFuturesQuery("personal.filter", new Dictionary<string, object>() { { "filters", new SubFilter[0] } }, Authenticated);
-        }
-
-        protected override Query? GetUnsubQuery(SocketConnection connection)
-        {
-            return null;
-            //// There doesn't seem to be a way to unsubscribe from all user updates
-            //// Work around is to filter all message except a single one which shouldn't trigger too often
-            //var filters = new[] { "adl.level" };
-            //return new MexcFuturesQuery("personal.filter", new Dictionary<string, object>()
-            //{
-            //    { "filters", filters.Select(x => new SubFilter{ Filter = x }).ToArray() }
-            //}, Authenticated);
-        }
+        // No unsubscribe available, workaround is that this is always on a separate connection and the connection is closed to unsubscribe
+        protected override Query? GetUnsubQuery(SocketConnection connection) => null;
 
         internal record SubFilter
         {
