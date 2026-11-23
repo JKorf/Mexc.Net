@@ -17,7 +17,7 @@ namespace Mexc.Net.Clients.SpotApi
         async Task<IExchangeCallResult<SharedAsset>> IGetAsset.GetAssetAsync(GetAssetRequest request, CancellationToken ct)
             => await GetAssetAsync(request, ct).ConfigureAwait(false);
 
-        public GetAssetOptions GetAssetOptions { get; } = new GetAssetOptions(_exchangeName, false);
+        public GetAssetOptions GetAssetOptions { get; } = new GetAssetOptions(_exchangeName, true);
         public async Task<HttpResult<SharedAsset>> GetAssetAsync(GetAssetRequest request, CancellationToken ct)
         {
             var validationError = GetAssetOptions.ValidateRequest(request, this);
