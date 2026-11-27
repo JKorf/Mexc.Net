@@ -213,6 +213,11 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 6.12.0 - 27 Nov 2026
+    * Updated CryptoExchange.Net to v13.4.0
+    * Fixed Shared GetAssetAsync not being market as authenticated
+    * Fixed websocket kline message routing for same symbol, different interval subscriptions
+
 * Version 6.11.0 - 19 Nov 2026
     * Updated futures websocket to use protobuf API (json support ends on December 1)
       * Updated event models
