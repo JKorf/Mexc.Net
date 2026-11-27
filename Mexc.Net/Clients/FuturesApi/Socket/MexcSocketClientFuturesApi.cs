@@ -67,6 +67,16 @@ namespace Mexc.Net.Clients.FuturesApi
             return new MexcFuturesProtobufMessageHandler();
         }
 
+        protected override bool RouteIsCompatible(string route1, string route2)
+        {
+            // Multiple kline subscriptions with different intervals can not be separately identified
+            // Force kline subscriptions for the same symbol on different connections
+            if (route1.StartsWith("pbpush.kline.") && route2 == route1)
+                return false;
+
+            return true;
+        }
+
         /// <inheritdoc />
         protected override MexcFuturesAuthenticationProvider CreateAuthenticationProvider(MexcCredentials credentials)
             => new MexcFuturesAuthenticationProvider(credentials);
